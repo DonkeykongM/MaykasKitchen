@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Optimized crawling directives
+Disallow: /private/
+Disallow: /admin/
+Disallow: /temp/
+Disallow: /draft/
+
+# Allow search engines to access CSS, JS, and images
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+
+# Block certain bots from overloading the server
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Sitemap location
+Sitemap: https://maykaskitchen.se/sitemap.xml

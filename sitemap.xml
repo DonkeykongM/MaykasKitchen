@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+        http://www.google.com/schemas/sitemap-image/1.1
+        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+  <url>
+    <loc>https://maykaskitchen.se/</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4</image:loc>
+      <image:title>Mayka Gulo - MaykasKitchen</image:title>
+      <image:caption>Mayka Gulo, kock och matkreatör specialiserad på assyrisk/syriansk matlagning</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://maykaskitchen.se/om-mig</loc>
+    <lastmod>2023-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45KvFPkwGxStE3Ob1dcATYX9L</image:loc>
+      <image:title>Om Mayka Gulo</image:title>
+      <image:caption>Mayka Gulo i köket där hon skapar autentiska assyriska och syrianska rätter</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://maykaskitchen.se/recept</loc>
+    <lastmod>2023-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://maykaskitchen.se/samarbeten</loc>
+    <lastmod>2023-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://maykaskitchen.se/kontakt</loc>
+    <lastmod>2023-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://maykaskitchen.se/recept/lax-risbowl</loc>
+    <lastmod>2023-05-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0</image:loc>
+      <image:title>Kryddig lax- &amp; risbowl</image:title>
+      <image:caption>En fräsch och smakrik rätt med kryddig lax, ris och säsongsanpassade grönsaker</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://maykaskitchen.se/recept/kafta-bil-sejnie</loc>
+    <lastmod>2023-04-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ</image:loc>
+      <image:title>Kafta bil sejnie - Köttbullar i tomatsås</image:title>
+      <image:caption>Traditionell assyrisk rätt med köttbullar och potatis i smakrik tomatsås</image:caption>
+    </image:image>
+  </url>
+</urlset>
