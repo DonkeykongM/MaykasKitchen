@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 
 // Receptdata - direkt i komponenten för snabbare laddning
@@ -48,18 +48,21 @@ export const RecipeSection = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
   const sectionRef = useRef(null);
 
-  // Kategorifilter - förenklade för bättre prestanda
+  // Optimerad navigation med useCallback
+  const handleRecipeClick = useCallback((id, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Direkt hash-ändring för snabbast möjliga navigation
+    window.location.hash = `recipe/${id}`;
+  }, []);
+
+  // Förenklade kategorier för bättre prestanda
   const filters = [
     { id: 'alla', label: 'Alla recept', active: true },
     { id: 'huvudratter', label: 'Huvudrätter', active: false },
     { id: 'grytor', label: 'Grytor', active: false },
     { id: 'bakverk', label: 'Bakverk', active: false }
   ];
-
-  // Direkt navigering för snabbare respons
-  const handleRecipeClick = (id) => {
-    window.location.hash = `recipe/${id}`;
-  };
 
   return (
     <section id="recept" ref={sectionRef} className="py-16 bg-beige-50">
@@ -92,22 +95,16 @@ export const RecipeSection = () => {
           ))}
         </div>
         
-        {/* Receptgrid - optimerad struktur */}
+        {/* Receptgrid - optimerad struktur med direktklick */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {RECIPES.map(recipe => (
             <article 
               key={recipe.id} 
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer"
+              onClick={(e) => handleRecipeClick(recipe.id, e)}
             >
               {/* Receptbild med direkt klickevent */}
-              <a 
-                href={`#recipe/${recipe.id}`}
-                className="block relative h-52 overflow-hidden"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleRecipeClick(recipe.id);
-                }}
-              >
+              <div className="relative h-52 overflow-hidden">
                 <img
                   src={recipe.image}
                   alt={recipe.title}
@@ -128,7 +125,7 @@ export const RecipeSection = () => {
                     </span>
                   </div>
                 )}
-              </a>
+              </div>
               
               <div className="p-6">
                 {/* Taggar */}
@@ -162,15 +159,7 @@ export const RecipeSection = () => {
                 
                 {/* Titel med direkt klickbarhet */}
                 <h3 className="text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors">
-                  <a 
-                    href={`#recipe/${recipe.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleRecipeClick(recipe.id);
-                    }}
-                  >
-                    {recipe.title}
-                  </a>
+                  {recipe.title}
                 </h3>
                 
                 {/* Beskrivning */}
@@ -185,17 +174,13 @@ export const RecipeSection = () => {
                   </span>
                   
                   {/* Tydlig och direkt knapp för att visa recept */}
-                  <a
-                    href={`#recipe/${recipe.id}`}
+                  <button
+                    onClick={(e) => handleRecipeClick(recipe.id, e)}
                     className="text-primary-color hover:text-accent-color flex items-center text-sm font-medium group"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleRecipeClick(recipe.id);
-                    }}
                   >
                     Visa recept
                     <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </button>
                 </div>
               </div>
             </article>

@@ -1,320 +1,404 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Clock, Users, Heart, Star, ChevronRight, ArrowLeft, Filter, Tag } from 'lucide-react';
 
 export const RecipeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('alla');
+  const [selectedCategory, setSelectedCategory] = useState('Alla recept');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  useEffect(() => {
+    const savedSearch = localStorage.getItem('lastSearch');
+    if (savedSearch) {
+      setSearchTerm(savedSearch);
+      localStorage.removeItem('lastSearch');
+    }
+  }, []);
 
   const recipes = [
     {
       id: 'lax-risbowl',
-      title: 'Kryddig Lax- & Risbowl',
+      title: 'Kryddig lax- & risbowl',
+      description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
       image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
-      time: '45 min',
-      servings: '4',
-      category: 'huvudratt',
+      time: '45',
+      portions: '4',
+      likes: 124,
       rating: 4.9,
       reviews: 78,
-      likes: 124,
-      description: 'En vårig smakexplosion! Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen.'
+      badges: ['Fisk', 'Snabb', 'Under 60 min'],
+      trending: true,
+      difficulty: 'Lätt'
     },
     {
       id: 'kafta-bil-sejnie',
-      title: 'Kafta bil sejnie - Köttbullar i tomatsås',
+      title: 'Kafta bil sejnie',
+      description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
       image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ',
-      time: '60 min',
-      servings: '5-6',
-      category: 'huvudratt',
+      time: '60',
+      portions: '5-6',
+      likes: 98,
       rating: 4.8,
       reviews: 56,
-      likes: 98,
-      description: 'Köttbullar som får koka tillsammans med potatis i en smakrik tomatsås. En barndomsfavorit!'
+      badges: ['Kött', 'Traditionell', 'Assyriskt'],
+      difficulty: 'Medel'
     },
     {
       id: 'pasta-pesto',
-      title: 'Pasta Pesto med Ugnsbakade Tomater & Stekt Halloumi',
+      title: 'Pasta pesto med ugnsbakade tomater & stekt halloumi',
+      description: 'En smakrik, krämig och färgsprakande pastarätt med pesto, ugnsbakade tomater och stekt halloumi - perfekt för hela familjen.',
       image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
-      time: '40 min',
-      servings: '4',
-      category: 'huvudratt',
+      time: '40',
+      portions: '4',
+      likes: 112,
       rating: 4.9,
       reviews: 65,
-      likes: 112,
-      description: 'En smakrik, krämig och färgsprakande pastarätt som snabbt blivit en favorit hos både stora och små.'
+      badges: ['Vegetariskt', 'Snabb', 'Pasta'],
+      trending: true,
+      difficulty: 'Lätt'
     }
   ];
 
   const categories = [
-    { id: 'alla', name: 'Alla recept' },
-    { id: 'huvudratt', name: 'Huvudrätter' },
-    { id: 'vegetariskt', name: 'Vegetariskt' },
-    { id: 'snabbt', name: 'Snabba rätter' }
+    'Alla recept',
+    'Vegetariskt',
+    'Snabbt (under 30 min)',
+    'Assyriskt',
+    'Glutenfritt',
+    'Kött',
+    'Fisk'
   ];
 
+  // Optimerad navigation med useCallback
+  const handleRecipeClick = useCallback((id, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Direkt hash-ändring för snabbast möjliga navigation
+    window.location.hash = `recipe/${id}`;
+  }, []);
+
+  // Back button handler
+  const handleBack = useCallback(() => {
+    window.location.hash = '';
+  }, []);
+
   const filteredRecipes = recipes.filter(recipe => {
-    const matchesSearch = recipe.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'alla' || recipe.category === selectedCategory;
+    const matchesSearch = recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      recipe.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      recipe.badges.some(badge => badge.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const matchesCategory = selectedCategory === 'Alla recept' ||
+      recipe.badges.some(badge => badge === selectedCategory);
+
     return matchesSearch && matchesCategory;
   });
 
-  // Snabb navigationsfunktion
-  const handleRecipeClick = (recipeId, e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    // Direkt hash-ändring för snabbast möjliga navigation
-    window.location.hash = `recipe/${recipeId}`;
-  };
-
-  const handleBackClick = (e) => {
-    e.preventDefault();
-    window.location.hash = '';
+    const form = e.target;
+    const emailInput = form.querySelector('input[type="email"]');
+    const email = emailInput.value;
+    
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      alert('Vänligen ange en giltig e-postadress.');
+      return;
+    }
+    
+    try {
+      // Send directly to Make webhook
+      const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          email,
+          source: 'recipe_list' 
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
+      // Success - clear input
+      emailInput.value = '';
+      alert('Tack för din prenumeration!');
+      
+    } catch (error) {
+      console.error("Error sending to webhook:", error);
+      alert('Något gick fel. Försök igen senare.');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-orange-50" style={{ 
-      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fed7aa' fill-opacity='0.1'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
-    }}>
-      {/* Header Section */}
-      <div className="bg-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <button 
-              onClick={handleBackClick}
-              className="flex items-center text-orange-600 hover:text-orange-700 transition-colors font-medium"
-            >
-              <ArrowLeft size={20} className="mr-2" />
-              Tillbaka till startsidan
-            </button>
-            
-            <div className="flex space-x-4">
-              <a href="https://www.instagram.com/maykaskitchen" target="_blank" rel="noopener noreferrer" className="text-pink-500 hover:text-pink-600 text-xl transition-colors">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="https://www.facebook.com/maykaskitchen" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 text-xl transition-colors">
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a href="https://www.tiktok.com/@maykaskitchen" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-900 text-xl transition-colors">
-                <i className="fab fa-tiktok"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="py-12" id="recipe-list">
+      <div className="container mx-auto px-4">
+        {/* Back button */}
+        <button 
+          onClick={handleBack}
+          className="flex items-center text-primary-color hover:text-accent-color mb-8 group"
+        >
+          <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
+          Tillbaka till startsidan
+        </button>
 
-      {/* Hero Section */}
-      <section className="py-20" style={{ 
-        background: 'linear-gradient(135deg, #fef7ec, #fcd34d, #f97316)',
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fed7aa' fill-opacity='0.1'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Alla Recept ✨
-          </h1>
-          <p className="text-xl text-white mb-8 max-w-3xl mx-auto leading-relaxed">
-            Upptäck vårt kompletta bibliotek med läckra recept från assyriskt/syrianskt kök. 
-            Från snabba vardagsrätter till festliga desserter - här hittar du inspiration för alla måltider.
-          </p>
-        </div>
-      </section>
+        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">
+          Matinspiration
+        </span>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">
+          Alla våra recept
+        </h2>
+        <p className="text-center mb-8 max-w-2xl mx-auto text-brown-500">
+          Upptäck alla våra recept som kombinerar traditionell assyrisk/syriansk matlagning med moderna smaker och enkla tillagningsmetoder.
+        </p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Search and Filter */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8" style={{ boxShadow: '0 10px 25px rgba(251, 146, 60, 0.2)' }}>
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Search */}
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Sök efter recept..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 border-2 border-orange-100 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-lg"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="relative">
-              <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="pl-12 pr-8 py-4 border-2 border-orange-100 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white text-lg min-w-48"
-              >
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Popular tags */}
-          <div className="flex flex-wrap gap-2 mt-6">
-            <span className="text-sm text-gray-500 mr-2 flex items-center">
-              <Tag size={14} className="mr-1" /> Populära:
-            </span>
-            <button 
-              onClick={() => setSearchTerm('Vegetariskt')}
-              className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full hover:bg-orange-200 transition-colors"
-            >
-              Vegetariskt
-            </button>
-            <button 
-              onClick={() => setSearchTerm('Snabb')}
-              className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full hover:bg-orange-200 transition-colors"
-            >
-              Snabbt
-            </button>
-            <button 
-              onClick={() => setSearchTerm('Traditionell')}
-              className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full hover:bg-orange-200 transition-colors"
-            >
-              Traditionellt
-            </button>
-            <button 
-              onClick={() => setSearchTerm('Lax')}
-              className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full hover:bg-orange-200 transition-colors"
-            >
-              Lax
-            </button>
-          </div>
-        </div>
-
-        {/* Results count */}
-        <div className="mb-8">
-          <p className="text-gray-600 text-lg">
-            Visar <span className="font-semibold text-orange-600">{filteredRecipes.length}</span> av <span className="font-semibold">{recipes.length}</span> recept
-          </p>
-        </div>
-
-        {/* Recipes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredRecipes.map((recipe) => (
-            <article
-              key={recipe.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group transform hover:-translate-y-2"
-              style={{ boxShadow: '0 10px 25px rgba(251, 146, 60, 0.2)' }}
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={recipe.image}
-                  alt={`Bild på ${recipe.title}`}
-                  className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+        {/* Search and filters */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="bg-white p-4 rounded-lg shadow-md">
+            <div className="flex flex-col md:flex-row gap-4 mb-4">
+              <div className="relative flex-grow">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <input
+                  type="text"
+                  placeholder="Sök efter recept..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color"
+                  aria-label="Sök recept"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                {/* Quick action button on hover */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button 
-                    onClick={(e) => handleRecipeClick(recipe.id, e)}
-                    className="bg-white text-orange-600 px-6 py-3 rounded-full font-semibold hover:bg-orange-50 transition-colors shadow-lg"
-                  >
-                    Visa recept
-                  </button>
-                </div>
               </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-orange-600 transition-colors" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  <button 
-                    onClick={(e) => handleRecipeClick(recipe.id, e)}
-                    className="hover:underline text-left w-full"
-                  >
-                    {recipe.title}
-                  </button>
-                </h3>
+
+              <div className="relative">
+                <button 
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  className="bg-primary-color text-white px-4 py-3 rounded-lg flex items-center"
+                  aria-expanded={isFilterOpen}
+                >
+                  <Filter size={18} className="mr-2" />
+                  Filter
+                  <ChevronRight size={16} className={`ml-2 transform transition-transform duration-200 ${isFilterOpen ? 'rotate-90' : ''}`} />
+                </button>
                 
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                  {recipe.description}
-                </p>
-                
-                {/* Rating and stats */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={16}
-                          fill={i < Math.floor(recipe.rating) ? "#fbbf24" : "none"}
-                          className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 ml-1">{recipe.rating}</span>
-                    <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
+                {isFilterOpen && (
+                  <div className="absolute z-10 mt-2 w-48 bg-white rounded-lg shadow-lg p-2 right-0">
+                    {categories.map(category => (
+                      <button 
+                        key={category}
+                        onClick={() => {
+                          setSelectedCategory(category);
+                          setIsFilterOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded-md mb-1 ${
+                          selectedCategory === category 
+                            ? 'bg-primary-color/10 text-primary-color font-medium'
+                            : 'hover:bg-beige-50'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
                   </div>
-                  
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <Heart size={16} className="mr-1" />
-                    {recipe.likes}
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4 text-orange-600">
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
-                      <span className="font-medium text-sm">{recipe.time}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Users className="w-4 h-4 mr-1" />
-                      <span className="font-medium text-sm">{recipe.servings} port</span>
-                    </div>
-                  </div>
-                  
-                  <button 
-                    onClick={(e) => handleRecipeClick(recipe.id, e)}
-                    className="text-orange-600 hover:text-orange-700 flex items-center text-sm font-medium group"
-                  >
-                    Visa recept
-                    <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+                )}
               </div>
-            </article>
-          ))}
+            </div>
+
+            {/* Popular tags as quick filters */}
+            <div className="flex flex-wrap gap-2 mt-4">
+              <span className="text-sm text-brown-500 mr-1 flex items-center">
+                <Tag size={14} className="mr-1" /> Populära:
+              </span>
+              <button 
+                onClick={() => setSearchTerm('Fisk')}
+                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+              >
+                Fisk
+              </button>
+              <button 
+                onClick={() => setSearchTerm('Vegetariskt')}
+                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+              >
+                Vegetariskt
+              </button>
+              <button 
+                onClick={() => setSearchTerm('Snabb')}
+                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+              >
+                Snabbt
+              </button>
+              <button 
+                onClick={() => setSearchTerm('Traditionell')}
+                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+              >
+                Traditionellt
+              </button>
+              <button 
+                onClick={() => setSearchTerm('Assyriskt')}
+                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+              >
+                Assyriskt
+              </button>
+            </div>
+          </div>
         </div>
 
-        {filteredRecipes.length === 0 && (
-          <div className="text-center py-16">
-            <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Search className="w-12 h-12 text-orange-400" />
+        {/* Search results count */}
+        {searchTerm && (
+          <div className="mb-6 text-center">
+            <p className="text-brown-500">
+              {filteredRecipes.length === 0 
+                ? `Inga recept matchar sökningen "${searchTerm}"` 
+                : `Visar ${filteredRecipes.length} recept för "${searchTerm}"`}
+            </p>
+          </div>
+        )}
+
+        {/* Recipe grid */}
+        {filteredRecipes.length === 0 ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+            <div className="text-gray-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Inga recept hittades
-            </h3>
-            <p className="text-gray-500 text-lg mb-6">Inga recept matchar din sökning just nu.</p>
-            <button
+            <h3 className="text-xl font-semibold mb-4">Inga recept hittades</h3>
+            <p className="text-gray-500 mb-6">Vi kunde inte hitta några recept som matchar din sökning.</p>
+            <button 
               onClick={() => {
-                setSearchTerm("");
-                setSelectedCategory("alla");
+                setSearchTerm('');
+                setSelectedCategory('Alla recept');
               }}
-              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-full font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300"
+              className="bg-primary-color text-white px-6 py-2 rounded-lg hover:bg-accent-color transition-colors"
             >
-              Rensa filter
+              Visa alla recept
             </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredRecipes.map((recipe) => (
+              <div
+                key={recipe.id}
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer"
+                onClick={(e) => handleRecipeClick(recipe.id, e)}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    className="w-full h-full object-cover transform transition-transform hover:scale-105"
+                    loading="lazy"
+                    width="400" 
+                    height="260"
+                  />
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <span className="bg-primary-color/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
+                      <Clock size={12} className="mr-1" /> {recipe.time} min
+                    </span>
+                  </div>
+                  
+                  {recipe.trending && (
+                    <div className="absolute top-4 right-4">
+                      <span className="bg-accent-color/90 text-white text-xs py-1 px-3 rounded-full">
+                        Populärt
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {recipe.badges.map((badge, index) => (
+                      <span key={index} className="bg-beige-100 text-brown-500 text-xs py-1 px-3 rounded-full">
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={16}
+                            fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
+                            className={i < Math.floor(recipe.rating) ? 'text-amber-400' : 'text-gray-300'}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-sm text-gray-600 ml-1">{recipe.rating}</span>
+                      <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
+                    </div>
+                    <span className="text-gray-500 text-sm flex items-center">
+                      <Heart size={16} className="mr-1" /> {recipe.likes}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors">
+                    {recipe.title}
+                  </h3>
+                  
+                  <p className="text-brown-500 mb-4 text-sm line-clamp-2">
+                    {recipe.description}
+                  </p>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-brown-400 text-sm flex items-center">
+                      <Users size={16} className="mr-1" /> {recipe.portions} portioner
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRecipeClick(recipe.id, e);
+                      }}
+                      className="text-primary-color hover:text-accent-color flex items-center text-sm font-medium group"
+                    >
+                      Visa recept <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
 
         {/* Newsletter signup */}
-        <div className="mt-16 bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-center">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+        <div className="mt-16 bg-white p-8 rounded-xl shadow-md max-w-xl mx-auto">
+          <h3 className="text-2xl font-bold text-primary-color mb-3">
             Få nya recept direkt i din inkorg
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-brown-500 mb-6">
             Prenumerera på mitt nyhetsbrev och få exklusiva recept, säsongstips och inspiration direkt i din inkorg varje månad.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form className="flex flex-col sm:flex-row gap-2" onSubmit={handleNewsletterSubmit}>
             <input
               type="email"
               placeholder="Din e-postadress"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color"
             />
-            <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300">
+            <button
+              type="submit"
+              className="bg-primary-color text-white px-6 py-2 rounded-lg hover:bg-accent-color transition-colors"
+            >
               Prenumerera
             </button>
+          </form>
+          <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+            <div className="flex items-center text-brown-500">
+              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+              Nya recept varje månad
+            </div>
+            <div className="flex items-center text-brown-500">
+              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+              Säsongsbaserade tips
+            </div>
+            <div className="flex items-center text-brown-500">
+              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+              Exklusiva recept
+            </div>
+            <div className="flex items-center text-brown-500">
+              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+              Matlagningstekniker
+            </div>
           </div>
         </div>
       </div>
