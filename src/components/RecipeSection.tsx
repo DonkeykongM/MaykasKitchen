@@ -10,9 +10,9 @@ const RECIPES = [
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
     time: '45',
     portions: '4',
-    likes: 124,
+    likes: 156,
     rating: 4.9,
-    reviews: 78,
+    reviews: 87,
     badges: ['Fisk', 'Snabb', 'Under 60 min'],
     difficulty: 'Lätt'
   },
@@ -23,9 +23,9 @@ const RECIPES = [
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ',
     time: '60',
     portions: '5-6',
-    likes: 98,
+    likes: 134,
     rating: 4.8,
-    reviews: 56,
+    reviews: 73,
     badges: ['Kött', 'Traditionell', 'Assyriskt'],
     difficulty: 'Medel'
   },
@@ -36,11 +36,24 @@ const RECIPES = [
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
     time: '40',
     portions: '4',
-    likes: 112,
+    likes: 142,
     rating: 4.9,
-    reviews: 65,
+    reviews: 79,
     badges: ['Vegetariskt', 'Snabb', 'Pasta'],
     difficulty: 'Lätt'
+  },
+  {
+    id: 'kyckling-shawarma',
+    title: 'Kyckling Shawarma',
+    description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
+    image: '/image.png',
+    time: '120',
+    portions: '5',
+    likes: 89,
+    rating: 5.0,
+    reviews: 23,
+    badges: ['Kött', 'Mellanöstern', 'Familj'],
+    difficulty: 'Medel'
   }
 ];
 
@@ -96,7 +109,7 @@ export const RecipeSection = () => {
         </div>
         
         {/* Receptgrid - optimerad struktur med direktklick */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {RECIPES.map(recipe => (
             <article 
               key={recipe.id} 

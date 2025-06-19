@@ -9,9 +9,9 @@ const recipes = {
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
     time: '45',
     portions: '4',
-    likes: 124,
+    likes: 156,
     rating: 4.9,
-    reviews: 78,
+    reviews: 87,
     badges: ['Fisk', 'Snabb', 'Under 60 min'],
     videoUrl: 'https://www.instagram.com/reel/DJXHMYpCoaR/',
     difficulty: 'Lätt',
@@ -97,9 +97,9 @@ const recipes = {
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ',
     time: '60',
     portions: '5-6',
-    likes: 98,
+    likes: 134,
     rating: 4.8,
-    reviews: 56,
+    reviews: 73,
     badges: ['Kött', 'Traditionell', 'Assyriskt'],
     videoUrl: 'https://www.instagram.com/reel/DJT6lr7iPsV/',
     difficulty: 'Medel',
@@ -167,9 +167,9 @@ const recipes = {
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
     time: '40',
     portions: '4',
-    likes: 112,
+    likes: 142,
     rating: 4.9,
-    reviews: 65,
+    reviews: 79,
     badges: ['Vegetariskt', 'Snabb', 'Pasta'],
     videoUrl: 'https://www.instagram.com/',
     difficulty: 'Lätt',
@@ -231,6 +231,154 @@ const recipes = {
         'Prova att använda soltorkade tomater istället för ugnsbakade för en annan smakprofil'
       ]
     }
+  },
+  'kyckling-shawarma': {
+    id: 'kyckling-shawarma',
+    title: 'Kyckling Shawarma',
+    description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
+    image: '/image.png',
+    time: '120',
+    portions: '5',
+    likes: 89,
+    rating: 5.0,
+    reviews: 23,
+    badges: ['Kött', 'Mellanöstern', 'Familj'],
+    videoUrl: 'https://www.instagram.com/',
+    difficulty: 'Medel',
+    nutritionInfo: {
+      calories: '650 kcal',
+      protein: '42g',
+      carbs: '58g',
+      fat: '28g',
+      fiber: '4g',
+      salt: '2.1g'
+    },
+    allergens: ['Gluten', 'Laktos (från yoghurt)'],
+    content: {
+      ingredients: [
+        {
+          section: 'Till köttet',
+          items: [
+            '900g kycklinglårfilé (eller kycklingbröst, men lår är saftigare)',
+            '1 tsk malen spiskummin',
+            '1 tsk paprikapulver',
+            '1 tsk gurkmeja',
+            '1 tsk malen koriander',
+            '1 msk vitlökspulver',
+            '1 msk lökpulver',
+            '1 tsk cayennepeppar',
+            '1 tsk dragon',
+            '1 msk salt',
+            '1 tsk svartpeppar',
+            '1 msk tomatpuré'
+          ]
+        },
+        {
+          section: 'Vitlökssås',
+          items: [
+            '2.5 dl grekisk yoghurt',
+            '2 vitlöksklyftor (rivna)',
+            'Några blad mynta och handfull persilja, finhackad',
+            '1 tsk limesaft',
+            'Flingsalt (efter smak)'
+          ]
+        },
+        {
+          section: 'Löksallad med persilja & sumak',
+          items: [
+            '2 röda lökar',
+            '1 msk torkad persilja',
+            '1-2 tsk sumak',
+            '1 msk olivolja',
+            'Flingsalt (efter smak)'
+          ]
+        },
+        {
+          section: 'Tunnbröd (ca 5 st)',
+          items: [
+            '5.5 dl vetemjöl',
+            '2.5 dl ljummet vatten',
+            '1 tsk salt',
+            '15g färsk jäst'
+          ]
+        },
+        {
+          section: 'Till servering',
+          items: [
+            'Tunnbröd, libabröd eller pita',
+            'Vitlökssåsen',
+            'Pirri pirrisås eller harissa',
+            'Lök- & persilja sallad',
+            'Tomat, saltgurka och sallad'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          section: 'Marinera kycklingen',
+          steps: [
+            'Skär kycklingen i strimlor och lägg i en djup skål.',
+            'Häll över alla kryddor och avsluta med tomatpuré.',
+            'Blanda ordentligt, plasta och ställ i kylen i minst 1 timme.'
+          ]
+        },
+        {
+          section: 'Gör vitlökssåsen',
+          steps: [
+            'Häll yoghurt i en skål.',
+            'Riv i vitlök, finhacka örterna och pressa i limesaft.',
+            'Smaka av med salt och blanda väl.'
+          ]
+        },
+        {
+          section: 'Löksallad med persilja & sumak',
+          steps: [
+            'Skiva löken tunt – helst i halvmånar. Lägg i en skål.',
+            'Hacka persiljan fint.',
+            'Lägg lök och persilja i en skål. Tillsätt sumak, olivolja och avsluta med salt.',
+            'Blanda ordentligt med händerna eller en sked – gärna så att sumaken fördelas jämnt.',
+            'Låt gärna stå i 10–15 min innan servering så smakerna hinner sätta sig.'
+          ]
+        },
+        {
+          section: 'Tunnbröd',
+          steps: [
+            'Lös upp jästen i vattnet.',
+            'Tillsätt mjöl och salt.',
+            'Knåda i ca 8–10 minuter tills du har en mjuk, smidig deg.',
+            'Täck med duk och låt jäsa i 1 timme tills den dubblats i storlek.',
+            'Dela degen i 5 lika stora bitar.',
+            'Rulla till bollar och låt vila 10 min under en duk.',
+            'Kavla ut tunt (ca 2 mm), till runda eller ovala bröd – cirka 20 cm diameter.',
+            'Hetta upp en stekpanna (gärna gjutjärn) till medelhög värme.',
+            'Grädda ett bröd i taget, ca 1 minut per sida. Det ska få ljusa bruna fläckar och puffa lite.',
+            'Lägg de färdiga bröden i en handduk så de håller sig mjuka.'
+          ]
+        },
+        {
+          section: 'Tillaga kycklingen',
+          steps: [
+            'Hetta upp lite olja i en panna.',
+            'Stek kycklingen tills den är genomstekt och fått färg (ca 4–5 min/sida).'
+          ]
+        },
+        {
+          section: 'Bygg din shawarma',
+          steps: [
+            'Lägg kyckling i bröd.',
+            'Toppa med grönsaker, vitlökssås och lite färska örter.',
+            'Rulla ihop till wrap eller vik som en kebab.'
+          ]
+        }
+      ],
+      tips: [
+        'Marinera kycklingen över natten för ännu bättre smak',
+        'Kan serveras med ris istället för bröd',
+        'Gör extra vitlökssås - den är fantastisk som dipp till mycket annat!',
+        'Tunnbröden kan göras i förväg och frysas',
+        'Prova att grilla kycklingen för rökig smak'
+      ]
+    }
   }
 };
 
@@ -256,4 +404,12 @@ export const PastaPestoPost = () => {
   };
 
   return <RecipeDetails recipe={recipes['pasta-pesto']} onBack={handleBack} />;
+};
+
+export const KycklingShawarmaPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['kyckling-shawarma']} onBack={handleBack} />;
 };

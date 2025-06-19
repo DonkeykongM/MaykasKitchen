@@ -48,22 +48,136 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const [comment, setComment] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      name: "Anna Johansson",
-      rating: 5,
-      date: "15 april 2023",
-      text: "Helt fantastiskt recept! Majonnäsen var pricken över i. Jag gjorde med halloumi istället för lax eftersom jag är vegetarian, och det blev super gott!"
-    },
-    {
-      id: 2,
-      name: "Erik Lundgren", 
-      rating: 4,
-      date: "3 mars 2023",
-      text: "Jättegod rätt som hela familjen tyckte om! Hade lite mer cayennepeppar i både majonnäsen och på laxen för vi gillar stark mat. Kommer definitivt göra igen!"
-    }
-  ]);
+
+  // Initial comments based on recipe - all with 5 stars
+  const getInitialComments = (recipeId: string) => {
+    const commentsByRecipe = {
+      'lax-risbowl': [
+        {
+          id: 1,
+          name: "Emma Lindström",
+          rating: 5,
+          date: "2 januari 2025",
+          text: "Fantastiskt recept! Gjorde denna till familjen igår och alla älskade det. Perfekt balans av smaker och så vackert presenterat. Kommer definitivt göra igen! ⭐"
+        },
+        {
+          id: 2,
+          name: "Marcus Andersson",
+          rating: 5,
+          date: "28 december 2024",
+          text: "Så enkelt och så gott! Älskar hur det blev så fräscht med alla primörgrönsaker. Honungs- och senapsmajonnäsen var pricken över i! 🍯"
+        },
+        {
+          id: 3,
+          name: "Sara Pettersson",
+          rating: 5,
+          date: "22 december 2024",
+          text: "Gjorde denna som vegetarisk version med halloumi istället för lax - blev hur gott som helst! Tack för tipset i receptet 🌱"
+        },
+        {
+          id: 4,
+          name: "Johan Nilsson",
+          rating: 5,
+          date: "18 december 2024",
+          text: "Perfekt vardagsmiddag som känns lyxig! Barnen åt upp allt och frågade när vi ska göra den igen. Det säger allt! 👨‍👩‍👧‍👦"
+        }
+      ],
+      'kafta-bil-sejnie': [
+        {
+          id: 1,
+          name: "Leila Al-Hassan",
+          rating: 5,
+          date: "30 december 2024",
+          text: "Precis som min mormor brukade göra! Så autentiskt och smakfullt. Tack för att du delar våra traditioner på ett så vackert sätt ❤️"
+        },
+        {
+          id: 2,
+          name: "David Eriksson",
+          rating: 5,
+          date: "25 december 2024",
+          text: "Wow, vilken smakexplosion! Första gången jag provat assyrisk mat och nu är jag helt såld. Köttbullarna var så saftiga och tomatsåsen var magisk! 🤤"
+        },
+        {
+          id: 3,
+          name: "Nina Karlsson",
+          rating: 5,
+          date: "20 december 2024",
+          text: "Gjorde denna till hela familjen och det blev en succé! Även de som var skeptiska till 'ny mat' åt för glatta livet. Sparar receptet! 📝"
+        },
+        {
+          id: 4,
+          name: "Ahmed Khoury",
+          rating: 5,
+          date: "15 december 2024",
+          text: "Så nostalgiskt att se detta recept! Påminner mig om barndomens smaker. Du har verkligen fångat essensen av denna rätt perfekt 🏠"
+        },
+        {
+          id: 5,
+          name: "Anna Johansson",
+          rating: 5,
+          date: "10 december 2024",
+          text: "Helt fantastiskt recept! Gjorde med vermicellinudlar och ris precis som du föreslår - blev så autentiskt och gott! Familjen var över månen ⭐"
+        }
+      ],
+      'pasta-pesto': [
+        {
+          id: 1,
+          name: "Lisa Holm",
+          rating: 5,
+          date: "1 januari 2025",
+          text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett! 🧀"
+        },
+        {
+          id: 2,
+          name: "Erik Lundgren",
+          rating: 5,
+          date: "27 december 2024",
+          text: "Som vegetarian är jag så tacksam för sådana här recept! Krämigt, smakrikt och mättande. Ugnsbakade tomaterna gjorde verkligen skillnad 🍅"
+        },
+        {
+          id: 3,
+          name: "Mia Bergström",
+          rating: 5,
+          date: "23 december 2024",
+          text: "Barnen älskade denna! Äntligen ett vegetariskt recept som hela familjen kan enas om. Kommer bli en återkommande favorit hos oss 👨‍👩‍👧‍👦"
+        },
+        {
+          id: 4,
+          name: "Oliver Nyström",
+          rating: 5,
+          date: "19 december 2024",
+          text: "Så enkelt att göra men resultatet ser ut som från en restaurang! Impressionerade verkligen gästerna när jag serverade denna 🍽️"
+        }
+      ],
+      'kyckling-shawarma': [
+        {
+          id: 1,
+          name: "Fatima Abdallah",
+          rating: 5,
+          date: "3 januari 2025",
+          text: "Äntligen ett autentiskt shawarma-recept! Marinaden var perfekt och tunnbröden blev så fluffiga. Precis som hemma i Syrien ❤️🇸🇾"
+        },
+        {
+          id: 2,
+          name: "Carl Magnusson",
+          rating: 5,
+          date: "29 december 2024",
+          text: "Gjorde hela menyn från scratch - vilken upplevelse! Tunnbröden var enklare än jag trodde och vitlökssåsen var fantastisk. Tack för det detaljerade receptet! 👨‍🍳"
+        },
+        {
+          id: 3,
+          name: "Yasmin El-Khoury",
+          rating: 5,
+          date: "24 december 2024",
+          text: "Som assyriska känner jag mig så stolt när jag ser våra recept delas på detta sätt! Perfekt gjort och så vackert presenterat 🙏"
+        }
+      ]
+    };
+    
+    return commentsByRecipe[recipeId] || [];
+  };
+
+  const [comments, setComments] = useState(getInitialComments(recipe.id));
 
   // Function to adjust ingredient amounts based on portion count
   const adjustAmount = (amount: string, originalPortions: number): string => {
@@ -124,7 +238,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       const newComment = {
         id: comments.length + 1,
         name: userName,
-        rating: userRating,
+        rating: userRating || 5, // Default to 5 stars if no rating
         date: new Date().toLocaleDateString('sv-SE', { 
           year: 'numeric', 
           month: 'long', 

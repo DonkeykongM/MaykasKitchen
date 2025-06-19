@@ -9,7 +9,7 @@ import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
-import { LaxRisbowlPost, KaftaBilSejniePost, PastaPestoPost } from './components/BlogPost';
+import { LaxRisbowlPost, KaftaBilSejniePost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
@@ -53,6 +53,9 @@ function App() {
       } else if (currentHash === "#recipe/pasta-pesto") {
         title = "Pasta pesto med ugnsbakade tomater & stekt halloumi - MaykasKitchen";
         document.querySelector('meta[name="description"]')?.setAttribute("content", "Smakrik pastarätt med krämig pestosås, ugnsbakade tomater och stekt halloumi - enkel att laga och älskad av hela familjen.");
+      } else if (currentHash === "#recipe/kyckling-shawarma") {
+        title = "Kyckling Shawarma - MaykasKitchen";
+        document.querySelector('meta[name="description"]')?.setAttribute("content", "Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!");
       } else if (currentHash === "#recept/alla" || currentHash.startsWith("#recept/")) {
         title = "Alla recept - MaykasKitchen";
         document.querySelector('meta[name="description"]')?.setAttribute("content", "Upptäck alla våra recept - från traditionella assyriska rätter till moderna tolkningar. Fisk, kött, vegetariskt och mycket mer hos MaykasKitchen.");
@@ -103,6 +106,17 @@ function App() {
             <Header />
             <main id="main-content">
               <PastaPestoPost />
+              <Newsletter />
+            </main>
+            <Footer />
+          </div>
+        );
+      case "kyckling-shawarma":
+        return (
+          <div className="font-sans bg-light-bg text-text-color">
+            <Header />
+            <main id="main-content">
+              <KycklingShawarmaPost />
               <Newsletter />
             </main>
             <Footer />
