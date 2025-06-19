@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ChevronDown, Instagram, UtensilsCrossed, ArrowRight, Heart, Star, ChefHat, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
-import { SparklesCore } from './ui/sparkles';
 
 export const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,31 +38,16 @@ export const Hero = () => {
     <header 
       ref={heroRef}
       id="hero"
-      className="py-16 md:py-20 lg:py-24 overflow-hidden relative bg-light-bg w-full"
+      className="py-16 md:py-20 lg:py-24 relative w-full"
       aria-labelledby="hero-heading"
     >
-      {/* Particles Background */}
-      <div className="absolute inset-0 z-0">
-        <SparklesCore
-          id="hero-sparkles"
-          background="transparent"
-          minSize={0.2}
-          maxSize={0.8}
-          particleDensity={80}
-          className="w-full h-full"
-          particleColor="#8A9A5B"
-          speed={0.3}
-        />
-      </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute top-[20%] right-[5%] w-16 h-16 md:w-24 md:h-24 bg-secondary-color rounded-full opacity-30 animate-float"></div>
-      <div className="absolute bottom-[20%] left-[5%] w-12 h-12 md:w-16 md:h-16 bg-secondary-color rounded-full opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-beige-50/80 to-transparent"></div>
+      {/* Decorative elements with food blog colors */}
+      <div className="absolute top-[20%] right-[5%] w-16 h-16 md:w-24 md:h-24 bg-primary-color/20 rounded-full opacity-30 animate-float"></div>
+      <div className="absolute bottom-[20%] left-[5%] w-12 h-12 md:w-16 md:h-16 bg-secondary-color/20 rounded-full opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <span className="inline-flex items-center bg-secondary-color text-accent-color px-3 md:px-4 py-1 rounded-full text-sm font-medium mb-4 animate-pulse">
+          <span className="inline-flex items-center bg-secondary-color/20 text-accent-color px-3 md:px-4 py-1 rounded-full text-sm font-medium mb-4">
             <span className="bg-primary-color w-2 h-2 rounded-full mr-2"></span>
             Assyrisk/syriansk matkonst
           </span>
@@ -73,7 +57,7 @@ export const Hero = () => {
           </h1>
           
           <p className="text-base md:text-lg lg:text-xl mb-4 text-brown-500 leading-relaxed break-words">
-            Upptäck <mark className="bg-transparent text-primary-color font-semibold">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
+            Upptäck <mark className="bg-primary-color/10 text-primary-color font-semibold px-1 rounded">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
           </p>
           
           <p className="mb-6 md:mb-8 text-brown-400 break-words">Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.</p>
@@ -97,22 +81,22 @@ export const Hero = () => {
             <h4 className="font-semibold mb-3 text-brown-700">Följ mig här:</h4>
             <div className="flex flex-wrap gap-3 md:gap-5">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-beige-50 text-primary-color hover:bg-beige-100 p-3 rounded-full transition-colors transform hover:scale-110" 
+                className="bg-white/80 text-primary-color hover:bg-white p-3 rounded-full transition-colors transform hover:scale-110 shadow-sm" 
                 aria-label="Instagram">
                 <Instagram size={20} />
               </a>
               <a href="https://www.tiktok.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-beige-50 text-primary-color hover:bg-beige-100 p-3 rounded-full transition-colors transform hover:scale-110" 
+                className="bg-white/80 text-primary-color hover:bg-white p-3 rounded-full transition-colors transform hover:scale-110 shadow-sm" 
                 aria-label="TikTok">
                 <TikTok size={20} />
               </a>
               <a href="https://www.youtube.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-beige-50 text-primary-color hover:bg-beige-100 p-3 rounded-full transition-colors transform hover:scale-110" 
+                className="bg-white/80 text-primary-color hover:bg-white p-3 rounded-full transition-colors transform hover:scale-110 shadow-sm" 
                 aria-label="YouTube">
                 <Youtube size={20} />
               </a>
               <a href="https://www.facebook.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-beige-50 text-primary-color hover:bg-beige-100 p-3 rounded-full transition-colors transform hover:scale-110" 
+                className="bg-white/80 text-primary-color hover:bg-white p-3 rounded-full transition-colors transform hover:scale-110 shadow-sm" 
                 aria-label="Facebook">
                 <Facebook size={20} />
               </a>
@@ -122,7 +106,7 @@ export const Hero = () => {
           {/* Enhanced featured badges with animations */}
           <div className="flex flex-wrap gap-3 md:gap-4 mb-6 md:mb-8">
             <div 
-              className="bg-white/90 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-sm text-xs font-medium text-brown-500 flex items-center transform transition-all hover:scale-105 hover:shadow-md hover:bg-white"
+              className="bg-white/80 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-sm text-xs font-medium text-brown-500 flex items-center transform transition-all hover:scale-105 hover:shadow-md hover:bg-white"
               style={{ transitionDelay: '0.1s' }}
             >
               <span className="bg-gradient-to-r from-terracotta-400 to-terracotta-600 w-2 h-2 rounded-full mr-2"></span>
@@ -130,7 +114,7 @@ export const Hero = () => {
             </div>
             
             <div 
-              className="bg-white/90 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-sm text-xs font-medium text-brown-500 flex items-center transform transition-all hover:scale-105 hover:shadow-md hover:bg-white"
+              className="bg-white/80 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-sm text-xs font-medium text-brown-500 flex items-center transform transition-all hover:scale-105 hover:shadow-md hover:bg-white"
               style={{ transitionDelay: '0.2s' }}
             >
               <span className="bg-gradient-to-r from-olive-400 to-olive-600 w-2 h-2 rounded-full mr-2"></span>
@@ -138,7 +122,7 @@ export const Hero = () => {
             </div>
             
             <div 
-              className="bg-white/90 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-sm text-xs font-medium text-brown-500 flex items-center transform transition-all hover:scale-105 hover:shadow-md hover:bg-white"
+              className="bg-white/80 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-sm text-xs font-medium text-brown-500 flex items-center transform transition-all hover:scale-105 hover:shadow-md hover:bg-white"
               style={{ transitionDelay: '0.3s' }}
             >
               <span className="bg-gradient-to-r from-blue-400 to-blue-600 w-2 h-2 rounded-full mr-2"></span>
@@ -150,7 +134,7 @@ export const Hero = () => {
             <span className="mr-2">Utforska mer</span>
             <button 
               onClick={scrollToRecipes}
-              className="animate-bounce-subtle bg-white h-8 w-8 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2"
+              className="animate-bounce-subtle bg-white/80 h-8 w-8 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2"
               aria-label="Scrolla ner till recept"
             >
               <ChevronDown size={18} className="text-primary-color" />
@@ -193,7 +177,7 @@ export const Hero = () => {
             
             {/* Quote card with animation - hidden on small mobile */}
             <div 
-              className="absolute -bottom-4 -left-4 bg-beige-50 p-4 md:p-6 rounded-lg shadow-md max-w-xs hidden sm:block transform transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+              className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-md max-w-xs hidden sm:block transform transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               style={{ animationDelay: '0.8s' }}
             >
               <p className="text-xs md:text-sm text-brown-500 italic break-words">"Mat är kärlek, och att laga mat är att dela kärlek med andra."</p>
@@ -219,7 +203,7 @@ export const Hero = () => {
       <div className="md:hidden flex justify-center mt-8">
         <button 
           onClick={scrollToRecipes}
-          className="animate-bounce-subtle bg-white h-10 w-10 rounded-full flex items-center justify-center shadow-md"
+          className="animate-bounce-subtle bg-white/80 h-10 w-10 rounded-full flex items-center justify-center shadow-md"
           aria-label="Scrolla ner för att utforska recept"
         >
           <ChevronDown size={20} className="text-primary-color" />

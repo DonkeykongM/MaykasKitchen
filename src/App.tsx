@@ -10,6 +10,7 @@ import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
 import { LaxRisbowlPost, KaftaBilSejniePost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
+import FoodBlogBackground from './components/ui/food-blog-background';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
@@ -80,7 +81,7 @@ function App() {
     switch (recipeId) {
       case "lax-risbowl":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
+          <div className="font-sans text-text-color">
             <Header />
             <main id="main-content">
               <LaxRisbowlPost />
@@ -91,7 +92,7 @@ function App() {
         );
       case "kafta-bil-sejnie":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
+          <div className="font-sans text-text-color">
             <Header />
             <main id="main-content">
               <KaftaBilSejniePost />
@@ -102,7 +103,7 @@ function App() {
         );
       case "pasta-pesto":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
+          <div className="font-sans text-text-color">
             <Header />
             <main id="main-content">
               <PastaPestoPost />
@@ -113,7 +114,7 @@ function App() {
         );
       case "kyckling-shawarma":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
+          <div className="font-sans text-text-color">
             <Header />
             <main id="main-content">
               <KycklingShawarmaPost />
@@ -132,7 +133,7 @@ function App() {
   // Visa RecipeList vid navigering till #recept/alla eller andra receptkategorier
   if (currentHash.startsWith("#recept/")) {
     return (
-      <div className="font-sans bg-light-bg text-text-color">
+      <div className="font-sans text-text-color">
         <Header />
         <main id="main-content">
           <RecipeList />
@@ -143,9 +144,9 @@ function App() {
     );
   }
 
-  // Standard startsida
+  // Standard startsida med FoodBlogBackground
   return (
-    <div className="font-sans bg-light-bg text-text-color">
+    <FoodBlogBackground className="font-sans text-text-color">
       <Header />
       <main id="main-content">
         <Hero />
@@ -161,7 +162,7 @@ function App() {
         <Newsletter />
       </main>
       <Footer />
-    </div>
+    </FoodBlogBackground>
   );
 }
 
