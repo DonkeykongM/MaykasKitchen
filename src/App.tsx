@@ -166,7 +166,7 @@ function App() {
           <AboutSection />
           <div className="section-divider" aria-hidden="true"></div>
           <RecipeSection />
-          <div className="section-divider" aria-hidden="true"></div>
+          <div className="section-diviner" aria-hidden="true"></div>
           <CollaborationSection />
           <div className="section-divider" aria-hidden="true"></div>
           <ContactSection />
