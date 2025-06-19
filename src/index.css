@@ -2,37 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --primary-color: #B86344; /* Terracotta/rust color from logo */
-    --secondary-color: #8A9A5B; /* Olive green from logo */
-    --accent-color: #2A4356; /* Deep blue accent */
-    --text-color: #5C4637; /* Rich brown text */
-    --light-bg: #F5F1E2; /* Beige background from logo */
-    --dark-bg: #1a1a1a;
-    
-    /* shadcn/ui CSS variables */
-    --background: 245 241 226; /* light-bg in HSL */
-    --foreground: 92 70 55; /* text-color in HSL */
-    --card: 255 255 255; /* white */
-    --card-foreground: 92 70 55; /* text-color in HSL */
-    --popover: 255 255 255; /* white */
-    --popover-foreground: 92 70 55; /* text-color in HSL */
-    --primary: 184 99 68; /* primary-color in HSL */
-    --primary-foreground: 255 255 255; /* white */
-    --secondary: 138 154 91; /* secondary-color in HSL */
-    --secondary-foreground: 92 70 55; /* text-color in HSL */
-    --muted: 240 235 215; /* beige-100 in HSL */
-    --muted-foreground: 125 107 83; /* brown-400 in HSL */
-    --accent: 42 67 86; /* accent-color in HSL */
-    --accent-foreground: 255 255 255; /* white */
-    --destructive: 239 68 68; /* red-500 in HSL */
-    --destructive-foreground: 255 255 255; /* white */
-    --border: 229 219 188; /* beige-200 in HSL */
-    --input: 229 219 188; /* beige-200 in HSL */
-    --ring: 184 99 68; /* primary-color in HSL */
-    --radius: 0.5rem;
-  }
+:root {
+  --primary-color: #B86344; /* Terracotta/rust color from logo */
+  --secondary-color: #8A9A5B; /* Olive green from logo */
+  --accent-color: #2A4356; /* Deep blue accent */
+  --text-color: #5C4637; /* Rich brown text */
+  --light-bg: #F5F1E2; /* Beige background from logo */
+  --dark-bg: #1a1a1a;
 }
 
 /* Base styles */

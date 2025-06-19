@@ -14,7 +14,6 @@
     "@tsparticles/engine": "^3.0.3",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.0.3",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.344.0",
