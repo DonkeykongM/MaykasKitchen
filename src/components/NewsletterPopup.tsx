@@ -7,28 +7,47 @@ export const NewsletterPopup = () => {
   const [submitStatus, setSubmitStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const popupTimerRef = useRef<number | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Check if user has already subscribed or dismissed
-    const hasInteracted = localStorage.getItem('newsletterInteraction');
-    if (!hasInteracted) {
-      // Set timeout to show the popup after 10 seconds
-      popupTimerRef.current = window.setTimeout(() => {
+    // Check if user has subscribed successfully - if so, don't show popup anymore
+    const hasSubscribed = localStorage.getItem('newsletterSubscribed') === 'true';
+    
+    if (!hasSubscribed) {
+      // Show popup every 15 seconds
+      const showPopup = () => {
         setIsVisible(true);
-      }, 10000); // 10 seconds
+      };
+
+      // First popup after 15 seconds
+      popupTimerRef.current = window.setTimeout(() => {
+        showPopup();
+      }, 15000); // 15 seconds
+
+      // Then every 15 seconds after that
+      intervalRef.current = window.setInterval(() => {
+        // Only show if user hasn't subscribed
+        const currentlySubscribed = localStorage.getItem('newsletterSubscribed') === 'true';
+        if (!currentlySubscribed) {
+          showPopup();
+        }
+      }, 15000); // 15 seconds interval
     }
 
     return () => {
-      // Clear timeout when component unmounts
+      // Clear timeout and interval when component unmounts
       if (popupTimerRef.current) {
         clearTimeout(popupTimerRef.current);
+      }
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
     };
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
-    localStorage.setItem('newsletterInteraction', 'dismissed');
+    // Don't set any localStorage for dismissal - let it show again in 15 seconds
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +62,7 @@ export const NewsletterPopup = () => {
     setSubmitStatus('submitting');
     
     try {
-      // Send directly to Make webhook - no Supabase
+      // Send directly to Make webhook
       const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
         method: 'POST',
         headers: {
@@ -61,7 +80,14 @@ export const NewsletterPopup = () => {
 
       setSubmitStatus('success');
       setEmail('');
-      localStorage.setItem('newsletterInteraction', 'subscribed');
+      
+      // Mark as subscribed so popup stops showing
+      localStorage.setItem('newsletterSubscribed', 'true');
+      
+      // Clear the interval since user has subscribed
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
       
       // Hide popup after success
       setTimeout(() => {
@@ -78,7 +104,7 @@ export const NewsletterPopup = () => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fadeIn">
-      <div className="bg-white rounded-xl p-8 max-w-md w-full relative shadow-xl">
+      <div className="bg-white rounded-xl p-8 max-w-md w-full relative shadow-xl transform animate-scaleIn">
         <button 
           onClick={handleClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -102,10 +128,10 @@ export const NewsletterPopup = () => {
                 <Mail className="text-primary-color" size={32} />
               </div>
               <h3 className="text-2xl font-bold text-primary-color mb-2">
-                Få nya recept varje vecka!
+                🌟 Få nya recept varje vecka!
               </h3>
               <p className="text-gray-600">
-                Prenumerera på vårt nyhetsbrev och få de senaste recepten direkt i din inkorg.
+                Prenumerera på vårt nyhetsbrev och få de senaste recepten, säsongstips och exklusiva erbjudanden direkt i din inkorg.
               </p>
             </div>
 
@@ -127,7 +153,7 @@ export const NewsletterPopup = () => {
               <button
                 type="submit"
                 disabled={submitStatus === 'submitting'}
-                className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition-colors disabled:opacity-70"
+                className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition-colors disabled:opacity-70 font-semibold"
                 aria-label="Prenumerera på nyhetsbrev"
               >
                 {submitStatus === 'submitting' ? (
@@ -139,14 +165,33 @@ export const NewsletterPopup = () => {
                     Skickar...
                   </span>
                 ) : (
-                  'Prenumerera nu'
+                  '✨ Prenumerera nu - det är gratis!'
                 )}
               </button>
 
               <p className="text-xs text-gray-500 text-center">
-                Du kan avsluta prenumerationen när som helst.
+                Du kan avsluta prenumerationen när som helst. Vi respekterar din integritet. 🔒
               </p>
             </form>
+
+            <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+              <div className="flex items-center text-gray-600">
+                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                Nya recept varje vecka
+              </div>
+              <div className="flex items-center text-gray-600">
+                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                Säsongsbaserade tips
+              </div>
+              <div className="flex items-center text-gray-600">
+                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                Exklusiva recept
+              </div>
+              <div className="flex items-center text-gray-600">
+                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                Matlagningstekniker
+              </div>
+            </div>
           </>
         )}
       </div>
