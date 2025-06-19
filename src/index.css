@@ -2,13 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary-color: #B86344; /* Terracotta/rust color from logo */
-  --secondary-color: #8A9A5B; /* Olive green from logo */
-  --accent-color: #2A4356; /* Deep blue accent */
-  --text-color: #5C4637; /* Rich brown text */
-  --light-bg: #F5F1E2; /* Beige background from logo */
-  --dark-bg: #1a1a1a;
+@layer base {
+  :root {
+    --background: 245 241 226; /* F5F1E2 */
+    --foreground: 92 70 55; /* 5C4637 */
+    --card: 255 255 255;
+    --card-foreground: 92 70 55;
+    --popover: 255 255 255;
+    --popover-foreground: 92 70 55;
+    --primary: 184 99 68; /* B86344 */
+    --primary-foreground: 255 255 255;
+    --secondary: 138 154 91; /* 8A9A5B */
+    --secondary-foreground: 255 255 255;
+    --muted: 245 241 226; /* F5F1E2 */
+    --muted-foreground: 139 134 109;
+    --accent: 42 67 86; /* 2A4356 */
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 229 219 188; /* E5DBBC */
+    --input: 229 219 188;
+    --ring: 184 99 68;
+    --radius: 0.5rem;
+    
+    /* Legacy CSS variables */
+    --primary-color: #B86344; /* Terracotta/rust color from logo */
+    --secondary-color: #8A9A5B; /* Olive green from logo */
+    --accent-color: #2A4356; /* Deep blue accent */
+    --text-color: #5C4637; /* Rich brown text */
+    --light-bg: #F5F1E2; /* Beige background from logo */
+    --dark-bg: #1a1a1a;
+  }
+
+  .dark {
+    --background: 26 26 26;
+    --foreground: 245 241 226;
+    --card: 42 67 86;
+    --card-foreground: 245 241 226;
+    --popover: 42 67 86;
+    --popover-foreground: 245 241 226;
+    --primary: 184 99 68;
+    --primary-foreground: 255 255 255;
+    --secondary: 138 154 91;
+    --secondary-foreground: 255 255 255;
+    --muted: 42 67 86;
+    --muted-foreground: 163 158 138;
+    --accent: 138 154 91;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 84 70 55;
+    --input: 84 70 55;
+    --ring: 184 99 68;
+  }
 }
 
 /* Base styles */
