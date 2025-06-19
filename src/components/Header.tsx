@@ -101,7 +101,7 @@ export const Header = () => {
         isScrolled 
           ? 'py-2 shadow-md bg-white/95 backdrop-blur-sm' 
           : 'py-4 bg-white'
-      } sticky top-0 z-50 transition-all duration-300`}
+      } sticky top-0 z-50 transition-all duration-300 w-full`}
       role="navigation"
       aria-label="Huvudmeny"
     >
@@ -110,25 +110,25 @@ export const Header = () => {
         Hoppa till huvudinnehåll
       </a>
       
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center">
+      <div className="container mx-auto px-4 w-full max-w-7xl">
+        <div className="flex justify-between items-center w-full">
           <a 
             href="#" 
             onClick={handleHomeClick}
-            className="flex items-center group"
+            className="flex items-center group min-w-0 flex-shrink-0"
             aria-label="MaykasKitchen, gå till startsidan"
           >
-            <div className="relative mr-3 flex items-center justify-center bg-primary-color/10 w-10 h-10 rounded-full transition-transform duration-300 group-hover:rotate-6">
-              <Salad className="w-6 h-6 text-primary-color" />
+            <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-primary-color/10 w-8 h-8 md:w-10 md:h-10 rounded-full transition-transform duration-300 group-hover:rotate-6 flex-shrink-0">
+              <Salad className="w-4 h-4 md:w-6 md:h-6 text-primary-color" />
             </div>
-            <span className="text-2xl font-bold text-primary-color tracking-tight">MaykasKitchen</span>
+            <span className="text-lg md:text-2xl font-bold text-primary-color tracking-tight truncate">MaykasKitchen</span>
           </a>
           
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <a 
               href="#om-mig" 
               onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors ${
+              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
                 activeSection === 'om-mig' ? 'text-primary-color active' : ''
               }`}
             >
@@ -137,7 +137,7 @@ export const Header = () => {
             <a 
               href="#recept" 
               onClick={(e) => handleNavLinkClick(e, 'recept')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors ${
+              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
                 activeSection === 'recept' ? 'text-primary-color active' : ''
               }`}
             >
@@ -146,7 +146,7 @@ export const Header = () => {
             <a 
               href="#samarbeten" 
               onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors ${
+              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
                 activeSection === 'samarbeten' ? 'text-primary-color active' : ''
               }`}
             >
@@ -156,10 +156,10 @@ export const Header = () => {
               href="https://www.instagram.com/maykaskitchen/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="nav-link text-brown-500 hover:text-primary-color transition-colors flex items-center"
+              className="nav-link text-brown-500 hover:text-primary-color transition-colors flex items-center whitespace-nowrap"
               aria-label="Besök min Instagram"
             >
-              <Instagram size={18} className="mr-1" /> Instagram
+              <Instagram size={16} className="mr-1" /> Instagram
             </a>
             <button 
               onClick={toggleSearch} 
@@ -167,25 +167,25 @@ export const Header = () => {
               aria-label="Sök"
               aria-expanded={isSearchOpen}
             >
-              <Search size={20} />
+              <Search size={18} />
             </button>
             <a 
               href="#kontakt" 
               onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-              className="btn-primary transform hover:scale-105 transition-transform"
+              className="btn-primary transform hover:scale-105 transition-transform whitespace-nowrap"
             >
               Kontakt
             </a>
           </div>
           
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="lg:hidden flex items-center space-x-3">
             <button 
               onClick={toggleSearch} 
               className="text-brown-500 hover:text-primary-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
               aria-label="Sök"
               aria-expanded={isSearchOpen}
             >
-              <Search size={20} />
+              <Search size={18} />
             </button>
             <button 
               onClick={toggleMenu} 
@@ -205,10 +205,10 @@ export const Header = () => {
           isSearchOpen 
             ? 'translate-y-0 opacity-100' 
             : '-translate-y-full opacity-0 pointer-events-none'
-        } absolute left-0 right-0 top-full z-20`}
+        } absolute left-0 right-0 top-full z-20 w-full`}
         aria-hidden={!isSearchOpen}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               ref={searchInputRef}
@@ -247,14 +247,14 @@ export const Header = () => {
       
       {/* Mobile menu with enhanced animation */}
       <div 
-        className={`md:hidden bg-white border-t border-gray-100 shadow-soft overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`lg:hidden bg-white border-t border-gray-100 shadow-soft overflow-hidden transition-all duration-300 ease-in-out w-full ${
           isMenuOpen 
             ? 'max-h-screen opacity-100' 
             : 'max-h-0 opacity-0 pointer-events-none'
         }`}
         aria-hidden={!isMenuOpen}
       >
-        <div className="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <div className="container mx-auto px-4 py-3 flex flex-col space-y-4 max-w-7xl">
           <a 
             href="#om-mig" 
             onClick={(e) => handleNavLinkClick(e, 'om-mig')}

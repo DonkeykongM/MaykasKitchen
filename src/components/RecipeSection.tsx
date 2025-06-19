@@ -78,28 +78,28 @@ export const RecipeSection = () => {
   ];
 
   return (
-    <section id="recept" ref={sectionRef} className="py-16 bg-beige-50">
-      <div className="container mx-auto px-4">
+    <section id="recept" ref={sectionRef} className="py-12 md:py-16 bg-beige-50 w-full overflow-hidden">
+      <div className="container mx-auto px-4 w-full max-w-7xl">
         <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">
           MATINSPIRATION
         </span>
         
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-primary-color break-words">
           Populära recept
         </h2>
         
-        <p className="text-center mb-10 max-w-2xl mx-auto text-brown-500">
+        <p className="text-center mb-8 md:mb-10 max-w-2xl mx-auto text-brown-500 break-words px-4">
           Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
           med moderna smaker och enkla tillagningsmetoder.
         </p>
         
         {/* Förenklade kategorier för bättre prestanda */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12 px-4">
           {filters.map(filter => (
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-5 py-2 rounded-full transition-colors ${
+              className={`px-4 md:px-5 py-2 rounded-full transition-colors text-sm md:text-base ${
                 activeFilter === filter.id ? 'bg-primary-color text-white' : 'bg-white text-brown-500 hover:bg-beige-100'
               }`}
             >
@@ -109,15 +109,15 @@ export const RecipeSection = () => {
         </div>
         
         {/* Receptgrid - optimerad struktur med direktklick */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
           {RECIPES.map(recipe => (
             <article 
               key={recipe.id} 
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full"
               onClick={(e) => handleRecipeClick(recipe.id, e)}
             >
               {/* Receptbild med direkt klickevent */}
-              <div className="relative h-52 overflow-hidden">
+              <div className="relative h-48 md:h-52 overflow-hidden">
                 <img
                   src={recipe.image}
                   alt={recipe.title}
@@ -140,7 +140,7 @@ export const RecipeSection = () => {
                 )}
               </div>
               
-              <div className="p-6">
+              <div className="p-4 md:p-6 w-full">
                 {/* Taggar */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {recipe.badges.map((badge, index) => (
@@ -171,12 +171,12 @@ export const RecipeSection = () => {
                 </div>
                 
                 {/* Titel med direkt klickbarhet */}
-                <h3 className="text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors">
+                <h3 className="text-lg md:text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors break-words">
                   {recipe.title}
                 </h3>
                 
                 {/* Beskrivning */}
-                <p className="text-brown-500 mb-4 text-sm line-clamp-2">
+                <p className="text-brown-500 mb-4 text-sm line-clamp-2 break-words">
                   {recipe.description}
                 </p>
                 
@@ -201,10 +201,10 @@ export const RecipeSection = () => {
         </div>
         
         {/* Se alla recept-knapp */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 md:mb-20">
           <a 
             href="#recept/alla"
-            className="inline-block bg-primary-color text-white py-3 px-8 rounded-full hover:bg-accent-color transition-colors"
+            className="inline-block bg-primary-color text-white py-3 px-6 md:px-8 rounded-full hover:bg-accent-color transition-colors"
           >
             Se alla recept
           </a>
