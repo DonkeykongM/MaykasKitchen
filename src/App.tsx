@@ -4,7 +4,6 @@ import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
 import { RecipeSection } from './components/RecipeSection';
 import { RecipeList } from './components/RecipeList';
-import { RecipeListPage } from './components/RecipeListPage';
 import { CollaborationSection } from './components/CollaborationSection';
 import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
@@ -45,7 +44,7 @@ function App() {
       } else if (hash === "#recipe/pasta-pesto") {
         title = "Pasta pesto med ugnsbakade tomater & stekt halloumi - MaykasKitchen";
         document.querySelector('meta[name="description"]')?.setAttribute("content", "Smakrik pastarätt med krämig pestosås, ugnsbakade tomater och stekt halloumi - enkel att laga och älskad av hela familjen.");
-      } else if (hash === "#recept/alla" || hash.startsWith("#recept/") || hash === "#alla-recept") {
+      } else if (hash === "#recept/alla" || hash.startsWith("#recept/")) {
         title = "Alla recept - MaykasKitchen";
         document.querySelector('meta[name="description"]')?.setAttribute("content", "Upptäck alla våra recept - från traditionella assyriska rätter till moderna tolkningar. Fisk, kött, vegetariskt och mycket mer hos MaykasKitchen.");
       }
@@ -105,13 +104,13 @@ function App() {
     }
   }
 
-  // Show the new RecipeListPage for various recipe listing routes
-  if (hash.startsWith("#recept/") || hash === "#alla-recept") {
+  // Visa RecipeList vid navigering till #recept/alla eller andra receptkategorier
+  if (hash.startsWith("#recept/")) {
     return (
       <div className="font-sans bg-light-bg text-text-color">
         <Header />
         <main id="main-content">
-          <RecipeListPage />
+          <RecipeList />
           <Newsletter />
         </main>
         <Footer />
