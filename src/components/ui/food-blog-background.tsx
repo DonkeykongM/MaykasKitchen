@@ -30,23 +30,23 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
   const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
 
   const foodIcons = [
-    { icon: <ChefHat className="w-full h-full" />, color: "#FF6B6B" },
-    { icon: <Coffee className="w-full h-full" />, color: "#4ECDC4" },
-    { icon: <Utensils className="w-full h-full" />, color: "#45B7D1" },
-    { icon: <Heart className="w-full h-full" />, color: "#96CEB4" },
-    { icon: <Star className="w-full h-full" />, color: "#FFEAA7" },
-    { icon: <Clock className="w-full h-full" />, color: "#DDA0DD" }
+    { icon: <ChefHat className="w-full h-full" />, color: "#B86344" },
+    { icon: <Coffee className="w-full h-full" />, color: "#8A9A5B" },
+    { icon: <Utensils className="w-full h-full" />, color: "#2A4356" },
+    { icon: <Heart className="w-full h-full" />, color: "#B86344" },
+    { icon: <Star className="w-full h-full" />, color: "#8A9A5B" },
+    { icon: <Clock className="w-full h-full" />, color: "#2A4356" }
   ];
 
   useEffect(() => {
-    const elements: FloatingElement[] = Array.from({ length: 12 }, (_, i) => {
+    const elements: FloatingElement[] = Array.from({ length: 15 }, (_, i) => {
       const iconData = foodIcons[i % foodIcons.length];
       return {
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        size: Math.random() * 30 + 20,
-        speed: Math.random() * 0.5 + 0.2,
+        size: Math.random() * 35 + 25,
+        speed: Math.random() * 0.3 + 0.1,
         direction: Math.random() * Math.PI * 2,
         icon: iconData.icon,
         color: iconData.color
@@ -90,8 +90,16 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
   }, []);
 
   return (
-    <div className={`relative min-h-screen overflow-hidden bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 dark:from-orange-950 dark:via-red-950 dark:to-yellow-950 ${className}`}>
-      {/* Animated Gradient Background */}
+    <div className={`fixed inset-0 w-full h-full overflow-hidden ${className}`}>
+      {/* Main Background Gradient */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 3, ease: "easeOut" }}
+        className="absolute inset-0 bg-gradient-to-br from-orange-50/80 via-red-50/60 to-yellow-50/80 dark:from-orange-950/80 dark:via-red-950/60 dark:to-yellow-950/80"
+      />
+
+      {/* Animated Gradient Overlay */}
       <motion.div
         initial={{ opacity: 0, scale: 1.2 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -99,19 +107,19 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(circle at 20% 30%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(255, 234, 167, 0.1) 0%, transparent 50%)
+            radial-gradient(circle at 20% 30%, rgba(184, 99, 68, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(138, 154, 91, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(42, 67, 86, 0.08) 0%, transparent 50%)
           `
         }}
       />
 
       {/* Floating Food Icons */}
-      <div ref={containerRef} className="absolute inset-0 pointer-events-none">
+      <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden">
         {floatingElements.map((element) => (
           <motion.div
             key={element.id}
-            className="absolute opacity-20 dark:opacity-30"
+            className="absolute opacity-15 dark:opacity-25"
             style={{
               left: `${element.x}%`,
               top: `${element.y}%`,
@@ -119,21 +127,27 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
               height: `${element.size}px`,
               color: element.color
             }}
-            initial={{ scale: 0, rotate: 0 }}
+            initial={{ scale: 0, rotate: 0, opacity: 0 }}
             animate={{ 
-              scale: [0.8, 1.2, 0.8],
-              rotate: [0, 360]
+              scale: [0.8, 1.1, 0.8],
+              rotate: [0, 360],
+              opacity: [0.1, 0.2, 0.1]
             }}
             transition={{
               scale: {
-                duration: 4 + Math.random() * 2,
+                duration: 6 + Math.random() * 3,
                 repeat: Infinity,
                 ease: "easeInOut"
               },
               rotate: {
-                duration: 20 + Math.random() * 10,
+                duration: 25 + Math.random() * 15,
                 repeat: Infinity,
                 ease: "linear"
+              },
+              opacity: {
+                duration: 4 + Math.random() * 2,
+                repeat: Infinity,
+                ease: "easeInOut"
               }
             }}
           >
@@ -143,33 +157,34 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
       </div>
 
       {/* Floating Recipe Cards */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(3)].map((_, i) => (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(4)].map((_, i) => (
           <motion.div
             key={`card-${i}`}
-            className="absolute opacity-10 dark:opacity-20"
+            className="absolute opacity-8 dark:opacity-15"
             style={{
-              left: `${20 + i * 30}%`,
-              top: `${10 + i * 25}%`
+              left: `${15 + i * 20}%`,
+              top: `${5 + i * 20}%`
             }}
-            initial={{ y: 0, rotate: -5 + i * 5 }}
+            initial={{ y: 0, rotate: -3 + i * 2, opacity: 0 }}
             animate={{ 
-              y: [-20, 20, -20],
-              rotate: [-10 + i * 5, 10 + i * 5, -10 + i * 5]
+              y: [-15, 15, -15],
+              rotate: [-8 + i * 4, 8 + i * 4, -8 + i * 4],
+              opacity: [0.05, 0.1, 0.05]
             }}
             transition={{
-              duration: 8 + i * 2,
+              duration: 10 + i * 3,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           >
-            <Card className="w-48 h-32 p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <div className="space-y-2">
-                <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-3/4"></div>
-                <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+            <Card className="w-40 h-24 p-3 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm border-none">
+              <div className="space-y-1">
+                <div className="h-2 bg-gray-300/50 dark:bg-gray-600/50 rounded w-3/4"></div>
+                <div className="h-1.5 bg-gray-200/50 dark:bg-gray-700/50 rounded w-1/2"></div>
                 <div className="flex gap-1">
-                  <Badge variant="secondary" className="text-xs">Recipe</Badge>
-                  <Badge variant="outline" className="text-xs">5 min</Badge>
+                  <Badge variant="secondary" className="text-xs opacity-70 h-4">Recipe</Badge>
+                  <Badge variant="outline" className="text-xs opacity-70 h-4">Quick</Badge>
                 </div>
               </div>
             </Card>
@@ -178,25 +193,25 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
       </div>
 
       {/* Organic Blob Shapes */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(5)].map((_, i) => (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={`blob-${i}`}
-            className="absolute rounded-full opacity-5 dark:opacity-10"
+            className="absolute rounded-full opacity-4 dark:opacity-8"
             style={{
-              left: `${Math.random() * 80}%`,
-              top: `${Math.random() * 80}%`,
-              width: `${200 + Math.random() * 300}px`,
-              height: `${200 + Math.random() * 300}px`,
-              background: `linear-gradient(45deg, ${foodIcons[i % foodIcons.length].color}, transparent)`
+              left: `${Math.random() * 90}%`,
+              top: `${Math.random() * 90}%`,
+              width: `${150 + Math.random() * 200}px`,
+              height: `${150 + Math.random() * 200}px`,
+              background: `linear-gradient(45deg, ${foodIcons[i % foodIcons.length].color}20, transparent)`
             }}
-            initial={{ scale: 0.5, rotate: 0 }}
+            initial={{ scale: 0.3, rotate: 0 }}
             animate={{ 
-              scale: [0.5, 1, 0.5],
+              scale: [0.3, 0.8, 0.3],
               rotate: [0, 180, 360]
             }}
             transition={{
-              duration: 15 + Math.random() * 10,
+              duration: 20 + Math.random() * 15,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -204,54 +219,9 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
         ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10">
-        {children || (
-          <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="max-w-4xl mx-auto"
-            >
-              <motion.h1 
-                className="text-6xl md:text-8xl font-bold text-orange-600 dark:text-orange-400 mb-6"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
-              >
-                Delicious
-              </motion.h1>
-              <motion.p 
-                className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1.2 }}
-              >
-                Discover amazing recipes and culinary adventures
-              </motion.p>
-              <motion.div
-                className="flex flex-wrap justify-center gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1.5 }}
-              >
-                <Badge variant="secondary" className="text-lg px-4 py-2">
-                  <ChefHat className="w-4 h-4 mr-2" />
-                  Chef Approved
-                </Badge>
-                <Badge variant="outline" className="text-lg px-4 py-2">
-                  <Star className="w-4 h-4 mr-2" />
-                  5-Star Recipes
-                </Badge>
-                <Badge variant="secondary" className="text-lg px-4 py-2">
-                  <Clock className="w-4 h-4 mr-2" />
-                  Quick & Easy
-                </Badge>
-              </motion.div>
-            </motion.div>
-          </div>
-        )}
+      {/* Content Container */}
+      <div className="relative z-10 w-full h-full overflow-auto">
+        {children}
       </div>
     </div>
   );

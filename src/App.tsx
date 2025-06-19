@@ -10,6 +10,7 @@ import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
 import { LaxRisbowlPost, KaftaBilSejniePost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
+import FoodBlogBackground from './components/ui/food-blog-background';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
@@ -80,47 +81,55 @@ function App() {
     switch (recipeId) {
       case "lax-risbowl":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
-            <Header />
-            <main id="main-content">
-              <LaxRisbowlPost />
-              <Newsletter />
-            </main>
-            <Footer />
-          </div>
+          <FoodBlogBackground className="min-h-screen">
+            <div className="font-sans bg-transparent text-text-color relative z-10">
+              <Header />
+              <main id="main-content">
+                <LaxRisbowlPost />
+                <Newsletter />
+              </main>
+              <Footer />
+            </div>
+          </FoodBlogBackground>
         );
       case "kafta-bil-sejnie":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
-            <Header />
-            <main id="main-content">
-              <KaftaBilSejniePost />
-              <Newsletter />
-            </main>
-            <Footer />
-          </div>
+          <FoodBlogBackground className="min-h-screen">
+            <div className="font-sans bg-transparent text-text-color relative z-10">
+              <Header />
+              <main id="main-content">
+                <KaftaBilSejniePost />
+                <Newsletter />
+              </main>
+              <Footer />
+            </div>
+          </FoodBlogBackground>
         );
       case "pasta-pesto":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
-            <Header />
-            <main id="main-content">
-              <PastaPestoPost />
-              <Newsletter />
-            </main>
-            <Footer />
-          </div>
+          <FoodBlogBackground className="min-h-screen">
+            <div className="font-sans bg-transparent text-text-color relative z-10">
+              <Header />
+              <main id="main-content">
+                <PastaPestoPost />
+                <Newsletter />
+              </main>
+              <Footer />
+            </div>
+          </FoodBlogBackground>
         );
       case "kyckling-shawarma":
         return (
-          <div className="font-sans bg-light-bg text-text-color">
-            <Header />
-            <main id="main-content">
-              <KycklingShawarmaPost />
-              <Newsletter />
-            </main>
-            <Footer />
-          </div>
+          <FoodBlogBackground className="min-h-screen">
+            <div className="font-sans bg-transparent text-text-color relative z-10">
+              <Header />
+              <main id="main-content">
+                <KycklingShawarmaPost />
+                <Newsletter />
+              </main>
+              <Footer />
+            </div>
+          </FoodBlogBackground>
         );
       default:
         // Om recept inte finns, gå tillbaka till startsidan
@@ -132,36 +141,40 @@ function App() {
   // Visa RecipeList vid navigering till #recept/alla eller andra receptkategorier
   if (currentHash.startsWith("#recept/")) {
     return (
-      <div className="font-sans bg-light-bg text-text-color">
-        <Header />
-        <main id="main-content">
-          <RecipeList />
-          <Newsletter />
-        </main>
-        <Footer />
-      </div>
+      <FoodBlogBackground className="min-h-screen">
+        <div className="font-sans bg-transparent text-text-color relative z-10">
+          <Header />
+          <main id="main-content">
+            <RecipeList />
+            <Newsletter />
+          </main>
+          <Footer />
+        </div>
+      </FoodBlogBackground>
     );
   }
 
   // Standard startsida
   return (
-    <div className="font-sans bg-light-bg text-text-color">
-      <Header />
-      <main id="main-content">
-        <Hero />
-        <div className="section-divider" aria-hidden="true"></div>
-        <NewsletterPopup />
-        <AboutSection />
-        <div className="section-divider" aria-hidden="true"></div>
-        <RecipeSection />
-        <div className="section-divider" aria-hidden="true"></div>
-        <CollaborationSection />
-        <div className="section-divider" aria-hidden="true"></div>
-        <ContactSection />
-        <Newsletter />
-      </main>
-      <Footer />
-    </div>
+    <FoodBlogBackground className="min-h-screen">
+      <div className="font-sans bg-transparent text-text-color relative z-10">
+        <Header />
+        <main id="main-content">
+          <Hero />
+          <div className="section-divider" aria-hidden="true"></div>
+          <NewsletterPopup />
+          <AboutSection />
+          <div className="section-divider" aria-hidden="true"></div>
+          <RecipeSection />
+          <div className="section-divider" aria-hidden="true"></div>
+          <CollaborationSection />
+          <div className="section-divider" aria-hidden="true"></div>
+          <ContactSection />
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
+    </FoodBlogBackground>
   );
 }
 
