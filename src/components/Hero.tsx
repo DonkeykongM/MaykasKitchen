@@ -11,11 +11,17 @@ export const Hero = () => {
     
     // Set up intersection observer for animation optimization
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Keep animations running when in viewport
-          setIsVisible(true);
-        }
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Keep animations running when in viewport
+            setIsVisible(true);
+            // Add hero-section class for CSS decorations
+            entry.target.classList.add('hero-section');
+          } else {
+            entry.target.classList.remove('hero-section');
+          }
+        });
       },
       { threshold: 0.1 }
     );
@@ -39,7 +45,7 @@ export const Hero = () => {
     <header 
       ref={heroRef}
       id="hero"
-      className="py-16 md:py-20 lg:py-24 overflow-hidden relative bg-light-bg w-full"
+      className="py-16 md:py-20 lg:py-24 overflow-hidden relative bg-transparent w-full"
       aria-labelledby="hero-heading"
     >
       {/* Particles Background */}
