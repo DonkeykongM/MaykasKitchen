@@ -29,7 +29,7 @@
     --primary-color: #B86344;
     --secondary-color: #8A9A5B;
     --accent-color: #2A4356;
-    --text-color: #3D2914; /* Darker for better contrast */
+    --text-color: #3D2914;
     --text-secondary: #5C4637;
     --light-bg: #F9F6F2;
     --surface: #FFFFFF;
@@ -63,17 +63,14 @@
   }
 }
 
-/* Performance optimizations */
-* {
-  box-sizing: border-box;
-}
-
+/* Enhanced base styles with single scroll */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
   max-width: 100vw;
-  font-size: 16px; /* Explicit base font size */
+  font-size: 16px;
+  height: 100%;
 }
 
 body {
@@ -85,16 +82,94 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-y: auto; /* Single vertical scroll */
   margin: 0;
   padding: 0;
   width: 100%;
   max-width: 100vw;
-  position: relative;
+  height: 100%;
   background: transparent;
-  min-height: 100vh; /* Ensure full height */
+  position: relative;
 }
 
-/* Enhanced typography with better hierarchy */
+/* Prevent multiple scroll containers */
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Hero section animated background */
+.hero-animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  
+  /* Primary gradient background - Purple to Royal Blue */
+  background: linear-gradient(
+    135deg, 
+    #8A2BE2 0%, 
+    #6A5ACD 25%, 
+    #4169E1 50%, 
+    #6A5ACD 75%, 
+    #8A2BE2 100%
+  );
+  
+  /* Fallback color */
+  background-color: #6A5ACD;
+  
+  /* Flowing animation effect */
+  background-size: 400% 400%;
+  animation: heroFlowingGradient 15s ease-in-out infinite,
+             heroOpacityPulse 15s ease-in-out infinite;
+  
+  /* Performance optimizations */
+  will-change: background-position, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Hero-specific animation keyframes */
+@keyframes heroFlowingGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes heroOpacityPulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Text shadow utility for better readability on animated background */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.5em;
@@ -247,7 +322,7 @@ section {
   outline-offset: 2px;
 }
 
-/* Enhanced recipe cards with better accessibility */
+/* Enhanced recipe cards */
 .recipe-card {
   background-color: rgba(255, 255, 255, 0.97) !important;
   backdrop-filter: blur(8px);
@@ -361,7 +436,7 @@ textarea:invalid {
   outline: 3px solid white;
 }
 
-/* Performance optimizations for animations */
+/* Performance optimizations */
 .will-change-transform {
   will-change: transform;
 }
@@ -370,7 +445,32 @@ textarea:invalid {
   transform: translate3d(0, 0, 0);
 }
 
-/* Enhanced mobile experience */
+/* Enhanced animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Mobile optimizations */
 @media (max-width: 768px) {
   .container {
     padding-left: 1rem;
@@ -403,6 +503,11 @@ textarea:invalid {
   button {
     font-size: 16px; /* Prevents iOS zoom */
   }
+
+  /* Ensure hero takes full viewport on mobile */
+  #hero {
+    min-height: 100vh;
+  }
 }
 
 @media (max-width: 640px) {
@@ -416,6 +521,26 @@ textarea:invalid {
   }
 }
 
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero-animated-background {
+    animation: none !important;
+    background: linear-gradient(135deg, #8A2BE2, #4169E1);
+    opacity: 0.9;
+  }
+  
+  .will-change-transform {
+    will-change: auto;
+  }
+}
+
 /* High contrast mode support */
 @media (forced-colors: active) {
   .btn-primary,
@@ -426,19 +551,9 @@ textarea:invalid {
   .recipe-card {
     border: 2px solid CanvasText;
   }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
   
-  .will-change-transform {
-    will-change: auto;
+  .hero-animated-background {
+    background: Canvas;
   }
 }
 
@@ -460,6 +575,10 @@ textarea:invalid {
   .container {
     max-width: none !important;
     padding: 0 !important;
+  }
+  
+  .hero-animated-background {
+    display: none !important;
   }
 }
 
