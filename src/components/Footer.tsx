@@ -176,9 +176,9 @@ export const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
+                  <a href="#animated-background" className="text-gray-300 hover:text-white transition-colors flex items-center group">
                     <span className="w-1.5 h-1.5 bg-secondary-color rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Påskfastan
+                    Animerad bakgrund
                   </a>
                 </li>
                 <li>
@@ -195,7 +195,7 @@ export const Footer = () => {
                 </li>
                 <li>
                   <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-secondary-color rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
+                    <span className="w-1.5 h-1.5 bg-secondary-color rounded-full mr-2 inline-block transform transition-transformation group-hover:scale-125"></span> 
                     Alla kategorier
                   </a>
                 </li>

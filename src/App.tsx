@@ -9,8 +9,10 @@ import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
+import { AnimatedBackgroundPage } from './components/AnimatedBackgroundPage';
 import { LaxRisbowlPost, KaftaBilSejniePost, KoftaBilSaniehPost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
 import FoodBlogBackground from './components/ui/food-blog-background';
+import './styles/animated-background.css';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
@@ -27,7 +29,7 @@ function App() {
         setCurrentHash(newHash);
         
         // Smooth scroll to top when navigating between major sections
-        if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/')) {
+        if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/') || newHash === '#animated-background') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
@@ -58,7 +60,10 @@ function App() {
       let title = "MaykasKitchen - Autentisk assyrisk/syriansk matlagning med Mayka Gulo";
       let description = "Upptäck smakrika recept och matinspiration från Mayka Gulo, kock och matkreatör med assyrisk/syriansk tradition och passion för säsongsbaserad matlagning";
       
-      if (currentHash === "#recipe/lax-risbowl") {
+      if (currentHash === "#animated-background") {
+        title = "Dynamic Animated Background - MaykasKitchen";
+        description = "En responsiv webbsida med dynamisk animerad bakgrund med linjära gradienter från lila till kunglig blå.";
+      } else if (currentHash === "#recipe/lax-risbowl") {
         title = "Kryddig lax- & risbowl - MaykasKitchen";
         description = "Recept på kryddig lax- & risbowl. Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Enkelt och smakrikt recept från MaykasKitchen.";
       } else if (currentHash === "#recipe/kafta-bil-sejnie") {
@@ -107,6 +112,11 @@ function App() {
         </div>
       </FoodBlogBackground>
     );
+  }
+
+  // Animated Background Demo Page
+  if (currentHash === "#animated-background") {
+    return <AnimatedBackgroundPage />;
   }
 
   // Recipe pages with error boundary
