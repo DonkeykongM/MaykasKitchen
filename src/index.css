@@ -80,102 +80,14 @@ body {
   max-width: 100vw;
   position: relative;
   
-  /* Animated background with food theme */
-  background: linear-gradient(135deg, 
-    #F5F1E2 0%, 
-    #F0EAD8 25%, 
-    #E5DBBC 50%, 
-    #F5F1E2 75%, 
-    #F0EAD8 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  /* Clean background for when FoodBlogBackground is used */
+  background: transparent;
 }
 
 /* Prevent all elements from causing horizontal overflow */
 * {
   box-sizing: border-box;
   max-width: 100%;
-}
-
-/* Animated background gradient */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Floating food icons animation */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(184, 99, 68, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 90% 80%, rgba(138, 154, 91, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(42, 67, 86, 0.05) 0%, transparent 50%);
-  animation: floatPattern 20s ease-in-out infinite;
-}
-
-@keyframes floatPattern {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(30px, -20px) rotate(120deg); }
-  66% { transform: translate(-20px, 30px) rotate(240deg); }
-}
-
-/* Floating elements */
-body::after {
-  content: '🍽️';
-  position: fixed;
-  top: 10%;
-  right: 15%;
-  font-size: 2rem;
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: 1;
-  animation: floatIcon1 12s ease-in-out infinite;
-}
-
-@keyframes floatIcon1 {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(180deg); }
-}
-
-/* Additional floating decorations */
-.hero-section::before {
-  content: '👨‍🍳';
-  position: absolute;
-  top: 20%;
-  left: 5%;
-  font-size: 1.5rem;
-  opacity: 0.15;
-  animation: floatIcon2 15s ease-in-out infinite reverse;
-  z-index: 1;
-}
-
-.hero-section::after {
-  content: '🥘';
-  position: absolute;
-  bottom: 20%;
-  right: 8%;
-  font-size: 1.8rem;
-  opacity: 0.12;
-  animation: floatIcon3 18s ease-in-out infinite;
-  z-index: 1;
-}
-
-@keyframes floatIcon2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(15px, -15px) scale(1.1); }
-}
-
-@keyframes floatIcon3 {
-  0%, 100% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(20px) rotate(15deg); }
 }
 
 /* Container improvements for mobile */
@@ -251,33 +163,6 @@ section {
 .bg-beige-50 {
   background-color: rgba(245, 241, 226, 0.9) !important;
   backdrop-filter: blur(8px);
-}
-
-/* Hero section gets special class for decoration */
-#hero {
-  position: relative;
-}
-
-#hero.hero-section::before {
-  content: '👨‍🍳';
-  position: absolute;
-  top: 20%;
-  left: 5%;
-  font-size: 1.5rem;
-  opacity: 0.15;
-  animation: floatIcon2 15s ease-in-out infinite reverse;
-  z-index: 1;
-}
-
-#hero.hero-section::after {
-  content: '🥘';
-  position: absolute;
-  bottom: 20%;
-  right: 8%;
-  font-size: 1.8rem;
-  opacity: 0.12;
-  animation: floatIcon3 18s ease-in-out infinite;
-  z-index: 1;
 }
 
 /* Image responsiveness */
@@ -889,11 +774,6 @@ button:focus {
   .animate-bounce-subtle,
   .animate-pulse-subtle,
   .animate-float {
-    animation: none !important;
-  }
-  
-  body::before,
-  body::after {
     animation: none !important;
   }
   
