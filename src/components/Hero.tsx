@@ -39,13 +39,16 @@ export const Hero = () => {
     <header 
       ref={heroRef}
       id="hero"
-      className="relative py-16 md:py-20 lg:py-24 overflow-hidden w-full min-h-screen flex items-center"
+      className="relative py-16 md:py-20 lg:py-24 overflow-hidden w-full min-h-screen flex items-center hero-section"
       aria-labelledby="hero-heading"
     >
+      {/* Animated background */}
+      <div className="hero-animated-background"></div>
+      
       {/* Floating elements */}
-      <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/20 rounded-full animate-float"></div>
-      <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-white/15 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-white/25 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/20 rounded-full animate-float z-10"></div>
+      <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-white/15 rounded-full animate-float z-10" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-white/25 rounded-full animate-float z-10" style={{ animationDelay: '2s' }}></div>
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -54,15 +57,15 @@ export const Hero = () => {
             Assyrisk/syriansk matkonst
           </span>
           
-          <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-tight break-words text-shadow-lg">
+          <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-tight break-words hero-text">
             Mat från hjärtat <span className="block text-yellow-200">& själen</span>
           </h1>
           
-          <p className="text-base md:text-lg lg:text-xl mb-4 text-white/90 leading-relaxed break-words">
+          <p className="text-base md:text-lg lg:text-xl mb-4 hero-text-secondary leading-relaxed break-words">
             Upptäck <mark className="bg-yellow-200/90 text-purple-800 font-semibold px-1 rounded">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
           </p>
           
-          <p className="mb-6 md:mb-8 text-white/75 break-words">Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.</p>
+          <p className="mb-6 md:mb-8 hero-text-muted break-words">Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.</p>
           
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-6 md:mb-8">
             <a 
@@ -80,7 +83,7 @@ export const Hero = () => {
           </div>
 
           <div className="mb-6 md:mb-8">
-            <h4 className="font-semibold mb-3 text-white/90">Följ mig här:</h4>
+            <h4 className="font-semibold mb-3 hero-text-secondary">Följ mig här:</h4>
             <div className="flex flex-wrap gap-3 md:gap-5">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
                 className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-3 rounded-full transition-all transform hover:scale-110 shadow-lg" 
@@ -132,7 +135,7 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="hidden md:flex items-center text-white/80 text-sm">
+          <div className="hidden md:flex items-center hero-text-muted text-sm">
             <span className="mr-2">Utforska mer</span>
             <button 
               onClick={scrollToRecipes}
@@ -202,7 +205,7 @@ export const Hero = () => {
       </div>
       
       {/* Scroll indicator for mobile */}
-      <div className="md:hidden absolute bottom-8 left-1/2 transform -translate-x-1/2">
+      <div className="md:hidden absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
         <button 
           onClick={scrollToRecipes}
           className="animate-bounce bg-white/20 backdrop-blur-sm h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"

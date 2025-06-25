@@ -10,13 +10,13 @@
     --card-foreground: 92 70 55;
     --popover: 255 255 255;
     --popover-foreground: 92 70 55;
-    --primary: 138 43 226; /* Updated to purple */
+    --primary: 138 43 226; /* Purple */
     --primary-foreground: 255 255 255;
-    --secondary: 65 105 225; /* Updated to royal blue */
+    --secondary: 65 105 225; /* Royal Blue */
     --secondary-foreground: 255 255 255;
     --muted: 245 241 226;
     --muted-foreground: 139 134 109;
-    --accent: 106 90 205; /* Updated to slate blue */
+    --accent: 106 90 205; /* Slate Blue */
     --accent-foreground: 255 255 255;
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
@@ -25,13 +25,13 @@
     --ring: 138 43 226;
     --radius: 0.5rem;
     
-    /* Updated color system to match hero gradient */
+    /* Updated color system */
     --primary-color: #8A2BE2; /* Purple */
     --secondary-color: #4169E1; /* Royal Blue */
     --accent-color: #6A5ACD; /* Slate Blue */
     --text-color: #2D1B69; /* Dark purple for text */
     --text-secondary: #4C4C6D; /* Muted purple for secondary text */
-    --light-bg: transparent; /* No background - let animated background show */
+    --light-bg: #F5F1E2; /* Light beige background */
     --surface: rgba(255, 255, 255, 0.95);
     --surface-variant: rgba(255, 255, 255, 0.85);
     --error: #D32F2F;
@@ -41,7 +41,7 @@
   }
 }
 
-/* Enhanced base styles with single background */
+/* Base styles with neutral background */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -66,29 +66,42 @@ body {
   width: 100%;
   max-width: 100vw;
   height: 100%;
-  background: transparent;
+  background: var(--light-bg);
   position: relative;
 }
 
-/* Single animated background for entire page */
+/* Neutral background for main container */
 #root {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  background: linear-gradient(
-    135deg, 
-    #8A2BE2 0%, 
-    #6A5ACD 25%, 
-    #4169E1 50%, 
-    #6A5ACD 75%, 
-    #8A2BE2 100%
-  );
-  background-size: 400% 400%;
-  animation: unifiedGradientFlow 20s ease-in-out infinite;
+  background: var(--light-bg);
 }
 
-/* Single background animation for entire page */
-@keyframes unifiedGradientFlow {
+/* Animated background for hero and footer sections */
+.hero-animated-background,
+.footer-animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    #1a0b2e 0%, 
+    #8A2BE2 15%, 
+    #6A5ACD 35%, 
+    #4169E1 50%, 
+    #6A5ACD 65%, 
+    #8A2BE2 85%, 
+    #000000 100%
+  );
+  background-size: 400% 400%;
+  animation: heroGradientFlow 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes heroGradientFlow {
   0% {
     background-position: 0% 50%;
   }
@@ -106,52 +119,49 @@ body {
   }
 }
 
-/* Remove hero-specific background since we have unified background */
-.hero-animated-background {
-  display: none;
-}
-
-/* Enhanced typography with purple theme */
+/* Enhanced typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.5em;
   line-height: 1.2;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: white;
   font-weight: 600;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   margin-bottom: 0.75rem;
+  color: var(--primary-color);
 }
 
 h2 {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 600;
   margin-bottom: 0.75rem;
+  color: var(--primary-color);
 }
 
 h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: var(--accent-color);
 }
 
 h4 {
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: var(--accent-color);
 }
 
 p {
   margin-bottom: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 
@@ -188,7 +198,13 @@ section {
   overflow-x: hidden;
 }
 
-/* Improved component styling with purple theme */
+/* White sections for content */
+.content-section {
+  background-color: white;
+  position: relative;
+}
+
+/* Improved component styling */
 .bg-white {
   background-color: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(12px);
@@ -197,9 +213,7 @@ section {
 }
 
 .bg-beige-50 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: var(--light-bg) !important;
 }
 
 /* Updated button styles with purple theme */
@@ -235,10 +249,9 @@ section {
 }
 
 .btn-secondary {
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.9);
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
@@ -251,21 +264,21 @@ section {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--primary-color);
+  color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
 }
 
 .btn-secondary:focus {
-  outline: 3px solid rgba(255, 255, 255, 0.4);
+  outline: 3px solid rgba(138, 43, 226, 0.4);
   outline-offset: 2px;
 }
 
-/* Enhanced recipe cards with purple theme */
+/* Enhanced recipe cards */
 .recipe-card {
   background-color: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(12px);
@@ -290,13 +303,12 @@ section {
   outline-offset: 2px;
 }
 
-/* Navigation improvements with purple theme */
+/* Navigation improvements - text colors based on background */
 .nav-link {
   position: relative;
   font-weight: 500;
   transition: color 0.3s ease;
   padding: 0.5rem 0;
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .nav-link::after {
@@ -306,39 +318,77 @@ section {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: white;
   transition: width 0.3s ease;
 }
 
-.nav-link:hover,
-.nav-link:focus,
-.nav-link.active {
-  color: white;
-}
-
-.nav-link:hover::after,
-.nav-link:focus::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
 .nav-link:focus {
-  outline: 2px solid white;
+  outline: 2px solid currentColor;
   outline-offset: 4px;
   border-radius: 4px;
 }
 
-/* Enhanced form elements with purple theme */
+/* On hero/footer sections (dark background) */
+.hero-section .nav-link,
+.footer-section .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-section .nav-link::after,
+.footer-section .nav-link::after {
+  background-color: white;
+}
+
+.hero-section .nav-link:hover,
+.hero-section .nav-link:focus,
+.hero-section .nav-link.active,
+.footer-section .nav-link:hover,
+.footer-section .nav-link:focus,
+.footer-section .nav-link.active {
+  color: white;
+}
+
+.hero-section .nav-link:hover::after,
+.hero-section .nav-link:focus::after,
+.hero-section .nav-link.active::after,
+.footer-section .nav-link:hover::after,
+.footer-section .nav-link:focus::after,
+.footer-section .nav-link.active::after {
+  width: 100%;
+}
+
+/* On content sections (light background) */
+.content-section .nav-link {
+  color: var(--primary-color);
+}
+
+.content-section .nav-link::after {
+  background-color: var(--primary-color);
+}
+
+.content-section .nav-link:hover,
+.content-section .nav-link:focus,
+.content-section .nav-link.active {
+  color: var(--accent-color);
+}
+
+.content-section .nav-link:hover::after,
+.content-section .nav-link:focus::after,
+.content-section .nav-link.active::after {
+  width: 100%;
+}
+
+/* Enhanced form elements */
 input, textarea, select {
   max-width: 100%;
   width: 100%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(138, 43, 226, 0.3);
   border-radius: 0.5rem;
   padding: 0.75rem;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
+  color: var(--text-color);
 }
 
 input:focus, 
@@ -389,27 +439,33 @@ select:focus {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Text shadow utilities for better readability */
-.text-shadow-lg {
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.text-shadow {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Special styling for content on animated background */
-.prose {
-  color: white;
-}
-
-.prose h2, .prose h3, .prose h4 {
+/* Text styling for hero/footer sections */
+.hero-text {
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.prose p {
+.hero-text-secondary {
   color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text-muted {
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Content section text colors */
+.content-text {
+  color: var(--text-color);
+}
+
+.content-text-secondary {
+  color: var(--text-secondary);
+}
+
+.content-text-muted {
+  color: #6B7280;
 }
 
 /* Mobile optimizations */
@@ -467,9 +523,10 @@ select:focus {
     scroll-behavior: auto !important;
   }
   
-  #root {
+  .hero-animated-background,
+  .footer-animated-background {
     animation: none !important;
-    background: linear-gradient(135deg, #8A2BE2, #4169E1);
+    background: linear-gradient(135deg, #1a0b2e, #8A2BE2, #4169E1);
   }
 }
 
@@ -483,17 +540,13 @@ select:focus {
   .recipe-card {
     border: 2px solid CanvasText;
   }
-  
-  #root {
-    background: Canvas;
-  }
 }
 
 /* Print styles */
 @media print {
-  #root {
+  .hero-animated-background,
+  .footer-animated-background {
     background: white !important;
-    color: black !important;
   }
   
   * {
@@ -520,7 +573,7 @@ select:focus {
 }
 
 .focus-ring {
-  outline: 2px solid white;
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
@@ -534,4 +587,13 @@ select:focus {
 
 .elevation-3 {
   box-shadow: 0 8px 16px rgba(138, 43, 226, 0.2);
+}
+
+/* Section specific backgrounds */
+.section-white {
+  background-color: white;
+}
+
+.section-light {
+  background-color: var(--light-bg);
 }

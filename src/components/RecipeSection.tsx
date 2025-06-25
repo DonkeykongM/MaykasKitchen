@@ -80,7 +80,7 @@ export const RecipeSection = () => {
   ];
 
   return (
-    <section id="recept" ref={sectionRef} className="py-12 md:py-16 bg-beige-50 w-full overflow-hidden">
+    <section id="recept" ref={sectionRef} className="py-12 md:py-16 section-light content-section w-full overflow-hidden">
       <div className="container mx-auto px-4 w-full max-w-7xl">
         <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">
           MATINSPIRATION
@@ -90,7 +90,7 @@ export const RecipeSection = () => {
           Populära recept
         </h2>
         
-        <p className="text-center mb-8 md:mb-10 max-w-2xl mx-auto text-brown-500 break-words px-4">
+        <p className="text-center mb-8 md:mb-10 max-w-2xl mx-auto content-text-secondary break-words px-4">
           Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
           med moderna smaker och enkla tillagningsmetoder.
         </p>
@@ -102,7 +102,7 @@ export const RecipeSection = () => {
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
               className={`px-4 md:px-5 py-2 rounded-full transition-colors text-sm md:text-base ${
-                activeFilter === filter.id ? 'bg-primary-color text-white' : 'bg-white text-brown-500 hover:bg-beige-100'
+                activeFilter === filter.id ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-beige-100'
               }`}
             >
               {filter.label}
@@ -153,7 +153,7 @@ export const RecipeSection = () => {
                 {/* Taggar */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {recipe.badges.map((badge, index) => (
-                    <span key={index} className="bg-beige-100 text-brown-500 text-xs py-1 px-2 rounded-full">
+                    <span key={index} className="bg-beige-100 text-primary-color text-xs py-1 px-2 rounded-full">
                       {badge}
                     </span>
                   ))}
@@ -180,18 +180,18 @@ export const RecipeSection = () => {
                 </div>
                 
                 {/* Titel med direkt klickbarhet */}
-                <h3 className="text-lg md:text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors break-words">
+                <h3 className="text-lg md:text-xl font-semibold mb-2 content-text hover:text-primary-color transition-colors break-words">
                   {recipe.title}
                 </h3>
                 
                 {/* Beskrivning */}
-                <p className="text-brown-500 mb-4 text-sm line-clamp-2 break-words">
+                <p className="content-text-secondary mb-4 text-sm line-clamp-2 break-words">
                   {recipe.description}
                 </p>
                 
                 {/* Portioner och visa recept */}
                 <div className="flex justify-between items-center">
-                  <span className="text-brown-400 text-sm flex items-center">
+                  <span className="content-text-muted text-sm flex items-center">
                     <Users size={16} className="mr-1" /> {recipe.portions} portioner
                   </span>
                   
@@ -213,7 +213,7 @@ export const RecipeSection = () => {
         <div className="text-center mb-16 md:mb-20">
           <a 
             href="#recept/alla"
-            className="inline-block bg-primary-color text-white py-3 px-6 md:px-8 rounded-full hover:bg-accent-color transition-colors"
+            className="btn-primary"
           >
             Se alla recept
           </a>
