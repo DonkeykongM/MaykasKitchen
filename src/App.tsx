@@ -103,7 +103,7 @@ function App() {
   // Loading screen (optional - remove if not needed)
   if (isLoading) {
     return (
-      <FoodBlogBackground className="min-h-screen">
+      <FoodBlogBackground className="min-h-screen" variant="default">
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-color mx-auto mb-4"></div>
@@ -143,7 +143,7 @@ function App() {
     };
 
     return (
-      <FoodBlogBackground className="min-h-screen">
+      <FoodBlogBackground className="min-h-screen" variant="recipes">
         <div className="font-sans bg-transparent text-text-color relative z-10">
           <Header />
           <main id="main-content" role="main">
@@ -159,7 +159,7 @@ function App() {
   // Recipe list page
   if (currentHash.startsWith("#recept/")) {
     return (
-      <FoodBlogBackground className="min-h-screen">
+      <FoodBlogBackground className="min-h-screen" variant="recipes">
         <div className="font-sans bg-transparent text-text-color relative z-10">
           <Header />
           <main id="main-content" role="main">
@@ -172,22 +172,48 @@ function App() {
     );
   }
 
-  // Home page
+  // Home page with different variants for different sections
   return (
-    <FoodBlogBackground className="min-h-screen">
+    <FoodBlogBackground className="min-h-screen" variant="default">
       <div className="font-sans bg-transparent text-text-color relative z-10">
         <Header />
         <main id="main-content" role="main">
-          <Hero />
+          {/* Hero section uses its own special variant */}
+          <div className="relative">
+            <div className="absolute inset-0 z-0">
+              <div className="hero-animated-background"></div>
+            </div>
+            <div className="relative z-10">
+              <Hero />
+            </div>
+          </div>
+          
           <div className="section-divider" aria-hidden="true"></div>
           <NewsletterPopup />
-          <AboutSection />
+          
+          {/* About section with about variant */}
+          <FoodBlogBackground variant="about" className="relative">
+            <AboutSection />
+          </FoodBlogBackground>
+          
           <div className="section-divider" aria-hidden="true"></div>
-          <RecipeSection />
+          
+          {/* Recipe section with recipes variant */}
+          <FoodBlogBackground variant="recipes" className="relative">
+            <RecipeSection />
+          </FoodBlogBackground>
+          
           <div className="section-divider" aria-hidden="true"></div>
+          
           <CollaborationSection />
+          
           <div className="section-divider" aria-hidden="true"></div>
-          <ContactSection />
+          
+          {/* Contact section with contact variant */}
+          <FoodBlogBackground variant="contact" className="relative">
+            <ContactSection />
+          </FoodBlogBackground>
+          
           <Newsletter />
         </main>
         <Footer />

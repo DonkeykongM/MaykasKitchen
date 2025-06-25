@@ -164,7 +164,7 @@ const recipes = {
     id: 'kofta-bil-sanieh',
     title: 'Köfta bil Sanieh',
     description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika i mustig tomatsås.',
-    image: '/public/recipes/kofta-bil-sanieh.jpeg',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCGg5LVZ9bnLa0KVhUD3INroEj6yqmid4HwlYB',
     time: '60',
     portions: '8',
     likes: 89,
