@@ -59,7 +59,7 @@ const RECIPES = [
   }
 ];
 
-const RecipeSection = () => {
+export const RecipeSection = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
   const sectionRef = useRef(null);
 
@@ -80,17 +80,17 @@ const RecipeSection = () => {
   ];
 
   return (
-    <section id="recept" ref={sectionRef} className="py-12 md:py-16 relative w-full overflow-hidden">
+    <section id="recept" ref={sectionRef} className="py-12 md:py-16 bg-beige-50 w-full overflow-hidden">
       <div className="container mx-auto px-4 w-full max-w-7xl">
-        <span className="block text-center text-white/90 text-sm font-medium mb-2 uppercase tracking-wider">
+        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">
           MATINSPIRATION
         </span>
         
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-white break-words">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-primary-color break-words">
           Populära recept
         </h2>
         
-        <p className="text-center mb-8 md:mb-10 max-w-2xl mx-auto text-white/85 break-words px-4">
+        <p className="text-center mb-8 md:mb-10 max-w-2xl mx-auto text-brown-500 break-words px-4">
           Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
           med moderna smaker och enkla tillagningsmetoder.
         </p>
@@ -102,9 +102,7 @@ const RecipeSection = () => {
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
               className={`px-4 md:px-5 py-2 rounded-full transition-colors text-sm md:text-base ${
-                activeFilter === filter.id 
-                  ? 'bg-white/90 text-purple-700 shadow-lg' 
-                  : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30'
+                activeFilter === filter.id ? 'bg-primary-color text-white' : 'bg-white text-brown-500 hover:bg-beige-100'
               }`}
             >
               {filter.label}
@@ -117,7 +115,7 @@ const RecipeSection = () => {
           {RECIPES.map(recipe => (
             <article 
               key={recipe.id} 
-              className="bg-white/95 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 cursor-pointer w-full border border-white/20"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card"
               onClick={(e) => handleRecipeClick(recipe.id, e)}
             >
               {/* Receptbild med direkt klickevent */}
@@ -131,20 +129,20 @@ const RecipeSection = () => {
                   loading="lazy"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center backdrop-blur-sm">
+                  <span className="bg-primary-color/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
                     <Clock size={12} className="mr-1" /> {recipe.time} min
                   </span>
                 </div>
                 {recipe.trending && (
                   <div className="absolute top-4 right-4">
-                    <span className="bg-yellow-500/90 text-purple-800 text-xs py-1 px-3 rounded-full font-semibold backdrop-blur-sm">
+                    <span className="bg-accent-color/90 text-white text-xs py-1 px-3 rounded-full">
                       Populärt
                     </span>
                   </div>
                 )}
                 {recipe.difficulty && (
                   <div className="absolute bottom-4 left-4">
-                    <span className="bg-white/90 text-purple-700 text-xs py-1 px-3 rounded-full backdrop-blur-sm">
+                    <span className="bg-white/90 text-brown-700 text-xs py-1 px-3 rounded-full">
                       {recipe.difficulty}
                     </span>
                   </div>
@@ -155,7 +153,7 @@ const RecipeSection = () => {
                 {/* Taggar */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {recipe.badges.map((badge, index) => (
-                    <span key={index} className="bg-purple-100 text-purple-700 text-xs py-1 px-2 rounded-full">
+                    <span key={index} className="bg-beige-100 text-brown-500 text-xs py-1 px-2 rounded-full">
                       {badge}
                     </span>
                   ))}
@@ -176,31 +174,31 @@ const RecipeSection = () => {
                     <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
                   </div>
                   
-                  <span className="text-purple-600 text-sm flex items-center">
+                  <span className="text-gray-500 text-sm flex items-center">
                     <Heart size={16} className="mr-1" /> {recipe.likes}
                   </span>
                 </div>
                 
                 {/* Titel med direkt klickbarhet */}
-                <h3 className="text-lg md:text-xl font-semibold mb-2 text-purple-800 hover:text-purple-600 transition-colors break-words">
+                <h3 className="text-lg md:text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors break-words">
                   {recipe.title}
                 </h3>
                 
                 {/* Beskrivning */}
-                <p className="text-purple-700 mb-4 text-sm line-clamp-2 break-words">
+                <p className="text-brown-500 mb-4 text-sm line-clamp-2 break-words">
                   {recipe.description}
                 </p>
                 
                 {/* Portioner och visa recept */}
                 <div className="flex justify-between items-center">
-                  <span className="text-purple-600 text-sm flex items-center">
+                  <span className="text-brown-400 text-sm flex items-center">
                     <Users size={16} className="mr-1" /> {recipe.portions} portioner
                   </span>
                   
                   {/* Tydlig och direkt knapp för att visa recept */}
                   <button
                     onClick={(e) => handleRecipeClick(recipe.id, e)}
-                    className="text-purple-600 hover:text-purple-800 flex items-center text-sm font-medium group"
+                    className="text-primary-color hover:text-accent-color flex items-center text-sm font-medium group"
                   >
                     Visa recept
                     <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
@@ -215,7 +213,7 @@ const RecipeSection = () => {
         <div className="text-center mb-16 md:mb-20">
           <a 
             href="#recept/alla"
-            className="inline-block bg-white/90 text-purple-700 hover:bg-white hover:text-purple-800 py-3 px-6 md:px-8 rounded-full transition-all font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-block bg-primary-color text-white py-3 px-6 md:px-8 rounded-full hover:bg-accent-color transition-colors"
           >
             Se alla recept
           </a>
@@ -224,5 +222,3 @@ const RecipeSection = () => {
     </section>
   );
 };
-
-export { RecipeSection };
