@@ -79,8 +79,6 @@ body {
   width: 100%;
   max-width: 100vw;
   position: relative;
-  
-  /* Clean background for when FoodBlogBackground is used */
   background: transparent;
 }
 
@@ -152,6 +150,7 @@ p {
 section {
   position: relative;
   z-index: 10;
+  overflow-x: hidden;
 }
 
 /* Improve readability on animated background */
@@ -383,6 +382,48 @@ button:focus {
 
 .animate-scaleIn {
   animation: scaleIn 0.5s ease forwards;
+}
+
+/* Animated floating decorations */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-15px) rotate(5deg); 
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes bounceSubtle {
+  0%, 100% { 
+    transform: translateY(0) scale(1); 
+  }
+  50% { 
+    transform: translateY(-8px) scale(1.05); 
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounceSubtle 4s infinite ease-in-out;
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { 
+    opacity: 0.2; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 0.4; 
+    transform: scale(1.1); 
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s infinite ease-in-out;
 }
 
 /* Scroll styling with enhanced performance */
@@ -840,32 +881,4 @@ button:focus {
 
 .break-all {
   word-break: break-all;
-}
-
-/* Additional floating decorations for specific sections */
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-bounce-subtle {
-  animation: bounceSubtle 2s infinite ease-in-out;
-}
-
-@keyframes bounceSubtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.animate-pulse-subtle {
-  animation: pulseSubtle 3s infinite ease-in-out;
-}
-
-@keyframes pulseSubtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
 }
