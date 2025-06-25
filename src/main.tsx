@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, Component } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
@@ -16,9 +16,10 @@ checkSupabaseConnection()
   });
 
 // Enhanced error boundary
-class ErrorBoundary extends StrictMode {
+class ErrorBoundary extends Component {
   constructor(props: any) {
     super(props);
+    this.state = { hasError: false };
   }
 
   static getDerivedStateFromError(error: Error) {
@@ -37,6 +38,14 @@ class ErrorBoundary extends StrictMode {
       errorFallback.classList.remove('hidden');
       root.style.display = 'none';
     }
+  }
+
+  render() {
+    if ((this.state as any).hasError) {
+      return <div>Something went wrong.</div>;
+    }
+
+    return (this.props as any).children;
   }
 }
 
@@ -59,24 +68,26 @@ const initializeApp = () => {
 
   root.render(
     <StrictMode>
-      <HelmetProvider>
-        <WebVitalsMonitor 
-          onReport={(metric) => {
-            // Send metrics to analytics service
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'web_vitals', {
-                event_category: 'Performance',
-                event_label: metric.name,
-                value: Math.round(metric.value),
-                custom_map: {
-                  metric_rating: metric.rating
-                }
-              });
-            }
-          }}
-        />
-        <App />
-      </HelmetProvider>
+      <ErrorBoundary>
+        <HelmetProvider>
+          <WebVitalsMonitor 
+            onReport={(metric) => {
+              // Send metrics to analytics service
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'web_vitals', {
+                  event_category: 'Performance',
+                  event_label: metric.name,
+                  value: Math.round(metric.value),
+                  custom_map: {
+                    metric_rating: metric.rating
+                  }
+                });
+              }
+            }}
+          />
+          <App />
+        </HelmetProvider>
+      </ErrorBoundary>
     </StrictMode>
   );
 };
