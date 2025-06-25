@@ -16,10 +16,13 @@ function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
+    console.log("🚀 App: Starting with hash:", currentHash);
+    
     // Optimerad hash change detection
     const handleHashChange = () => {
       const newHash = window.location.hash;
       if (newHash !== currentHash) {
+        console.log("📍 Hash changed from", currentHash, "to", newHash);
         setCurrentHash(newHash);
       }
     };
@@ -76,6 +79,7 @@ function App() {
   // Direkt rendering utan fördröjning - check hash directly
   if (currentHash.startsWith("#recipe/")) {
     const recipeId = currentHash.replace("#recipe/", "");
+    console.log("🍳 Rendering recipe page for:", recipeId);
     
     // Direkt switch för snabbast möjliga rendering
     switch (recipeId) {
@@ -140,6 +144,7 @@ function App() {
 
   // Visa RecipeList vid navigering till #recept/alla eller andra receptkategorier
   if (currentHash.startsWith("#recept/")) {
+    console.log("📋 Rendering recipe list page");
     return (
       <FoodBlogBackground className="min-h-screen">
         <div className="font-sans bg-transparent text-text-color relative z-10">
@@ -155,6 +160,7 @@ function App() {
   }
 
   // Standard startsida med FoodBlogBackground som huvudbakgrund
+  console.log("🏠 Rendering home page");
   return (
     <FoodBlogBackground className="min-h-screen">
       <div className="font-sans bg-transparent text-text-color relative z-10">
