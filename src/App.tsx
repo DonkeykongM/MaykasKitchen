@@ -12,7 +12,6 @@ import { Footer } from './components/Footer';
 import { AnimatedBackgroundPage } from './components/AnimatedBackgroundPage';
 import { LaxRisbowlPost, KaftaBilSejniePost, KoftaBilSaniehPost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
 import FoodBlogBackground from './components/ui/food-blog-background';
-import './styles/animated-background.css';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
