@@ -78,44 +78,255 @@ body {
   background: var(--light-bg);
 }
 
-/* Animated background for hero and footer sections */
-.hero-animated-background,
+/* Enhanced Animated backgrounds for hero and footer sections */
+.hero-animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(106, 90, 205, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(75, 0, 130, 0.7) 0%, transparent 50%),
+    linear-gradient(
+      135deg, 
+      #0a0a0a 0%, 
+      #1a0b2e 10%, 
+      #8A2BE2 20%, 
+      #4B0082 30%, 
+      #6A5ACD 40%, 
+      #4169E1 50%, 
+      #6A5ACD 60%, 
+      #8A2BE2 70%, 
+      #4B0082 80%, 
+      #1a0b2e 90%, 
+      #000000 100%
+    );
+  background-size: 600% 600%, 400% 400%, 500% 500%, 800% 800%;
+  animation: 
+    heroGradientFlow 25s ease-in-out infinite,
+    heroRadialMove 30s ease-in-out infinite,
+    heroColorShift 20s ease-in-out infinite;
+  z-index: 0;
+}
+
 .footer-animated-background {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg, 
-    #1a0b2e 0%, 
-    #8A2BE2 15%, 
-    #6A5ACD 35%, 
-    #4169E1 50%, 
-    #6A5ACD 65%, 
-    #8A2BE2 85%, 
-    #000000 100%
-  );
-  background-size: 400% 400%;
-  animation: heroGradientFlow 20s ease-in-out infinite;
+  background: 
+    radial-gradient(circle at 60% 20%, rgba(75, 0, 130, 0.9) 0%, transparent 60%),
+    radial-gradient(circle at 20% 60%, rgba(138, 43, 226, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(106, 90, 205, 0.8) 0%, transparent 40%),
+    linear-gradient(
+      225deg, 
+      #000000 0%, 
+      #1a0b2e 15%, 
+      #4B0082 25%, 
+      #8A2BE2 35%, 
+      #6A5ACD 45%, 
+      #4169E1 55%, 
+      #6A5ACD 65%, 
+      #8A2BE2 75%, 
+      #4B0082 85%, 
+      #1a0b2e 95%, 
+      #000000 100%
+    );
+  background-size: 500% 500%, 600% 600%, 400% 400%, 700% 700%;
+  animation: 
+    footerGradientFlow 28s ease-in-out infinite,
+    footerRadialPulse 22s ease-in-out infinite,
+    footerColorWave 18s ease-in-out infinite;
   z-index: 0;
 }
 
+/* Enhanced Hero Animations */
 @keyframes heroGradientFlow {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 50%, 0% 0%, 100% 100%, 0% 50%;
   }
   25% {
-    background-position: 100% 50%;
+    background-position: 100% 50%, 100% 0%, 0% 100%, 100% 50%;
   }
   50% {
-    background-position: 100% 100%;
+    background-position: 100% 100%, 50% 100%, 100% 0%, 100% 100%;
   }
   75% {
-    background-position: 0% 100%;
+    background-position: 0% 100%, 0% 50%, 50% 50%, 0% 100%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0% 50%, 0% 0%, 100% 100%, 0% 50%;
+  }
+}
+
+@keyframes heroRadialMove {
+  0% {
+    background-position: 20% 80%, 80% 20%, 40% 40%, 0% 50%;
+  }
+  33% {
+    background-position: 70% 30%, 30% 70%, 80% 20%, 100% 50%;
+  }
+  66% {
+    background-position: 40% 60%, 60% 40%, 20% 80%, 50% 100%;
+  }
+  100% {
+    background-position: 20% 80%, 80% 20%, 40% 40%, 0% 50%;
+  }
+}
+
+@keyframes heroColorShift {
+  0% {
+    filter: hue-rotate(0deg) brightness(1) contrast(1.2);
+  }
+  25% {
+    filter: hue-rotate(15deg) brightness(1.1) contrast(1.3);
+  }
+  50% {
+    filter: hue-rotate(30deg) brightness(0.9) contrast(1.4);
+  }
+  75% {
+    filter: hue-rotate(15deg) brightness(1.1) contrast(1.1);
+  }
+  100% {
+    filter: hue-rotate(0deg) brightness(1) contrast(1.2);
+  }
+}
+
+/* Enhanced Footer Animations */
+@keyframes footerGradientFlow {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
+  }
+  20% {
+    background-position: 50% 50%, 50% 50%, 100% 0%, 50% 50%;
+  }
+  40% {
+    background-position: 100% 100%, 0% 0%, 0% 100%, 100% 0%;
+  }
+  60% {
+    background-position: 50% 0%, 100% 50%, 50% 50%, 50% 100%;
+  }
+  80% {
+    background-position: 0% 50%, 0% 100%, 100% 0%, 0% 50%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
+  }
+}
+
+@keyframes footerRadialPulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: scale(1.1) rotate(90deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(0.9) rotate(180deg);
+    opacity: 0.7;
+  }
+  75% {
+    transform: scale(1.05) rotate(270deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes footerColorWave {
+  0% {
+    filter: hue-rotate(0deg) saturate(1.2) brightness(0.9);
+  }
+  30% {
+    filter: hue-rotate(-10deg) saturate(1.4) brightness(1.1);
+  }
+  60% {
+    filter: hue-rotate(20deg) saturate(1.1) brightness(0.8);
+  }
+  100% {
+    filter: hue-rotate(0deg) saturate(1.2) brightness(0.9);
+  }
+}
+
+/* Sparkle effect overlay for hero */
+.hero-animated-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.3) 0.8px, transparent 0.8px);
+  background-size: 100px 100px, 150px 150px, 80px 80px, 120px 120px;
+  animation: sparkleMove 15s linear infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Star field effect for footer */
+.footer-animated-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.4) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.5) 0.3px, transparent 0.3px);
+  background-size: 80px 80px, 120px 120px, 90px 90px, 110px 110px;
+  animation: starTwinkle 20s ease-in-out infinite;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+@keyframes sparkleMove {
+  0% {
+    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+  25% {
+    background-position: 25% 25%, -25% 25%, 50% -25%, 25% 50%;
+  }
+  50% {
+    background-position: 50% 50%, -50% 50%, 100% -50%, 50% 100%;
+  }
+  75% {
+    background-position: 75% 25%, -75% 75%, 150% -75%, 75% 150%;
+  }
+  100% {
+    background-position: 100% 0%, -100% 100%, 200% -100%, 100% 200%;
+  }
+}
+
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.1);
   }
 }
 
@@ -442,17 +653,17 @@ select:focus {
 /* Text styling for hero/footer sections */
 .hero-text {
   color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-text-secondary {
   color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .hero-text-muted {
   color: rgba(255, 255, 255, 0.75);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* Content section text colors */
@@ -512,6 +723,12 @@ select:focus {
   .recipe-card {
     margin-bottom: 1rem;
   }
+
+  /* Reduce animation intensity on mobile */
+  .hero-animated-background,
+  .footer-animated-background {
+    animation-duration: 35s, 40s, 30s;
+  }
 }
 
 /* Reduced motion support */
@@ -526,7 +743,13 @@ select:focus {
   .hero-animated-background,
   .footer-animated-background {
     animation: none !important;
-    background: linear-gradient(135deg, #1a0b2e, #8A2BE2, #4169E1);
+    background: linear-gradient(135deg, #1a0b2e, #8A2BE2, #4169E1, #000000);
+  }
+
+  .hero-animated-background::before,
+  .footer-animated-background::before {
+    animation: none !important;
+    opacity: 0.3 !important;
   }
 }
 
@@ -547,6 +770,11 @@ select:focus {
   .hero-animated-background,
   .footer-animated-background {
     background: white !important;
+  }
+  
+  .hero-animated-background::before,
+  .footer-animated-background::before {
+    display: none !important;
   }
   
   * {
@@ -596,4 +824,18 @@ select:focus {
 
 .section-light {
   background-color: var(--light-bg);
+}
+
+/* Performance optimization for animations */
+.hero-animated-background,
+.footer-animated-background {
+  will-change: background-position, transform, filter;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.hero-animated-background::before,
+.footer-animated-background::before {
+  will-change: background-position, opacity, transform;
+  backface-visibility: hidden;
 }
