@@ -295,15 +295,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
-    <div className="min-h-screen bg-orange-50" style={{ 
-      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fed7aa' fill-opacity='0.1'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
-    }}>
+    <div className="min-h-screen relative">
       <article className="py-12 print:py-0">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
           <button 
             onClick={onBack}
-            className="flex items-center text-orange-600 hover:text-orange-700 mb-8 group print:hidden transition-colors"
+            className="flex items-center text-white/90 hover:text-white mb-8 group print:hidden transition-colors"
           >
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
             Tillbaka till receptsamlingen
@@ -311,19 +309,19 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
           {/* Personal story section (if exists) */}
           {recipe.personalStory && (
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8 p-8">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden mb-8 p-8 border border-white/20">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
+                <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
                   <Heart className="text-white" size={24} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-primary-color">En personlig berättelse</h2>
-                  <p className="text-brown-500">Från Maykas hjärta</p>
+                  <h2 className="text-2xl font-bold text-purple-800">En personlig berättelse</h2>
+                  <p className="text-purple-600">Från Maykas hjärta</p>
                 </div>
               </div>
               <div className="prose prose-lg max-w-none">
                 {recipe.personalStory.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-brown-600 leading-relaxed mb-4 last:mb-0">
+                  <p key={index} className="text-purple-700 leading-relaxed mb-4 last:mb-0">
                     {paragraph}
                   </p>
                 ))}
@@ -332,7 +330,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           )}
 
           {/* Recipe header */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden mb-8 border border-white/20">
             <div className="md:flex">
               <div className="md:w-1/2 h-96 md:h-auto">
                 <img 
@@ -346,19 +344,19 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   {recipe.badges.map((badge, index) => (
                     <span 
                       key={index}
-                      className="bg-orange-100 text-orange-800 text-sm py-1 px-3 rounded-full"
+                      className="bg-purple-100 text-purple-700 text-sm py-1 px-3 rounded-full"
                     >
                       {badge}
                     </span>
                   ))}
                 </div>
 
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <h1 className="text-3xl md:text-4xl font-bold text-purple-800 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
                   {recipe.title}
                 </h1>
 
                 {/* Recipe meta */}
-                <div className="flex flex-wrap items-center gap-6 mb-6 text-gray-600">
+                <div className="flex flex-wrap items-center gap-6 mb-6 text-purple-600">
                   <div className="flex items-center">
                     <Clock size={18} className="mr-2" />
                     <span>{recipe.time} minuter</span>
@@ -385,10 +383,10 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       />
                     ))}
                   </div>
-                  <span className="ml-2 text-gray-600">({recipe.rating}/5 • {recipe.reviews} recensioner)</span>
+                  <span className="ml-2 text-purple-600">({recipe.rating}/5 • {recipe.reviews} recensioner)</span>
                 </div>
 
-                <p className="text-gray-700 mb-6 leading-relaxed">
+                <p className="text-purple-700 mb-6 leading-relaxed">
                   {recipe.description}
                 </p>
 
@@ -396,7 +394,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 <div className="flex flex-wrap gap-3">
                   <button 
                     onClick={handlePrint} 
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors"
                   >
                     <Printer size={18} />
                     Skriv ut
@@ -417,7 +415,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   <button 
                     onClick={handleSave}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isSaved ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      isSaved ? 'bg-purple-500 text-white' : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
                     }`}
                   >
                     <Bookmark size={18} fill={isSaved ? "white" : "none"} />
@@ -426,7 +424,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   
                   <button 
                     onClick={handleShare}
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors"
                   >
                     <Share2 size={18} />
                     Dela
@@ -437,19 +435,19 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           </div>
 
           {/* Portions adjuster */}
-          <div className="bg-white rounded-xl p-6 mb-8 shadow-lg">
-            <h3 className="text-lg font-semibold mb-4">Justera portioner</h3>
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 mb-8 shadow-lg border border-white/20">
+            <h3 className="text-lg font-semibold mb-4 text-purple-800">Justera portioner</h3>
             <div className="flex items-center">
               <button 
                 onClick={() => setPortionCount(Math.max(1, portionCount - 1))}
-                className="w-10 h-10 rounded-full bg-orange-100 border border-orange-300 flex items-center justify-center text-orange-700 hover:bg-orange-200 transition-colors"
+                className="w-10 h-10 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors"
               >
                 -
               </button>
-              <span className="mx-4 text-lg font-medium">{portionCount} portioner</span>
+              <span className="mx-4 text-lg font-medium text-purple-800">{portionCount} portioner</span>
               <button 
                 onClick={() => setPortionCount(portionCount + 1)}
-                className="w-10 h-10 rounded-full bg-orange-100 border border-orange-300 flex items-center justify-center text-orange-700 hover:bg-orange-200 transition-colors"
+                className="w-10 h-10 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors"
               >
                 +
               </button>
@@ -460,13 +458,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Ingredients */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl p-6 shadow-lg sticky top-8">
-                <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg sticky top-8 border border-white/20">
+                <h2 className="text-2xl font-bold mb-6 text-purple-800" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Ingredienser
                 </h2>
                 
                 {recipe.allergens && recipe.allergens.length > 0 && (
-                  <div className="mb-6 p-4 bg-yellow-50 rounded-lg flex items-start">
+                  <div className="mb-6 p-4 bg-yellow-50 rounded-lg flex items-start border border-yellow-200">
                     <AlertCircle className="text-yellow-500 mr-3 mt-1 flex-shrink-0" size={20} />
                     <div>
                       <p className="font-medium text-yellow-700">Allergener:</p>
@@ -478,7 +476,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 {recipe.content.ingredients.map((section, index) => (
                   <div key={index} className="mb-6">
                     {section.section && (
-                      <h3 className="text-lg font-semibold text-orange-600 mb-3">
+                      <h3 className="text-lg font-semibold text-purple-600 mb-3">
                         {section.section}
                       </h3>
                     )}
@@ -494,9 +492,9 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                           
                           return (
                             <li key={i} className="flex items-start">
-                              <input type="checkbox" className="mt-1 mr-3 text-orange-500" />
-                              <span>
-                                <strong className="text-orange-600">{adjustedAmount}</strong> {ingredientName}
+                              <input type="checkbox" className="mt-1 mr-3 text-purple-500" />
+                              <span className="text-purple-700">
+                                <strong className="text-purple-600">{adjustedAmount}</strong> {ingredientName}
                               </span>
                             </li>
                           );
@@ -504,8 +502,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                         
                         return (
                           <li key={i} className="flex items-start">
-                            <input type="checkbox" className="mt-1 mr-3 text-orange-500" />
-                            {ingredient}
+                            <input type="checkbox" className="mt-1 mr-3 text-purple-500" />
+                            <span className="text-purple-700">{ingredient}</span>
                           </li>
                         );
                       })}
@@ -517,25 +515,25 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
             {/* Instructions */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
-                <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg mb-8 border border-white/20">
+                <h2 className="text-2xl font-bold mb-6 text-purple-800" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Gör såhär
                 </h2>
                 
                 {recipe.content.instructions.map((section, index) => (
                   <div key={index} className="mb-8">
                     {section.section && (
-                      <h3 className="text-xl font-semibold text-orange-600 mb-4">
+                      <h3 className="text-xl font-semibold text-purple-600 mb-4">
                         {section.section}
                       </h3>
                     )}
                     <ol className="space-y-6">
                       {section.steps.map((step, i) => (
                         <li key={i} className="flex items-start">
-                          <span className="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold mr-4 text-sm">
+                          <span className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold mr-4 text-sm">
                             {i + 1}
                           </span>
-                          <p className="pt-1">{step}</p>
+                          <p className="pt-1 text-purple-700">{step}</p>
                         </li>
                       ))}
                     </ol>
@@ -545,15 +543,15 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
               {/* Tips */}
               {recipe.content.tips && recipe.content.tips.length > 0 && (
-                <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
-                  <h2 className="text-xl font-bold mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg mb-8 border border-white/20">
+                  <h2 className="text-xl font-bold mb-4 text-purple-800" style={{ fontFamily: "'Playfair Display', serif" }}>
                     Tips & variationer
                   </h2>
                   <ul className="space-y-3">
                     {recipe.content.tips.map((tip, index) => (
                       <li key={index} className="flex items-start">
-                        <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 mt-2"></span>
-                        {tip}
+                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-2"></span>
+                        <span className="text-purple-700">{tip}</span>
                       </li>
                     ))}
                   </ul>
@@ -563,14 +561,14 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           </div>
 
           {/* Rating and Comments */}
-          <div className="bg-white rounded-xl p-6 shadow-lg">
-            <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
+            <h2 className="text-2xl font-bold mb-6 text-purple-800" style={{ fontFamily: "'Playfair Display', serif" }}>
               Betygsätt & kommentera
             </h2>
             
             {/* Rating */}
             <div className="flex items-center mb-8">
-              <span className="mr-4">Ditt betyg:</span>
+              <span className="mr-4 text-purple-700">Ditt betyg:</span>
               <div className="flex space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button 
@@ -587,7 +585,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 ))}
               </div>
               {userRating > 0 && (
-                <span className="ml-4 text-gray-600">
+                <span className="ml-4 text-purple-600">
                   {userRating} stjärn{userRating === 1 ? 'a' : 'or'}
                 </span>
               )}
@@ -601,7 +599,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   placeholder="Ditt namn"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="px-4 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                   required
                 />
                 <input
@@ -609,7 +607,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   placeholder="Din e-post (visas ej)"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="px-4 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                   required
                 />
               </div>
@@ -619,13 +617,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 mb-4"
+                className="w-full px-4 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
                 required
               />
               
               <button
                 type="submit"
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 flex items-center"
+                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all duration-300 flex items-center"
               >
                 <Send size={16} className="mr-2" />
                 Skicka kommentar
@@ -633,17 +631,16 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             </form>
             
             {/* Comments list */}
-            
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold flex items-center">
+              <h3 className="text-xl font-semibold flex items-center text-purple-800">
                 <MessageCircle size={20} className="mr-2" />
                 Kommentarer ({comments.length})
               </h3>
               
               {comments.map((comment) => (
-                <div key={comment.id} className="border-b pb-6 last:border-b-0">
+                <div key={comment.id} className="border-b border-purple-100 pb-6 last:border-b-0">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium">{comment.name}</h4>
+                    <h4 className="font-medium text-purple-800">{comment.name}</h4>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
                         <Star 
@@ -655,8 +652,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-500 text-sm mb-3">{comment.date}</p>
-                  <p className="text-gray-700">{comment.text}</p>
+                  <p className="text-purple-500 text-sm mb-3">{comment.date}</p>
+                  <p className="text-purple-700">{comment.text}</p>
                 </div>
               ))}
             </div>
