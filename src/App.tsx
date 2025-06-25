@@ -9,73 +9,117 @@ import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
+import { AnimatedBackgroundPage } from './components/AnimatedBackgroundPage';
 import { LaxRisbowlPost, KaftaBilSejniePost, KoftaBilSaniehPost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
+import FoodBlogBackground from './components/ui/food-blog-background';
+import './styles/animated-background.css';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Simulate initial loading (remove in production if not needed)
+    const timer = setTimeout(() => setIsLoading(false), 100);
+    
     // Optimized hash change detection
     const handleHashChange = () => {
       const newHash = window.location.hash;
       if (newHash !== currentHash) {
         setCurrentHash(newHash);
+        
+        // Smooth scroll to top when navigating between major sections
+        if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/') || newHash === '#animated-background') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     };
 
-    // Add scroll animation functionality
+    // Enhanced scroll animation functionality
     const handleScroll = () => {
       const scrollTriggers = document.querySelectorAll('.scroll-trigger');
+      const windowHeight = window.innerHeight;
+      
       scrollTriggers.forEach(element => {
         const position = element.getBoundingClientRect();
-        if (position.top < window.innerHeight * 0.9) {
+        if (position.top < windowHeight * 0.85) {
           element.classList.add('visible');
         }
       });
     };
 
+    // Event listeners
     window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Trigger once on mount
+    // Initial trigger
     handleScroll();
 
-    // Set page title dynamically based on hash
-    const updatePageTitle = () => {
+    // Dynamic page title and meta description
+    const updatePageMeta = () => {
       let title = "MaykasKitchen - Autentisk assyrisk/syriansk matlagning med Mayka Gulo";
+      let description = "Upptäck smakrika recept och matinspiration från Mayka Gulo, kock och matkreatör med assyrisk/syriansk tradition och passion för säsongsbaserad matlagning";
       
-      if (currentHash === "#recipe/lax-risbowl") {
+      if (currentHash === "#animated-background") {
+        title = "Dynamic Animated Background - MaykasKitchen";
+        description = "En responsiv webbsida med dynamisk animerad bakgrund med linjära gradienter från lila till kunglig blå.";
+      } else if (currentHash === "#recipe/lax-risbowl") {
         title = "Kryddig lax- & risbowl - MaykasKitchen";
-        document.querySelector('meta[name="description"]')?.setAttribute("content", "Recept på kryddig lax- & risbowl. Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Enkelt och smakrikt recept från MaykasKitchen.");
+        description = "Recept på kryddig lax- & risbowl. Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Enkelt och smakrikt recept från MaykasKitchen.";
       } else if (currentHash === "#recipe/kafta-bil-sejnie") {
         title = "Köttbullar i tomatsås (Kafta bil sejnie) - MaykasKitchen";
-        document.querySelector('meta[name="description"]')?.setAttribute("content", "Autentiskt recept på mellanösterns köttbullar i tomatsås. En traditionell assyrisk/syriansk rätt med smakrik tomatsås från MaykasKitchen.");
+        description = "Autentiskt recept på mellanösterns köttbullar i tomatsås. En traditionell assyrisk/syriansk rätt med smakrik tomatsås från MaykasKitchen.";
       } else if (currentHash === "#recipe/kofta-bil-sanieh") {
         title = "Köfta bil Sanieh - MaykasKitchen";
-        document.querySelector('meta[name="description"]')?.setAttribute("content", "Autentiskt syriskt recept på Köfta bil Sanieh. Mellanösterns vardagsfavorit med kryddig köttfärs, potatis och padron paprika i mustig tomatsås.");
+        description = "Autentiskt syriskt recept på Köfta bil Sanieh. Mellanösterns vardagsfavorit med kryddig köttfärs, potatis och padron paprika i mustig tomatsås.";
       } else if (currentHash === "#recipe/pasta-pesto") {
         title = "Pasta pesto med ugnsbakade tomater & stekt halloumi - MaykasKitchen";
-        document.querySelector('meta[name="description"]')?.setAttribute("content", "Smakrik pastarätt med krämig pestosås, ugnsbakade tomater och stekt halloumi - enkel att laga och älskad av hela familjen.");
+        description = "Smakrik pastarätt med krämig pestosås, ugnsbakade tomater och stekt halloumi - enkel att laga och älskad av hela familjen.";
       } else if (currentHash === "#recipe/kyckling-shawarma") {
         title = "Kyckling Shawarma - MaykasKitchen";
-        document.querySelector('meta[name="description"]')?.setAttribute("content", "Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!");
+        description = "Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!";
       } else if (currentHash === "#recept/alla" || currentHash.startsWith("#recept/")) {
         title = "Alla recept - MaykasKitchen";
-        document.querySelector('meta[name="description"]')?.setAttribute("content", "Upptäck alla våra recept - från traditionella assyriska rätter till moderna tolkningar. Fisk, kött, vegetariskt och mycket mer hos MaykasKitchen.");
+        description = "Upptäck alla våra recept - från traditionella assyriska rätter till moderna tolkningar. Fisk, kött, vegetariskt och mycket mer hos MaykasKitchen.";
       }
       
+      // Update title and meta description
       document.title = title;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", description);
+      }
     };
     
-    updatePageTitle();
+    updatePageMeta();
     
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [currentHash]);
 
-  // Recipe pages
+  // Loading screen (optional - remove if not needed)
+  if (isLoading) {
+    return (
+      <FoodBlogBackground className="min-h-screen" variant="default">
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-color mx-auto mb-4"></div>
+            <p className="text-primary-color font-medium">Laddar...</p>
+          </div>
+        </div>
+      </FoodBlogBackground>
+    );
+  }
+
+  // Animated Background Demo Page
+  if (currentHash === "#animated-background") {
+    return <AnimatedBackgroundPage />;
+  }
+
+  // Recipe pages with error boundary
   if (currentHash.startsWith("#recipe/")) {
     const recipeId = currentHash.replace("#recipe/", "");
     
@@ -99,50 +143,82 @@ function App() {
     };
 
     return (
-      <div className="font-sans bg-transparent text-white relative z-10">
-        <Header />
-        <main id="main-content" role="main">
-          <RecipeComponent />
-          <Newsletter />
-        </main>
-        <Footer />
-      </div>
+      <FoodBlogBackground className="min-h-screen" variant="recipes">
+        <div className="font-sans bg-transparent text-text-color relative z-10">
+          <Header />
+          <main id="main-content" role="main">
+            <RecipeComponent />
+            <Newsletter />
+          </main>
+          <Footer />
+        </div>
+      </FoodBlogBackground>
     );
   }
 
   // Recipe list page
   if (currentHash.startsWith("#recept/")) {
     return (
-      <div className="font-sans bg-transparent text-white relative z-10">
+      <FoodBlogBackground className="min-h-screen" variant="recipes">
+        <div className="font-sans bg-transparent text-text-color relative z-10">
+          <Header />
+          <main id="main-content" role="main">
+            <RecipeList />
+            <Newsletter />
+          </main>
+          <Footer />
+        </div>
+      </FoodBlogBackground>
+    );
+  }
+
+  // Home page with different variants for different sections
+  return (
+    <FoodBlogBackground className="min-h-screen" variant="default">
+      <div className="font-sans bg-transparent text-text-color relative z-10">
         <Header />
         <main id="main-content" role="main">
-          <RecipeList />
+          {/* Hero section uses its own special variant */}
+          <div className="relative">
+            <div className="absolute inset-0 z-0">
+              <div className="hero-animated-background"></div>
+            </div>
+            <div className="relative z-10">
+              <Hero />
+            </div>
+          </div>
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          <NewsletterPopup />
+          
+          {/* About section with about variant */}
+          <FoodBlogBackground variant="about" className="relative">
+            <AboutSection />
+          </FoodBlogBackground>
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Recipe section with recipes variant */}
+          <FoodBlogBackground variant="recipes" className="relative">
+            <RecipeSection />
+          </FoodBlogBackground>
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          <CollaborationSection />
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Contact section with contact variant */}
+          <FoodBlogBackground variant="contact" className="relative">
+            <ContactSection />
+          </FoodBlogBackground>
+          
           <Newsletter />
         </main>
         <Footer />
       </div>
-    );
-  }
-
-  // Home page
-  return (
-    <div className="font-sans bg-transparent text-white relative z-10">
-      <Header />
-      <main id="main-content" role="main">
-        <Hero />
-        <div className="section-divider" aria-hidden="true"></div>
-        <NewsletterPopup />
-        <AboutSection />
-        <div className="section-divider" aria-hidden="true"></div>
-        <RecipeSection />
-        <div className="section-divider" aria-hidden="true"></div>
-        <CollaborationSection />
-        <div className="section-divider" aria-hidden="true"></div>
-        <ContactSection />
-        <Newsletter />
-      </main>
-      <Footer />
-    </div>
+    </FoodBlogBackground>
   );
 }
 
