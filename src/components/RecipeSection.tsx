@@ -59,7 +59,7 @@ const RECIPES = [
   }
 ];
 
-export const RecipeSection = () => {
+const RecipeSection = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
   const sectionRef = useRef(null);
 
@@ -224,3 +224,5 @@ export const RecipeSection = () => {
     </section>
   );
 };
+
+export { RecipeSection };
