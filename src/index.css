@@ -384,48 +384,6 @@ button:focus {
   animation: scaleIn 0.5s ease forwards;
 }
 
-/* Animated floating decorations */
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) rotate(0deg); 
-  }
-  50% { 
-    transform: translateY(-15px) rotate(5deg); 
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes bounceSubtle {
-  0%, 100% { 
-    transform: translateY(0) scale(1); 
-  }
-  50% { 
-    transform: translateY(-8px) scale(1.05); 
-  }
-}
-
-.animate-bounce-subtle {
-  animation: bounceSubtle 4s infinite ease-in-out;
-}
-
-@keyframes pulseSubtle {
-  0%, 100% { 
-    opacity: 0.2; 
-    transform: scale(1); 
-  }
-  50% { 
-    opacity: 0.4; 
-    transform: scale(1.1); 
-  }
-}
-
-.animate-pulse-subtle {
-  animation: pulseSubtle 3s infinite ease-in-out;
-}
-
 /* Scroll styling with enhanced performance */
 @media (min-width: 768px) {
   .scroll-trigger {
