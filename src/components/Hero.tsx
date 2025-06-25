@@ -40,20 +40,15 @@ export const Hero = () => {
     <header 
       ref={heroRef}
       id="hero"
-      className="relative py-16 md:py-20 lg:py-24 overflow-hidden w-full min-h-screen flex items-center"
+      className="relative py-16 md:py-20 lg:py-24 overflow-hidden w-full min-h-screen flex items-center bg-beige-50"
       aria-labelledby="hero-heading"
     >
-      {/* Animated Background Layer */}
-      <div className="absolute inset-0 z-0">
-        <div className="hero-animated-background"></div>
-        
-        {/* Overlay gradient for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20"></div>
-      </div>
+      {/* Contact section background styling applied to hero */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-color rounded-full opacity-10 transform translate-x-1/3 -translate-y-1/3 z-0"></div>
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary-color rounded-full opacity-10 transform -translate-x-1/3 translate-y-1/3 z-0"></div>
       
       {/* Floating elements with purple theme */}
-      <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/20 rounded-full animate-float"></div>
+      <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-primary-color/20 rounded-full animate-float"></div>
       <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-purple-300/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
       <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-indigo-300/25 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
       
@@ -64,15 +59,15 @@ export const Hero = () => {
             Assyrisk/syriansk matkonst
           </span>
           
-          <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-tight break-words text-shadow-lg">
-            Mat från hjärtat <span className="block text-purple-200">& själen</span>
+          <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-color mb-4 leading-tight break-words">
+            Mat från hjärtat <span className="block text-secondary-color">& själen</span>
           </h1>
           
-          <p className="text-base md:text-lg lg:text-xl mb-4 text-white/90 leading-relaxed break-words">
+          <p className="text-base md:text-lg lg:text-xl mb-4 text-text-color leading-relaxed break-words">
             Upptäck <mark className="bg-purple-200/90 text-purple-800 font-semibold px-1 rounded">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
           </p>
           
-          <p className="mb-6 md:mb-8 text-white/75 break-words">Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.</p>
+          <p className="mb-6 md:mb-8 text-text-secondary break-words">Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.</p>
           
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-6 md:mb-8">
             <a 
@@ -81,7 +76,7 @@ export const Hero = () => {
                 e.preventDefault();
                 scrollToRecipes();
               }}
-              className="bg-white/90 backdrop-blur-sm text-purple-700 hover:bg-white hover:text-purple-800 transition-all duration-300 py-3 px-6 rounded-full font-semibold flex items-center justify-center group text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="bg-primary-color text-white hover:bg-accent-color transition-all duration-300 py-3 px-6 rounded-full font-semibold flex items-center justify-center group text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               aria-label="Utforska recept"
             >
               <UtensilsCrossed size={18} className="mr-2 transform transition-transform group-hover:rotate-12" />
@@ -90,25 +85,25 @@ export const Hero = () => {
           </div>
 
           <div className="mb-6 md:mb-8">
-            <h4 className="font-semibold mb-3 text-white/90">Följ mig här:</h4>
+            <h4 className="font-semibold mb-3 text-text-color">Följ mig här:</h4>
             <div className="flex flex-wrap gap-3 md:gap-5">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-3 rounded-full transition-all transform hover:scale-110 shadow-lg" 
+                className="bg-purple-50 text-purple-600 hover:bg-purple-100 p-3 rounded-full transition-colors transform hover:scale-110 shadow-lg border border-purple-200" 
                 aria-label="Instagram">
                 <Instagram size={20} />
               </a>
               <a href="https://www.tiktok.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-3 rounded-full transition-all transform hover:scale-110 shadow-lg" 
+                className="bg-purple-50 text-purple-600 hover:bg-purple-100 p-3 rounded-full transition-colors transform hover:scale-110 shadow-lg border border-purple-200" 
                 aria-label="TikTok">
                 <TikTok size={20} />
               </a>
               <a href="https://www.youtube.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-3 rounded-full transition-all transform hover:scale-110 shadow-lg" 
+                className="bg-purple-50 text-purple-600 hover:bg-purple-100 p-3 rounded-full transition-colors transform hover:scale-110 shadow-lg border border-purple-200" 
                 aria-label="YouTube">
                 <Youtube size={20} />
               </a>
               <a href="https://www.facebook.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-3 rounded-full transition-all transform hover:scale-110 shadow-lg" 
+                className="bg-purple-50 text-purple-600 hover:bg-purple-100 p-3 rounded-full transition-colors transform hover:scale-110 shadow-lg border border-purple-200" 
                 aria-label="Facebook">
                 <Facebook size={20} />
               </a>
@@ -142,14 +137,14 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="hidden md:flex items-center text-white/80 text-sm">
+          <div className="hidden md:flex items-center text-text-secondary text-sm">
             <span className="mr-2">Utforska mer</span>
             <button 
               onClick={scrollToRecipes}
-              className="animate-bounce bg-white/20 backdrop-blur-sm h-8 w-8 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent hover:bg-white/30"
+              className="animate-bounce bg-primary-color/20 backdrop-blur-sm h-8 w-8 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-primary-color/50 focus:ring-offset-2 focus:ring-offset-transparent hover:bg-primary-color/30"
               aria-label="Scrolla ner till recept"
             >
-              <ChevronDown size={18} className="text-white" />
+              <ChevronDown size={18} className="text-primary-color" />
             </button>
           </div>
         </div>
@@ -189,7 +184,7 @@ export const Hero = () => {
             
             {/* Quote card with animation - updated styling */}
             <div 
-              className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-xl max-w-xs hidden sm:block transform transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl border border-white/20"
+              className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-xl max-w-xs hidden sm:block transform transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl border border-purple-100"
               style={{ animationDelay: '0.8s' }}
             >
               <p className="text-xs md:text-sm text-purple-700 italic break-words">"Mat är kärlek, och att laga mat är att dela kärlek med andra."</p>
@@ -215,10 +210,10 @@ export const Hero = () => {
       <div className="md:hidden absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <button 
           onClick={scrollToRecipes}
-          className="animate-bounce bg-white/20 backdrop-blur-sm h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"
+          className="animate-bounce bg-primary-color/20 backdrop-blur-sm h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-color/30 transition-all"
           aria-label="Scrolla ner för att utforska recept"
         >
-          <ChevronDown size={20} className="text-white" />
+          <ChevronDown size={20} className="text-primary-color" />
         </button>
       </div>
     </header>

@@ -132,11 +132,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="kontakt" className="py-16 bg-beige-50 relative">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-color rounded-full opacity-10 transform translate-x-1/3 -translate-y-1/3 z-0"></div>
-      <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary-color rounded-full opacity-10 transform -translate-x-1/3 translate-y-1/3 z-0"></div>
-      
+    <section id="kontakt" className="py-16 bg-white relative">
       <div className="container mx-auto px-4 relative z-10">
         <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">Nå mig</span>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">Kontakta mig</h2>
@@ -375,7 +371,7 @@ export const ContactSection = () => {
                 </a>
               </div>
               
-              <div className="mt-6 bg-gradient-to-r from-terracotta-500 to-terracotta-600 text-white p-4 rounded-lg">
+              <div className="mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
                 <p className="font-medium mb-2">Snabbast svar får du via Instagram DM</p>
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
