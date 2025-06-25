@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Clock, Users, Heart, Star, ChevronRight, ArrowLeft, Filter, Tag } from 'lucide-react';
 
-export const RecipeList = () => {
+const RecipeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Alla recept');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -442,3 +442,5 @@ export const RecipeList = () => {
     </div>
   );
 };
+
+export { RecipeList };
