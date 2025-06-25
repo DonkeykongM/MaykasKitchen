@@ -78,7 +78,7 @@ body {
   background: var(--light-bg);
 }
 
-/* Enhanced Animated backgrounds for hero and footer sections */
+/* Enhanced Animated backgrounds for dark sections */
 .hero-animated-background {
   position: absolute;
   top: 0;
@@ -108,6 +108,72 @@ body {
     heroGradientFlow 25s ease-in-out infinite,
     heroRadialMove 30s ease-in-out infinite,
     heroColorShift 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Recipe section animated background */
+.recipe-animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(106, 90, 205, 0.8) 0%, transparent 60%),
+    radial-gradient(circle at 70% 80%, rgba(138, 43, 226, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 20% 60%, rgba(75, 0, 130, 0.9) 0%, transparent 40%),
+    linear-gradient(
+      45deg, 
+      #000000 0%, 
+      #1a0b2e 15%, 
+      #8A2BE2 25%, 
+      #4B0082 35%, 
+      #6A5ACD 45%, 
+      #4169E1 55%, 
+      #6A5ACD 65%, 
+      #8A2BE2 75%, 
+      #4B0082 85%, 
+      #1a0b2e 95%, 
+      #000000 100%
+    );
+  background-size: 500% 500%, 600% 600%, 400% 400%, 700% 700%;
+  animation: 
+    recipeGradientFlow 32s ease-in-out infinite,
+    recipeRadialMove 26s ease-in-out infinite,
+    recipeColorShift 24s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Contact section animated background */
+.contact-animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 40% 30%, rgba(75, 0, 130, 0.9) 0%, transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(106, 90, 205, 0.8) 0%, transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(138, 43, 226, 0.7) 0%, transparent 50%),
+    linear-gradient(
+      225deg, 
+      #000000 0%, 
+      #2a0845 10%, 
+      #4B0082 20%, 
+      #8A2BE2 30%, 
+      #6A5ACD 40%, 
+      #4169E1 50%, 
+      #6A5ACD 60%, 
+      #8A2BE2 70%, 
+      #4B0082 80%, 
+      #2a0845 90%, 
+      #000000 100%
+    );
+  background-size: 400% 400%, 500% 500%, 600% 600%, 800% 800%;
+  animation: 
+    contactGradientFlow 30s ease-in-out infinite,
+    contactRadialPulse 24s ease-in-out infinite,
+    contactColorWave 20s ease-in-out infinite;
   z-index: 0;
 }
 
@@ -195,6 +261,108 @@ body {
   }
 }
 
+/* Recipe Section Animations */
+@keyframes recipeGradientFlow {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
+  }
+  25% {
+    background-position: 50% 50%, 50% 50%, 100% 0%, 50% 50%;
+  }
+  50% {
+    background-position: 100% 100%, 0% 0%, 0% 100%, 100% 0%;
+  }
+  75% {
+    background-position: 50% 0%, 100% 50%, 50% 50%, 50% 100%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
+  }
+}
+
+@keyframes recipeRadialMove {
+  0% {
+    background-position: 30% 20%, 70% 80%, 20% 60%, 0% 100%;
+  }
+  30% {
+    background-position: 80% 40%, 20% 30%, 70% 20%, 50% 50%;
+  }
+  60% {
+    background-position: 50% 80%, 90% 60%, 10% 90%, 100% 0%;
+  }
+  100% {
+    background-position: 30% 20%, 70% 80%, 20% 60%, 0% 100%;
+  }
+}
+
+@keyframes recipeColorShift {
+  0% {
+    filter: hue-rotate(0deg) saturate(1.3) brightness(0.95);
+  }
+  33% {
+    filter: hue-rotate(20deg) saturate(1.1) brightness(1.1);
+  }
+  66% {
+    filter: hue-rotate(-15deg) saturate(1.4) brightness(0.9);
+  }
+  100% {
+    filter: hue-rotate(0deg) saturate(1.3) brightness(0.95);
+  }
+}
+
+/* Contact Section Animations */
+@keyframes contactGradientFlow {
+  0% {
+    background-position: 0% 50%, 50% 100%, 100% 0%, 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%, 0% 50%, 50% 100%, 100% 50%;
+  }
+  50% {
+    background-position: 50% 100%, 100% 0%, 0% 50%, 50% 100%;
+  }
+  75% {
+    background-position: 0% 50%, 50% 100%, 100% 0%, 0% 0%;
+  }
+  100% {
+    background-position: 0% 50%, 50% 100%, 100% 0%, 0% 0%;
+  }
+}
+
+@keyframes contactRadialPulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+  30% {
+    transform: scale(1.1) rotate(120deg);
+    opacity: 0.7;
+  }
+  60% {
+    transform: scale(0.9) rotate(240deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.9;
+  }
+}
+
+@keyframes contactColorWave {
+  0% {
+    filter: hue-rotate(0deg) saturate(1.4) brightness(0.9);
+  }
+  40% {
+    filter: hue-rotate(25deg) saturate(1.1) brightness(1.1);
+  }
+  80% {
+    filter: hue-rotate(-20deg) saturate(1.3) brightness(0.85);
+  }
+  100% {
+    filter: hue-rotate(0deg) saturate(1.4) brightness(0.9);
+  }
+}
+
 /* Enhanced Footer Animations */
 @keyframes footerGradientFlow {
   0% {
@@ -255,8 +423,10 @@ body {
   }
 }
 
-/* Sparkle effect overlay for hero */
-.hero-animated-background::before {
+/* Sparkle/Star overlays for all dark sections */
+.hero-animated-background::before,
+.recipe-animated-background::before,
+.contact-animated-background::before {
   content: '';
   position: absolute;
   top: 0;
@@ -409,6 +579,12 @@ section {
   overflow-x: hidden;
 }
 
+/* Dark sections for recipe, contact, and footer */
+.section-dark {
+  position: relative;
+  overflow: hidden;
+}
+
 /* White sections for content */
 .content-section {
   background-color: white;
@@ -538,13 +714,17 @@ section {
   border-radius: 4px;
 }
 
-/* On hero/footer sections (dark background) */
+/* On dark sections (hero, recipe, contact, footer) */
 .hero-section .nav-link,
+.recipe-section .nav-link,
+.contact-section .nav-link,
 .footer-section .nav-link {
   color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-section .nav-link::after,
+.recipe-section .nav-link::after,
+.contact-section .nav-link::after,
 .footer-section .nav-link::after {
   background-color: white;
 }
@@ -552,6 +732,12 @@ section {
 .hero-section .nav-link:hover,
 .hero-section .nav-link:focus,
 .hero-section .nav-link.active,
+.recipe-section .nav-link:hover,
+.recipe-section .nav-link:focus,
+.recipe-section .nav-link.active,
+.contact-section .nav-link:hover,
+.contact-section .nav-link:focus,
+.contact-section .nav-link.active,
 .footer-section .nav-link:hover,
 .footer-section .nav-link:focus,
 .footer-section .nav-link.active {
@@ -561,6 +747,12 @@ section {
 .hero-section .nav-link:hover::after,
 .hero-section .nav-link:focus::after,
 .hero-section .nav-link.active::after,
+.recipe-section .nav-link:hover::after,
+.recipe-section .nav-link:focus::after,
+.recipe-section .nav-link.active::after,
+.contact-section .nav-link:hover::after,
+.contact-section .nav-link:focus::after,
+.contact-section .nav-link.active::after,
 .footer-section .nav-link:hover::after,
 .footer-section .nav-link:focus::after,
 .footer-section .nav-link.active::after {
@@ -610,7 +802,7 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.25);
 }
 
-/* Updated tag and badge styles */
+/* Updated tag and badge styles with purple/blue theme */
 .tag {
   background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(106, 90, 205, 0.8));
   color: white;
@@ -623,6 +815,29 @@ select:focus {
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Time badges with blue/purple theme instead of orange */
+.time-badge {
+  background: linear-gradient(135deg, #4169E1, #6A5ACD) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Recipe badges with purple/blue theme */
+.recipe-badge {
+  background: linear-gradient(135deg, rgba(106, 90, 205, 0.9), rgba(65, 105, 225, 0.9)) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Popular/trending badges */
+.trending-badge {
+  background: linear-gradient(135deg, #8A2BE2, #4169E1) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Enhanced animations */
@@ -650,18 +865,18 @@ select:focus {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Text styling for hero/footer sections */
-.hero-text {
+/* Text styling for dark sections */
+.dark-text {
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hero-text-secondary {
+.dark-text-secondary {
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-.hero-text-muted {
+.dark-text-muted {
   color: rgba(255, 255, 255, 0.75);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
@@ -726,6 +941,8 @@ select:focus {
 
   /* Reduce animation intensity on mobile */
   .hero-animated-background,
+  .recipe-animated-background,
+  .contact-animated-background,
   .footer-animated-background {
     animation-duration: 35s, 40s, 30s;
   }
@@ -741,12 +958,16 @@ select:focus {
   }
   
   .hero-animated-background,
+  .recipe-animated-background,
+  .contact-animated-background,
   .footer-animated-background {
     animation: none !important;
     background: linear-gradient(135deg, #1a0b2e, #8A2BE2, #4169E1, #000000);
   }
 
   .hero-animated-background::before,
+  .recipe-animated-background::before,
+  .contact-animated-background::before,
   .footer-animated-background::before {
     animation: none !important;
     opacity: 0.3 !important;
@@ -768,11 +989,15 @@ select:focus {
 /* Print styles */
 @media print {
   .hero-animated-background,
+  .recipe-animated-background,
+  .contact-animated-background,
   .footer-animated-background {
     background: white !important;
   }
   
   .hero-animated-background::before,
+  .recipe-animated-background::before,
+  .contact-animated-background::before,
   .footer-animated-background::before {
     display: none !important;
   }
@@ -828,6 +1053,8 @@ select:focus {
 
 /* Performance optimization for animations */
 .hero-animated-background,
+.recipe-animated-background,
+.contact-animated-background,
 .footer-animated-background {
   will-change: background-position, transform, filter;
   backface-visibility: hidden;
@@ -835,6 +1062,8 @@ select:focus {
 }
 
 .hero-animated-background::before,
+.recipe-animated-background::before,
+.contact-animated-background::before,
 .footer-animated-background::before {
   will-change: background-position, opacity, transform;
   backface-visibility: hidden;

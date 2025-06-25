@@ -167,19 +167,19 @@ const RecipeList = () => {
         {/* Back button */}
         <button 
           onClick={handleBack}
-          className="flex items-center text-primary-color hover:text-accent-color mb-8 group"
+          className="flex items-center text-purple-600 hover:text-purple-800 mb-8 group"
         >
           <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
           Tillbaka till startsidan
         </button>
 
-        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">
+        <span className="block text-center text-purple-600 text-sm font-medium mb-2 uppercase tracking-wider">
           Matinspiration
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-purple-700">
           Alla våra recept
         </h2>
-        <p className="text-center mb-8 max-w-2xl mx-auto text-brown-500">
+        <p className="text-center mb-8 max-w-2xl mx-auto text-gray-600">
           Upptäck alla våra recept som kombinerar traditionell assyrisk/syriansk matlagning med moderna smaker och enkla tillagningsmetoder.
         </p>
 
@@ -194,7 +194,7 @@ const RecipeList = () => {
                   placeholder="Sök efter recept..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color"
+                  className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                   aria-label="Sök recept"
                 />
               </div>
@@ -202,7 +202,7 @@ const RecipeList = () => {
               <div className="relative">
                 <button 
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="bg-primary-color text-white px-4 py-3 rounded-lg flex items-center"
+                  className="bg-purple-600 text-white px-4 py-3 rounded-lg flex items-center hover:bg-purple-700 transition-colors"
                   aria-expanded={isFilterOpen}
                 >
                   <Filter size={18} className="mr-2" />
@@ -221,8 +221,8 @@ const RecipeList = () => {
                         }}
                         className={`w-full text-left px-3 py-2 rounded-md mb-1 ${
                           selectedCategory === category 
-                            ? 'bg-primary-color/10 text-primary-color font-medium'
-                            : 'hover:bg-beige-50'
+                            ? 'bg-purple-100 text-purple-700 font-medium'
+                            : 'hover:bg-gray-50'
                         }`}
                       >
                         {category}
@@ -235,42 +235,42 @@ const RecipeList = () => {
 
             {/* Popular tags as quick filters */}
             <div className="flex flex-wrap gap-2 mt-4">
-              <span className="text-sm text-brown-500 mr-1 flex items-center">
+              <span className="text-sm text-gray-500 mr-1 flex items-center">
                 <Tag size={14} className="mr-1" /> Populära:
               </span>
               <button 
                 onClick={() => setSearchTerm('Fisk')}
-                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+                className="text-xs bg-purple-50 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
               >
                 Fisk
               </button>
               <button 
                 onClick={() => setSearchTerm('Vegetariskt')}
-                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+                className="text-xs bg-purple-50 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
               >
                 Vegetariskt
               </button>
               <button 
                 onClick={() => setSearchTerm('Snabb')}
-                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+                className="text-xs bg-purple-50 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
               >
                 Snabbt
               </button>
               <button 
                 onClick={() => setSearchTerm('Traditionell')}
-                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+                className="text-xs bg-purple-50 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
               >
                 Traditionellt
               </button>
               <button 
                 onClick={() => setSearchTerm('Assyriskt')}
-                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+                className="text-xs bg-purple-50 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
               >
                 Assyriskt
               </button>
               <button 
                 onClick={() => setSearchTerm('Syriskt')}
-                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+                className="text-xs bg-purple-50 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-100 transition-colors"
               >
                 Syriskt
               </button>
@@ -281,7 +281,7 @@ const RecipeList = () => {
         {/* Search results count */}
         {searchTerm && (
           <div className="mb-6 text-center">
-            <p className="text-brown-500">
+            <p className="text-gray-500">
               {filteredRecipes.length === 0 
                 ? `Inga recept matchar sökningen "${searchTerm}"` 
                 : `Visar ${filteredRecipes.length} recept för "${searchTerm}"`}
@@ -304,7 +304,7 @@ const RecipeList = () => {
                 setSearchTerm('');
                 setSelectedCategory('Alla recept');
               }}
-              className="bg-primary-color text-white px-6 py-2 rounded-lg hover:bg-accent-color transition-colors"
+              className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
             >
               Visa alla recept
             </button>
@@ -327,14 +327,14 @@ const RecipeList = () => {
                     height="260"
                   />
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="bg-primary-color/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
+                    <span className="time-badge bg-gradient-to-r from-purple-600 to-blue-500 text-white text-xs py-1 px-3 rounded-full flex items-center shadow-lg">
                       <Clock size={12} className="mr-1" /> {recipe.time} min
                     </span>
                   </div>
                   
                   {recipe.trending && (
                     <div className="absolute top-4 right-4">
-                      <span className="bg-accent-color/90 text-white text-xs py-1 px-3 rounded-full">
+                      <span className="trending-badge bg-gradient-to-r from-purple-500 to-blue-500 text-white text-xs py-1 px-3 rounded-full shadow-lg">
                         Populärt
                       </span>
                     </div>
@@ -344,7 +344,7 @@ const RecipeList = () => {
                 <div className="p-6">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {recipe.badges.map((badge, index) => (
-                      <span key={index} className="bg-beige-100 text-brown-500 text-xs py-1 px-3 rounded-full">
+                      <span key={index} className="recipe-badge bg-gradient-to-r from-purple-500 to-blue-500 text-white text-xs py-1 px-3 rounded-full">
                         {badge}
                       </span>
                     ))}
@@ -370,16 +370,16 @@ const RecipeList = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-semibold mb-2 text-brown-700 hover:text-primary-color transition-colors">
+                  <h3 className="text-xl font-semibold mb-2 text-purple-700 hover:text-purple-900 transition-colors">
                     {recipe.title}
                   </h3>
                   
-                  <p className="text-brown-500 mb-4 text-sm line-clamp-2">
+                  <p className="text-gray-600 mb-4 text-sm line-clamp-2">
                     {recipe.description}
                   </p>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-brown-400 text-sm flex items-center">
+                    <span className="text-gray-500 text-sm flex items-center">
                       <Users size={16} className="mr-1" /> {recipe.portions} portioner
                     </span>
                     <button
@@ -387,7 +387,7 @@ const RecipeList = () => {
                         e.stopPropagation();
                         handleRecipeClick(recipe.id, e);
                       }}
-                      className="text-primary-color hover:text-accent-color flex items-center text-sm font-medium group"
+                      className="text-purple-600 hover:text-purple-800 flex items-center text-sm font-medium group"
                     >
                       Visa recept <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -400,40 +400,40 @@ const RecipeList = () => {
 
         {/* Newsletter signup */}
         <div className="mt-16 bg-white p-8 rounded-xl shadow-md max-w-xl mx-auto">
-          <h3 className="text-2xl font-bold text-primary-color mb-3">
+          <h3 className="text-2xl font-bold text-purple-700 mb-3">
             Få nya recept direkt i din inkorg
           </h3>
-          <p className="text-brown-500 mb-6">
+          <p className="text-gray-600 mb-6">
             Prenumerera på mitt nyhetsbrev och få exklusiva recept, säsongstips och inspiration direkt i din inkorg varje månad.
           </p>
           <form className="flex flex-col sm:flex-row gap-2" onSubmit={handleNewsletterSubmit}>
             <input
               type="email"
               placeholder="Din e-postadress"
-              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color"
+              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             <button
               type="submit"
-              className="bg-primary-color text-white px-6 py-2 rounded-lg hover:bg-accent-color transition-colors"
+              className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
             >
               Prenumerera
             </button>
           </form>
           <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-            <div className="flex items-center text-brown-500">
-              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+            <div className="flex items-center text-gray-600">
+              <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
               Nya recept varje månad
             </div>
-            <div className="flex items-center text-brown-500">
-              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+            <div className="flex items-center text-gray-600">
+              <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
               Säsongsbaserade tips
             </div>
-            <div className="flex items-center text-brown-500">
-              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+            <div className="flex items-center text-gray-600">
+              <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
               Exklusiva recept
             </div>
-            <div className="flex items-center text-brown-500">
-              <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+            <div className="flex items-center text-gray-600">
+              <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
               Matlagningstekniker
             </div>
           </div>

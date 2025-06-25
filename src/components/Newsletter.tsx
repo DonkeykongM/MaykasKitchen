@@ -47,29 +47,32 @@ export const Newsletter = () => {
   };
   
   return (
-    <section className="bg-primary-color text-white py-16 relative overflow-hidden">
-      {/* Decorative pattern */}
-      <div className="absolute inset-0 opacity-10">
+    <section className="section-dark relative overflow-hidden py-16">
+      {/* Newsletter animated background - similar to contact */}
+      <div className="contact-animated-background"></div>
+      
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-10 z-0">
         <div className="absolute top-0 left-0 w-20 h-20 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-40 h-40 bg-white rounded-full transform translate-x-1/3 translate-y-1/3"></div>
       </div>
       
       <div className="container mx-auto px-4 text-center relative z-10">
-        <div className="inline-flex items-center justify-center p-2 bg-secondary-color rounded-full mb-6">
-          <Mail className="text-white" size={24} />
+        <div className="inline-flex items-center justify-center p-3 bg-white/25 backdrop-blur-sm rounded-full mb-6 shadow-xl border border-white/30">
+          <Mail className="text-white" size={32} />
         </div>
         
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Få matinspiration direkt i din inkorg</h2>
-        <p className="mb-8 max-w-2xl mx-auto">Prenumerera på mitt nyhetsbrev och få de senaste recepten, säsongsbaserade tips och exklusiva erbjudanden direkt till dig. Jag skickar ut mitt nyhetsbrev ungefär en gång i månaden.</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Få matinspiration direkt i din inkorg</h2>
+        <p className="mb-8 max-w-2xl mx-auto text-white/90">Prenumerera på mitt nyhetsbrev och få de senaste recepten, säsongsbaserade tips och exklusiva erbjudanden direkt till dig. Jag skickar ut mitt nyhetsbrev ungefär en gång i månaden.</p>
         
         <div className="max-w-xl mx-auto">
           {submitStatus === 'success' ? (
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 flex flex-col items-center justify-center animate-fadeIn">
-              <div className="bg-green-500 text-white p-3 rounded-full mb-4">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 flex flex-col items-center justify-center animate-fadeIn border border-white/30 shadow-xl">
+              <div className="bg-green-500 text-white p-3 rounded-full mb-4 shadow-lg">
                 <Check size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Tack för din prenumeration!</h3>
-              <p className="mb-0">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
+              <h3 className="text-xl font-bold mb-2 text-white">Tack för din prenumeration!</h3>
+              <p className="mb-0 text-white/90">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -79,14 +82,14 @@ export const Newsletter = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Din e-postadress" 
-                  className={`w-full px-4 py-3 rounded-lg border text-brown-800 border-transparent focus:outline-none focus:ring-2 focus:ring-secondary-color ${
-                    submitStatus === 'error' ? 'border-red-500 bg-red-50' : ''
+                  className={`w-full px-4 py-3 rounded-lg border border-white/30 text-purple-900 border-transparent focus:outline-none focus:ring-2 focus:ring-white/50 bg-white/95 backdrop-blur-sm shadow-lg ${
+                    submitStatus === 'error' ? 'border-red-500 bg-red-50/95' : ''
                   }`}
                   aria-label="Din e-postadress"
                   disabled={submitStatus === 'submitting'}
                 />
                 {submitStatus === 'error' && (
-                  <div className="absolute -bottom-6 left-0 text-xs text-white/90 bg-red-600 px-2 py-1 rounded-sm">
+                  <div className="absolute -bottom-6 left-0 text-xs text-white bg-red-600 px-2 py-1 rounded-sm">
                     {errorMessage}
                   </div>
                 )}
@@ -94,7 +97,7 @@ export const Newsletter = () => {
               <button 
                 type="submit"
                 disabled={submitStatus === 'submitting'}
-                className="bg-secondary-color text-white px-6 py-3 rounded-lg hover:bg-olive-400 transition-all font-semibold flex items-center justify-center group whitespace-nowrap disabled:opacity-70"
+                className="bg-white/25 backdrop-blur-sm text-white px-6 py-3 rounded-lg hover:bg-white hover:text-purple-700 transition-all font-semibold flex items-center justify-center group whitespace-nowrap disabled:opacity-70 border border-white/30 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 {submitStatus === 'submitting' ? (
                   <span className="flex items-center">
@@ -115,7 +118,7 @@ export const Newsletter = () => {
           )}
           
           <div className="mt-8 text-sm text-white/80">
-            <p>Genom att prenumerera godkänner du att få mitt nyhetsbrev och accepterar min <a href="#" className="underline hover:text-white">integritetspolicy</a>. Du kan avsluta prenumerationen när som helst.</p>
+            <p>Genom att prenumerera godkänner du att få mitt nyhetsbrev och accepterar min <a href="#" className="underline hover:text-white transition-colors">integritetspolicy</a>. Du kan avsluta prenumerationen när som helst.</p>
           </div>
         </div>
       </div>
