@@ -56,7 +56,6 @@ export const CollaborationSection = () => {
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
               <h3 className="text-2xl font-semibold mb-4">Vill du samarbeta med mig?</h3>
-              <p className="mb-4">Min målgrupp består främst av kvinnor mellan 25-54 år som är intresserade av mat, familjeliv, odling, hållbarhet och vardagsinspiration.</p>
               <p>Engagemanget är högt och communityt är varmt, aktivt och lojalt med en äkta passion för god mat och autentiska recept.</p>
             </div>
             <div className="md:w-1/3 flex justify-center">
