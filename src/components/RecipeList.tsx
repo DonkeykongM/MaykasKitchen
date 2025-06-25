@@ -16,6 +16,20 @@ export const RecipeList = () => {
 
   const recipes = [
     {
+      id: 'kofta-bil-sanieh',
+      title: 'Köfta bil Sanieh',
+      description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',
+      image: '/public/recipes/kofta-bil-sanieh.jpeg',
+      time: '60',
+      portions: '8',
+      likes: 89,
+      rating: 4.9,
+      reviews: 45,
+      badges: ['Kött', 'Traditionell', 'Syriskt', 'Mellanöstern'],
+      trending: true,
+      difficulty: 'Medel'
+    },
+    {
       id: 'lax-risbowl',
       title: 'Kryddig lax- & risbowl',
       description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
@@ -77,6 +91,8 @@ export const RecipeList = () => {
     'Vegetariskt',
     'Snabbt (under 30 min)',
     'Assyriskt',
+    'Syriskt',
+    'Mellanöstern',
     'Glutenfritt',
     'Kött',
     'Fisk'
@@ -101,7 +117,8 @@ export const RecipeList = () => {
       recipe.badges.some(badge => badge.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const matchesCategory = selectedCategory === 'Alla recept' ||
-      recipe.badges.some(badge => badge === selectedCategory);
+      recipe.badges.some(badge => badge === selectedCategory) ||
+      (selectedCategory === 'Snabbt (under 30 min)' && parseInt(recipe.time) <= 30);
 
     return matchesSearch && matchesCategory;
   });
@@ -251,6 +268,12 @@ export const RecipeList = () => {
               >
                 Assyriskt
               </button>
+              <button 
+                onClick={() => setSearchTerm('Syriskt')}
+                className="text-xs bg-beige-50 text-brown-500 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors"
+              >
+                Syriskt
+              </button>
             </div>
           </div>
         </div>
@@ -291,7 +314,7 @@ export const RecipeList = () => {
             {filteredRecipes.map((recipe) => (
               <div
                 key={recipe.id}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer"
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer recipe-card"
                 onClick={(e) => handleRecipeClick(recipe.id, e)}
               >
                 <div className="relative h-48 overflow-hidden">

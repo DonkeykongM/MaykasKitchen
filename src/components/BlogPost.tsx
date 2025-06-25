@@ -160,6 +160,111 @@ const recipes = {
       ]
     }
   },
+  'kofta-bil-sanieh': {
+    id: 'kofta-bil-sanieh',
+    title: 'Köfta bil Sanieh',
+    description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika i mustig tomatsås.',
+    image: '/public/recipes/kofta-bil-sanieh.jpeg',
+    time: '60',
+    portions: '8',
+    likes: 89,
+    rating: 4.9,
+    reviews: 45,
+    badges: ['Kött', 'Traditionell', 'Syriskt', 'Mellanöstern'],
+    videoUrl: '',
+    difficulty: 'Medel',
+    nutritionInfo: {
+      calories: '450 kcal',
+      protein: '32g',
+      carbs: '35g',
+      fat: '22g',
+      fiber: '5g',
+      salt: '1.8g'
+    },
+    allergens: ['Kan innehålla spår av gluten'],
+    personalStory: 'Köfta bil Sanieh är en rätt som doftar av barndom, gemenskap och kryddor från det syriska köket. Mina föräldrar kommer från Syrien och just den här rätten har alltid haft en självklar plats vid våra matbord. Det var ofta den som stod i ugnen när vi samlades med släktingar, högljudda och hungriga, med skratt och samtal som blandades med doften av stekt lök och tomatsås.\n\nDet är enkel mat, men med djup. Kryddig köttfärs blandas med lök, persilja och värmande smaker. Potatis och biffarna varvas i ugnsformen och får sjuda ihop i en mustig tomatsås tills allt är mjukt, saftigt och dofterna liksom vilar kvar i köket långt efter att maten är uppäten.\n\nFör mig bär Köfta bil Sanieh inte bara smaken av Mellanöstern, utan också smaken av min familj, vår historia och de där stunderna då vi verkligen var tillsammans.',
+    content: {
+      ingredients: [
+        {
+          section: 'Köftabiffarna',
+          items: [
+            '1kg nötfärs (gärna 10–15 % fetthalt)',
+            '2 st salladslök hackad fint eller riv den',
+            '1 knippe persilja, finhackad',
+            '3 vitlöksklyftor',
+            '3 msk olivolja',
+            '1 msk salt',
+            '1 tsk svartpeppar',
+            '1 tsk garamasala'
+          ]
+        },
+        {
+          section: 'Grönsakerna',
+          items: [
+            'Ca 4 st (fasta) potatisar, skalade och klyftade',
+            '5-6 st padron paprika'
+          ]
+        },
+        {
+          section: 'Tomatsåsen',
+          items: [
+            '3 dl vatten',
+            '1 msk tomatpuré',
+            '1 tsk lökpulver',
+            '1 tsk salt',
+            '1 tsk chiliflakes',
+            'Olja till att steka/panera potatis och biffar'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          section: 'Förbered järparna',
+          steps: [
+            'Hacka lök, vitlök och persilja fint (gärna i matberedare). Blanda i olivolja och alla kryddorna och mixa fint. Blanda örtoljan i färsen och knåda ihop till en jämn smet. Forma färsen till lika stora järpar.'
+          ]
+        },
+        {
+          section: 'Förstek potatisen',
+          steps: [
+            'Halvstek potatisskivorna i olja tills de är gyllenbruna men inte helt genomstekta. Detta ser till att potatisarna blir klara i ugnen.'
+          ]
+        },
+        {
+          section: 'Stek järparna lätt',
+          steps: [
+            'Snabbstek biffarna i het panna 1–2 minuter per sida för smak och för att de ska hålla formen.'
+          ]
+        },
+        {
+          section: 'Varva i ugnsform',
+          steps: [
+            'Lägg järparna och potatisklyftorna i en smörad form - varva järpar och potatis.'
+          ]
+        },
+        {
+          section: 'Häll på tomatsås',
+          steps: [
+            'Rör ihop tomatpuré och vatten. Smaka av med kryddorna. Häll över så att det täcker ingredienserna nästan helt.'
+          ]
+        },
+        {
+          section: 'Grädda',
+          steps: [
+            'Baka i 250°C i ca 20 minuter, sedan lägg på padron paprikorna och baka i ytterligare 15 min.',
+            'Ta ut och servera med ris eller bara som den är med lite bröd till, supergott!'
+          ]
+        }
+      ],
+      tips: [
+        'Garama masala ger en autentisk smak - finns i mellanösternbutiker',
+        'Padron paprika kan ersättas med annan mild paprika',
+        'För bästa resultat, använd färs med lite högre fetthalt för saftigare järpar',
+        'Rätten smakar ännu bättre dagen efter när smakerna hunnit sätta sig',
+        'Servera gärna med basmatiris och lite yoghurt på sidan'
+      ]
+    }
+  },
   'pasta-pesto': {
     id: 'pasta-pesto',
     title: 'Pasta pesto med ugnsbakade tomater & stekt halloumi',
@@ -396,6 +501,14 @@ export const KaftaBilSejniePost = () => {
   };
 
   return <RecipeDetails recipe={recipes['kafta-bil-sejnie']} onBack={handleBack} />;
+};
+
+export const KoftaBilSaniehPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['kofta-bil-sanieh']} onBack={handleBack} />;
 };
 
 export const PastaPestoPost = () => {

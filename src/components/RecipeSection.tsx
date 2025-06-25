@@ -4,6 +4,20 @@ import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 // Receptdata - direkt i komponenten för snabbare laddning
 const RECIPES = [
   {
+    id: 'kofta-bil-sanieh',
+    title: 'Köfta bil Sanieh',
+    description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',
+    image: '/public/recipes/kofta-bil-sanieh.jpeg',
+    time: '60',
+    portions: '8',
+    likes: 89,
+    rating: 4.9,
+    reviews: 45,
+    badges: ['Kött', 'Traditionell', 'Syriskt'],
+    difficulty: 'Medel',
+    trending: true
+  },
+  {
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
     description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
@@ -40,20 +54,8 @@ const RECIPES = [
     rating: 4.9,
     reviews: 79,
     badges: ['Vegetariskt', 'Snabb', 'Pasta'],
-    difficulty: 'Lätt'
-  },
-  {
-    id: 'kyckling-shawarma',
-    title: 'Kyckling Shawarma',
-    description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
-    image: '/image.png',
-    time: '120',
-    portions: '5',
-    likes: 89,
-    rating: 5.0,
-    reviews: 23,
-    badges: ['Kött', 'Mellanöstern', 'Familj'],
-    difficulty: 'Medel'
+    difficulty: 'Lätt',
+    trending: true
   }
 ];
 
@@ -113,7 +115,7 @@ export const RecipeSection = () => {
           {RECIPES.map(recipe => (
             <article 
               key={recipe.id} 
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card"
               onClick={(e) => handleRecipeClick(recipe.id, e)}
             >
               {/* Receptbild med direkt klickevent */}
@@ -131,9 +133,16 @@ export const RecipeSection = () => {
                     <Clock size={12} className="mr-1" /> {recipe.time} min
                   </span>
                 </div>
-                {recipe.difficulty && (
+                {recipe.trending && (
                   <div className="absolute top-4 right-4">
                     <span className="bg-accent-color/90 text-white text-xs py-1 px-3 rounded-full">
+                      Populärt
+                    </span>
+                  </div>
+                )}
+                {recipe.difficulty && (
+                  <div className="absolute bottom-4 left-4">
+                    <span className="bg-white/90 text-brown-700 text-xs py-1 px-3 rounded-full">
                       {recipe.difficulty}
                     </span>
                   </div>

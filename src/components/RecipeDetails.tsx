@@ -14,6 +14,7 @@ interface RecipeDetailsProps {
     reviews: number;
     badges: string[];
     videoUrl: string;
+    personalStory?: string;
     content: {
       ingredients: {
         section?: string;
@@ -117,6 +118,43 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           rating: 5,
           date: "10 december 2024",
           text: "Helt fantastiskt recept! Gjorde med vermicellinudlar och ris precis som du föreslår - blev så autentiskt och gott! Familjen var över månen ⭐"
+        }
+      ],
+      'kofta-bil-sanieh': [
+        {
+          id: 1,
+          name: "Yasmin Al-Khoury",
+          rating: 5,
+          date: "3 januari 2025",
+          text: "Detta recept tar mig tillbaka till min mormors kök! Så autentiskt och fyllt med kärlek. Tack för att du delar våra syriska traditioner så vackert ❤️🇸🇾"
+        },
+        {
+          id: 2,
+          name: "Carl Magnusson",
+          rating: 5,
+          date: "30 december 2024",
+          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga 🌶️"
+        },
+        {
+          id: 3,
+          name: "Fatima Assad",
+          rating: 5,
+          date: "28 december 2024",
+          text: "Som syriska känner jag igen varje smak från min barndom. Du har verkligen fångat essensen av vårt kök. Mina barn älskar det också! 👨‍👩‍👧‍👦"
+        },
+        {
+          id: 4,
+          name: "Erik Johansson",
+          rating: 5,
+          date: "22 december 2024",
+          text: "Första gången jag provade garama masala - vilken skillnad det gör! Hela rätten var så välbalanserad och mättande. Kommer bli en favorit hos oss 🧄"
+        },
+        {
+          id: 5,
+          name: "Mariam Sabbagh",
+          rating: 5,
+          date: "18 december 2024",
+          text: "Exakt som min mamma gör! Du har fångat alla de små detaljerna som gör denna rätt så speciell. Tack för att du sprider vår matkultur 🙏"
         }
       ],
       'pasta-pesto': [
@@ -270,6 +308,28 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
             Tillbaka till receptsamlingen
           </button>
+
+          {/* Personal story section (if exists) */}
+          {recipe.personalStory && (
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8 p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
+                  <Heart className="text-white" size={24} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-primary-color">En personlig berättelse</h2>
+                  <p className="text-brown-500">Från Maykas hjärta</p>
+                </div>
+              </div>
+              <div className="prose prose-lg max-w-none">
+                {recipe.personalStory.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-brown-600 leading-relaxed mb-4 last:mb-0">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Recipe header */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
@@ -573,6 +633,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             </form>
             
             {/* Comments list */}
+            
             <div className="space-y-6">
               <h3 className="text-xl font-semibold flex items-center">
                 <MessageCircle size={20} className="mr-2" />

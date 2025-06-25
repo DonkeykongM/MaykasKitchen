@@ -9,7 +9,7 @@ import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
-import { LaxRisbowlPost, KaftaBilSejniePost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
+import { LaxRisbowlPost, KaftaBilSejniePost, KoftaBilSaniehPost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
 import FoodBlogBackground from './components/ui/food-blog-background';
 
 function App() {
@@ -64,6 +64,9 @@ function App() {
       } else if (currentHash === "#recipe/kafta-bil-sejnie") {
         title = "Köttbullar i tomatsås (Kafta bil sejnie) - MaykasKitchen";
         description = "Autentiskt recept på mellanösterns köttbullar i tomatsås. En traditionell assyrisk/syriansk rätt med smakrik tomatsås från MaykasKitchen.";
+      } else if (currentHash === "#recipe/kofta-bil-sanieh") {
+        title = "Köfta bil Sanieh - MaykasKitchen";
+        description = "Autentiskt syriskt recept på Köfta bil Sanieh. Mellanösterns vardagsfavorit med kryddig köttfärs, potatis och padron paprika i mustig tomatsås.";
       } else if (currentHash === "#recipe/pasta-pesto") {
         title = "Pasta pesto med ugnsbakade tomater & stekt halloumi - MaykasKitchen";
         description = "Smakrik pastarätt med krämig pestosås, ugnsbakade tomater och stekt halloumi - enkel att laga och älskad av hela familjen.";
@@ -116,6 +119,8 @@ function App() {
           return <LaxRisbowlPost />;
         case "kafta-bil-sejnie":
           return <KaftaBilSejniePost />;
+        case "kofta-bil-sanieh":
+          return <KoftaBilSaniehPost />;
         case "pasta-pesto":
           return <PastaPestoPost />;
         case "kyckling-shawarma":
