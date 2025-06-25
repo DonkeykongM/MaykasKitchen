@@ -124,8 +124,8 @@ export const Header = () => {
     <header 
       className={`sticky top-0 z-50 transition-all duration-300 w-full ${
         isScrolled 
-          ? 'py-2 shadow-lg bg-white/95 backdrop-blur-md border-b border-gray-200' 
-          : 'py-4 bg-white shadow-sm'
+          ? 'py-2 shadow-lg bg-white/10 backdrop-blur-md border-b border-white/20' 
+          : 'py-4 bg-white/5 backdrop-blur-sm'
       }`}
       role="banner"
     >
@@ -143,10 +143,10 @@ export const Header = () => {
             className="flex items-center group min-w-0 flex-shrink-0"
             aria-label="MaykasKitchen, gå till startsidan"
           >
-            <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-primary-color/10 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 group-hover:bg-primary-color/20 group-hover:scale-110 flex-shrink-0">
-              <Salad className="w-4 h-4 md:w-6 md:h-6 text-primary-color transition-colors group-hover:text-primary-color" />
+            <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-white/20 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 group-hover:bg-white/30 group-hover:scale-110 flex-shrink-0 backdrop-blur-sm">
+              <Salad className="w-4 h-4 md:w-6 md:h-6 text-white transition-colors" />
             </div>
-            <span className="text-lg md:text-2xl font-bold text-primary-color tracking-tight truncate transition-colors group-hover:text-accent-color">
+            <span className="text-lg md:text-2xl font-bold text-white tracking-tight truncate transition-colors">
               MaykasKitchen
             </span>
           </a>
@@ -156,8 +156,8 @@ export const Header = () => {
             <a 
               href="#om-mig" 
               onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
-                activeSection === 'om-mig' ? 'text-primary-color active' : ''
+              className={`nav-link text-white/90 hover:text-white transition-colors whitespace-nowrap ${
+                activeSection === 'om-mig' ? 'text-white active' : ''
               }`}
               aria-current={activeSection === 'om-mig' ? 'page' : undefined}
             >
@@ -166,8 +166,8 @@ export const Header = () => {
             <a 
               href="#recept" 
               onClick={(e) => handleNavLinkClick(e, 'recept')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
-                activeSection === 'recept' ? 'text-primary-color active' : ''
+              className={`nav-link text-white/90 hover:text-white transition-colors whitespace-nowrap ${
+                activeSection === 'recept' ? 'text-white active' : ''
               }`}
               aria-current={activeSection === 'recept' ? 'page' : undefined}
             >
@@ -176,8 +176,8 @@ export const Header = () => {
             <a 
               href="#samarbeten" 
               onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
-                activeSection === 'samarbeten' ? 'text-primary-color active' : ''
+              className={`nav-link text-white/90 hover:text-white transition-colors whitespace-nowrap ${
+                activeSection === 'samarbeten' ? 'text-white active' : ''
               }`}
               aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
             >
@@ -187,7 +187,7 @@ export const Header = () => {
               href="https://www.instagram.com/maykaskitchen/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="nav-link text-brown-500 hover:text-primary-color transition-colors flex items-center whitespace-nowrap"
+              className="nav-link text-white/90 hover:text-white transition-colors flex items-center whitespace-nowrap"
               aria-label="Besök min Instagram (öppnas i nytt fönster)"
             >
               <Instagram size={16} className="mr-1" aria-hidden="true" /> 
@@ -197,7 +197,7 @@ export const Header = () => {
             {/* Search button with keyboard shortcut hint */}
             <button 
               onClick={toggleSearch} 
-              className="text-brown-500 hover:text-primary-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-2 relative group"
+              className="text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 rounded-full p-2 relative group bg-white/10 backdrop-blur-sm"
               aria-label={`Sök (${navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'} + K)`}
               aria-expanded={isSearchOpen}
               title={`Sök (${navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + K)`}
@@ -209,7 +209,7 @@ export const Header = () => {
             <a 
               href="#kontakt" 
               onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-              className="btn-primary transform hover:scale-105 transition-all duration-300 whitespace-nowrap focus:ring-2 focus:ring-primary-color focus:ring-offset-2"
+              className="btn-primary transform hover:scale-105 transition-all duration-300 whitespace-nowrap focus:ring-2 focus:ring-white/50 focus:ring-offset-2"
             >
               Kontakt
             </a>
@@ -219,7 +219,7 @@ export const Header = () => {
           <div className="lg:hidden flex items-center space-x-3">
             <button 
               onClick={toggleSearch} 
-              className="text-brown-500 hover:text-primary-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
+              className="text-white/90 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 rounded-full p-2 bg-white/10 backdrop-blur-sm"
               aria-label="Sök"
               aria-expanded={isSearchOpen}
             >
@@ -227,7 +227,7 @@ export const Header = () => {
             </button>
             <button 
               onClick={toggleMenu} 
-              className="text-brown-500 hover:text-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
+              className="text-white/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 rounded-full p-2 bg-white/10 backdrop-blur-sm"
               aria-label={isMenuOpen ? "Stäng meny" : "Öppna meny"}
               aria-expanded={isMenuOpen}
             >
@@ -239,7 +239,7 @@ export const Header = () => {
       
       {/* Enhanced Search Panel */}
       <div 
-        className={`bg-white border-t border-gray-100 shadow-lg py-4 transform transition-all duration-300 ease-in-out ${
+        className={`bg-white/95 backdrop-blur-md border-t border-white/20 shadow-lg py-4 transform transition-all duration-300 ease-in-out ${
           isSearchOpen 
             ? 'translate-y-0 opacity-100' 
             : '-translate-y-full opacity-0 pointer-events-none'
@@ -257,15 +257,15 @@ export const Header = () => {
               ref={searchInputRef}
               type="text"
               placeholder="Sök efter recept, ingredienser eller tekniker..."
-              className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-primary-color pr-10 text-base"
+              className="w-full px-4 py-3 pl-12 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 pr-10 text-base bg-white/95 backdrop-blur-sm text-purple-900"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoComplete="off"
             />
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} aria-hidden="true" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400" size={20} aria-hidden="true" />
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-full p-1"
               aria-label="Stäng sökning"
               onClick={toggleSearch}
             >
@@ -275,13 +275,13 @@ export const Header = () => {
           
           {/* Popular searches */}
           <div className="mt-4">
-            <p className="text-sm text-gray-500 mb-2">Populära sökningar:</p>
+            <p className="text-sm text-purple-600 mb-2">Populära sökningar:</p>
             <div className="flex flex-wrap gap-2">
               {popularSearches.map((search) => (
                 <button 
                   key={search}
                   onClick={() => setSearchTerm(search)} 
-                  className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-1"
+                  className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1"
                   type="button"
                 >
                   {search}
@@ -294,7 +294,7 @@ export const Header = () => {
       
       {/* Enhanced Mobile Menu */}
       <nav 
-        className={`lg:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden transition-all duration-300 ease-in-out w-full ${
+        className={`lg:hidden bg-white/95 backdrop-blur-md border-t border-white/20 shadow-lg overflow-hidden transition-all duration-300 ease-in-out w-full ${
           isMenuOpen 
             ? 'max-h-screen opacity-100' 
             : 'max-h-0 opacity-0 pointer-events-none'
@@ -307,8 +307,8 @@ export const Header = () => {
           <a 
             href="#om-mig" 
             onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-            className={`text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors ${
-              activeSection === 'om-mig' ? 'text-primary-color' : ''
+            className={`text-purple-700 hover:text-purple-900 font-medium py-3 border-b border-purple-100 flex items-center transition-colors ${
+              activeSection === 'om-mig' ? 'text-purple-900' : ''
             }`}
             aria-current={activeSection === 'om-mig' ? 'page' : undefined}
           >
@@ -317,8 +317,8 @@ export const Header = () => {
           <a 
             href="#recept" 
             onClick={(e) => handleNavLinkClick(e, 'recept')}
-            className={`text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors ${
-              activeSection === 'recept' ? 'text-primary-color' : ''
+            className={`text-purple-700 hover:text-purple-900 font-medium py-3 border-b border-purple-100 flex items-center transition-colors ${
+              activeSection === 'recept' ? 'text-purple-900' : ''
             }`}
             aria-current={activeSection === 'recept' ? 'page' : undefined}
           >
@@ -327,8 +327,8 @@ export const Header = () => {
           <a 
             href="#samarbeten" 
             onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-            className={`text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors ${
-              activeSection === 'samarbeten' ? 'text-primary-color' : ''
+            className={`text-purple-700 hover:text-purple-900 font-medium py-3 border-b border-purple-100 flex items-center transition-colors ${
+              activeSection === 'samarbeten' ? 'text-purple-900' : ''
             }`}
             aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
           >
@@ -338,7 +338,7 @@ export const Header = () => {
             href="https://www.instagram.com/maykaskitchen/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors"
+            className="text-purple-700 hover:text-purple-900 font-medium py-3 border-b border-purple-100 flex items-center transition-colors"
             aria-label="Besök min Instagram (öppnas i nytt fönster)"
           >
             <Instagram size={18} className="mr-2" aria-hidden="true" /> 
@@ -347,7 +347,7 @@ export const Header = () => {
           <a 
             href="#kontakt" 
             onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-            className="bg-primary-color text-white py-3 px-6 rounded-lg text-center hover:bg-accent-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 font-medium"
+            className="btn-primary text-center font-medium"
           >
             Kontakt
           </a>

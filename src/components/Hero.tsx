@@ -13,7 +13,6 @@ export const Hero = () => {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Keep animations running when in viewport
             setIsVisible(true);
           }
         });
@@ -43,15 +42,6 @@ export const Hero = () => {
       className="relative py-16 md:py-20 lg:py-24 overflow-hidden w-full min-h-screen flex items-center"
       aria-labelledby="hero-heading"
     >
-      {/* Animated Background Layer */}
-      <div className="absolute inset-0 z-0">
-        <div className="hero-animated-background"></div>
-        
-        {/* Overlay gradient for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10"></div>
-      </div>
-      
       {/* Floating elements */}
       <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/20 rounded-full animate-float"></div>
       <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-white/15 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>

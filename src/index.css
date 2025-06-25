@@ -10,60 +10,38 @@
     --card-foreground: 92 70 55;
     --popover: 255 255 255;
     --popover-foreground: 92 70 55;
-    --primary: 184 99 68;
+    --primary: 138 43 226; /* Updated to purple */
     --primary-foreground: 255 255 255;
-    --secondary: 138 154 91;
+    --secondary: 65 105 225; /* Updated to royal blue */
     --secondary-foreground: 255 255 255;
     --muted: 245 241 226;
     --muted-foreground: 139 134 109;
-    --accent: 42 67 86;
+    --accent: 106 90 205; /* Updated to slate blue */
     --accent-foreground: 255 255 255;
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
     --border: 229 219 188;
     --input: 229 219 188;
-    --ring: 184 99 68;
+    --ring: 138 43 226;
     --radius: 0.5rem;
     
-    /* Enhanced color system with better contrast */
-    --primary-color: #B86344;
-    --secondary-color: #8A9A5B;
-    --accent-color: #2A4356;
-    --text-color: #3D2914;
-    --text-secondary: #5C4637;
-    --light-bg: #F9F6F2;
-    --surface: #FFFFFF;
-    --surface-variant: #FEF9F3;
+    /* Updated color system to match hero gradient */
+    --primary-color: #8A2BE2; /* Purple */
+    --secondary-color: #4169E1; /* Royal Blue */
+    --accent-color: #6A5ACD; /* Slate Blue */
+    --text-color: #2D1B69; /* Dark purple for text */
+    --text-secondary: #4C4C6D; /* Muted purple for secondary text */
+    --light-bg: transparent; /* No background - let animated background show */
+    --surface: rgba(255, 255, 255, 0.95);
+    --surface-variant: rgba(255, 255, 255, 0.85);
     --error: #D32F2F;
     --warning: #F57C00;
     --success: #2E7D32;
     --info: #1976D2;
   }
-
-  .dark {
-    --background: 26 26 26;
-    --foreground: 245 241 226;
-    --card: 42 67 86;
-    --card-foreground: 245 241 226;
-    --popover: 42 67 86;
-    --popover-foreground: 245 241 226;
-    --primary: 184 99 68;
-    --primary-foreground: 255 255 255;
-    --secondary: 138 154, 91;
-    --secondary-foreground: 255 255 255;
-    --muted: 42 67 86;
-    --muted-foreground: 163 158 138;
-    --accent: 138 154 91;
-    --accent-foreground: 255 255 255;
-    --destructive: 239 68 68;
-    --destructive-foreground: 255 255 255;
-    --border: 84 70 55;
-    --input: 84 70 55;
-    --ring: 184 99 68;
-  }
 }
 
-/* Enhanced base styles with single scroll */
+/* Enhanced base styles with single background */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -82,7 +60,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  overflow-y: auto; /* Single vertical scroll */
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -92,27 +70,11 @@ body {
   position: relative;
 }
 
-/* Prevent multiple scroll containers */
-* {
-  box-sizing: border-box;
-}
-
+/* Single animated background for entire page */
 #root {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-}
-
-/* Hero section animated background */
-.hero-animated-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  
-  /* Primary gradient background - Purple to Royal Blue */
   background: linear-gradient(
     135deg, 
     #8A2BE2 0%, 
@@ -121,23 +83,12 @@ body {
     #6A5ACD 75%, 
     #8A2BE2 100%
   );
-  
-  /* Fallback color */
-  background-color: #6A5ACD;
-  
-  /* Flowing animation effect */
   background-size: 400% 400%;
-  animation: heroFlowingGradient 15s ease-in-out infinite,
-             heroOpacityPulse 15s ease-in-out infinite;
-  
-  /* Performance optimizations */
-  will-change: background-position, opacity;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
+  animation: unifiedGradientFlow 20s ease-in-out infinite;
 }
 
-/* Hero-specific animation keyframes */
-@keyframes heroFlowingGradient {
+/* Single background animation for entire page */
+@keyframes unifiedGradientFlow {
   0% {
     background-position: 0% 50%;
   }
@@ -155,56 +106,44 @@ body {
   }
 }
 
-@keyframes heroOpacityPulse {
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
+/* Remove hero-specific background since we have unified background */
+.hero-animated-background {
+  display: none;
 }
 
-/* Text shadow utility for better readability on animated background */
-.text-shadow-lg {
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Enhanced typography */
+/* Enhanced typography with purple theme */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.5em;
   line-height: 1.2;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: var(--text-color);
+  color: white;
   font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
-  color: var(--accent-color);
   margin-bottom: 0.75rem;
 }
 
 h2 {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 600;
-  color: var(--primary-color);
   margin-bottom: 0.75rem;
 }
 
 h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
-  color: var(--accent-color);
   margin-bottom: 0.5rem;
 }
 
 h4 {
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 600;
-  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
@@ -212,7 +151,7 @@ p {
   margin-bottom: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
 }
 
@@ -242,28 +181,30 @@ p {
   }
 }
 
-/* Enhanced sections */
+/* Enhanced sections with consistent styling */
 section {
   position: relative;
   z-index: 10;
   overflow-x: hidden;
 }
 
-/* Improved component styling with better contrast */
+/* Improved component styling with purple theme */
 .bg-white {
-  background-color: rgba(255, 255, 255, 0.97) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(229, 219, 188, 0.3);
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
 }
 
 .bg-beige-50 {
-  background-color: rgba(249, 246, 242, 0.95) !important;
-  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* Enhanced button styles */
+/* Updated button styles with purple theme */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), #A55A3E);
+  background: linear-gradient(135deg, #8A2BE2, #6A5ACD);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
@@ -278,24 +219,26 @@ section {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(184, 99, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(184, 99, 68, 0.4);
-  background: linear-gradient(135deg, #A55A3E, var(--primary-color));
+  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+  background: linear-gradient(135deg, #6A5ACD, #4169E1);
 }
 
 .btn-primary:focus {
-  outline: 3px solid rgba(184, 99, 68, 0.4);
+  outline: 3px solid rgba(138, 43, 226, 0.4);
   outline-offset: 2px;
 }
 
 .btn-secondary {
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
@@ -308,50 +251,52 @@ section {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary:hover {
-  background-color: var(--primary-color);
-  color: white;
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(184, 99, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .btn-secondary:focus {
-  outline: 3px solid rgba(184, 99, 68, 0.4);
+  outline: 3px solid rgba(255, 255, 255, 0.4);
   outline-offset: 2px;
 }
 
-/* Enhanced recipe cards */
+/* Enhanced recipe cards with purple theme */
 .recipe-card {
-  background-color: rgba(255, 255, 255, 0.97) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(229, 219, 188, 0.3);
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
   transition: all 0.3s ease;
   will-change: transform;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
 }
 
 .recipe-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  border-color: var(--primary-color);
+  box-shadow: 0 12px 40px rgba(138, 43, 226, 0.25);
+  border-color: rgba(138, 43, 226, 0.5);
 }
 
 .recipe-card:focus-within {
-  outline: 3px solid rgba(184, 99, 68, 0.4);
+  outline: 3px solid rgba(138, 43, 226, 0.4);
   outline-offset: 2px;
 }
 
-/* Navigation improvements */
+/* Navigation improvements with purple theme */
 .nav-link {
   position: relative;
   font-weight: 500;
   transition: color 0.3s ease;
   padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .nav-link::after {
@@ -361,8 +306,14 @@ section {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--primary-color);
+  background-color: white;
   transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link.active {
+  color: white;
 }
 
 .nav-link:hover::after,
@@ -372,77 +323,45 @@ section {
 }
 
 .nav-link:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid white;
   outline-offset: 4px;
   border-radius: 4px;
 }
 
-/* Enhanced form elements */
+/* Enhanced form elements with purple theme */
 input, textarea, select {
   max-width: 100%;
   width: 100%;
-  border: 2px solid rgba(229, 219, 188, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 0.5rem;
   padding: 0.75rem;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
 }
 
 input:focus, 
 textarea:focus, 
 select:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(184, 99, 68, 0.25);
+  border-color: #8A2BE2;
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.25);
 }
 
-input:invalid,
-textarea:invalid {
-  border-color: var(--error);
-}
-
-/* Enhanced accessibility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.skip-to-content {
-  position: absolute;
-  left: -9999px;
-  z-index: 999;
-  padding: 1rem 1.5rem;
-  background-color: var(--primary-color);
+/* Updated tag and badge styles */
+.tag {
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(106, 90, 205, 0.8));
   color: white;
-  text-decoration: none;
-  border-radius: 0 0 0.5rem 0.5rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.skip-to-content:focus {
-  left: 1rem;
-  top: 1rem;
-  opacity: 1;
-  outline: 3px solid white;
-}
-
-/* Performance optimizations */
-.will-change-transform {
-  will-change: transform;
-}
-
-.gpu-acceleration {
-  transform: translate3d(0, 0, 0);
+  font-size: 0.8rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Enhanced animations */
@@ -468,6 +387,29 @@ textarea:invalid {
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+/* Text shadow utilities for better readability */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Special styling for content on animated background */
+.prose {
+  color: white;
+}
+
+.prose h2, .prose h3, .prose h4 {
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.prose p {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Mobile optimizations */
@@ -503,11 +445,6 @@ textarea:invalid {
   button {
     font-size: 16px; /* Prevents iOS zoom */
   }
-
-  /* Ensure hero takes full viewport on mobile */
-  #hero {
-    min-height: 100vh;
-  }
 }
 
 @media (max-width: 640px) {
@@ -530,14 +467,9 @@ textarea:invalid {
     scroll-behavior: auto !important;
   }
   
-  .hero-animated-background {
+  #root {
     animation: none !important;
     background: linear-gradient(135deg, #8A2BE2, #4169E1);
-    opacity: 0.9;
-  }
-  
-  .will-change-transform {
-    will-change: auto;
   }
 }
 
@@ -552,16 +484,21 @@ textarea:invalid {
     border: 2px solid CanvasText;
   }
   
-  .hero-animated-background {
+  #root {
     background: Canvas;
   }
 }
 
 /* Print styles */
 @media print {
-  body {
+  #root {
     background: white !important;
     color: black !important;
+  }
+  
+  * {
+    color: black !important;
+    text-shadow: none !important;
   }
   
   .no-print,
@@ -569,15 +506,6 @@ textarea:invalid {
   footer,
   nav,
   .newsletter {
-    display: none !important;
-  }
-  
-  .container {
-    max-width: none !important;
-    padding: 0 !important;
-  }
-  
-  .hero-animated-background {
     display: none !important;
   }
 }
@@ -592,18 +520,18 @@ textarea:invalid {
 }
 
 .focus-ring {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid white;
   outline-offset: 2px;
 }
 
 .elevation-1 {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(138, 43, 226, 0.1);
 }
 
 .elevation-2 {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 8px rgba(138, 43, 226, 0.15);
 }
 
 .elevation-3 {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 16px rgba(138, 43, 226, 0.2);
 }
