@@ -40,82 +40,58 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'primary-color': '#B86344', // Terracotta/rust color from logo
-        'secondary-color': '#8A9A5B', // Olive green from logo
-        'accent-color': '#2A4356', // Keeping deep blue as an accent
-        'text-color': '#5C4637', // Rich brown for text
-        'light-bg': '#F5F1E2', // Beige background from logo
-        'pink': {
-          50: '#FEF5F7',
-          100: '#FDEAEE',
-          200: '#FACFD5',
-          300: '#F8B4BE',
-          400: '#F69CAC',
-          500: '#F38599',
-          600: '#D4757F',
-          700: '#B56067',
-          800: '#964C52',
-          900: '#773C40'
+        'primary-color': '#800080', // Purple
+        'secondary-color': '#000000', // Black
+        'accent-color': '#4B0082', // Indigo
+        'text-color': '#1A1A1A', // Dark gray for readability
+        'light-bg': '#F8F8FF', // Ghost white
+        'purple': {
+          50: '#F8F5FF',
+          100: '#F0EBFF',
+          200: '#E2D7FF',
+          300: '#D4C3FF',
+          400: '#C6AFFF',
+          500: '#B89BFF',
+          600: '#800080', // Main purple
+          700: '#6B006B',
+          800: '#560056',
+          900: '#400040'
         },
-        'blue': {
-          50: '#E6EAEF',
-          100: '#C0CBD7',
-          200: '#96A8BC',
-          300: '#6C85A0',
-          400: '#4D6B8B',
-          500: '#2A4356',
-          600: '#253D4F',
-          700: '#1F3445',
-          800: '#182C3C',
-          900: '#121F2B'
+        'indigo': {
+          50: '#F0F0FF',
+          100: '#E6E6FF',
+          200: '#CCCCFF',
+          300: '#B3B3FF',
+          400: '#9999FF',
+          500: '#8080FF',
+          600: '#4B0082', // Deep purple
+          700: '#3D006B',
+          800: '#2F0054',
+          900: '#21003D'
         },
-        'beige': {
-          50: '#F5F1E2', // Match the background color from the logo
-          100: '#F0EAD8',
-          200: '#E5DBBC',
-          300: '#D7C9A0',
-          400: '#C9B785',
-          500: '#BBA56A',
-          600: '#A89255',
-          700: '#8D7A48',
-          800: '#73633C',
-          900: '#5A4E2F'
+        'gray': {
+          50: '#F8F8FF',
+          100: '#F0F0F5',
+          200: '#E8E8ED',
+          300: '#D0D0D8',
+          400: '#B8B8C3',
+          500: '#A0A0AE',
+          600: '#808088',
+          700: '#606068',
+          800: '#404048',
+          900: '#1A1A1A'
         },
-        'brown': {
-          50: '#EFEAE7',
-          100: '#D7CBC3',
-          200: '#BDAA9C',
-          300: '#A38974',
-          400: '#7D6854',
-          500: '#5C4637',
-          600: '#544032',
-          700: '#49372C',
-          800: '#3F2E25',
-          900: '#34251F'
-        },
-        'terracotta': {
-          50: '#F9EFEC',
-          100: '#F0D7CE',
-          200: '#E6BCAD',
-          300: '#DCA28B',
-          400: '#D58D72',
-          500: '#B86344', // Match the logo's terracotta color
-          600: '#A55A3E',
-          700: '#8C4D35',
-          800: '#73402C',
-          900: '#5A3323'
-        },
-        'olive': {
-          50: '#F2F4EE',
-          100: '#E2E9D7',
-          200: '#D1DCBE',
-          300: '#B9C89E',
-          400: '#A2B47E',
-          500: '#8A9A5B', // Match the logo's olive green color
-          600: '#768345',
-          700: '#616C39',
-          800: '#4E572E',
-          900: '#3A4223'
+        'violet': {
+          50: '#F5F3FF',
+          100: '#EDE9FE',
+          200: '#DDD6FE',
+          300: '#C4B5FD',
+          400: '#A78BFA',
+          500: '#8B5CF6',
+          600: '#7C3AED',
+          700: '#6D28D9',
+          800: '#5B21B6',
+          900: '#4C1D95'
         }
       },
       fontFamily: {
@@ -198,9 +174,11 @@ export default {
       },
       boxShadow: {
         'soft': '0 4px 20px rgba(0, 0, 0, 0.08)',
-        'hover': '0 10px 25px rgba(0, 0, 0, 0.1)',
+        'hover': '0 10px 25px rgba(75, 0, 130, 0.15)',
         'card': '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
         'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+        'purple': '0 4px 12px rgba(128, 0, 128, 0.3)',
+        'purple-lg': '0 6px 20px rgba(128, 0, 128, 0.4)',
       },
       transitionProperty: {
         'height': 'height',

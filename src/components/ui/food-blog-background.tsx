@@ -49,64 +49,64 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
   const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
   const animationRef = useRef<number>();
 
-  // Expanded food icons array with 15 different icons
+  // Updated food icons array with purple and black color scheme
   const foodIcons = useMemo(() => [
-    { icon: <ChefHat className="w-full h-full" />, color: "#B86344" },
-    { icon: <Coffee className="w-full h-full" />, color: "#8A9A5B" },
-    { icon: <Utensils className="w-full h-full" />, color: "#2A4356" },
-    { icon: <Heart className="w-full h-full" />, color: "#B86344" },
-    { icon: <Star className="w-full h-full" />, color: "#8A9A5B" },
-    { icon: <Clock className="w-full h-full" />, color: "#2A4356" },
-    { icon: <Apple className="w-full h-full" />, color: "#B86344" },
-    { icon: <Fish className="w-full h-full" />, color: "#2A4356" },
-    { icon: <Wheat className="w-full h-full" />, color: "#8A9A5B" },
-    { icon: <Cookie className="w-full h-full" />, color: "#B86344" },
-    { icon: <Soup className="w-full h-full" />, color: "#2A4356" },
-    { icon: <Pizza className="w-full h-full" />, color: "#B86344" },
-    { icon: <Cherry className="w-full h-full" />, color: "#8A9A5B" },
-    { icon: <Grape className="w-full h-full" />, color: "#2A4356" },
-    { icon: <Croissant className="w-full h-full" />, color: "#B86344" }
+    { icon: <ChefHat className="w-full h-full" />, color: "#800080" },
+    { icon: <Coffee className="w-full h-full" />, color: "#4B0082" },
+    { icon: <Utensils className="w-full h-full" />, color: "#2E0054" },
+    { icon: <Heart className="w-full h-full" />, color: "#800080" },
+    { icon: <Star className="w-full h-full" />, color: "#4B0082" },
+    { icon: <Clock className="w-full h-full" />, color: "#2E0054" },
+    { icon: <Apple className="w-full h-full" />, color: "#800080" },
+    { icon: <Fish className="w-full h-full" />, color: "#4B0082" },
+    { icon: <Wheat className="w-full h-full" />, color: "#2E0054" },
+    { icon: <Cookie className="w-full h-full" />, color: "#800080" },
+    { icon: <Soup className="w-full h-full" />, color: "#4B0082" },
+    { icon: <Pizza className="w-full h-full" />, color: "#2E0054" },
+    { icon: <Cherry className="w-full h-full" />, color: "#800080" },
+    { icon: <Grape className="w-full h-full" />, color: "#4B0082" },
+    { icon: <Croissant className="w-full h-full" />, color: "#2E0054" }
   ], []);
 
-  // Variant-specific background configurations with 20-second animations
+  // Variant-specific background configurations with purple/black theme
   const getBackgroundConfig = () => {
     switch (variant) {
       case 'hero':
         return {
-          gradient: 'linear-gradient(135deg, #8A2BE2 0%, #6A5ACD 25%, #4169E1 50%, #6A5ACD 75%, #8A2BE2 100%)',
-          opacity: { min: 0.8, max: 1 },
+          gradient: 'linear-gradient(135deg, #800080 0%, #4B0082 25%, #2E0054 50%, #1A001A 75%, #000000 100%)',
+          opacity: { min: 0.9, max: 1 },
           elementCount: 15,
           animationSpeed: 0.4,
           iconOpacity: { min: 0.3, max: 0.6 }
         };
       case 'recipes':
         return {
-          gradient: 'linear-gradient(135deg, #B86344 0%, #A55A3E 25%, #8A9A5B 50%, #A55A3E 75%, #B86344 100%)',
-          opacity: { min: 0.7, max: 0.9 },
+          gradient: 'linear-gradient(135deg, #4B0082 0%, #800080 25%, #2E0054 50%, #800080 75%, #4B0082 100%)',
+          opacity: { min: 0.8, max: 0.95 },
           elementCount: 13,
           animationSpeed: 0.3,
           iconOpacity: { min: 0.25, max: 0.5 }
         };
       case 'about':
         return {
-          gradient: 'linear-gradient(135deg, #8A9A5B 0%, #7A8A4B 25%, #2A4356 50%, #7A8A4B 75%, #8A9A5B 100%)',
-          opacity: { min: 0.6, max: 0.8 },
+          gradient: 'linear-gradient(135deg, #2E0054 0%, #4B0082 25%, #800080 50%, #4B0082 75%, #2E0054 100%)',
+          opacity: { min: 0.7, max: 0.85 },
           elementCount: 12,
           animationSpeed: 0.25,
           iconOpacity: { min: 0.2, max: 0.4 }
         };
       case 'contact':
         return {
-          gradient: 'linear-gradient(135deg, #2A4356 0%, #1F3A4C 25%, #B86344 50%, #1F3A4C 75%, #2A4356 100%)',
-          opacity: { min: 0.7, max: 0.9 },
+          gradient: 'linear-gradient(135deg, #1A001A 0%, #2E0054 25%, #4B0082 50%, #2E0054 75%, #000000 100%)',
+          opacity: { min: 0.8, max: 0.95 },
           elementCount: 12,
           animationSpeed: 0.35,
           iconOpacity: { min: 0.25, max: 0.5 }
         };
       default:
         return {
-          gradient: 'linear-gradient(135deg, #F9F6F2 0%, #FEF9F3 25%, #F5F1E2 50%, #FEF9F3 75%, #F9F6F2 100%)',
-          opacity: { min: 0.8, max: 1 },
+          gradient: 'linear-gradient(135deg, #F8F8FF 0%, #F5F5FF 25%, #F0F0F5 50%, #F5F5FF 75%, #F8F8FF 100%)',
+          opacity: { min: 0.9, max: 1 },
           elementCount: 10,
           animationSpeed: 0.2,
           iconOpacity: { min: 0.15, max: 0.3 }
@@ -124,13 +124,13 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
         id: i,
         x: Math.random() * 85 + 10,
         y: Math.random() * 85 + 10,
-        size: Math.random() * 45 + 30, // Larger icons for better visibility
+        size: Math.random() * 45 + 30,
         speed: Math.random() * config.animationSpeed + 0.1,
         direction: Math.random() * Math.PI * 2,
         icon: iconData.icon,
         color: iconData.color,
-        animationDelay: i * 0.8, // Staggered animation delays
-        rotationSpeed: Math.random() * 2 + 1, // Individual rotation speeds
+        animationDelay: i * 0.8,
+        rotationSpeed: Math.random() * 2 + 1,
         opacity: Math.random() * (config.iconOpacity.max - config.iconOpacity.min) + config.iconOpacity.min
       };
     });
@@ -182,7 +182,7 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
     };
   }, []);
 
-  // Enhanced blob configurations
+  // Enhanced blob configurations with purple theme
   const blobPositions = useMemo(() => 
     Array.from({ length: 8 }, (_, i) => ({
       left: (Math.random() * 70) + 15,
@@ -219,10 +219,10 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(circle at 25% 25%, rgba(184, 99, 68, 0.15) 0%, transparent 60%),
-              radial-gradient(circle at 75% 75%, rgba(138, 154, 91, 0.15) 0%, transparent 60%),
-              radial-gradient(circle at 50% 10%, rgba(42, 67, 86, 0.12) 0%, transparent 50%),
-              radial-gradient(circle at 20% 80%, rgba(184, 99, 68, 0.12) 0%, transparent 50%)
+              radial-gradient(circle at 25% 25%, rgba(128, 0, 128, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 75% 75%, rgba(75, 0, 130, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 50% 10%, rgba(46, 0, 84, 0.12) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(128, 0, 128, 0.12) 0%, transparent 50%)
             `,
             animation: 'overlayMovement 25s ease-in-out infinite'
           }}
@@ -334,7 +334,7 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
         <div 
           className="absolute inset-0 opacity-[0.05] mix-blend-soft-light"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23B86344' fill-opacity='0.6'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23800080' fill-opacity='0.6'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             animation: 'textureMove 40s linear infinite'
           }}
         />

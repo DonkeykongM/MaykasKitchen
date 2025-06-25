@@ -48,14 +48,14 @@ export const Hero = () => {
         <div className="hero-animated-background"></div>
         
         {/* Overlay gradient for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20"></div>
       </div>
       
-      {/* Floating elements */}
+      {/* Floating elements with purple theme */}
       <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/20 rounded-full animate-float"></div>
-      <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-white/15 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-white/25 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-purple-300/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-indigo-300/25 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -65,11 +65,11 @@ export const Hero = () => {
           </span>
           
           <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-tight break-words text-shadow-lg">
-            Mat från hjärtat <span className="block text-yellow-200">& själen</span>
+            Mat från hjärtat <span className="block text-purple-200">& själen</span>
           </h1>
           
           <p className="text-base md:text-lg lg:text-xl mb-4 text-white/90 leading-relaxed break-words">
-            Upptäck <mark className="bg-yellow-200/90 text-purple-800 font-semibold px-1 rounded">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
+            Upptäck <mark className="bg-purple-200/90 text-purple-800 font-semibold px-1 rounded">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
           </p>
           
           <p className="mb-6 md:mb-8 text-white/75 break-words">Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.</p>
@@ -121,7 +121,7 @@ export const Hero = () => {
               className="bg-white/80 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-lg text-xs font-medium text-purple-700 flex items-center transform transition-all hover:scale-105 hover:shadow-xl hover:bg-white/90"
               style={{ transitionDelay: '0.1s' }}
             >
-              <span className="bg-gradient-to-r from-purple-500 to-blue-500 w-2 h-2 rounded-full mr-2 animate-pulse"></span>
+              <span className="bg-gradient-to-r from-purple-500 to-indigo-500 w-2 h-2 rounded-full mr-2 animate-pulse"></span>
               <strong className="mr-1">125k+</strong> följare på Instagram
             </div>
             
@@ -129,7 +129,7 @@ export const Hero = () => {
               className="bg-white/80 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-lg text-xs font-medium text-purple-700 flex items-center transform transition-all hover:scale-105 hover:shadow-xl hover:bg-white/90"
               style={{ transitionDelay: '0.2s' }}
             >
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 w-2 h-2 rounded-full mr-2 animate-pulse"></span>
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 w-2 h-2 rounded-full mr-2 animate-pulse"></span>
               Säsongsbaserade recept
             </div>
             
@@ -137,7 +137,7 @@ export const Hero = () => {
               className="bg-white/80 backdrop-blur-sm py-2 px-3 md:px-4 rounded-full shadow-lg text-xs font-medium text-purple-700 flex items-center transform transition-all hover:scale-105 hover:shadow-xl hover:bg-white/90"
               style={{ transitionDelay: '0.3s' }}
             >
-              <span className="bg-gradient-to-r from-purple-600 to-blue-400 w-2 h-2 rounded-full mr-2 animate-pulse"></span>
+              <span className="bg-gradient-to-r from-purple-600 to-indigo-400 w-2 h-2 rounded-full mr-2 animate-pulse"></span>
               Autentisk matlagning
             </div>
           </div>

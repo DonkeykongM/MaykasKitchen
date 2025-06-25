@@ -4,36 +4,36 @@
 
 @layer base {
   :root {
-    --background: 245 241 226;
-    --foreground: 92 70 55;
+    --background: 248 248 255;
+    --foreground: 16 16 16;
     --card: 255 255 255;
-    --card-foreground: 92 70 55;
+    --card-foreground: 16 16 16;
     --popover: 255 255 255;
-    --popover-foreground: 92 70 55;
-    --primary: 184 99 68;
+    --popover-foreground: 16 16 16;
+    --primary: 128 0 128;
     --primary-foreground: 255 255 255;
-    --secondary: 138 154 91;
+    --secondary: 0 0 0;
     --secondary-foreground: 255 255 255;
-    --muted: 245 241 226;
-    --muted-foreground: 139 134 109;
-    --accent: 42 67 86;
+    --muted: 240 240 250;
+    --muted-foreground: 100 100 120;
+    --accent: 75 0 130;
     --accent-foreground: 255 255 255;
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
-    --border: 229 219 188;
-    --input: 229 219 188;
-    --ring: 184 99 68;
+    --border: 220 220 235;
+    --input: 220 220 235;
+    --ring: 128 0 128;
     --radius: 0.5rem;
     
-    /* Enhanced color system with better contrast */
-    --primary-color: #B86344;
-    --secondary-color: #8A9A5B;
-    --accent-color: #2A4356;
-    --text-color: #3D2914;
-    --text-secondary: #5C4637;
-    --light-bg: #F9F6F2;
+    /* Enhanced color system with purple and black theme */
+    --primary-color: #800080;
+    --secondary-color: #000000;
+    --accent-color: #4B0082;
+    --text-color: #1A1A1A;
+    --text-secondary: #404040;
+    --light-bg: #F8F8FF;
     --surface: #FFFFFF;
-    --surface-variant: #FEF9F3;
+    --surface-variant: #F5F5FF;
     --error: #D32F2F;
     --warning: #F57C00;
     --success: #2E7D32;
@@ -41,25 +41,25 @@
   }
 
   .dark {
-    --background: 26 26 26;
-    --foreground: 245 241 226;
-    --card: 42 67 86;
-    --card-foreground: 245 241 226;
-    --popover: 42 67 86;
-    --popover-foreground: 245 241 226;
-    --primary: 184 99 68;
+    --background: 16 16 16;
+    --foreground: 248 248 255;
+    --card: 32 32 32;
+    --card-foreground: 248 248 255;
+    --popover: 32 32 32;
+    --popover-foreground: 248 248 255;
+    --primary: 128 0 128;
     --primary-foreground: 255 255 255;
-    --secondary: 138 154, 91;
+    --secondary: 64 64 64;
     --secondary-foreground: 255 255 255;
-    --muted: 42 67 86;
-    --muted-foreground: 163 158 138;
-    --accent: 138 154 91;
+    --muted: 32 32 32;
+    --muted-foreground: 160 160 180;
+    --accent: 75 0 130;
     --accent-foreground: 255 255 255;
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
-    --border: 84 70 55;
-    --input: 84 70 55;
-    --ring: 184 99 68;
+    --border: 48 48 64;
+    --input: 48 48 64;
+    --ring: 128 0 128;
   }
 }
 
@@ -82,7 +82,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  overflow-y: auto; /* Single vertical scroll */
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -103,7 +103,7 @@ body {
   position: relative;
 }
 
-/* Hero section animated background */
+/* Hero section animated background - Updated to purple/black theme */
 .hero-animated-background {
   position: absolute;
   top: 0;
@@ -112,18 +112,18 @@ body {
   height: 100%;
   z-index: 0;
   
-  /* Primary gradient background - Purple to Royal Blue */
+  /* Primary gradient background - Purple to Deep Purple to Black */
   background: linear-gradient(
     135deg, 
-    #8A2BE2 0%, 
-    #6A5ACD 25%, 
-    #4169E1 50%, 
-    #6A5ACD 75%, 
-    #8A2BE2 100%
+    #800080 0%, 
+    #4B0082 25%, 
+    #2E0054 50%, 
+    #1A001A 75%, 
+    #000000 100%
   );
   
   /* Fallback color */
-  background-color: #6A5ACD;
+  background-color: #4B0082;
   
   /* Flowing animation effect */
   background-size: 400% 400%;
@@ -157,7 +157,7 @@ body {
 
 @keyframes heroOpacityPulse {
   0%, 100% {
-    opacity: 0.8;
+    opacity: 0.9;
   }
   50% {
     opacity: 1;
@@ -166,10 +166,10 @@ body {
 
 /* Text shadow utility for better readability on animated background */
 .text-shadow-lg {
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Enhanced typography */
+/* Enhanced typography with better contrast */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.5em;
@@ -251,19 +251,19 @@ section {
 
 /* Improved component styling with better contrast */
 .bg-white {
-  background-color: rgba(255, 255, 255, 0.97) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(220, 220, 235, 0.4);
+}
+
+.bg-light {
+  background-color: rgba(248, 248, 255, 0.95) !important;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(229, 219, 188, 0.3);
 }
 
-.bg-beige-50 {
-  background-color: rgba(249, 246, 242, 0.95) !important;
-  backdrop-filter: blur(6px);
-}
-
-/* Enhanced button styles */
+/* Enhanced button styles with purple theme */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), #A55A3E);
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
@@ -278,24 +278,24 @@ section {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(184, 99, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(184, 99, 68, 0.4);
-  background: linear-gradient(135deg, #A55A3E, var(--primary-color));
+  box-shadow: 0 6px 20px rgba(128, 0, 128, 0.4);
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
 }
 
 .btn-primary:focus {
-  outline: 3px solid rgba(184, 99, 68, 0.4);
+  outline: 3px solid rgba(128, 0, 128, 0.4);
   outline-offset: 2px;
 }
 
 .btn-secondary {
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
@@ -314,19 +314,19 @@ section {
   background-color: var(--primary-color);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(184, 99, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
 }
 
 .btn-secondary:focus {
-  outline: 3px solid rgba(184, 99, 68, 0.4);
+  outline: 3px solid rgba(128, 0, 128, 0.4);
   outline-offset: 2px;
 }
 
-/* Enhanced recipe cards */
+/* Enhanced recipe cards with purple theme */
 .recipe-card {
-  background-color: rgba(255, 255, 255, 0.97) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(229, 219, 188, 0.3);
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(220, 220, 235, 0.4);
   border-radius: 1rem;
   transition: all 0.3s ease;
   will-change: transform;
@@ -337,16 +337,16 @@ section {
 
 .recipe-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px rgba(75, 0, 130, 0.15);
   border-color: var(--primary-color);
 }
 
 .recipe-card:focus-within {
-  outline: 3px solid rgba(184, 99, 68, 0.4);
+  outline: 3px solid rgba(128, 0, 128, 0.4);
   outline-offset: 2px;
 }
 
-/* Navigation improvements */
+/* Navigation improvements with purple theme */
 .nav-link {
   position: relative;
   font-weight: 500;
@@ -377,16 +377,16 @@ section {
   border-radius: 4px;
 }
 
-/* Enhanced form elements */
+/* Enhanced form elements with purple theme */
 input, textarea, select {
   max-width: 100%;
   width: 100%;
-  border: 2px solid rgba(229, 219, 188, 0.8);
+  border: 2px solid rgba(220, 220, 235, 0.8);
   border-radius: 0.5rem;
   padding: 0.75rem;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 input:focus, 
@@ -394,7 +394,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(184, 99, 68, 0.25);
+  box-shadow: 0 0 0 3px rgba(128, 0, 128, 0.25);
 }
 
 input:invalid,
@@ -532,8 +532,8 @@ textarea:invalid {
   
   .hero-animated-background {
     animation: none !important;
-    background: linear-gradient(135deg, #8A2BE2, #4169E1);
-    opacity: 0.9;
+    background: linear-gradient(135deg, #800080, #000000);
+    opacity: 0.95;
   }
   
   .will-change-transform {
