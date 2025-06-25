@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
@@ -16,17 +16,22 @@ checkSupabaseConnection()
   });
 
 // Enhanced error boundary
-class ErrorBoundary extends StrictMode {
-  constructor(props: any) {
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, ErrorBoundaryState> {
+  constructor(props: React.PropsWithChildren<{}>) {
     super(props);
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     console.error('Application error:', error);
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Error boundary caught an error:', error, errorInfo);
     
     // Show error fallback
@@ -37,6 +42,14 @@ class ErrorBoundary extends StrictMode {
       errorFallback.classList.remove('hidden');
       root.style.display = 'none';
     }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div>Something went wrong.</div>;
+    }
+
+    return this.props.children;
   }
 }
 
@@ -59,24 +72,26 @@ const initializeApp = () => {
 
   root.render(
     <StrictMode>
-      <HelmetProvider>
-        <WebVitalsMonitor 
-          onReport={(metric) => {
-            // Send metrics to analytics service
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'web_vitals', {
-                event_category: 'Performance',
-                event_label: metric.name,
-                value: Math.round(metric.value),
-                custom_map: {
-                  metric_rating: metric.rating
-                }
-              });
-            }
-          }}
-        />
-        <App />
-      </HelmetProvider>
+      <ErrorBoundary>
+        <HelmetProvider>
+          <WebVitalsMonitor 
+            onReport={(metric) => {
+              // Send metrics to analytics service
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'web_vitals', {
+                  event_category: 'Performance',
+                  event_label: metric.name,
+                  value: Math.round(metric.value),
+                  custom_map: {
+                    metric_rating: metric.rating
+                  }
+                });
+              }
+            }}
+          />
+          <App />
+        </HelmetProvider>
+      </ErrorBoundary>
     </StrictMode>
   );
 };
