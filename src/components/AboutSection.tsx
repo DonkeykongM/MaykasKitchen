@@ -65,16 +65,7 @@ export const AboutSection = () => {
             <p className="mb-4 text-brown-500 leading-relaxed">Jag är kock, kreatör och matinfluencer med passion för säsongsbaserad mat, odling och matglädje för hela familjen. Genom min assyriska/syrianska bakgrund har jag fått ett rikt arv av smaker och traditioner som jag älskar att dela med mig av.</p>
             <p className="mb-6 text-brown-500 leading-relaxed">Med över 120 000 följare på Instagram och 62 000 på TikTok inspirerar jag dagligen tusentals människor till att laga mer mat hemma, med hjärta, själ och enkla råvaror. Min matfilosofi handlar om gemenskap, tradition och modernt vardagsliv i harmoni.</p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              <div className="bg-beige-50 p-5 rounded-xl transform transition-transform hover:-translate-y-1 hover:shadow-md">
-                <div className="flex items-center mb-3">
-                  <div className="bg-beige-100 p-2 rounded-full mr-3">
-                    <Users className="text-primary-color" size={18} />
-                  </div>
-                  <h4 className="font-semibold text-primary-color">Målgrupp</h4>
-                </div>
-                <p className="text-sm text-brown-500">Kvinnor 25-54 år som värderar hemlagad mat, familjeliv och hållbar matlagning.</p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               <div className="bg-beige-50 p-5 rounded-xl transform transition-transform hover:-translate-y-1 hover:shadow-md">
                 <div className="flex items-center mb-3">
                   <div className="bg-beige-100 p-2 rounded-full mr-3">
