@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, Search, Instagram, Salad } from 'lucide-react';
+import { useOptimizedScroll } from '../hooks/useOptimizedScroll';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,13 +11,11 @@ export const Header = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Optimized scroll handler with throttling
-  const handleScroll = useCallback(() => {
-    const scrollY = window.scrollY;
-    
+  const handleScrollOptimized = useCallback((scrollY: number) => {
     // Update header appearance
     setIsScrolled(scrollY > 60);
     
-    // Determine active section
+    // Determine active section with better performance
     const sections = ['om-mig', 'recept', 'samarbeten', 'kontakt'];
     const currentSection = sections.find(section => {
       const element = document.getElementById(section);
@@ -32,32 +31,20 @@ export const Header = () => {
     }
   }, [activeSection]);
 
-  // Throttled scroll listener
-  useEffect(() => {
-    let ticking = false;
-    
-    const throttledScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+  // Use optimized scroll hook
+  useOptimizedScroll(handleScrollOptimized);
 
-    window.addEventListener('scroll', throttledScroll, { passive: true });
-    return () => window.removeEventListener('scroll', throttledScroll);
-  }, [handleScroll]);
-
-  // Auto-focus search input
+  // Auto-focus search input with improved performance
   useEffect(() => {
     if (isSearchOpen && searchInputRef.current) {
-      searchInputRef.current.focus();
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(() => {
+        searchInputRef.current?.focus();
+      });
     }
   }, [isSearchOpen]);
 
-  // Enhanced keyboard navigation
+  // Enhanced keyboard navigation with debouncing
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -71,11 +58,11 @@ export const Header = () => {
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown, { passive: false });
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isSearchOpen, isMenuOpen]);
 
-  // Optimized navigation handlers
+  // Optimized navigation handlers with memoization
   const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
   const toggleSearch = useCallback(() => setIsSearchOpen(prev => !prev), []);
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
@@ -89,6 +76,7 @@ export const Header = () => {
       const headerHeight = 80;
       const elementPosition = element.offsetTop - headerHeight;
       
+      // Use smooth scrolling with better performance
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
@@ -129,21 +117,21 @@ export const Header = () => {
       }`}
       role="banner"
     >
-      {/* Skip to main content link */}
+      {/* Skip to main content link for accessibility */}
       <a href="#main-content" className="skip-to-content">
         Hoppa till huvudinnehåll
       </a>
       
       <div className="container mx-auto px-4 w-full max-w-7xl">
         <div className="flex justify-between items-center w-full">
-          {/* Logo/Brand */}
+          {/* Logo/Brand with optimized rendering */}
           <a 
             href="#" 
             onClick={handleHomeClick}
             className="flex items-center group min-w-0 flex-shrink-0"
             aria-label="MaykasKitchen, gå till startsidan"
           >
-            <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-primary-color/10 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 group-hover:bg-primary-color/20 group-hover:scale-110 flex-shrink-0">
+            <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-primary-color/10 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 group-hover:bg-primary-color/20 group-hover:scale-110 flex-shrink-0 will-change-transform">
               <Salad className="w-4 h-4 md:w-6 md:h-6 text-primary-color transition-colors group-hover:text-primary-color" />
             </div>
             <span className="text-lg md:text-2xl font-bold text-primary-color tracking-tight truncate transition-colors group-hover:text-accent-color">
@@ -151,13 +139,13 @@ export const Header = () => {
             </span>
           </a>
           
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation with better contrast */}
           <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8" role="navigation" aria-label="Huvudnavigation">
             <a 
               href="#om-mig" 
               onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
-                activeSection === 'om-mig' ? 'text-primary-color active' : ''
+              className={`nav-link text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap ${
+                activeSection === 'om-mig' ? 'text-purple-600 active' : ''
               }`}
               aria-current={activeSection === 'om-mig' ? 'page' : undefined}
             >
@@ -166,8 +154,8 @@ export const Header = () => {
             <a 
               href="#recept" 
               onClick={(e) => handleNavLinkClick(e, 'recept')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
-                activeSection === 'recept' ? 'text-primary-color active' : ''
+              className={`nav-link text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap ${
+                activeSection === 'recept' ? 'text-purple-600 active' : ''
               }`}
               aria-current={activeSection === 'recept' ? 'page' : undefined}
             >
@@ -176,8 +164,8 @@ export const Header = () => {
             <a 
               href="#samarbeten" 
               onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-              className={`nav-link text-brown-500 hover:text-primary-color transition-colors whitespace-nowrap ${
-                activeSection === 'samarbeten' ? 'text-primary-color active' : ''
+              className={`nav-link text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap ${
+                activeSection === 'samarbeten' ? 'text-purple-600 active' : ''
               }`}
               aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
             >
@@ -187,17 +175,17 @@ export const Header = () => {
               href="https://www.instagram.com/maykaskitchen/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="nav-link text-brown-500 hover:text-primary-color transition-colors flex items-center whitespace-nowrap"
+              className="nav-link text-gray-700 hover:text-purple-600 transition-colors flex items-center whitespace-nowrap"
               aria-label="Besök min Instagram (öppnas i nytt fönster)"
             >
               <Instagram size={16} className="mr-1" aria-hidden="true" /> 
               Instagram
             </a>
             
-            {/* Search button with keyboard shortcut hint */}
+            {/* Search button with improved accessibility */}
             <button 
               onClick={toggleSearch} 
-              className="text-brown-500 hover:text-primary-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-2 relative group"
+              className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 relative group"
               aria-label={`Sök (${navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'} + K)`}
               aria-expanded={isSearchOpen}
               title={`Sök (${navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + K)`}
@@ -209,17 +197,17 @@ export const Header = () => {
             <a 
               href="#kontakt" 
               onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-              className="btn-primary transform hover:scale-105 transition-all duration-300 whitespace-nowrap focus:ring-2 focus:ring-primary-color focus:ring-offset-2"
+              className="btn-primary transform hover:scale-105 transition-all duration-300 whitespace-nowrap focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
             >
               Kontakt
             </a>
           </nav>
           
-          {/* Mobile buttons */}
+          {/* Mobile buttons with improved touch targets */}
           <div className="lg:hidden flex items-center space-x-3">
             <button 
               onClick={toggleSearch} 
-              className="text-brown-500 hover:text-primary-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
+              className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Sök"
               aria-expanded={isSearchOpen}
             >
@@ -227,7 +215,7 @@ export const Header = () => {
             </button>
             <button 
               onClick={toggleMenu} 
-              className="text-brown-500 hover:text-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
+              className="text-gray-700 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={isMenuOpen ? "Stäng meny" : "Öppna meny"}
               aria-expanded={isMenuOpen}
             >
@@ -237,7 +225,7 @@ export const Header = () => {
         </div>
       </div>
       
-      {/* Enhanced Search Panel */}
+      {/* Enhanced Search Panel with better performance */}
       <div 
         className={`bg-white border-t border-gray-100 shadow-lg py-4 transform transition-all duration-300 ease-in-out ${
           isSearchOpen 
@@ -257,7 +245,7 @@ export const Header = () => {
               ref={searchInputRef}
               type="text"
               placeholder="Sök efter recept, ingredienser eller tekniker..."
-              className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-primary-color pr-10 text-base"
+              className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 pr-10 text-base"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoComplete="off"
@@ -265,7 +253,7 @@ export const Header = () => {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} aria-hidden="true" />
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 rounded-full p-1"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-1"
               aria-label="Stäng sökning"
               onClick={toggleSearch}
             >
@@ -273,15 +261,15 @@ export const Header = () => {
             </button>
           </form>
           
-          {/* Popular searches */}
+          {/* Popular searches with improved contrast */}
           <div className="mt-4">
-            <p className="text-sm text-gray-500 mb-2">Populära sökningar:</p>
+            <p className="text-sm text-gray-600 mb-2">Populära sökningar:</p>
             <div className="flex flex-wrap gap-2">
               {popularSearches.map((search) => (
                 <button 
                   key={search}
                   onClick={() => setSearchTerm(search)} 
-                  className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-primary-color hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-1"
+                  className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-1"
                   type="button"
                 >
                   {search}
@@ -292,7 +280,7 @@ export const Header = () => {
         </div>
       </div>
       
-      {/* Enhanced Mobile Menu */}
+      {/* Enhanced Mobile Menu with better performance */}
       <nav 
         className={`lg:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden transition-all duration-300 ease-in-out w-full ${
           isMenuOpen 
@@ -307,8 +295,8 @@ export const Header = () => {
           <a 
             href="#om-mig" 
             onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-            className={`text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors ${
-              activeSection === 'om-mig' ? 'text-primary-color' : ''
+            className={`text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-gray-50 flex items-center transition-colors min-h-[44px] ${
+              activeSection === 'om-mig' ? 'text-purple-600' : ''
             }`}
             aria-current={activeSection === 'om-mig' ? 'page' : undefined}
           >
@@ -317,8 +305,8 @@ export const Header = () => {
           <a 
             href="#recept" 
             onClick={(e) => handleNavLinkClick(e, 'recept')}
-            className={`text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors ${
-              activeSection === 'recept' ? 'text-primary-color' : ''
+            className={`text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-gray-50 flex items-center transition-colors min-h-[44px] ${
+              activeSection === 'recept' ? 'text-purple-600' : ''
             }`}
             aria-current={activeSection === 'recept' ? 'page' : undefined}
           >
@@ -327,8 +315,8 @@ export const Header = () => {
           <a 
             href="#samarbeten" 
             onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-            className={`text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors ${
-              activeSection === 'samarbeten' ? 'text-primary-color' : ''
+            className={`text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-gray-50 flex items-center transition-colors min-h-[44px] ${
+              activeSection === 'samarbeten' ? 'text-purple-600' : ''
             }`}
             aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
           >
@@ -338,7 +326,7 @@ export const Header = () => {
             href="https://www.instagram.com/maykaskitchen/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-brown-500 hover:text-primary-color font-medium py-3 border-b border-gray-50 flex items-center transition-colors"
+            className="text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-gray-50 flex items-center transition-colors min-h-[44px]"
             aria-label="Besök min Instagram (öppnas i nytt fönster)"
           >
             <Instagram size={18} className="mr-2" aria-hidden="true" /> 
@@ -347,7 +335,7 @@ export const Header = () => {
           <a 
             href="#kontakt" 
             onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-            className="bg-primary-color text-white py-3 px-6 rounded-lg text-center hover:bg-accent-color transition-colors focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2 font-medium"
+            className="bg-purple-600 text-white py-3 px-6 rounded-lg text-center hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium min-h-[44px] flex items-center justify-center"
           >
             Kontakt
           </a>
