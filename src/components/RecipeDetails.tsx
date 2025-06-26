@@ -439,7 +439,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           {/* Portions adjuster */}
           <div className="bg-white rounded-xl p-6 mb-8 shadow-lg">
             <h3 className="text-lg font-semibold mb-4">Justera portioner</h3>
-            <div className="flex items-center">
+            <div className="flex items-center justify-center">
               <button 
                 onClick={() => setPortionCount(Math.max(1, portionCount - 1))}
                 className="w-10 h-10 rounded-full bg-orange-100 border border-orange-300 flex items-center justify-center text-orange-700 hover:bg-orange-200 transition-colors"
@@ -461,7 +461,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             {/* Ingredients */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-xl p-6 shadow-lg sticky top-8">
-                <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <h2 className="text-2xl font-bold mb-6 text-center" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Ingredienser
                 </h2>
                 
@@ -478,11 +478,11 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 {recipe.content.ingredients.map((section, index) => (
                   <div key={index} className="mb-6">
                     {section.section && (
-                      <h3 className="text-lg font-semibold text-orange-600 mb-3">
+                      <h3 className="text-lg font-semibold text-orange-600 mb-3 text-center">
                         {section.section}
                       </h3>
                     )}
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                       {section.items.map((ingredient, i) => {
                         const regex = /^(\d+(?:[.,]\d+)?\s*(?:\w+)?\s*(?:\w+)?)\s(.+)$/;
                         const match = ingredient.match(regex);
@@ -495,7 +495,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                           return (
                             <li key={i} className="flex items-start">
                               <input type="checkbox" className="mt-1 mr-3 text-orange-500" />
-                              <span>
+                              <span className="text-center flex-1">
                                 <strong className="text-orange-600">{adjustedAmount}</strong> {ingredientName}
                               </span>
                             </li>
@@ -505,7 +505,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                         return (
                           <li key={i} className="flex items-start">
                             <input type="checkbox" className="mt-1 mr-3 text-orange-500" />
-                            {ingredient}
+                            <span className="text-center flex-1">{ingredient}</span>
                           </li>
                         );
                       })}

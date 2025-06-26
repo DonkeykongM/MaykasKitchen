@@ -116,6 +116,7 @@ export const Header = () => {
           : 'py-4 bg-white shadow-sm'
       }`}
       role="banner"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999 }}
     >
       {/* Skip to main content link for accessibility */}
       <a href="#main-content" className="skip-to-content">

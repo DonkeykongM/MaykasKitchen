@@ -104,7 +104,10 @@ export const NewsletterPopup = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300 ease-out">
+    <div 
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300 ease-out"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}
+    >
       <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl transform transition-all duration-500 scale-100 will-change-transform">
         <button 
           onClick={handleClose}

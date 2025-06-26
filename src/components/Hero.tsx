@@ -58,15 +58,6 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          {/* Logo matching reference image */}
-          <div className="flex items-center justify-center lg:justify-start mb-8">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mr-3">
-                <UtensilsCrossed size={20} className="text-white" />
-              </div>
-              <span className="text-2xl md:text-3xl font-bold text-white">MaykasKitchen</span>
-            </div>
-          </div>
 
           {/* Badge matching reference image */}
           <span className="inline-flex items-center bg-white/90 backdrop-blur-sm text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-8 shadow-lg">
