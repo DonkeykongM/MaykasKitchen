@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Instagram, BookText as TikTok, Youtube, Facebook, Heart, Globe, Award, Medal, CalendarDays, Users } from 'lucide-react';
+import { Instagram, BookText as TikTok, Youtube, Facebook, Globe, Award, CalendarDays } from 'lucide-react';
 
 export const AboutSection = () => {
   const sectionRef = useRef(null);
@@ -17,15 +17,9 @@ export const AboutSection = () => {
     );
     
     const elements = document.querySelectorAll('.scroll-trigger');
-    elements.forEach(el => {
-      observer.observe(el);
-    });
+    elements.forEach(el => observer.observe(el));
     
-    return () => {
-      elements.forEach(el => {
-        observer.unobserve(el);
-      });
-    };
+    return () => elements.forEach(el => observer.unobserve(el));
   }, []);
 
   return (
@@ -38,24 +32,19 @@ export const AboutSection = () => {
         
         <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-16">
           <div className="md:w-2/5 mb-8 md:mb-0 scroll-trigger relative">
-            <div className="rounded-lg overflow-hidden shadow-lg hover-zoom">
+            <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45KvFPkwGxStE3Ob1dcATYX9L" 
                 alt="Mayka Gulo i köket" 
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
+                width="400"
+                height="500"
               />
-            </div>
-            
-            {/* Experience badge */}
-            <div className="absolute -bottom-5 -right-5 bg-white p-4 rounded-full shadow-lg hidden md:flex flex-col items-center justify-center w-28 h-28 border-4 border-purple-100">
-              <Medal className="text-purple-600 mb-1" size={20} />
-              <span className="text-lg font-bold text-purple-600">10+ år</span>
-              <span className="text-xs text-gray-600 text-center">Matlagnings-erfarenhet</span>
             </div>
           </div>
           
-          <div className="md:w-3/5 scroll-trigger" style={{ transitionDelay: '0.2s' }}>
+          <div className="md:w-3/5 scroll-trigger">
             <div className="flex items-center mb-4">
               <div className="h-1 bg-purple-200 flex-grow mr-4"></div>
               <h3 className="text-2xl font-semibold text-black">Hej, jag är Mayka!</h3>
@@ -63,10 +52,10 @@ export const AboutSection = () => {
             </div>
             
             <p className="mb-4 text-gray-600 leading-relaxed">Jag är kock, kreatör och matinfluencer med passion för säsongsbaserad mat, odling och matglädje för hela familjen. Genom min assyriska/syrianska bakgrund har jag fått ett rikt arv av smaker och traditioner som jag älskar att dela med mig av.</p>
-            <p className="mb-6 text-gray-600 leading-relaxed">Med över 120 000 följare på Instagram och 62 000 på TikTok inspirerar jag dagligen tusentals människor till att laga mer mat hemma, med hjärta, själ och enkla råvaror. Min matfilosofi handlar om gemenskap, tradition och modernt vardagsliv i harmoni.</p>
+            <p className="mb-6 text-gray-600 leading-relaxed">Med över 120 000 följare på Instagram och 62 000 på TikTok inspirerar jag dagligen tusentals människor till att laga mer mat hemma, med hjärta, själ och enkla råvaror.</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              <div className="bg-purple-50 p-5 rounded-xl transform transition-transform hover:-translate-y-1 hover:shadow-md border border-purple-100">
+              <div className="bg-purple-50 p-5 rounded-xl transform transition-transform hover:-translate-y-1 border border-purple-100">
                 <div className="flex items-center mb-3">
                   <div className="bg-purple-100 p-2 rounded-full mr-3">
                     <Globe className="text-purple-600" size={18} />
@@ -75,7 +64,7 @@ export const AboutSection = () => {
                 </div>
                 <p className="text-sm text-gray-600">Aktiv och lojal gemenskap som älskar autentiska recept och matinspiration.</p>
               </div>
-              <div className="bg-purple-50 p-5 rounded-xl transform transition-transform hover:-translate-y-1 hover:shadow-md border border-purple-100">
+              <div className="bg-purple-50 p-5 rounded-xl transform transition-transform hover:-translate-y-1 border border-purple-100">
                 <div className="flex items-center mb-3">
                   <div className="bg-purple-100 p-2 rounded-full mr-3">
                     <Award className="text-purple-600" size={18} />
@@ -123,7 +112,7 @@ export const AboutSection = () => {
           </div>
         </div>
         
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 scroll-trigger" style={{ transitionDelay: '0.4s' }}>
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 scroll-trigger">
           <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all text-center transform hover:-translate-y-1 border border-purple-100">
             <h3 className="text-3xl font-bold text-purple-600 mb-1">125k+</h3>
             <p className="text-gray-600">Instagram</p>
