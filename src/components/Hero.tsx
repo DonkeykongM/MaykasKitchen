@@ -44,16 +44,16 @@ export const Hero = () => {
       id="hero"
       className="relative py-16 md:py-20 lg:py-24 overflow-hidden w-full min-h-screen flex items-center"
       style={{
-        background: 'linear-gradient(135deg, #2E0054 0%, #1A001A 50%, #000000 100%)'
+        background: 'linear-gradient(135deg, #800080 0%, #4B0082 25%, #2E0054 50%, #1A001A 75%, #000000 100%)'
       }}
       aria-labelledby="hero-heading"
     >
-      {/* Optimized floating elements with reduced DOM manipulation */}
-      <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-purple-500/10 rounded-full will-change-transform" 
+      {/* Subtle floating elements */}
+      <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-full animate-pulse" 
            style={{ animation: 'float 6s ease-in-out infinite' }}></div>
-      <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-purple-400/10 rounded-full will-change-transform" 
+      <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-white/5 rounded-full animate-pulse" 
            style={{ animation: 'float 6s ease-in-out infinite 1s' }}></div>
-      <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-purple-300/10 rounded-full will-change-transform" 
+      <div className="absolute top-[35%] left-[15%] w-6 h-6 md:w-10 md:h-10 bg-white/5 rounded-full animate-pulse" 
            style={{ animation: 'float 6s ease-in-out infinite 2s' }}></div>
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
@@ -77,7 +77,7 @@ export const Hero = () => {
           {/* Main heading matching reference image exactly */}
           <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight font-serif">
             Mat från hjärtat<br />
-            <span className="text-white">&amp; själen</span>
+            <span className="text-white">& själen</span>
           </h1>
           
           {/* Description with highlighted text matching reference */}
