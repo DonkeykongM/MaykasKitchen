@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
-import OptimizedImage from './Performance/ImageOptimizer';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
 
 // Memoized recipe data to prevent unnecessary re-renders
@@ -81,15 +80,21 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
       }}
       aria-label={`Visa recept för ${recipe.title}`}
     >
-      {/* Optimized image with lazy loading */}
+      {/* Optimized image with proper lazy loading */}
       <div className="relative h-48 md:h-52 overflow-hidden">
-        <OptimizedImage
+        <img
           src={recipe.image}
           alt={recipe.title}
           width={400}
           height={260}
           className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
+          loading="lazy"
+          decoding="async"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = 'https://via.placeholder.com/400x260/e5e7eb/6b7280?text=Bild+saknas';
+          }}
         />
         <div className="absolute top-4 left-4">
           <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">

@@ -63,15 +63,15 @@ export const Footer = () => {
       }}
     >
       <div className="container mx-auto px-4">
-        {/* Scroll to top button with enhanced animation */}
-        <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+        {/* Enhanced scroll to top button */}
+        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
           <button 
             onClick={scrollToTop}
-            className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-black relative overflow-hidden group"
+            className="bg-white text-purple-600 p-4 rounded-full shadow-2xl hover:bg-gray-100 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50 relative overflow-hidden group border-4 border-purple-200"
             aria-label="Skrolla till toppen"
           >
-            <span className="absolute inset-0 bg-white/20 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-            <ArrowUp size={20} className="relative z-10" />
+            <span className="absolute inset-0 bg-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+            <ArrowUp size={24} className="relative z-10 group-hover:scale-110 transition-transform duration-300" />
           </button>
         </div>
         
@@ -185,7 +185,7 @@ export const Footer = () => {
                 </li>
                 <li>
                   <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transformation group-hover:scale-125"></span> 
+                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
                     Säsongsmat
                   </a>
                 </li>

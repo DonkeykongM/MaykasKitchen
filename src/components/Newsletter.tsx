@@ -47,9 +47,9 @@ export const Newsletter = () => {
   };
   
   return (
-    <section className="bg-black text-white py-16 relative overflow-hidden">
+    <section className="bg-gray-50 py-16 relative overflow-hidden">
       {/* Decorative pattern */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-20 h-20 bg-purple-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-600 rounded-full transform translate-x-1/3 translate-y-1/3"></div>
       </div>
@@ -59,17 +59,17 @@ export const Newsletter = () => {
           <Mail className="text-white" size={24} />
         </div>
         
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Få matinspiration direkt i din inkorg</h2>
-        <p className="mb-8 max-w-2xl mx-auto text-gray-300">Prenumerera på mitt nyhetsbrev och få de senaste recepten, säsongsbaserade tips och exklusiva erbjudanden direkt till dig. Jag skickar ut mitt nyhetsbrev ungefär en gång i månaden.</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Få matinspiration direkt i din inkorg</h2>
+        <p className="mb-8 max-w-2xl mx-auto text-gray-600">Prenumerera på mitt nyhetsbrev och få de senaste recepten, säsongsbaserade tips och exklusiva erbjudanden direkt till dig. Jag skickar ut mitt nyhetsbrev ungefär en gång i månaden.</p>
         
         <div className="max-w-xl mx-auto">
           {submitStatus === 'success' ? (
-            <div className="bg-purple-600/20 backdrop-blur-sm rounded-lg p-6 flex flex-col items-center justify-center animate-fadeIn border border-purple-500">
+            <div className="bg-white rounded-lg p-6 flex flex-col items-center justify-center animate-fadeIn border border-purple-200 shadow-md">
               <div className="bg-green-500 text-white p-3 rounded-full mb-4">
                 <Check size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Tack för din prenumeration!</h3>
-              <p className="mb-0 text-gray-300">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
+              <h3 className="text-xl font-bold mb-2 text-gray-800">Tack för din prenumeration!</h3>
+              <p className="mb-0 text-gray-600">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -79,14 +79,14 @@ export const Newsletter = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Din e-postadress" 
-                  className={`w-full px-4 py-3 rounded-lg border text-gray-800 border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400 ${
-                    submitStatus === 'error' ? 'border-red-500 bg-red-50' : 'bg-white'
+                  className={`w-full px-4 py-3 rounded-lg border text-gray-800 border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white ${
+                    submitStatus === 'error' ? 'border-red-500 bg-red-50' : ''
                   }`}
                   aria-label="Din e-postadress"
                   disabled={submitStatus === 'submitting'}
                 />
                 {submitStatus === 'error' && (
-                  <div className="absolute -bottom-6 left-0 text-xs text-red-300 bg-red-600 px-2 py-1 rounded-sm">
+                  <div className="absolute -bottom-6 left-0 text-xs text-red-600 bg-red-100 px-2 py-1 rounded-sm">
                     {errorMessage}
                   </div>
                 )}
@@ -114,8 +114,8 @@ export const Newsletter = () => {
             </form>
           )}
           
-          <div className="mt-8 text-sm text-gray-300">
-            <p>Genom att prenumerera godkänner du att få mitt nyhetsbrev och accepterar min <a href="#" className="underline hover:text-white text-purple-300">integritetspolicy</a>. Du kan avsluta prenumerationen när som helst.</p>
+          <div className="mt-8 text-sm text-gray-500">
+            <p>Genom att prenumerera godkänner du att få mitt nyhetsbrev och accepterar min <a href="#" className="underline hover:text-purple-600 text-purple-500">integritetspolicy</a>. Du kan avsluta prenumerationen när som helst.</p>
           </div>
         </div>
       </div>

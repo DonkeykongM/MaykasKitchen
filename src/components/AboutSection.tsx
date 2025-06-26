@@ -44,6 +44,13 @@ export const AboutSection = () => {
                 alt="Mayka Gulo i köket" 
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
+                width={500}
+                height={600}
+                decoding="async"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = 'https://via.placeholder.com/500x600/e5e7eb/6b7280?text=Bild+saknas';
+                }}
               />
             </div>
             
