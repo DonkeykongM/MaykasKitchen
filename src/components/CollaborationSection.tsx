@@ -9,7 +9,7 @@ export const CollaborationSection = () => {
         <p className="text-center mb-12 max-w-2xl mx-auto">Jag erbjuder kreativa samarbeten med varumärken som delar mina värderingar om autentisk matlagning och kvalitet.</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+          <div className="bg-beige-50 p-6 rounded-lg">
             <h3 className="text-xl font-semibold mb-4">Vad jag erbjuder</h3>
             <ul className="space-y-3">
               <li className="flex items-start">
@@ -30,23 +30,23 @@ export const CollaborationSection = () => {
               </li>
             </ul>
           </div>
-          <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+          <div className="bg-beige-50 p-6 rounded-lg">
             <h3 className="text-xl font-semibold mb-4">Tidigare samarbeten</h3>
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white p-3 rounded-lg flex items-center justify-center h-20 border border-purple-100">
-                <span className="font-bold text-purple-700">FELIX</span>
+              <div className="brand-card bg-white p-3 rounded-lg flex items-center justify-center h-20">
+                <span className="font-bold text-brown-700">FELIX</span>
               </div>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-center h-20 border border-purple-100">
-                <span className="font-bold text-purple-700">GLOBAL</span>
+              <div className="brand-card bg-white p-3 rounded-lg flex items-center justify-center h-20">
+                <span className="font-bold text-brown-700">GLOBAL</span>
               </div>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-center h-20 border border-purple-100">
-                <span className="font-bold text-purple-700">GARANT</span>
+              <div className="brand-card bg-white p-3 rounded-lg flex items-center justify-center h-20">
+                <span className="font-bold text-brown-700">GARANT</span>
               </div>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-center h-20 border border-purple-100">
-                <span className="font-bold text-purple-700">BONG</span>
+              <div className="brand-card bg-white p-3 rounded-lg flex items-center justify-center h-20">
+                <span className="font-bold text-brown-700">BONG</span>
               </div>
-              <div className="bg-white p-3 rounded-lg flex items-center justify-center h-20 border border-purple-100">
-                <span className="font-bold text-purple-700">TV4</span>
+              <div className="brand-card bg-white p-3 rounded-lg flex items-center justify-center h-20">
+                <span className="font-bold text-brown-700">TV4</span>
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@ export const CollaborationSection = () => {
               <p>Engagemanget är högt och communityt är varmt, aktivt och lojalt med en äkta passion för god mat och autentiska recept.</p>
             </div>
             <div className="md:w-1/3 flex justify-center">
-              <a href="#kontakt" className="bg-white text-primary-color py-3 px-8 rounded-full hover:bg-gray-50 transition duration-300">Kontakta mig</a>
+              <a href="#kontakt" className="bg-white text-primary-color py-3 px-8 rounded-full hover:bg-beige-50 transition duration-300">Kontakta mig</a>
             </div>
           </div>
         </div>

@@ -4,35 +4,99 @@
 
 @layer base {
   :root {
+    --background: 248 248 255;
+    --foreground: 16 16 16;
+    --card: 255 255 255;
+    --card-foreground: 16 16 16;
+    --popover: 255 255 255;
+    --popover-foreground: 16 16 16;
+    --primary: 128 0 128;
+    --primary-foreground: 255 255 255;
+    --secondary: 0 0 0;
+    --secondary-foreground: 255 255 255;
+    --muted: 240 240 250;
+    --muted-foreground: 100 100 120;
+    --accent: 75 0 130;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 220 220 235;
+    --input: 220 220 235;
+    --ring: 128 0 128;
+    --radius: 0.5rem;
+    
+    /* Enhanced color system with purple and black theme */
     --primary-color: #800080;
     --secondary-color: #000000;
     --accent-color: #4B0082;
     --text-color: #1A1A1A;
     --text-secondary: #404040;
     --light-bg: #F8F8FF;
+    --surface: #FFFFFF;
+    --surface-variant: #F5F5FF;
+    --error: #D32F2F;
+    --warning: #F57C00;
+    --success: #2E7D32;
+    --info: #1976D2;
+  }
+
+  .dark {
+    --background: 16 16 16;
+    --foreground: 248 248 255;
+    --card: 32 32 32;
+    --card-foreground: 248 248 255;
+    --popover: 32 32 32;
+    --popover-foreground: 248 248 255;
+    --primary: 128 0 128;
+    --primary-foreground: 255 255 255;
+    --secondary: 64 64 64;
+    --secondary-foreground: 255 255 255;
+    --muted: 32 32 32;
+    --muted-foreground: 160 160 180;
+    --accent: 75 0 130;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 48 48 64;
+    --input: 48 48 64;
+    --ring: 128 0 128;
   }
 }
 
-/* Optimized base styles */
+/* Optimized base styles for performance */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
   font-size: 16px;
+  height: 100%;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   color: var(--text-color);
   line-height: 1.6;
+  font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  background: transparent;
+  position: relative;
+  /* Optimized for hardware acceleration */
   transform: translateZ(0);
   backface-visibility: hidden;
+  perspective: 1000px;
 }
 
+/* Prevent multiple scroll containers */
 * {
   box-sizing: border-box;
 }
@@ -40,14 +104,19 @@ body {
 #root {
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Typography */
+/* Enhanced typography with better contrast and performance */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.5em;
   line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: var(--text-color);
   font-weight: 600;
+  /* Hardware acceleration for text rendering */
   will-change: transform;
   transform: translateZ(0);
 }
@@ -56,26 +125,40 @@ h1 {
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   color: #FFFFFF;
+  margin-bottom: 0.75rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
   color: var(--primary-color);
+  margin-bottom: 0.75rem;
 }
 
 h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
   color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
 }
 
 p {
   margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   color: var(--text-secondary);
   line-height: 1.7;
 }
 
-/* Container */
+/* Optimized container */
 .container {
   width: 100%;
   max-width: 1280px;
@@ -84,6 +167,7 @@ p {
   padding-right: 1rem;
   position: relative;
   z-index: 10;
+  overflow-x: hidden;
 }
 
 @media (min-width: 640px) {
@@ -100,27 +184,44 @@ p {
   }
 }
 
-/* Sections */
+/* Enhanced sections with hardware acceleration */
 section {
   position: relative;
   z-index: 10;
+  overflow-x: hidden;
   will-change: transform;
   transform: translateZ(0);
 }
 
-/* Buttons */
+/* Optimized component styling with better performance */
+.bg-white {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(220, 220, 235, 0.4);
+}
+
+.bg-light {
+  background-color: rgba(248, 248, 255, 0.95) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Enhanced button styles with hardware acceleration */
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   border: none;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
   will-change: transform;
   transform: translateZ(0);
@@ -129,6 +230,12 @@ section {
 .btn-primary:hover {
   transform: translateY(-2px) translateZ(0);
   box-shadow: 0 6px 20px rgba(128, 0, 128, 0.4);
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+}
+
+.btn-primary:focus {
+  outline: 3px solid rgba(128, 0, 128, 0.4);
+  outline-offset: 2px;
 }
 
 .btn-secondary {
@@ -138,10 +245,15 @@ section {
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   will-change: transform;
   transform: translateZ(0);
 }
@@ -150,17 +262,25 @@ section {
   background-color: var(--primary-color);
   color: white;
   transform: translateY(-2px) translateZ(0);
+  box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
 }
 
-/* Recipe cards */
+.btn-secondary:focus {
+  outline: 3px solid rgba(128, 0, 128, 0.4);
+  outline-offset: 2px;
+}
+
+/* Enhanced recipe cards with hardware acceleration */
 .recipe-card {
-  background-color: rgba(255, 255, 255, 0.98);
+  background-color: rgba(255, 255, 255, 0.98) !important;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(220, 220, 235, 0.4);
   border-radius: 1rem;
   transition: all 0.3s ease;
   will-change: transform;
   transform: translateZ(0);
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
 }
 
@@ -170,7 +290,12 @@ section {
   border-color: var(--primary-color);
 }
 
-/* Navigation */
+.recipe-card:focus-within {
+  outline: 3px solid rgba(128, 0, 128, 0.4);
+  outline-offset: 2px;
+}
+
+/* Enhanced navigation with hardware acceleration */
 .nav-link {
   position: relative;
   font-weight: 500;
@@ -189,15 +314,24 @@ section {
   left: 0;
   background-color: var(--primary-color);
   transition: width 0.3s ease;
+  will-change: width;
 }
 
 .nav-link:hover::after,
+.nav-link:focus::after,
 .nav-link.active::after {
   width: 100%;
 }
 
-/* Forms */
+.nav-link:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Enhanced form elements with better performance */
 input, textarea, select {
+  max-width: 100%;
   width: 100%;
   border: 2px solid rgba(220, 220, 235, 0.8);
   border-radius: 0.5rem;
@@ -205,15 +339,23 @@ input, textarea, select {
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background-color: rgba(255, 255, 255, 0.95);
+  will-change: border-color, box-shadow;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus, 
+textarea:focus, 
+select:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(128, 0, 128, 0.25);
 }
 
-/* Accessibility */
+input:invalid,
+textarea:invalid {
+  border-color: var(--error);
+}
+
+/* Enhanced accessibility */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -236,6 +378,7 @@ input:focus, textarea:focus, select:focus {
   text-decoration: none;
   border-radius: 0 0 0.5rem 0.5rem;
   font-weight: 600;
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
@@ -243,12 +386,38 @@ input:focus, textarea:focus, select:focus {
   left: 1rem;
   top: 1rem;
   opacity: 1;
+  outline: 3px solid white;
 }
 
-/* Animations */
+/* Performance optimizations with hardware acceleration */
+.will-change-transform {
+  will-change: transform;
+}
+
+.gpu-acceleration {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Enhanced animations with 60fps optimization */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @keyframes float {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -10px, 0); }
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
 }
 
 .animate-float {
@@ -256,7 +425,7 @@ input:focus, textarea:focus, select:focus {
   will-change: transform;
 }
 
-/* Utility classes */
+/* Optimized line clamping */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -264,25 +433,67 @@ input:focus, textarea:focus, select:focus {
   overflow: hidden;
 }
 
-/* Mobile optimizations */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile optimizations with improved touch targets */
 @media (max-width: 768px) {
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
-  .btn-primary, .btn-secondary {
-    padding: 0.875rem 1.75rem;
-    min-height: 44px;
+  h1 {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
   }
   
-  input, textarea, select, button {
-    font-size: 16px;
-    min-height: 44px;
+  h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  
+  h3 {
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    width: auto;
+    min-width: 120px;
+    min-height: 44px; /* Improved touch target */
+  }
+  
+  input, 
+  textarea, 
+  select, 
+  button {
+    font-size: 16px; /* Prevents iOS zoom */
+    min-height: 44px; /* Improved touch target */
+  }
+
+  /* Ensure hero takes full viewport on mobile */
+  #hero {
+    min-height: 100vh;
   }
 }
 
-/* Reduced motion */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .recipe-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
@@ -291,14 +502,114 @@ input:focus, textarea:focus, select:focus {
     scroll-behavior: auto !important;
   }
   
+  .will-change-transform {
+    will-change: auto;
+  }
+  
   .animate-float {
     animation: none;
   }
 }
 
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .btn-primary,
+  .btn-secondary {
+    border: 2px solid transparent;
+  }
+  
+  .recipe-card {
+    border: 2px solid CanvasText;
+  }
+}
+
 /* Print styles */
 @media print {
-  .no-print, header, footer, nav {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .no-print,
+  header,
+  footer,
+  nav,
+  .newsletter {
     display: none !important;
+  }
+  
+  .container {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* Critical loading optimization */
+.critical-resource {
+  font-display: swap;
+}
+
+/* Utility classes for performance */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.focus-ring {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.elevation-1 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.elevation-2 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.elevation-3 {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced image loading optimization */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Optimized transitions for better performance */
+.transition-optimized {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+/* Content loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }

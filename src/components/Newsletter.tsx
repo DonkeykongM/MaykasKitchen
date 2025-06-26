@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Mail, Send, Check } from 'lucide-react';
+import { Mail, ArrowRight, Send, Check } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 export const Newsletter = () => {
   const [email, setEmail] = useState('');
@@ -9,22 +10,32 @@ export const Newsletter = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Simple email validation
     if (!email || !email.includes('@') || !email.includes('.')) {
       setSubmitStatus('error');
       setErrorMessage('Vänligen ange en giltig e-postadress.');
       return;
     }
     
+    // Submit form
     setSubmitStatus('submitting');
     
     try {
+      // Send directly to Make webhook
       const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'main_newsletter' })
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          email,
+          source: 'main_newsletter'
+        })
       });
       
-      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
       setSubmitStatus('success');
       setEmail('');
@@ -37,6 +48,7 @@ export const Newsletter = () => {
   
   return (
     <section className="bg-black text-white py-16 relative overflow-hidden">
+      {/* Decorative pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-20 h-20 bg-purple-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-600 rounded-full transform translate-x-1/3 translate-y-1/3"></div>
@@ -52,12 +64,12 @@ export const Newsletter = () => {
         
         <div className="max-w-xl mx-auto">
           {submitStatus === 'success' ? (
-            <div className="bg-purple-600/20 backdrop-blur-sm rounded-lg p-6 flex flex-col items-center justify-center border border-purple-500">
+            <div className="bg-purple-600/20 backdrop-blur-sm rounded-lg p-6 flex flex-col items-center justify-center animate-fadeIn border border-purple-500">
               <div className="bg-green-500 text-white p-3 rounded-full mb-4">
                 <Check size={24} />
               </div>
               <h3 className="text-xl font-bold mb-2">Tack för din prenumeration!</h3>
-              <p className="text-gray-300">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
+              <p className="mb-0 text-gray-300">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -70,6 +82,7 @@ export const Newsletter = () => {
                   className={`w-full px-4 py-3 rounded-lg border text-gray-800 border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400 ${
                     submitStatus === 'error' ? 'border-red-500 bg-red-50' : 'bg-white'
                   }`}
+                  aria-label="Din e-postadress"
                   disabled={submitStatus === 'submitting'}
                 />
                 {submitStatus === 'error' && (
