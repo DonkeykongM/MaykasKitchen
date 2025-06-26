@@ -110,7 +110,7 @@ export const Header = () => {
 
   return (
     <header 
-      className={`sticky top-0 z-50 transition-all duration-300 w-full ${
+      className={`fixed top-0 z-50 transition-all duration-300 w-full ${
         isScrolled 
           ? 'py-2 shadow-lg bg-white/95 backdrop-blur-md border-b border-gray-200' 
           : 'py-4 bg-white shadow-sm'

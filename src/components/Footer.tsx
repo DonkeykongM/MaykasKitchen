@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import { Instagram, BookText as TikTok, Youtube, Facebook, Mail, MapPin, ArrowUp, Heart, ChefHat, Twitter, Linkedin } from 'lucide-react';
+import { Instagram, BookText as TikTok, Youtube, Facebook, Mail, MapPin, Heart, ChefHat, Twitter, Linkedin } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 export const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -63,18 +56,6 @@ export const Footer = () => {
       }}
     >
       <div className="container mx-auto px-4">
-        {/* Enhanced scroll to top button */}
-        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-          <button 
-            onClick={scrollToTop}
-            className="bg-white text-purple-600 p-4 rounded-full shadow-2xl hover:bg-gray-100 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50 relative overflow-hidden group border-4 border-purple-200"
-            aria-label="Skrolla till toppen"
-          >
-            <span className="absolute inset-0 bg-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-            <ArrowUp size={24} className="relative z-10 group-hover:scale-110 transition-transform duration-300" />
-          </button>
-        </div>
-        
         <div className="flex flex-col md:flex-row justify-between mb-10">
           {/* Brand section */}
           <div className="mb-8 md:mb-0 md:w-1/3">

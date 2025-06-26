@@ -40,7 +40,7 @@ export const AboutSection = () => {
           <div className="md:w-2/5 mb-8 md:mb-0 scroll-trigger relative">
             <div className="rounded-lg overflow-hidden shadow-lg hover-zoom">
               <img 
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45KvFPkwGxStE3Ob1dcATYX9L" 
+                src="https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=500&h=600&fit=crop&auto=format" 
                 alt="Mayka Gulo i köket" 
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
@@ -49,7 +49,7 @@ export const AboutSection = () => {
                 decoding="async"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = 'https://via.placeholder.com/500x600/e5e7eb/6b7280?text=Bild+saknas';
+                  target.src = 'https://via.placeholder.com/500x600/e5e7eb/6b7280?text=Mayka+Gulo';
                 }}
               />
             </div>

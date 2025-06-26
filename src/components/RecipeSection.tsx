@@ -8,7 +8,7 @@ const RECIPES = [
     id: 'kofta-bil-sanieh',
     title: 'Köfta bil Sanieh',
     description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCGg5LVZ9bnLa0KVhUD3INroEj6yqmid4HwlYB',
+    image: 'https://images.unsplash.com/photo-1563379091339-03246963d29c?w=400&h=300&fit=crop&auto=format',
     time: '60',
     portions: '8',
     likes: 89,
@@ -22,7 +22,7 @@ const RECIPES = [
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
     description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
+    image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop&auto=format',
     time: '45',
     portions: '4',
     likes: 156,
@@ -35,7 +35,7 @@ const RECIPES = [
     id: 'kafta-bil-sejnie',
     title: 'Kafta bil sejnie',
     description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ',
+    image: 'https://images.unsplash.com/photo-1551326844-4df70f78d0e9?w=400&h=300&fit=crop&auto=format',
     time: '60',
     portions: '5-6',
     likes: 134,
@@ -48,7 +48,7 @@ const RECIPES = [
     id: 'pasta-pesto',
     title: 'Pasta pesto med ugnsbakade tomater & stekt halloumi',
     description: 'En smakrik, krämig och färgsprakande pastarätt med pesto, ugnsbakade tomater och stekt halloumi - perfekt för hela familjen.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
+    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop&auto=format',
     time: '40',
     portions: '4',
     likes: 142,
@@ -93,7 +93,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = 'https://via.placeholder.com/400x260/e5e7eb/6b7280?text=Bild+saknas';
+            target.src = 'https://via.placeholder.com/400x260/e5e7eb/6b7280?text=Bild+laddas...';
           }}
         />
         <div className="absolute top-4 left-4">
