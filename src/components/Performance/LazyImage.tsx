@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 interface LazyImageProps {
   src: string;
@@ -12,6 +12,7 @@ interface LazyImageProps {
   loading?: 'lazy' | 'eager';
   sizes?: string;
   srcSet?: string;
+  priority?: boolean;
 }
 
 export const LazyImage: React.FC<LazyImageProps> = ({
@@ -20,22 +21,28 @@ export const LazyImage: React.FC<LazyImageProps> = ({
   className = '',
   width,
   height,
-  placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23f3f4f6"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy="0.3em" fill="%23d1d5db"%3ELaddar...%3C/text%3E%3C/svg%3E',
+  placeholder,
   onLoad,
   onError,
   loading = 'lazy',
   sizes,
-  srcSet
+  srcSet,
+  priority = false
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(priority || loading === 'eager');
   const imgRef = useRef<HTMLImageElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Optimized intersection observer with throttling
   useEffect(() => {
+    if (priority || loading === 'eager') return;
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !isInView) {
           setIsInView(true);
           observer.disconnect();
         }
@@ -46,38 +53,53 @@ export const LazyImage: React.FC<LazyImageProps> = ({
       }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [priority, loading, isInView]);
 
-  const handleLoad = () => {
+  const handleLoad = useCallback(() => {
     setIsLoaded(true);
     onLoad?.();
-  };
+  }, [onLoad]);
 
-  const handleError = () => {
+  const handleError = useCallback(() => {
     setIsError(true);
     onError?.();
-  };
+  }, [onError]);
 
-  const shouldLoadImage = loading === 'eager' || isInView;
+  const shouldLoadImage = isInView;
+  
+  // Generate optimized placeholder
+  const defaultPlaceholder = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width || 400} ${height || 300}"%3E%3Crect width="100%25" height="100%25" fill="%23f3f4f6"/%3E%3C/svg%3E`;
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      {/* Placeholder */}
+    <div 
+      ref={containerRef} 
+      className={`relative overflow-hidden ${className}`}
+      style={{ backgroundColor: '#f3f4f6' }}
+    >
+      {/* Optimized placeholder with blur effect */}
       {!isLoaded && !isError && (
-        <img
-          src={placeholder}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover filter blur-sm"
-          aria-hidden="true"
-        />
+        <div 
+          className="absolute inset-0 bg-gray-100 flex items-center justify-center transition-opacity duration-300"
+          style={{
+            backgroundImage: `url("${placeholder || defaultPlaceholder}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'blur(2px)',
+            opacity: shouldLoadImage ? 0.5 : 1
+          }}
+        >
+          {!shouldLoadImage && (
+            <div className="text-gray-400 text-xs">Laddar...</div>
+          )}
+        </div>
       )}
 
-      {/* Actual image */}
+      {/* Optimized main image with hardware acceleration */}
       {shouldLoadImage && (
         <img
           ref={imgRef}
@@ -87,22 +109,25 @@ export const LazyImage: React.FC<LazyImageProps> = ({
           height={height}
           sizes={sizes}
           srcSet={srcSet}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
+          className={`w-full h-full object-cover transition-opacity duration-500 will-change-opacity ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={handleLoad}
           onError={handleError}
           loading={loading}
           decoding="async"
+          style={{
+            transform: 'translate3d(0,0,0)', // Hardware acceleration
+          }}
         />
       )}
 
-      {/* Error state */}
+      {/* Error state with retry functionality */}
       {isError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-neutral-100 text-neutral-500">
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
           <div className="text-center p-4">
             <svg
-              className="w-12 h-12 mx-auto mb-2 text-neutral-400"
+              className="w-12 h-12 mx-auto mb-2 text-gray-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -115,11 +140,20 @@ export const LazyImage: React.FC<LazyImageProps> = ({
               />
             </svg>
             <p className="text-sm">Kunde inte ladda bild</p>
+            <button 
+              onClick={() => {
+                setIsError(false);
+                setIsLoaded(false);
+              }}
+              className="text-xs text-purple-600 hover:text-purple-700 mt-1"
+            >
+              Försök igen
+            </button>
           </div>
         </div>
       )}
 
-      {/* Loading indicator */}
+      {/* Loading indicator for slow connections */}
       {shouldLoadImage && !isLoaded && !isError && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
@@ -129,12 +163,16 @@ export const LazyImage: React.FC<LazyImageProps> = ({
   );
 };
 
-// Optimized image component with WebP support
+// Optimized image component with WebP support and modern formats
 export const OptimizedImage: React.FC<LazyImageProps & {
   webpSrc?: string;
-}> = ({ webpSrc, src, alt, ...props }) => {
+  avifSrc?: string;
+}> = ({ webpSrc, avifSrc, src, alt, ...props }) => {
   return (
     <picture>
+      {avifSrc && (
+        <source srcSet={avifSrc} type="image/avif" />
+      )}
       {webpSrc && (
         <source srcSet={webpSrc} type="image/webp" />
       )}
@@ -142,3 +180,5 @@ export const OptimizedImage: React.FC<LazyImageProps & {
     </picture>
   );
 };
+
+export default LazyImage;

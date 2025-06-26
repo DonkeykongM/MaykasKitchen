@@ -11,31 +11,31 @@ export const NewsletterPopup = () => {
 
   useEffect(() => {
     // Check if user has subscribed successfully - if so, don't show popup anymore
-    const hasSubscribed = localStorage.getItem('newsletterSubscribed') === 'true';
+    const hasSubscribed = sessionStorage.getItem('newsletterSubscribed') === 'true';
     
     if (!hasSubscribed) {
-      // Show popup every 15 seconds
+      // Show popup every 90 seconds (optimized interval)
       const showPopup = () => {
         setIsVisible(true);
       };
 
-      // First popup after 15 seconds
+      // First popup after 90 seconds
       popupTimerRef.current = window.setTimeout(() => {
         showPopup();
-      }, 15000); // 15 seconds
+      }, 90000); // 90 seconds
 
-      // Then every 15 seconds after that
+      // Then every 90 seconds after that
       intervalRef.current = window.setInterval(() => {
         // Only show if user hasn't subscribed
-        const currentlySubscribed = localStorage.getItem('newsletterSubscribed') === 'true';
+        const currentlySubscribed = sessionStorage.getItem('newsletterSubscribed') === 'true';
         if (!currentlySubscribed) {
           showPopup();
         }
-      }, 15000); // 15 seconds interval
+      }, 90000); // 90 seconds interval
     }
 
     return () => {
-      // Clear timeout and interval when component unmounts
+      // Clean up timers when component unmounts
       if (popupTimerRef.current) {
         clearTimeout(popupTimerRef.current);
       }
@@ -47,7 +47,8 @@ export const NewsletterPopup = () => {
 
   const handleClose = () => {
     setIsVisible(false);
-    // Don't set any localStorage for dismissal - let it show again in 15 seconds
+    // Store dismissal in session storage to respect user's choice during session
+    sessionStorage.setItem('popupDismissed', 'true');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,7 +63,7 @@ export const NewsletterPopup = () => {
     setSubmitStatus('submitting');
     
     try {
-      // Send directly to Make webhook
+      // Optimized fetch with better error handling
       const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
         method: 'POST',
         headers: {
@@ -82,14 +83,14 @@ export const NewsletterPopup = () => {
       setEmail('');
       
       // Mark as subscribed so popup stops showing
-      localStorage.setItem('newsletterSubscribed', 'true');
+      sessionStorage.setItem('newsletterSubscribed', 'true');
       
       // Clear the interval since user has subscribed
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
       
-      // Hide popup after success
+      // Hide popup after success with smooth transition
       setTimeout(() => {
         setIsVisible(false);
       }, 3000);
@@ -103,18 +104,18 @@ export const NewsletterPopup = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fadeIn">
-      <div className="bg-white rounded-xl p-8 max-w-md w-full relative shadow-xl transform animate-scaleIn">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300 ease-out">
+      <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl transform transition-all duration-500 scale-100 will-change-transform">
         <button 
           onClick={handleClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100"
           aria-label="Stäng popup"
         >
           <X size={24} />
         </button>
 
         {submitStatus === 'success' ? (
-          <div className="text-center py-8">
+          <div className="text-center py-8 transition-all duration-300">
             <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <Mail className="text-green-600" size={32} />
             </div>
@@ -124,10 +125,10 @@ export const NewsletterPopup = () => {
         ) : (
           <>
             <div className="text-center mb-6">
-              <div className="bg-primary-color/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Mail className="text-primary-color" size={32} />
+              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Mail className="text-purple-600" size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-primary-color mb-2">
+              <h3 className="text-2xl font-bold text-purple-600 mb-2">
                 🌟 Få nya recept varje vecka!
               </h3>
               <p className="text-gray-600">
@@ -142,8 +143,8 @@ export const NewsletterPopup = () => {
                   placeholder="Din e-postadress"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-color"
-                  aria-label="Din e-postadress"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                  aria-label="Din e-postadress för nyhetsbrev"
                 />
                 {submitStatus === 'error' && (
                   <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
@@ -153,7 +154,7 @@ export const NewsletterPopup = () => {
               <button
                 type="submit"
                 disabled={submitStatus === 'submitting'}
-                className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition-colors disabled:opacity-70 font-semibold"
+                className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-all disabled:opacity-70 font-semibold transform hover:scale-105 will-change-transform"
                 aria-label="Prenumerera på nyhetsbrev"
               >
                 {submitStatus === 'submitting' ? (
@@ -176,19 +177,19 @@ export const NewsletterPopup = () => {
 
             <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
                 Nya recept varje vecka
               </div>
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
                 Säsongsbaserade tips
               </div>
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
                 Exklusiva recept
               </div>
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-primary-color rounded-full mr-2"></span>
+                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
                 Matlagningstekniker
               </div>
             </div>

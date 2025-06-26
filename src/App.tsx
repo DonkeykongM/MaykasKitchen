@@ -1,60 +1,87 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
 import { RecipeSection } from './components/RecipeSection';
-import { RecipeList } from './components/RecipeList';
 import { CollaborationSection } from './components/CollaborationSection';
 import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
 import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
 import { AnimatedBackgroundPage } from './components/AnimatedBackgroundPage';
-import { LaxRisbowlPost, KaftaBilSejniePost, KoftaBilSaniehPost, PastaPestoPost, KycklingShawarmaPost } from './components/BlogPost';
 import FoodBlogBackground from './components/ui/food-blog-background';
+
+// Lazy load components for better performance
+const RecipeList = lazy(() => import('./components/RecipeList').then(module => ({ default: module.RecipeList })));
+const LaxRisbowlPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.LaxRisbowlPost })));
+const KaftaBilSejniePost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KaftaBilSejniePost })));
+const KoftaBilSaniehPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KoftaBilSaniehPost })));
+const PastaPestoPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PastaPestoPost })));
+const KycklingShawarmaPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingShawarmaPost })));
+
+// Loading component for better UX
+const LoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+      <p className="text-purple-600 font-medium">Laddar...</p>
+    </div>
+  </div>
+);
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial loading (remove in production if not needed)
-    const timer = setTimeout(() => setIsLoading(false), 100);
+    // Optimized loading with faster initial render
+    const timer = setTimeout(() => setIsLoading(false), 50);
     
-    // Optimized hash change detection
+    // Debounced hash change detection for better performance
+    let hashChangeTimeout: number;
     const handleHashChange = () => {
-      const newHash = window.location.hash;
-      if (newHash !== currentHash) {
-        setCurrentHash(newHash);
-        
-        // Smooth scroll to top when navigating between major sections
-        if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/') || newHash === '#animated-background') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+      clearTimeout(hashChangeTimeout);
+      hashChangeTimeout = window.setTimeout(() => {
+        const newHash = window.location.hash;
+        if (newHash !== currentHash) {
+          setCurrentHash(newHash);
+          
+          // Smooth scroll to top when navigating between major sections
+          if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/') || newHash === '#animated-background') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         }
-      }
+      }, 50);
     };
 
-    // Enhanced scroll animation functionality
+    // Throttled scroll animation for better performance
+    let scrollTimeout: number;
     const handleScroll = () => {
-      const scrollTriggers = document.querySelectorAll('.scroll-trigger');
-      const windowHeight = window.innerHeight;
+      if (scrollTimeout) return;
       
-      scrollTriggers.forEach(element => {
-        const position = element.getBoundingClientRect();
-        if (position.top < windowHeight * 0.85) {
-          element.classList.add('visible');
-        }
-      });
+      scrollTimeout = window.setTimeout(() => {
+        const scrollTriggers = document.querySelectorAll('.scroll-trigger');
+        const windowHeight = window.innerHeight;
+        
+        scrollTriggers.forEach(element => {
+          const position = element.getBoundingClientRect();
+          if (position.top < windowHeight * 0.85) {
+            element.classList.add('visible');
+          }
+        });
+        
+        scrollTimeout = 0;
+      }, 16); // 60fps throttling
     };
 
-    // Event listeners
+    // Event listeners with passive option for better performance
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     // Initial trigger
     handleScroll();
 
-    // Dynamic page title and meta description
+    // Optimized page title and meta description updates
     const updatePageMeta = () => {
       let title = "MaykasKitchen - Autentisk assyrisk/syriansk matlagning med Mayka Gulo";
       let description = "Upptäck smakrika recept och matinspiration från Mayka Gulo, kock och matkreatör med assyrisk/syriansk tradition och passion för säsongsbaserad matlagning";
@@ -82,35 +109,30 @@ function App() {
         description = "Upptäck alla våra recept - från traditionella assyriska rätter till moderna tolkningar. Fisk, kött, vegetariskt och mycket mer hos MaykasKitchen.";
       }
       
-      // Update title and meta description
-      document.title = title;
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute("content", description);
-      }
+      // Batched DOM updates for better performance
+      requestAnimationFrame(() => {
+        document.title = title;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute("content", description);
+        }
+      });
     };
     
     updatePageMeta();
     
     return () => {
       clearTimeout(timer);
+      clearTimeout(hashChangeTimeout);
+      clearTimeout(scrollTimeout);
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [currentHash]);
 
-  // Loading screen (optional - remove if not needed)
+  // Optimized loading screen
   if (isLoading) {
-    return (
-      <FoodBlogBackground className="min-h-screen" variant="default">
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-color mx-auto mb-4"></div>
-            <p className="text-primary-color font-medium">Laddar...</p>
-          </div>
-        </div>
-      </FoodBlogBackground>
-    );
+    return <LoadingSpinner />;
   }
 
   // Animated Background Demo Page
@@ -118,7 +140,7 @@ function App() {
     return <AnimatedBackgroundPage />;
   }
 
-  // Recipe pages with error boundary
+  // Recipe pages with lazy loading and error boundary
   if (currentHash.startsWith("#recipe/")) {
     const recipeId = currentHash.replace("#recipe/", "");
     
@@ -146,7 +168,9 @@ function App() {
         <div className="font-sans bg-transparent text-text-color relative z-10">
           <Header />
           <main id="main-content" role="main">
-            <RecipeComponent />
+            <Suspense fallback={<LoadingSpinner />}>
+              <RecipeComponent />
+            </Suspense>
             <Newsletter />
           </main>
           <Footer />
@@ -155,14 +179,16 @@ function App() {
     );
   }
 
-  // Recipe list page
+  // Recipe list page with lazy loading
   if (currentHash.startsWith("#recept/")) {
     return (
       <FoodBlogBackground className="min-h-screen" variant="recipes">
         <div className="font-sans bg-transparent text-text-color relative z-10">
           <Header />
           <main id="main-content" role="main">
-            <RecipeList />
+            <Suspense fallback={<LoadingSpinner />}>
+              <RecipeList />
+            </Suspense>
             <Newsletter />
           </main>
           <Footer />
@@ -171,21 +197,14 @@ function App() {
     );
   }
 
-  // Home page with different variants for different sections
+  // Optimized home page with different variants for different sections
   return (
     <FoodBlogBackground className="min-h-screen" variant="default">
       <div className="font-sans bg-transparent text-text-color relative z-10">
         <Header />
         <main id="main-content" role="main">
-          {/* Hero section uses its own special variant */}
-          <div className="relative">
-            <div className="absolute inset-0 z-0">
-              <div className="hero-animated-background"></div>
-            </div>
-            <div className="relative z-10">
-              <Hero />
-            </div>
-          </div>
+          {/* Hero section with dark gradient background */}
+          <Hero />
           
           <div className="section-divider" aria-hidden="true"></div>
           <NewsletterPopup />

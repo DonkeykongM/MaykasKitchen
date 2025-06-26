@@ -1,7 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
+import { LazyImage } from './Performance/LazyImage';
 
-// Receptdata - direkt i komponenten för snabbare laddning
+// Memoized recipe data to prevent unnecessary re-renders
 const RECIPES = [
   {
     id: 'kofta-bil-sanieh',
@@ -59,25 +60,133 @@ const RECIPES = [
   }
 ];
 
+// Memoized recipe card component for better performance
+const RecipeCard = React.memo(({ recipe, onRecipeClick }) => (
+  <article 
+    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card border border-purple-100 will-change-transform"
+    onClick={(e) => onRecipeClick(recipe.id, e)}
+  >
+    {/* Optimized image with lazy loading */}
+    <div className="relative h-48 md:h-52 overflow-hidden">
+      <LazyImage
+        src={recipe.image}
+        alt={recipe.title}
+        width={400}
+        height={260}
+        className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
+        loading="lazy"
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      />
+      <div className="absolute top-4 left-4">
+        <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
+          <Clock size={12} className="mr-1" /> {recipe.time} min
+        </span>
+      </div>
+      {recipe.trending && (
+        <div className="absolute top-4 right-4">
+          <span className="bg-black/90 text-white text-xs py-1 px-3 rounded-full">
+            Populärt
+          </span>
+        </div>
+      )}
+      {recipe.difficulty && (
+        <div className="absolute bottom-4 left-4">
+          <span className="bg-white/90 text-gray-700 text-xs py-1 px-3 rounded-full">
+            {recipe.difficulty}
+          </span>
+        </div>
+      )}
+    </div>
+    
+    <div className="p-4 md:p-6 w-full">
+      {/* Tags */}
+      <div className="flex flex-wrap gap-2 mb-3">
+        {recipe.badges.map((badge, index) => (
+          <span key={index} className="bg-purple-50 text-purple-600 text-xs py-1 px-2 rounded-full border border-purple-200">
+            {badge}
+          </span>
+        ))}
+      </div>
+      
+      {/* Rating and likes */}
+      <div className="flex justify-between items-center mb-3">
+        <div className="flex items-center">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={16}
+              fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
+              className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
+            />
+          ))}
+          <span className="text-sm text-gray-600 ml-1">{recipe.rating}</span>
+          <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
+        </div>
+        
+        <span className="text-gray-500 text-sm flex items-center">
+          <Heart size={16} className="mr-1" /> {recipe.likes}
+        </span>
+      </div>
+      
+      {/* Title */}
+      <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words">
+        {recipe.title}
+      </h3>
+      
+      {/* Description */}
+      <p className="text-gray-600 mb-4 text-sm line-clamp-2 break-words">
+        {recipe.description}
+      </p>
+      
+      {/* Portions and CTA */}
+      <div className="flex justify-between items-center">
+        <span className="text-gray-500 text-sm flex items-center">
+          <Users size={16} className="mr-1" /> {recipe.portions} portioner
+        </span>
+        
+        <button
+          onClick={(e) => onRecipeClick(recipe.id, e)}
+          className="text-purple-600 hover:text-black flex items-center text-sm font-medium group"
+        >
+          Visa recept
+          <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div>
+    </div>
+  </article>
+));
+
+RecipeCard.displayName = 'RecipeCard';
+
 export const RecipeSection = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
   const sectionRef = useRef(null);
 
-  // Optimerad navigation med useCallback
+  // Optimized navigation with useCallback for better performance
   const handleRecipeClick = useCallback((id, e) => {
     e.preventDefault();
     e.stopPropagation();
-    // Direkt hash-ändring för snabbast möjliga navigation
+    // Direct hash change for fastest navigation
     window.location.hash = `recipe/${id}`;
   }, []);
 
-  // Förenklade kategorier för bättre prestanda
-  const filters = [
+  // Memoized filters to prevent unnecessary re-renders
+  const filters = useMemo(() => [
     { id: 'alla', label: 'Alla recept', active: true },
     { id: 'huvudratter', label: 'Huvudrätter', active: false },
     { id: 'grytor', label: 'Grytor', active: false },
     { id: 'bakverk', label: 'Bakverk', active: false }
-  ];
+  ], []);
+
+  // Memoized filtered recipes for performance
+  const filteredRecipes = useMemo(() => {
+    if (activeFilter === 'alla') return RECIPES;
+    return RECIPES.filter(recipe => 
+      recipe.badges.some(badge => 
+        badge.toLowerCase().includes(activeFilter.toLowerCase())
+      )
+    );
+  }, [activeFilter]);
 
   return (
     <section id="recept" ref={sectionRef} className="py-12 md:py-16 bg-gray-50 w-full overflow-hidden">
@@ -95,14 +204,14 @@ export const RecipeSection = () => {
           med moderna smaker och enkla tillagningsmetoder.
         </p>
         
-        {/* Förenklade kategorier för bättre prestanda */}
+        {/* Optimized filter buttons */}
         <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12 px-4">
           {filters.map(filter => (
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-4 md:px-5 py-2 rounded-full transition-colors text-sm md:text-base ${
-                activeFilter === filter.id ? 'bg-purple-600 text-white' : 'bg-white text-gray-600 hover:bg-purple-50 border border-purple-200'
+              className={`px-4 md:px-5 py-2 rounded-full transition-all text-sm md:text-base will-change-transform ${
+                activeFilter === filter.id ? 'bg-purple-600 text-white transform scale-105' : 'bg-white text-gray-600 hover:bg-purple-50 border border-purple-200'
               }`}
             >
               {filter.label}
@@ -110,110 +219,22 @@ export const RecipeSection = () => {
           ))}
         </div>
         
-        {/* Receptgrid - optimerad struktur med direktklick */}
+        {/* Optimized recipe grid with lazy loading */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
-          {RECIPES.map(recipe => (
-            <article 
+          {filteredRecipes.map(recipe => (
+            <RecipeCard 
               key={recipe.id} 
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card border border-purple-100"
-              onClick={(e) => handleRecipeClick(recipe.id, e)}
-            >
-              {/* Receptbild med direkt klickevent */}
-              <div className="relative h-48 md:h-52 overflow-hidden">
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  width="400"
-                  height="260"
-                  className="w-full h-full object-cover transform transition hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
-                    <Clock size={12} className="mr-1" /> {recipe.time} min
-                  </span>
-                </div>
-                {recipe.trending && (
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-black/90 text-white text-xs py-1 px-3 rounded-full">
-                      Populärt
-                    </span>
-                  </div>
-                )}
-                {recipe.difficulty && (
-                  <div className="absolute bottom-4 left-4">
-                    <span className="bg-white/90 text-gray-700 text-xs py-1 px-3 rounded-full">
-                      {recipe.difficulty}
-                    </span>
-                  </div>
-                )}
-              </div>
-              
-              <div className="p-4 md:p-6 w-full">
-                {/* Taggar */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {recipe.badges.map((badge, index) => (
-                    <span key={index} className="bg-purple-50 text-purple-600 text-xs py-1 px-2 rounded-full border border-purple-200">
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-                
-                {/* Betyg och likes */}
-                <div className="flex justify-between items-center mb-3">
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
-                        className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
-                      />
-                    ))}
-                    <span className="text-sm text-gray-600 ml-1">{recipe.rating}</span>
-                    <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
-                  </div>
-                  
-                  <span className="text-gray-500 text-sm flex items-center">
-                    <Heart size={16} className="mr-1" /> {recipe.likes}
-                  </span>
-                </div>
-                
-                {/* Titel med direkt klickbarhet */}
-                <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words">
-                  {recipe.title}
-                </h3>
-                
-                {/* Beskrivning */}
-                <p className="text-gray-600 mb-4 text-sm line-clamp-2 break-words">
-                  {recipe.description}
-                </p>
-                
-                {/* Portioner och visa recept */}
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-500 text-sm flex items-center">
-                    <Users size={16} className="mr-1" /> {recipe.portions} portioner
-                  </span>
-                  
-                  {/* Tydlig och direkt knapp för att visa recept */}
-                  <button
-                    onClick={(e) => handleRecipeClick(recipe.id, e)}
-                    className="text-purple-600 hover:text-black flex items-center text-sm font-medium group"
-                  >
-                    Visa recept
-                    <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </div>
-            </article>
+              recipe={recipe} 
+              onRecipeClick={handleRecipeClick}
+            />
           ))}
         </div>
         
-        {/* Se alla recept-knapp */}
+        {/* Call to action */}
         <div className="text-center mb-16 md:mb-20">
           <a 
             href="#recept/alla"
-            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-black transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-black transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform"
           >
             Se alla recept
           </a>

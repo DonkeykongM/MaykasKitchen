@@ -63,7 +63,7 @@
   }
 }
 
-/* Enhanced base styles with single scroll */
+/* Optimized base styles for performance */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -90,6 +90,10 @@ body {
   height: 100%;
   background: transparent;
   position: relative;
+  /* Optimized for hardware acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Prevent multiple scroll containers */
@@ -103,12 +107,7 @@ body {
   position: relative;
 }
 
-/* Text shadow utility for better readability */
-.text-shadow-lg {
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Enhanced typography with better contrast */
+/* Enhanced typography with better contrast and performance */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.5em;
@@ -117,13 +116,17 @@ h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
   color: var(--text-color);
   font-weight: 600;
+  /* Hardware acceleration for text rendering */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
-  color: var(--accent-color);
+  color: #FFFFFF;
   margin-bottom: 0.75rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
@@ -155,7 +158,7 @@ p {
   line-height: 1.7;
 }
 
-/* Container improvements */
+/* Optimized container */
 .container {
   width: 100%;
   max-width: 1280px;
@@ -181,14 +184,16 @@ p {
   }
 }
 
-/* Enhanced sections */
+/* Enhanced sections with hardware acceleration */
 section {
   position: relative;
   z-index: 10;
   overflow-x: hidden;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-/* Improved component styling with better contrast */
+/* Optimized component styling with better performance */
 .bg-white {
   background-color: rgba(255, 255, 255, 0.98) !important;
   backdrop-filter: blur(10px);
@@ -200,7 +205,7 @@ section {
   backdrop-filter: blur(8px);
 }
 
-/* Enhanced button styles with purple theme */
+/* Enhanced button styles with hardware acceleration */
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   color: white;
@@ -218,10 +223,12 @@ section {
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 0 6px 20px rgba(128, 0, 128, 0.4);
   background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
 }
@@ -247,12 +254,14 @@ section {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .btn-secondary:hover {
   background-color: var(--primary-color);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
 }
 
@@ -261,7 +270,7 @@ section {
   outline-offset: 2px;
 }
 
-/* Enhanced recipe cards with purple theme */
+/* Enhanced recipe cards with hardware acceleration */
 .recipe-card {
   background-color: rgba(255, 255, 255, 0.98) !important;
   backdrop-filter: blur(10px);
@@ -269,13 +278,14 @@ section {
   border-radius: 1rem;
   transition: all 0.3s ease;
   will-change: transform;
+  transform: translateZ(0);
   position: relative;
   overflow: hidden;
   cursor: pointer;
 }
 
 .recipe-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-8px) translateZ(0);
   box-shadow: 0 12px 24px rgba(75, 0, 130, 0.15);
   border-color: var(--primary-color);
 }
@@ -285,12 +295,14 @@ section {
   outline-offset: 2px;
 }
 
-/* Navigation improvements with purple theme */
+/* Enhanced navigation with hardware acceleration */
 .nav-link {
   position: relative;
   font-weight: 500;
   transition: color 0.3s ease;
   padding: 0.5rem 0;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .nav-link::after {
@@ -302,6 +314,7 @@ section {
   left: 0;
   background-color: var(--primary-color);
   transition: width 0.3s ease;
+  will-change: width;
 }
 
 .nav-link:hover::after,
@@ -316,7 +329,7 @@ section {
   border-radius: 4px;
 }
 
-/* Enhanced form elements with purple theme */
+/* Enhanced form elements with better performance */
 input, textarea, select {
   max-width: 100%;
   width: 100%;
@@ -326,6 +339,7 @@ input, textarea, select {
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background-color: rgba(255, 255, 255, 0.95);
+  will-change: border-color, box-shadow;
 }
 
 input:focus, 
@@ -375,41 +389,58 @@ textarea:invalid {
   outline: 3px solid white;
 }
 
-/* Performance optimizations */
+/* Performance optimizations with hardware acceleration */
 .will-change-transform {
   will-change: transform;
 }
 
 .gpu-acceleration {
   transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
-/* Enhanced animations */
+/* Enhanced animations with 60fps optimization */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 20px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translate3d(0, -10px, 0);
   }
 }
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
-/* Mobile optimizations */
+/* Optimized line clamping */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile optimizations with improved touch targets */
 @media (max-width: 768px) {
   .container {
     padding-left: 1rem;
@@ -434,6 +465,7 @@ textarea:invalid {
     font-size: 1rem;
     width: auto;
     min-width: 120px;
+    min-height: 44px; /* Improved touch target */
   }
   
   input, 
@@ -441,6 +473,7 @@ textarea:invalid {
   select, 
   button {
     font-size: 16px; /* Prevents iOS zoom */
+    min-height: 44px; /* Improved touch target */
   }
 
   /* Ensure hero takes full viewport on mobile */
@@ -471,6 +504,10 @@ textarea:invalid {
   
   .will-change-transform {
     will-change: auto;
+  }
+  
+  .animate-float {
+    animation: none;
   }
 }
 
@@ -507,7 +544,12 @@ textarea:invalid {
   }
 }
 
-/* Utility classes */
+/* Critical loading optimization */
+.critical-resource {
+  font-display: swap;
+}
+
+/* Utility classes for performance */
 .text-balance {
   text-wrap: balance;
 }
@@ -531,4 +573,43 @@ textarea:invalid {
 
 .elevation-3 {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced image loading optimization */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Optimized transitions for better performance */
+.transition-optimized {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+/* Content loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
