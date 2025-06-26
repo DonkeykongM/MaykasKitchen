@@ -74,7 +74,7 @@ const RecipeList = () => {
       id: 'kyckling-shawarma',
       title: 'Kyckling Shawarma',
       description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
-      image: '/image.png',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKKLb3ASMxs2jDZk9E5UVOr3pngc80hXtezf6',
       time: '120',
       portions: '5',
       likes: 89,
