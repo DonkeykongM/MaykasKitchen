@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Instagram, BookText as TikTok, Youtube, Facebook, Mail, MapPin, Heart, ChefHat, Twitter, Linkedin } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { Instagram, BookText as TikTok, Youtube, Facebook, Mail, MapPin, Heart, ChefHat, Twitter } from 'lucide-react';
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
@@ -10,18 +9,15 @@ export const Footer = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simple email validation
     if (!email || !email.includes('@') || !email.includes('.')) {
       setSubmitStatus('error');
       setErrorMessage('Vänligen ange en giltig e-postadress.');
       return;
     }
     
-    // Submit form
     setSubmitStatus('submitting');
     
     try {
-      // Send directly to Make webhook
       const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
         method: 'POST',
         headers: {
@@ -57,17 +53,15 @@ export const Footer = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between mb-10">
-          {/* Brand section */}
           <div className="mb-8 md:mb-0 md:w-1/3">
             <div className="flex items-center mb-4">
               <div className="bg-purple-600/30 p-2 rounded-full mr-2">
                 <ChefHat size={28} className="text-purple-300" />
               </div>
-              <h3 className="text-2xl font-bold text-purple-300">MaykasKitchen</h3>
+              <h3 className="text-2xl font-bold text-purple-300 font-serif">MaykasKitchen</h3>
             </div>
-            <p className="max-w-xs mb-4 text-gray-300">Mat från hjärtat & tro i själen. Assyriska/Syrianska rötter, tacksam för min familj & kokar alltid med kärlek!</p>
+            <p className="max-w-xs mb-4 text-gray-300 leading-relaxed">Mat från hjärtat & tro i själen. Assyriska/Syrianska rötter, tacksam för min familj & kokar alltid med kärlek!</p>
             
-            {/* Enhanced social media links with hover effects */}
             <div className="flex space-x-4 mb-6">
               <a 
                 href="https://www.instagram.com/maykaskitchen/" 
@@ -105,18 +99,8 @@ export const Footer = () => {
               >
                 <Facebook size={22} />
               </a>
-              <a 
-                href="https://twitter.com/maykaskitchen" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-gray-300 hover:text-purple-300 transition-colors transform hover:scale-110" 
-                aria-label="Twitter"
-              >
-                <Twitter size={22} />
-              </a>
             </div>
             
-            {/* Contact information */}
             <div className="flex flex-col space-y-2">
               <div className="flex items-center text-gray-300 text-sm group">
                 <Mail size={14} className="mr-2 group-hover:text-purple-300 transition-colors" />
@@ -134,7 +118,6 @@ export const Footer = () => {
             </div>
           </div>
           
-          {/* Footer navigation links */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:w-2/3">
             <div>
               <h4 className="font-semibold mb-4 text-purple-300 text-lg border-b border-purple-500 pb-2">Utforska</h4>
@@ -159,21 +142,9 @@ export const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
+                  <a href="#recept/alla" className="text-gray-300 hover:text-white transition-colors flex items-center group">
                     <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Mellanöstern
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Säsongsmat
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transformation group-hover:scale-125"></span> 
-                    Alla kategorier
+                    Alla recept
                   </a>
                 </li>
               </ul>
@@ -209,12 +180,6 @@ export const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Min matfilosofi
-                  </a>
-                </li>
-                <li>
                   <a 
                     href="#kontakt" 
                     className="text-gray-300 hover:text-white transition-colors flex items-center group"
@@ -227,86 +192,73 @@ export const Footer = () => {
                     Kontakt
                   </a>
                 </li>
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Mediaprofil
-                  </a>
-                </li>
               </ul>
             </div>
             
             <div className="col-span-2 md:col-span-1">
-              <h4 className="font-semibold mb-4 text-purple-300 text-lg border-b border-purple-500 pb-2">Juridisk info</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Integritetspolicy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Cookiepolicy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Användarvillkor
-                  </a>
-                </li>
-              </ul>
+              <h4 className="font-semibold mb-4 text-purple-300 text-lg border-b border-purple-500 pb-2">Nyhetsbrev</h4>
+              <p className="text-purple-100 text-sm mb-3">Få nya recept och matinspiration direkt i din inkorg!</p>
               
-              {/* Enhanced newsletter signup */}
-              <div className="mt-6 bg-purple-600 p-4 rounded-lg transform transition-all hover:scale-102 hover:shadow-md">
-                <h5 className="font-medium text-white mb-2">Nyhetsbrev</h5>
-                <p className="text-purple-100 text-sm mb-3">Få nya recept och matinspiration direkt i din inkorg!</p>
-                
-                {submitStatus === 'success' ? (
-                  <div className="bg-green-500/20 p-3 rounded-lg text-white text-center">
-                    <p className="font-medium">Tack för din prenumeration!</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="flex">
-                    <input 
-                      type="email" 
-                      placeholder="Din e-post" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-purple-700 border-0 rounded-l-lg p-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-purple-300 placeholder-purple-200"
-                      aria-label="Din e-postadress för nyhetsbrev"
-                    />
-                    <button 
-                      type="submit"
-                      className="bg-black text-white text-sm py-2 px-3 rounded-r-lg hover:bg-gray-800 transition-colors"
-                      aria-label="Prenumerera på nyhetsbrev"
-                      disabled={submitStatus === 'submitting'}
-                    >
-                      {submitStatus === 'submitting' ? (
-                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                      ) : (
-                        <Mail size={16} />
-                      )}
-                    </button>
-                  </form>
-                )}
-                
-                {submitStatus === 'error' && (
-                  <p className="text-xs text-red-200 mt-2">{errorMessage}</p>
-                )}
+              {submitStatus === 'success' ? (
+                <div className="bg-green-500/20 p-3 rounded-lg text-white text-center">
+                  <p className="font-medium">Tack för din prenumeration!</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex mb-4">
+                  <input 
+                    type="email" 
+                    placeholder="Din e-post" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-purple-700 border-0 rounded-l-lg p-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-purple-300 placeholder-purple-200"
+                    aria-label="Din e-postadress för nyhetsbrev"
+                  />
+                  <button 
+                    type="submit"
+                    className="bg-black text-white text-sm py-2 px-3 rounded-r-lg hover:bg-gray-800 transition-colors"
+                    aria-label="Prenumerera på nyhetsbrev"
+                    disabled={submitStatus === 'submitting'}
+                  >
+                    {submitStatus === 'submitting' ? (
+                      <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : (
+                      <Mail size={16} />
+                    )}
+                  </button>
+                </form>
+              )}
+              
+              {submitStatus === 'error' && (
+                <p className="text-xs text-red-200 mb-2">{errorMessage}</p>
+              )}
+              
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="flex items-center text-gray-300">
+                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
+                  Nya recept varje månad
+                </div>
+                <div className="flex items-center text-gray-300">
+                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
+                  Exklusiva recept
+                </div>
+                <div className="flex items-center text-gray-300">
+                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
+                  Säsongsbaserade tips
+                </div>
+                <div className="flex items-center text-gray-300">
+                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
+                  Matlagningstekniker
+                </div>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Footer bottom section */}
         <div className="border-t border-purple-500 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-300 text-sm mb-4 md:mb-0">
+          <p className="text-gray-300 text-sm mb-4 md:mb-0 text-center md:text-left">
             &copy; {currentYear} MaykasKitchen. Alla rättigheter förbehållna.
           </p>
           <div className="flex items-center text-gray-300 text-sm">
@@ -315,25 +267,6 @@ export const Footer = () => {
             <span>i Skåne, Sverige</span>
           </div>
         </div>
-      </div>
-      
-      {/* Structured data for SEO - hidden from view */}
-      <div className="hidden" itemScope itemType="https://schema.org/Organization">
-        <meta itemProp="name" content="MaykasKitchen" />
-        <meta itemProp="url" content="https://maykaskitchen.se" />
-        <meta itemProp="logo" content="https://maykaskitchen.se/logo.png" />
-        <meta itemProp="description" content="MaykasKitchen - Autentisk assyrisk/syriansk matlagning med Mayka Gulo. Recept, inspiration och matglädje för hela familjen." />
-        <div itemProp="founder" itemScope itemType="https://schema.org/Person">
-          <meta itemProp="name" content="Mayka Gulo" />
-        </div>
-        <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-          <meta itemProp="addressRegion" content="Skåne" />
-          <meta itemProp="addressCountry" content="Sweden" />
-        </div>
-        <meta itemProp="sameAs" content="https://www.instagram.com/maykaskitchen/" />
-        <meta itemProp="sameAs" content="https://www.tiktok.com/@Maykaskitchen" />
-        <meta itemProp="sameAs" content="https://www.youtube.com/@Maykaskitchen" />
-        <meta itemProp="sameAs" content="https://www.facebook.com/maykaskitchen/" />
       </div>
     </footer>
   );

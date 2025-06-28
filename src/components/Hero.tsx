@@ -8,7 +8,6 @@ export const Hero = () => {
   useEffect(() => {
     setIsVisible(true);
     
-    // Optimized intersection observer for better performance
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -48,7 +47,6 @@ export const Hero = () => {
       }}
       aria-labelledby="hero-heading"
     >
-      {/* Subtle floating elements */}
       <div className="absolute top-[20%] right-[10%] w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-full animate-pulse" 
            style={{ animation: 'float 6s ease-in-out infinite' }}></div>
       <div className="absolute bottom-[25%] left-[8%] w-8 h-8 md:w-12 md:h-12 bg-white/5 rounded-full animate-pulse" 
@@ -58,20 +56,16 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-
-          {/* Badge matching reference image */}
           <span className="inline-flex items-center bg-white/90 backdrop-blur-sm text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-8 shadow-lg">
             <span className="bg-purple-600 w-2 h-2 rounded-full mr-2"></span>
             Assyrisk/syriansk matkonst
           </span>
           
-          {/* Main heading matching reference image exactly */}
           <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight font-serif">
             Mat från hjärtat<br />
             <span className="text-white">& själen</span>
           </h1>
           
-          {/* Description with highlighted text matching reference */}
           <p className="text-lg md:text-xl lg:text-2xl mb-4 text-white leading-relaxed">
             Upptäck <mark className="bg-purple-600/90 text-white font-semibold px-2 py-1 rounded">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
           </p>
@@ -80,11 +74,10 @@ export const Hero = () => {
             Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.
           </p>
           
-          {/* Button matching reference image */}
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-8 md:mb-10">
             <button 
               onClick={scrollToRecipes}
-              className="bg-purple-600 text-white hover:bg-purple-700 transition-all duration-300 py-4 px-8 rounded-full font-semibold flex items-center justify-center group text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform"
+              className="bg-purple-600 text-white hover:bg-purple-700 transition-all duration-300 py-4 px-8 rounded-full font-semibold flex items-center justify-center group text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               aria-label="Utforska recept"
             >
               <UtensilsCrossed size={20} className="mr-3 transform transition-transform group-hover:rotate-12" />
@@ -92,7 +85,6 @@ export const Hero = () => {
             </button>
           </div>
 
-          {/* Social media section matching reference */}
           <div className="mb-8 md:mb-10">
             <h4 className="font-semibold mb-4 text-white text-lg">Följ mig här:</h4>
             <div className="flex flex-wrap gap-4">
@@ -119,12 +111,11 @@ export const Hero = () => {
             </div>
           </div>
           
-          {/* Scroll indicator for desktop */}
           <div className="hidden md:flex items-center text-white/70 text-sm">
             <span className="mr-2">Utforska mer</span>
             <button 
               onClick={scrollToRecipes}
-              className="animate-bounce bg-white/20 backdrop-blur-sm h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent hover:bg-white/30 will-change-transform"
+              className="animate-bounce bg-white/20 backdrop-blur-sm h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent hover:bg-white/30"
               aria-label="Scrolla ner till recept"
             >
               <ChevronDown size={20} className="text-white" />
@@ -132,15 +123,13 @@ export const Hero = () => {
           </div>
         </div>
         
-        {/* Right side image section - simplified for performance */}
         <div className={`w-full lg:w-1/2 flex justify-center transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="relative max-w-sm lg:max-w-md xl:max-w-lg">
-            {/* Main hero image with optimized loading */}
-            <div className="rounded-full overflow-hidden h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm will-change-transform">
+            <div className="rounded-full overflow-hidden h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm">
               <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4" 
                 alt="Mayka Gulo i köket med färska råvaror" 
-                className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105 will-change-transform"
+                className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105"
                 loading="eager"
                 width="384"
                 height="384"
@@ -151,11 +140,10 @@ export const Hero = () => {
         </div>
       </div>
       
-      {/* Mobile scroll indicator */}
       <div className="md:hidden absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <button 
           onClick={scrollToRecipes}
-          className="animate-bounce bg-white/20 backdrop-blur-sm h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all will-change-transform"
+          className="animate-bounce bg-white/20 backdrop-blur-sm h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"
           aria-label="Scrolla ner för att utforska recept"
         >
           <ChevronDown size={24} className="text-white" />
