@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
 
-// Memoized recipe data with updated working image URLs
+// Memoized recipe data with corrected working image URLs
 const RECIPES = [
   {
     id: 'kofta-bil-sanieh',
@@ -94,7 +94,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
       }}
       aria-label={`Visa recept för ${recipe.title}`}
     >
-      {/* Optimized image with proper lazy loading */}
+      {/* Optimized image with proper lazy loading and error handling */}
       <div className="relative h-48 md:h-52 overflow-hidden">
         <img
           src={recipe.image}
@@ -105,6 +105,20 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
           loading="lazy"
           decoding="async"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={(e) => {
+            console.error('Failed to load recipe image:', e.target.src);
+            e.target.style.backgroundColor = '#f3f4f6';
+            e.target.style.display = 'flex';
+            e.target.style.alignItems = 'center';
+            e.target.style.justifyContent = 'center';
+            e.target.innerHTML = `<div style="text-align: center; color: #6b7280; padding: 20px;">
+              <div style="font-size: 24px; margin-bottom: 8px;">🍽️</div>
+              <div style="font-size: 14px;">Bild laddas...</div>
+            </div>`;
+          }}
+          onLoad={(e) => {
+            console.log('Recipe image loaded successfully:', e.target.src);
+          }}
         />
         <div className="absolute top-4 left-4">
           <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">

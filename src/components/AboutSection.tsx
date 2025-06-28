@@ -47,6 +47,13 @@ export const AboutSection = () => {
                 width={500}
                 height={600}
                 decoding="async"
+                onError={(e) => {
+                  console.error('Failed to load image:', e.target.src);
+                  e.target.style.display = 'none';
+                }}
+                onLoad={(e) => {
+                  console.log('Image loaded successfully:', e.target.src);
+                }}
               />
             </div>
             
