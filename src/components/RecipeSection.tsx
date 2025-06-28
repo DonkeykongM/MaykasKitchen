@@ -2,13 +2,13 @@ import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
 
-// Memoized recipe data with working Pexels images
+// Memoized recipe data to prevent unnecessary re-renders
 const RECIPES = [
   {
     id: 'kofta-bil-sanieh',
     title: 'Köfta bil Sanieh',
     description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',
-    image: 'https://images.pexels.com/photos/3026801/pexels-photo-3026801.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCGg5LVZ9bnLa0KVhUD3INroEj6yqmid4HwlYB',
     time: '60',
     portions: '8',
     likes: 89,
@@ -22,7 +22,7 @@ const RECIPES = [
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
     description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
-    image: 'https://images.pexels.com/photos/1516415/pexels-photo-1516415.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
     time: '45',
     portions: '4',
     likes: 156,
@@ -35,7 +35,7 @@ const RECIPES = [
     id: 'kafta-bil-sejnie',
     title: 'Kafta bil sejnie',
     description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
-    image: 'https://images.pexels.com/photos/769969/pexels-photo-769969.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ',
     time: '60',
     portions: '5-6',
     likes: 134,
@@ -48,7 +48,7 @@ const RECIPES = [
     id: 'pasta-pesto',
     title: 'Pasta pesto med ugnsbakade tomater & stekt halloumi',
     description: 'En smakrik, krämig och färgsprakande pastarätt med pesto, ugnsbakade tomater och stekt halloumi - perfekt för hela familjen.',
-    image: 'https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
     time: '40',
     portions: '4',
     likes: 142,
@@ -91,6 +91,10 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
           loading="lazy"
           decoding="async"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = 'https://via.placeholder.com/400x260/e5e7eb/6b7280?text=Bild+laddas...';
+          }}
         />
         <div className="absolute top-4 left-4">
           <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
