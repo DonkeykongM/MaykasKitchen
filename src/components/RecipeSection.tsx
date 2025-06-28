@@ -252,6 +252,8 @@ export const RecipeSection = () => {
     e.preventDefault();
     e.stopPropagation();
     
+    console.log('Recipe clicked:', id);
+    
     // Add loading state for better UX
     setIsLoading(true);
     
@@ -261,6 +263,15 @@ export const RecipeSection = () => {
       // Direct hash change for fastest navigation
       window.location.hash = `recipe/${id}`;
     }, 200);
+  }, []);
+
+  // Handle "Se alla recept" button click
+  const handleSeeAllRecipes = useCallback((e) => {
+    e.preventDefault();
+    console.log('Navigating to all recipes page');
+    
+    // Navigate to the recipe list page
+    window.location.hash = 'recept/alla';
   }, []);
 
   // Memoized filters to prevent unnecessary re-renders
@@ -344,15 +355,16 @@ export const RecipeSection = () => {
           </div>
         </Suspense>
         
-        {/* Call to action with improved accessibility */}
+        {/* Call to action with improved accessibility and WORKING functionality */}
         <div className="text-center mb-16 md:mb-20">
-          <a 
-            href="#recept/alla"
-            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium"
+          <button 
+            onClick={handleSeeAllRecipes}
+            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer"
             role="button"
+            aria-label="Se alla våra recept"
           >
             Se alla recept
-          </a>
+          </button>
         </div>
       </div>
     </section>
