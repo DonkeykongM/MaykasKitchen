@@ -40,7 +40,7 @@ export const AboutSection = () => {
           <div className="md:w-2/5 mb-8 md:mb-0 scroll-trigger relative">
             <div className="rounded-lg overflow-hidden shadow-lg hover-zoom">
               <img 
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45KvFPkwGxStE3Ob1dcATYX9L" 
+                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCWwNgB4As78PDxpNGZ2hd4yYrwW3o1UOAiJac" 
                 alt="Mayka Gulo i köket" 
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
