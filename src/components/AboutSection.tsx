@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Instagram, BookText as TikTok, Youtube, Facebook, Heart, Globe, Award, Medal, CalendarDays, Users } from 'lucide-react';
 
 export const AboutSection = () => {
   const sectionRef = useRef(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,6 +30,18 @@ export const AboutSection = () => {
     };
   }, []);
 
+  const handleImageLoad = () => {
+    console.log('About image loaded successfully');
+    setImageLoaded(true);
+    setImageError(false);
+  };
+
+  const handleImageError = (e) => {
+    console.error('Failed to load about image:', e.target.src);
+    setImageError(true);
+    setImageLoaded(false);
+  };
+
   return (
     <section id="om-mig" className="py-20 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4">
@@ -39,22 +53,42 @@ export const AboutSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-16">
           <div className="md:w-2/5 mb-8 md:mb-0 scroll-trigger relative">
             <div className="rounded-lg overflow-hidden shadow-lg hover-zoom">
-              <img 
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCWwNgB4As78PDxpNGZ2hd4yYrwW3o1UOAiJac" 
-                alt="Mayka Gulo i köket" 
-                className="w-full h-auto rounded-lg"
-                loading="lazy"
-                width={500}
-                height={600}
-                decoding="async"
-                onError={(e) => {
-                  console.error('Failed to load image:', e.target.src);
-                  e.target.style.display = 'none';
-                }}
-                onLoad={(e) => {
-                  console.log('Image loaded successfully:', e.target.src);
-                }}
-              />
+              {!imageError ? (
+                <img 
+                  src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCWwNgB4As78PDxpNGZ2hd4yYrwW3o1UOAiJac" 
+                  alt="Mayka Gulo i köket" 
+                  className="w-full h-auto rounded-lg"
+                  loading="lazy"
+                  width={500}
+                  height={600}
+                  decoding="async"
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                  style={{ 
+                    opacity: imageLoaded ? 1 : 0,
+                    transition: 'opacity 0.3s ease'
+                  }}
+                />
+              ) : null}
+              
+              {/* Fallback content when image fails to load */}
+              {imageError && (
+                <div className="w-full h-96 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex flex-col items-center justify-center text-purple-600 border border-purple-300">
+                  <div className="text-6xl mb-4">👩‍🍳</div>
+                  <h3 className="text-xl font-semibold mb-2">Mayka Gulo</h3>
+                  <p className="text-center text-sm px-4">Kock & matkreatör specialiserad på assyrisk/syriansk matlagning</p>
+                </div>
+              )}
+              
+              {/* Loading state */}
+              {!imageLoaded && !imageError && (
+                <div className="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center animate-pulse">
+                  <div className="text-gray-400 text-center">
+                    <div className="text-3xl mb-2">📸</div>
+                    <div>Laddar bild...</div>
+                  </div>
+                </div>
+              )}
             </div>
             
             {/* Experience badge */}
