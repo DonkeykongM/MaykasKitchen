@@ -138,7 +138,7 @@ export const Hero = () => {
             {/* Main hero image with optimized loading */}
             <div className="rounded-full overflow-hidden h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm will-change-transform">
               <img 
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4" 
+                src="https://images.pexels.com/photos/2284166/pexels-photo-2284166.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 alt="Mayka Gulo i köket med färska råvaror" 
                 className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105 will-change-transform"
                 loading="eager"
