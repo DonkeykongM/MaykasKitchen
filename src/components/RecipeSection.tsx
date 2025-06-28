@@ -2,13 +2,13 @@ import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
 
-// Memoized recipe data with working image URLs
+// Memoized recipe data with updated working image URLs
 const RECIPES = [
   {
     id: 'kofta-bil-sanieh',
     title: 'Köfta bil Sanieh',
     description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCGg5LVZ9bnLa0KVhUD3INroEj6yqmid4HwlYB',
     time: '60',
     portions: '8',
     likes: 89,
@@ -35,7 +35,7 @@ const RECIPES = [
     id: 'kafta-bil-sejnie',
     title: 'Kafta bil sejnie',
     description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC2bVVcBHX4Xuw0sOU5gWozk6clEfde8bBYInQ',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8zXxYz037zrR9qXSut4TKmZEpjlBcOhHew02',
     time: '60',
     portions: '5-6',
     likes: 134,
@@ -57,6 +57,20 @@ const RECIPES = [
     badges: ['Vegetariskt', 'Snabb', 'Pasta'],
     difficulty: 'Lätt',
     trending: true
+  },
+  {
+    id: 'kyckling-shawarma',
+    title: 'Kyckling Shawarma',
+    description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCG7jiQH9bnLa0KVhUD3INroEj6yqmid4HwlYB',
+    time: '120',
+    portions: '5',
+    likes: 89,
+    rating: 5.0,
+    reviews: 23,
+    badges: ['Kött', 'Mellanöstern', 'Familj'],
+    trending: true,
+    difficulty: 'Medel'
   }
 ];
 
