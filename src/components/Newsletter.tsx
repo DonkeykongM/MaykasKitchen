@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ArrowRight, Send, Check, Calendar, Star, Seedling, Utensils } from 'lucide-react';
+import { Mail, ArrowRight, Send, Check, Calendar, Star, Scaling as Seedling, Utensils } from 'lucide-react';
 
 export const Newsletter = () => {
   const [email, setEmail] = useState('');
