@@ -6,6 +6,7 @@ import { RecipeSection } from './components/RecipeSection';
 import { CollaborationSection } from './components/CollaborationSection';
 import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
+import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
 import FoodBlogBackground from './components/ui/food-blog-background';
 import { HeroSkeleton } from './components/LoadingStates/SkeletonLoader';
@@ -277,6 +278,9 @@ function App() {
             <Hero />
             
             <div className="section-divider" aria-hidden="true"></div>
+            
+            {/* Newsletter popup - återställd med 90 sekunders intervall */}
+            <NewsletterPopup />
             
             {/* About section with about variant */}
             <FoodBlogBackground variant="about" className="relative">
