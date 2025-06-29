@@ -6,9 +6,7 @@ import { RecipeSection } from './components/RecipeSection';
 import { CollaborationSection } from './components/CollaborationSection';
 import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
-import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
-import { AnimatedBackgroundPage } from './components/AnimatedBackgroundPage';
 import FoodBlogBackground from './components/ui/food-blog-background';
 import { HeroSkeleton } from './components/LoadingStates/SkeletonLoader';
 
@@ -99,7 +97,7 @@ function App() {
           setCurrentHash(newHash);
           
           // Smooth scroll to top for major section changes
-          if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/') || newHash === '#animated-background') {
+          if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/')) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }
@@ -140,10 +138,6 @@ function App() {
       let description = "Upptäck smakrika recept och matinspiration från Mayka Gulo, kock och matkreatör med assyrisk/syriansk tradition och passion för säsongsbaserad matlagning";
       
       const metaUpdates = {
-        "#animated-background": {
-          title: "Dynamic Animated Background - MaykasKitchen",
-          description: "En responsiv webbsida med dynamisk animerad bakgrund med linjära gradienter från lila till kunglig blå."
-        },
         "#recipe/lax-risbowl": {
           title: "Kryddig lax- & risbowl - MaykasKitchen",
           description: "Recept på kryddig lax- & risbowl. Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Enkelt och smakrikt recept från MaykasKitchen."
@@ -208,15 +202,6 @@ function App() {
   // Show loading screen with skeleton
   if (isLoading) {
     return isInitialLoad ? <LoadingSpinner /> : <HeroSkeleton />;
-  }
-
-  // Animated Background Demo Page
-  if (currentHash === "#animated-background") {
-    return (
-      <ErrorBoundary>
-        <AnimatedBackgroundPage />
-      </ErrorBoundary>
-    );
   }
 
   // Recipe pages with lazy loading and error boundary
@@ -292,7 +277,6 @@ function App() {
             <Hero />
             
             <div className="section-divider" aria-hidden="true"></div>
-            <NewsletterPopup />
             
             {/* About section with about variant */}
             <FoodBlogBackground variant="about" className="relative">
