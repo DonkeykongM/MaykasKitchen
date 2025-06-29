@@ -506,16 +506,16 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               )}
             </div>
 
-            {/* Ingredients - NOW ON RIGHT (1/4 width on desktop, MUCH SMALLER) */}
+            {/* Ingredients - NOW ON RIGHT (1/4 width on desktop, MUCH SMALLER & BETTER ALIGNED) */}
             <div className="lg:col-span-1 order-1 lg:order-2">
-              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-3">
-                <h2 className="text-sm md:text-base font-bold mb-3 text-center text-purple-600 font-serif">
+              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-4">
+                <h2 className="text-base md:text-lg font-bold mb-4 text-center text-purple-600 font-serif">
                   Ingredienser
                 </h2>
                 
                 {recipe.allergens && recipe.allergens.length > 0 && (
-                  <div className="mb-3 p-2 bg-yellow-50 rounded-lg flex items-start text-xs border border-yellow-200">
-                    <AlertCircle className="text-yellow-500 mr-1 mt-0.5 flex-shrink-0" size={12} />
+                  <div className="mb-4 p-3 bg-yellow-50 rounded-lg flex items-start text-sm border border-yellow-200">
+                    <AlertCircle className="text-yellow-500 mr-2 mt-0.5 flex-shrink-0" size={14} />
                     <div>
                       <p className="font-medium text-yellow-700 text-xs">Allergener:</p>
                       <p className="text-yellow-700 text-xs">{recipe.allergens.join(', ')}</p>
@@ -524,13 +524,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 )}
                 
                 {recipe.content.ingredients.map((section, index) => (
-                  <div key={index} className="mb-3">
+                  <div key={index} className="mb-4">
                     {section.section && (
-                      <h3 className="text-xs font-semibold text-purple-600 mb-2 text-center border-b border-purple-200 pb-1">
+                      <h3 className="text-sm font-semibold text-purple-600 mb-3 text-center border-b border-purple-200 pb-2">
                         {section.section}
                       </h3>
                     )}
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-2">
                       {section.items.map((ingredient, i) => {
                         const regex = /^(\d+(?:[.,]\d+)?\s*(?:\w+)?\s*(?:\w+)?)\s(.+)$/;
                         const match = ingredient.match(regex);
@@ -541,20 +541,34 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                           const adjustedAmount = adjustAmount(originalAmount, originalPortions);
                           
                           return (
-                            <li key={i} className="flex items-start text-xs">
-                              <input type="checkbox" className="mt-1 mr-2 text-purple-500 scale-75" />
-                              <span className="text-center flex-1 leading-tight">
-                                <strong className="text-purple-600 font-medium">{adjustedAmount}</strong>{' '}
-                                <span className="text-gray-700">{ingredientName}</span>
-                              </span>
+                            <li key={i} className="flex items-center text-sm">
+                              <div className="flex items-center justify-center w-full">
+                                <input 
+                                  type="checkbox" 
+                                  className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
+                                />
+                                <div className="flex-1 text-center">
+                                  <span className="block">
+                                    <strong className="text-purple-600 font-semibold text-sm">{adjustedAmount}</strong>
+                                  </span>
+                                  <span className="block text-gray-700 text-sm leading-tight">{ingredientName}</span>
+                                </div>
+                              </div>
                             </li>
                           );
                         }
                         
                         return (
-                          <li key={i} className="flex items-start text-xs">
-                            <input type="checkbox" className="mt-1 mr-2 text-purple-500 scale-75" />
-                            <span className="text-center flex-1 text-gray-700 leading-tight">{ingredient}</span>
+                          <li key={i} className="flex items-center text-sm">
+                            <div className="flex items-center justify-center w-full">
+                              <input 
+                                type="checkbox" 
+                                className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
+                              />
+                              <div className="flex-1 text-center">
+                                <span className="text-gray-700 text-sm leading-tight">{ingredient}</span>
+                              </div>
+                            </div>
                           </li>
                         );
                       })}
