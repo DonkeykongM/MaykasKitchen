@@ -88,17 +88,15 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
     return <SkeletonLoader variant="recipe" />;
   }
 
-  const handleImageLoad = () => {
-    console.log('Recipe image loaded successfully:', recipe.title);
+  const handleImageLoad = useCallback(() => {
     setImageLoaded(true);
     setImageError(false);
-  };
+  }, []);
 
-  const handleImageError = (e) => {
-    console.error('Failed to load recipe image:', recipe.title, e.target.src);
+  const handleImageError = useCallback(() => {
     setImageError(true);
     setImageLoaded(false);
-  };
+  }, []);
 
   return (
     <article 
@@ -115,7 +113,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
       aria-label={`Visa recept för ${recipe.title}`}
     >
       {/* Enhanced image with robust error handling */}
-      <div className="relative h-48 md:h-52 overflow-hidden">
+      <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
         {!imageError ? (
           <img
             src={recipe.image}
@@ -125,7 +123,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
             className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
             loading="lazy"
             decoding="async"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             onLoad={handleImageLoad}
             onError={handleImageError}
             style={{ 
@@ -138,9 +136,8 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         {/* Enhanced fallback content when image fails to load */}
         {imageError && (
           <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex flex-col items-center justify-center text-purple-600 border border-purple-300">
-            <div className="text-4xl mb-2">{recipe.fallbackEmoji || '🍽️'}</div>
-            <div className="text-sm font-medium text-center px-2">{recipe.title}</div>
-            <div className="text-xs text-purple-500 mt-1">Bildfel</div>
+            <div className="text-3xl md:text-4xl mb-2">{recipe.fallbackEmoji || '🍽️'}</div>
+            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.title}</div>
           </div>
         )}
         
@@ -148,36 +145,36 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         {!imageLoaded && !imageError && (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center animate-pulse">
             <div className="text-gray-400 text-center">
-              <div className="text-2xl mb-1">📸</div>
+              <div className="text-xl md:text-2xl mb-1">📸</div>
               <div className="text-xs">Laddar...</div>
             </div>
           </div>
         )}
         
-        <div className="absolute top-4 left-4">
-          <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
-            <Clock size={12} className="mr-1" /> {recipe.time} min
+        <div className="absolute top-2 md:top-4 left-2 md:left-4">
+          <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
+            <Clock size={10} className="mr-1" /> {recipe.time} min
           </span>
         </div>
         {recipe.trending && (
-          <div className="absolute top-4 right-4">
-            <span className="bg-black/90 text-white text-xs py-1 px-3 rounded-full">
+          <div className="absolute top-2 md:top-4 right-2 md:right-4">
+            <span className="bg-black/90 text-white text-xs py-1 px-2 md:px-3 rounded-full">
               Populärt
             </span>
           </div>
         )}
         {recipe.difficulty && (
-          <div className="absolute bottom-4 left-4">
-            <span className="bg-white/90 text-gray-700 text-xs py-1 px-3 rounded-full">
+          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4">
+            <span className="bg-white/90 text-gray-700 text-xs py-1 px-2 md:px-3 rounded-full">
               {recipe.difficulty}
             </span>
           </div>
         )}
       </div>
       
-      <div className="p-4 md:p-6 w-full">
+      <div className="p-3 md:p-4 lg:p-6 w-full">
         {/* Tags with improved contrast */}
-        <div className="flex flex-wrap gap-2 mb-3">
+        <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-3">
           {recipe.badges.map((badge, index) => (
             <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-2 rounded-full border border-purple-200 font-medium">
               {badge}
@@ -186,41 +183,41 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         </div>
         
         {/* Rating and likes with WCAG compliant colors */}
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between items-center mb-2 md:mb-3">
           <div className="flex items-center" role="img" aria-label={`Betyg: ${recipe.rating} av 5 stjärnor`}>
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                size={16}
+                size={14}
                 fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
                 className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
                 aria-hidden="true"
               />
             ))}
-            <span className="text-sm text-gray-700 ml-1 font-medium">{recipe.rating}</span>
+            <span className="text-xs md:text-sm text-gray-700 ml-1 font-medium">{recipe.rating}</span>
             <span className="text-xs text-gray-600 ml-1">({recipe.reviews})</span>
           </div>
           
-          <span className="text-gray-600 text-sm flex items-center">
-            <Heart size={16} className="mr-1" aria-hidden="true" /> 
+          <span className="text-gray-600 text-xs md:text-sm flex items-center">
+            <Heart size={14} className="mr-1" aria-hidden="true" /> 
             <span className="font-medium">{recipe.likes}</span>
           </span>
         </div>
         
         {/* Title with improved typography */}
-        <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight">
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight">
           {recipe.title}
         </h3>
         
         {/* Description with better readability */}
-        <p className="text-gray-600 mb-4 text-sm line-clamp-2 break-words leading-relaxed">
+        <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm line-clamp-2 break-words leading-relaxed">
           {recipe.description}
         </p>
         
         {/* Portions and CTA with improved contrast */}
         <div className="flex justify-between items-center">
-          <span className="text-gray-600 text-sm flex items-center font-medium">
-            <Users size={16} className="mr-1" aria-hidden="true" /> {recipe.portions} portioner
+          <span className="text-gray-600 text-xs md:text-sm flex items-center font-medium">
+            <Users size={14} className="mr-1" aria-hidden="true" /> {recipe.portions} portioner
           </span>
           
           <button
@@ -228,11 +225,12 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
               e.stopPropagation();
               onRecipeClick(recipe.id, e);
             }}
-            className="text-purple-600 hover:text-purple-800 flex items-center text-sm font-medium group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-sm"
+            className="text-purple-600 hover:text-purple-800 flex items-center text-xs md:text-sm font-medium group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-sm min-h-[44px] px-2 py-1"
             aria-label={`Visa recept för ${recipe.title}`}
           >
-            Visa recept
-            <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+            <span className="hidden sm:inline">Visa recept</span>
+            <span className="sm:hidden">Visa</span>
+            <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
@@ -252,8 +250,6 @@ export const RecipeSection = () => {
     e.preventDefault();
     e.stopPropagation();
     
-    console.log('Recipe clicked:', id);
-    
     // Add loading state for better UX
     setIsLoading(true);
     
@@ -268,7 +264,6 @@ export const RecipeSection = () => {
   // Handle "Se alla recept" button click
   const handleSeeAllRecipes = useCallback((e) => {
     e.preventDefault();
-    console.log('Navigating to all recipes page');
     
     // Navigate to the recipe list page
     window.location.hash = 'recept/alla';
@@ -301,28 +296,28 @@ export const RecipeSection = () => {
   }, []);
 
   return (
-    <section id="recept" ref={sectionRef} className="py-12 md:py-16 bg-gray-50 w-full overflow-hidden">
+    <section id="recept" ref={sectionRef} className="py-8 md:py-12 lg:py-16 bg-gray-50 w-full overflow-hidden">
       <div className="container mx-auto px-4 w-full max-w-7xl">
-        <span className="block text-center text-purple-600 text-sm font-medium mb-2 uppercase tracking-wider">
+        <span className="block text-center text-purple-600 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
           MATINSPIRATION
         </span>
         
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 text-purple-600 break-words">
+        <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-center mb-3 md:mb-4 text-purple-600 break-words">
           Populära recept
         </h2>
         
-        <p className="text-center mb-8 md:mb-10 max-w-2xl mx-auto text-gray-700 break-words px-4 leading-relaxed">
+        <p className="text-center mb-6 md:mb-8 lg:mb-10 max-w-2xl mx-auto text-gray-700 break-words px-4 leading-relaxed text-sm md:text-base lg:text-lg">
           Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
           med moderna smaker och enkla tillagningsmetoder.
         </p>
         
         {/* Optimized filter buttons with improved accessibility */}
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12 px-4">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 lg:gap-4 mb-6 md:mb-8 lg:mb-12 px-4">
           {filters.map(filter => (
             <button
               key={filter.id}
               onClick={() => handleFilterChange(filter.id)}
-              className={`px-4 md:px-5 py-2 rounded-full transition-all text-sm md:text-base will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[44px] ${
+              className={`px-3 md:px-4 lg:px-5 py-2 rounded-full transition-all text-xs md:text-sm lg:text-base will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[44px] ${
                 activeFilter === filter.id 
                   ? 'bg-purple-600 text-white transform scale-105 font-medium' 
                   : 'bg-white text-gray-700 hover:bg-purple-50 border border-purple-200 hover:border-purple-300'
@@ -337,7 +332,7 @@ export const RecipeSection = () => {
         
         {/* Optimized recipe grid with lazy loading and error boundaries */}
         <Suspense fallback={<RecipeGridSkeleton />}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-12">
             {isLoading ? (
               // Show skeleton loaders during transitions
               [...Array(4)].map((_, index) => (
@@ -356,10 +351,10 @@ export const RecipeSection = () => {
         </Suspense>
         
         {/* Call to action with improved accessibility and WORKING functionality */}
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-8 md:mb-12 lg:mb-20">
           <button 
             onClick={handleSeeAllRecipes}
-            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer"
+            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px]"
             role="button"
             aria-label="Se alla våra recept"
           >

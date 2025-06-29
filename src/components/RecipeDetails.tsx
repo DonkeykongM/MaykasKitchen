@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Clock, Users, Heart, Instagram, ArrowLeft, Printer, Bookmark, Share2, AlertCircle, Star, MessageCircle, Send } from 'lucide-react';
 
 interface RecipeDetailsProps {
@@ -49,8 +49,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-  // Initial comments based on recipe - all with 5 stars
-  const getInitialComments = (recipeId: string) => {
+  // Memoized initial comments for better performance
+  const getInitialComments = useMemo(() => {
     const commentsByRecipe = {
       'lax-risbowl': [
         {
@@ -211,13 +211,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       ]
     };
     
-    return commentsByRecipe[recipeId] || [];
-  };
+    return commentsByRecipe[recipe.id] || [];
+  }, [recipe.id]);
 
-  const [comments, setComments] = useState(getInitialComments(recipe.id));
+  const [comments, setComments] = useState(getInitialComments);
 
-  // Function to adjust ingredient amounts based on portion count
-  const adjustAmount = (amount: string, originalPortions: number): string => {
+  // Optimized portion adjustment function
+  const adjustAmount = useCallback((amount: string, originalPortions: number): string => {
     const regex = /(\d+(?:\.\d+)?)\s*([a-zA-ZåäöÅÄÖ]+)?/;
     const match = amount.match(regex);
     
@@ -237,22 +237,23 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     }
     
     return amount;
-  };
+  }, [portionCount]);
 
-  const handlePrint = () => {
+  // Optimized handlers with useCallback
+  const handlePrint = useCallback(() => {
     window.print();
-  };
+  }, []);
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     setIsSaved(!isSaved);
     if (!isSaved) {
       localStorage.setItem(`saved-recipe-${recipe.id}`, 'true');
     } else {
       localStorage.removeItem(`saved-recipe-${recipe.id}`);
     }
-  };
+  }, [isSaved, recipe.id]);
 
-  const handleShare = () => {
+  const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator.share({
         title: recipe.title,
@@ -263,19 +264,19 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       const shareUrl = encodeURIComponent(window.location.href);
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
     }
-  };
+  }, [recipe.title, recipe.description]);
 
-  const handleRating = (rating: number) => {
+  const handleRating = useCallback((rating: number) => {
     setUserRating(rating);
-  };
+  }, []);
 
-  const handleSubmitComment = (e: React.FormEvent) => {
+  const handleSubmitComment = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (userName.trim() && comment.trim()) {
       const newComment = {
         id: comments.length + 1,
         name: userName,
-        rating: userRating || 5, // Default to 5 stars if no rating
+        rating: userRating || 5,
         date: new Date().toLocaleDateString('sv-SE', { 
           year: 'numeric', 
           month: 'long', 
@@ -289,38 +290,39 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       setUserEmail('');
       setUserRating(0);
     }
-  };
+  }, [userName, comment, userRating, comments]);
 
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
-      <article className="py-8 print:py-0">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <article className="py-4 md:py-8 print:py-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
           <button 
             onClick={onBack}
-            className="flex items-center text-purple-600 hover:text-purple-700 mb-8 group print:hidden transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg"
+            className="flex items-center text-purple-600 hover:text-purple-700 mb-6 md:mb-8 group print:hidden transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg min-h-[44px]"
           >
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
-            Tillbaka till receptsamlingen
+            <span className="hidden sm:inline">Tillbaka till receptsamlingen</span>
+            <span className="sm:hidden">Tillbaka</span>
           </button>
 
           {/* Personal story section */}
           {recipe.personalStory && (
-            <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden mb-8 p-8 border border-purple-100">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
-                  <Heart className="text-white" size={24} />
+            <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 p-4 md:p-8 border border-purple-100">
+              <div className="flex items-center mb-4 md:mb-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                  <Heart className="text-white" size={20} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-purple-600">En personlig berättelse</h2>
-                  <p className="text-gray-600">Från Maykas hjärta</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-600">En personlig berättelse</h2>
+                  <p className="text-gray-600 text-sm md:text-base">Från Maykas hjärta</p>
                 </div>
               </div>
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-sm md:prose-lg max-w-none">
                 {recipe.personalStory.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-gray-700 leading-relaxed mb-4 last:mb-0">
+                  <p key={index} className="text-gray-700 leading-relaxed mb-3 md:mb-4 last:mb-0 text-sm md:text-base">
                     {paragraph}
                   </p>
                 ))}
@@ -329,74 +331,77 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           )}
 
           {/* Recipe header */}
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden mb-8 border border-purple-100">
-            <div className="md:flex">
-              <div className="md:w-1/2 h-96 md:h-auto">
+          <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-purple-100">
+            <div className="flex flex-col lg:flex-row">
+              <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-auto">
                 <img 
                   src={recipe.image} 
                   alt={recipe.title}
                   className="w-full h-full object-cover"
+                  loading="eager"
+                  width="600"
+                  height="400"
                 />
               </div>
-              <div className="p-8 md:w-1/2">
+              <div className="p-4 md:p-6 lg:p-8 w-full lg:w-1/2">
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                   {recipe.badges.map((badge, index) => (
                     <span 
                       key={index}
-                      className="bg-purple-100 text-purple-800 text-sm py-1 px-3 rounded-full font-medium"
+                      className="bg-purple-100 text-purple-800 text-xs md:text-sm py-1 px-2 md:px-3 rounded-full font-medium"
                     >
                       {badge}
                     </span>
                   ))}
                 </div>
 
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-serif">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif leading-tight">
                   {recipe.title}
                 </h1>
 
                 {/* Recipe meta */}
-                <div className="flex flex-wrap items-center gap-6 mb-6 text-gray-600">
+                <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-4 md:mb-6 text-gray-600 text-sm md:text-base">
                   <div className="flex items-center">
-                    <Clock size={18} className="mr-2 text-purple-600" />
+                    <Clock size={16} className="mr-2 text-purple-600" />
                     <span>{recipe.time} minuter</span>
                   </div>
                   <div className="flex items-center">
-                    <Users size={18} className="mr-2 text-purple-600" />
+                    <Users size={16} className="mr-2 text-purple-600" />
                     <span>{portionCount} portioner</span>
                   </div>
                   <div className="flex items-center">
-                    <Heart size={18} className="mr-2 text-purple-600" />
-                    {recipe.likes} gillar
+                    <Heart size={16} className="mr-2 text-purple-600" />
+                    <span>{recipe.likes} gillar</span>
                   </div>
                 </div>
 
                 {/* Rating */}
-                <div className="flex items-center mb-6">
+                <div className="flex items-center mb-4 md:mb-6">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        size={20}
+                        size={16}
                         fill={i < Math.floor(recipe.rating) ? "#fbbf24" : "none"}
                         className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
                       />
                     ))}
                   </div>
-                  <span className="ml-2 text-gray-600">({recipe.rating}/5 • {recipe.reviews} recensioner)</span>
+                  <span className="ml-2 text-gray-600 text-sm md:text-base">({recipe.rating}/5 • {recipe.reviews} recensioner)</span>
                 </div>
 
-                <p className="text-gray-700 mb-6 leading-relaxed">
+                <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
                   {recipe.description}
                 </p>
 
                 {/* Action buttons */}
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 md:gap-3">
                   <button 
                     onClick={handlePrint} 
-                    className="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors"
+                    className="flex items-center gap-2 px-3 md:px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors text-sm min-h-[44px]"
                   >
-                    <Printer size={18} />
-                    Skriv ut
+                    <Printer size={16} />
+                    <span className="hidden sm:inline">Skriv ut</span>
                   </button>
                   
                   {recipe.videoUrl && (
@@ -404,29 +409,29 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       href={recipe.videoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+                      className="flex items-center gap-2 px-3 md:px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors text-sm min-h-[44px]"
                     >
-                      <Instagram size={18} />
-                      Se på Instagram
+                      <Instagram size={16} />
+                      <span className="hidden sm:inline">Se på Instagram</span>
                     </a>
                   )}
                   
                   <button 
                     onClick={handleSave}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-colors text-sm min-h-[44px] ${
                       isSaved ? 'bg-purple-500 text-white' : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
                     }`}
                   >
-                    <Bookmark size={18} fill={isSaved ? "white" : "none"} />
-                    {isSaved ? 'Sparat' : 'Spara'}
+                    <Bookmark size={16} fill={isSaved ? "white" : "none"} />
+                    <span className="hidden sm:inline">{isSaved ? 'Sparat' : 'Spara'}</span>
                   </button>
                   
                   <button 
                     onClick={handleShare}
-                    className="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors"
+                    className="flex items-center gap-2 px-3 md:px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors text-sm min-h-[44px]"
                   >
-                    <Share2 size={18} />
-                    Dela
+                    <Share2 size={16} />
+                    <span className="hidden sm:inline">Dela</span>
                   </button>
                 </div>
               </div>
@@ -434,37 +439,83 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           </div>
 
           {/* Portions adjuster */}
-          <div className="bg-white/90 backdrop-blur-md rounded-xl p-6 mb-8 shadow-lg border border-purple-100">
-            <h3 className="text-lg font-semibold mb-4 text-center text-purple-600">Justera portioner</h3>
+          <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 mb-6 md:mb-8 shadow-lg border border-purple-100">
+            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-center text-purple-600">Justera portioner</h3>
             <div className="flex items-center justify-center">
               <button 
                 onClick={() => setPortionCount(Math.max(1, portionCount - 1))}
-                className="w-10 h-10 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
               >
                 -
               </button>
-              <span className="mx-6 text-xl font-semibold text-purple-600">{portionCount} portioner</span>
+              <span className="mx-4 md:mx-6 text-lg md:text-xl font-semibold text-purple-600">{portionCount} portioner</span>
               <button 
                 onClick={() => setPortionCount(portionCount + 1)}
-                className="w-10 h-10 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
               >
                 +
               </button>
             </div>
           </div>
 
-          {/* Recipe content */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            {/* Ingredients - OPTIMIZED COMPACT VERSION */}
-            <div className="lg:col-span-1">
-              <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-lg sticky top-8 border border-purple-100">
-                <h2 className="text-xl font-bold mb-4 text-center text-purple-600 font-serif">
+          {/* Recipe content - SWAPPED: Instructions left, Ingredients right */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
+            {/* Instructions - NOW ON LEFT (3/4 width on desktop) */}
+            <div className="lg:col-span-3 order-2 lg:order-1">
+              <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
+                  Gör såhär
+                </h2>
+                
+                {recipe.content.instructions.map((section, index) => (
+                  <div key={index} className="mb-6 md:mb-8">
+                    {section.section && (
+                      <h3 className="text-lg md:text-xl font-semibold text-purple-600 mb-3 md:mb-4 text-center">
+                        {section.section}
+                      </h3>
+                    )}
+                    <ol className="space-y-4 md:space-y-6">
+                      {section.steps.map((step, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold mr-3 md:mr-4 text-xs md:text-sm">
+                            {i + 1}
+                          </span>
+                          <p className="pt-1 text-gray-700 leading-relaxed text-sm md:text-base">{step}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+
+              {/* Tips */}
+              {recipe.content.tips && recipe.content.tips.length > 0 && (
+                <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
+                  <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-center text-purple-600 font-serif">
+                    Tips & variationer
+                  </h2>
+                  <ul className="space-y-2 md:space-y-3">
+                    {recipe.content.tips.map((tip, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-purple-500 rounded-full mr-2 md:mr-3 mt-2"></span>
+                        <span className="text-gray-700 leading-relaxed text-sm md:text-base">{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Ingredients - NOW ON RIGHT (1/4 width on desktop, MUCH SMALLER) */}
+            <div className="lg:col-span-1 order-1 lg:order-2">
+              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-3">
+                <h2 className="text-sm md:text-base font-bold mb-3 text-center text-purple-600 font-serif">
                   Ingredienser
                 </h2>
                 
                 {recipe.allergens && recipe.allergens.length > 0 && (
-                  <div className="mb-4 p-3 bg-yellow-50 rounded-lg flex items-start text-sm border border-yellow-200">
-                    <AlertCircle className="text-yellow-500 mr-2 mt-0.5 flex-shrink-0" size={16} />
+                  <div className="mb-3 p-2 bg-yellow-50 rounded-lg flex items-start text-xs border border-yellow-200">
+                    <AlertCircle className="text-yellow-500 mr-1 mt-0.5 flex-shrink-0" size={12} />
                     <div>
                       <p className="font-medium text-yellow-700 text-xs">Allergener:</p>
                       <p className="text-yellow-700 text-xs">{recipe.allergens.join(', ')}</p>
@@ -473,13 +524,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 )}
                 
                 {recipe.content.ingredients.map((section, index) => (
-                  <div key={index} className="mb-4">
+                  <div key={index} className="mb-3">
                     {section.section && (
-                      <h3 className="text-sm font-semibold text-purple-600 mb-2 text-center border-b border-purple-200 pb-1">
+                      <h3 className="text-xs font-semibold text-purple-600 mb-2 text-center border-b border-purple-200 pb-1">
                         {section.section}
                       </h3>
                     )}
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5">
                       {section.items.map((ingredient, i) => {
                         const regex = /^(\d+(?:[.,]\d+)?\s*(?:\w+)?\s*(?:\w+)?)\s(.+)$/;
                         const match = ingredient.match(regex);
@@ -490,7 +541,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                           const adjustedAmount = adjustAmount(originalAmount, originalPortions);
                           
                           return (
-                            <li key={i} className="flex items-start text-sm">
+                            <li key={i} className="flex items-start text-xs">
                               <input type="checkbox" className="mt-1 mr-2 text-purple-500 scale-75" />
                               <span className="text-center flex-1 leading-tight">
                                 <strong className="text-purple-600 font-medium">{adjustedAmount}</strong>{' '}
@@ -501,7 +552,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                         }
                         
                         return (
-                          <li key={i} className="flex items-start text-sm">
+                          <li key={i} className="flex items-start text-xs">
                             <input type="checkbox" className="mt-1 mr-2 text-purple-500 scale-75" />
                             <span className="text-center flex-1 text-gray-700 leading-tight">{ingredient}</span>
                           </li>
@@ -512,94 +563,48 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 ))}
               </div>
             </div>
-
-            {/* Instructions */}
-            <div className="lg:col-span-2">
-              <div className="bg-white/90 backdrop-blur-md rounded-xl p-6 shadow-lg mb-8 border border-purple-100">
-                <h2 className="text-2xl font-bold mb-6 text-center text-purple-600 font-serif">
-                  Gör såhär
-                </h2>
-                
-                {recipe.content.instructions.map((section, index) => (
-                  <div key={index} className="mb-8">
-                    {section.section && (
-                      <h3 className="text-xl font-semibold text-purple-600 mb-4 text-center">
-                        {section.section}
-                      </h3>
-                    )}
-                    <ol className="space-y-6">
-                      {section.steps.map((step, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold mr-4 text-sm">
-                            {i + 1}
-                          </span>
-                          <p className="pt-1 text-gray-700 leading-relaxed">{step}</p>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </div>
-
-              {/* Tips */}
-              {recipe.content.tips && recipe.content.tips.length > 0 && (
-                <div className="bg-white/90 backdrop-blur-md rounded-xl p-6 shadow-lg mb-8 border border-purple-100">
-                  <h2 className="text-xl font-bold mb-4 text-center text-purple-600 font-serif">
-                    Tips & variationer
-                  </h2>
-                  <ul className="space-y-3">
-                    {recipe.content.tips.map((tip, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-2"></span>
-                        <span className="text-gray-700 leading-relaxed">{tip}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* Rating and Comments */}
-          <div className="bg-white/90 backdrop-blur-md rounded-xl p-6 shadow-lg border border-purple-100">
-            <h2 className="text-2xl font-bold mb-6 text-center text-purple-600 font-serif">
+          <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-purple-100">
+            <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
               Betygsätt & kommentera
             </h2>
             
             {/* Rating */}
-            <div className="flex items-center justify-center mb-8">
-              <span className="mr-4 text-gray-700">Ditt betyg:</span>
+            <div className="flex items-center justify-center mb-6 md:mb-8">
+              <span className="mr-3 md:mr-4 text-gray-700 text-sm md:text-base">Ditt betyg:</span>
               <div className="flex space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button 
                     key={star}
                     onClick={() => handleRating(star)}
-                    className="text-2xl transition-colors"
+                    className="text-xl md:text-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   >
                     <Star 
                       fill={userRating >= star ? "#fbbf24" : "none"} 
                       className={userRating >= star ? "text-amber-400" : "text-gray-300"}
-                      size={28}
+                      size={24}
                     />
                   </button>
                 ))}
               </div>
               {userRating > 0 && (
-                <span className="ml-4 text-gray-600">
+                <span className="ml-3 md:ml-4 text-gray-600 text-sm md:text-base">
                   {userRating} stjärn{userRating === 1 ? 'a' : 'or'}
                 </span>
               )}
             </div>
             
             {/* Comment form */}
-            <form onSubmit={handleSubmitComment} className="mb-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <form onSubmit={handleSubmitComment} className="mb-6 md:mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
                 <input
                   type="text"
                   placeholder="Ditt namn"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90"
+                  className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
                   required
                 />
                 <input
@@ -607,7 +612,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   placeholder="Din e-post (visas ej)"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className="px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90"
+                  className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
                   required
                 />
               </div>
@@ -617,14 +622,14 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 rows={4}
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4 bg-white/90"
+                className="w-full px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3 md:mb-4 bg-white/90 text-sm md:text-base"
                 required
               />
               
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center mx-auto"
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center mx-auto text-sm md:text-base min-h-[44px]"
                 >
                   <Send size={16} className="mr-2" />
                   Skicka kommentar
@@ -633,29 +638,29 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             </form>
             
             {/* Comments list */}
-            <div className="space-y-6">
-              <h3 className="text-xl font-semibold flex items-center justify-center">
-                <MessageCircle size={20} className="mr-2 text-purple-600" />
+            <div className="space-y-4 md:space-y-6">
+              <h3 className="text-lg md:text-xl font-semibold flex items-center justify-center">
+                <MessageCircle size={18} className="mr-2 text-purple-600" />
                 Kommentarer ({comments.length})
               </h3>
               
               {comments.map((comment) => (
-                <div key={comment.id} className="border-b border-purple-100 pb-6 last:border-b-0">
+                <div key={comment.id} className="border-b border-purple-100 pb-4 md:pb-6 last:border-b-0">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium text-gray-800">{comment.name}</h4>
+                    <h4 className="font-medium text-gray-800 text-sm md:text-base">{comment.name}</h4>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
                         <Star 
                           key={i}
-                          size={16}
+                          size={14}
                           fill={i < comment.rating ? "#fbbf24" : "none"}
                           className={i < comment.rating ? "text-amber-400" : "text-gray-300"}
                         />
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-500 text-sm mb-3">{comment.date}</p>
-                  <p className="text-gray-700 leading-relaxed">{comment.text}</p>
+                  <p className="text-gray-500 text-xs md:text-sm mb-2 md:mb-3">{comment.date}</p>
+                  <p className="text-gray-700 leading-relaxed text-sm md:text-base">{comment.text}</p>
                 </div>
               ))}
             </div>

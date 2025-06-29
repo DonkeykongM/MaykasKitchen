@@ -103,7 +103,6 @@ const RecipeList = () => {
   const handleRecipeClick = useCallback((id, e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('Recipe clicked:', id);
     // Direkt hash-ändring för snabbast möjliga navigation
     window.location.hash = `recipe/${id}`;
   }, []);
@@ -165,39 +164,40 @@ const RecipeList = () => {
 
   return (
     <FoodBlogBackground className="min-h-screen" variant="recipes">
-      <div className="py-12 relative z-10" id="recipe-list">
+      <div className="py-8 md:py-12 relative z-10" id="recipe-list">
         <div className="container mx-auto px-4">
           {/* Back button */}
           <button 
             onClick={handleBack}
-            className="flex items-center text-purple-300 hover:text-white mb-8 group bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-white/20"
+            className="flex items-center text-purple-300 hover:text-white mb-6 md:mb-8 group bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-white/20 min-h-[44px]"
           >
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
-            Tillbaka till startsidan
+            <span className="hidden sm:inline">Tillbaka till startsidan</span>
+            <span className="sm:hidden">Tillbaka</span>
           </button>
 
-          <span className="block text-center text-purple-300 text-sm font-medium mb-2 uppercase tracking-wider">
+          <span className="block text-center text-purple-300 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
             Matinspiration
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-3 md:mb-4 text-white">
             Alla våra recept
           </h2>
-          <p className="text-center mb-8 max-w-2xl mx-auto text-purple-100">
+          <p className="text-center mb-6 md:mb-8 max-w-2xl mx-auto text-purple-100 text-sm md:text-base lg:text-lg">
             Upptäck alla våra recept som kombinerar traditionell assyrisk/syriansk matlagning med moderna smaker och enkla tillagningsmetoder.
           </p>
 
           {/* Search and filters */}
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="bg-white/90 backdrop-blur-md p-4 rounded-lg shadow-md">
-              <div className="flex flex-col md:flex-row gap-4 mb-4">
+          <div className="max-w-4xl mx-auto mb-8 md:mb-12">
+            <div className="bg-white/90 backdrop-blur-md p-3 md:p-4 rounded-lg shadow-md">
+              <div className="flex flex-col md:flex-row gap-3 md:gap-4 mb-3 md:mb-4">
                 <div className="relative flex-grow">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                   <input
                     type="text"
                     placeholder="Sök efter recept..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px]"
                     aria-label="Sök recept"
                   />
                 </div>
@@ -205,16 +205,16 @@ const RecipeList = () => {
                 <div className="relative">
                   <button 
                     onClick={() => setIsFilterOpen(!isFilterOpen)}
-                    className="bg-purple-600 text-white px-4 py-3 rounded-lg flex items-center"
+                    className="bg-purple-600 text-white px-3 md:px-4 py-2 md:py-3 rounded-lg flex items-center text-sm md:text-base min-h-[44px] w-full md:w-auto justify-center"
                     aria-expanded={isFilterOpen}
                   >
-                    <Filter size={18} className="mr-2" />
+                    <Filter size={16} className="mr-2" />
                     Filter
-                    <ChevronRight size={16} className={`ml-2 transform transition-transform duration-200 ${isFilterOpen ? 'rotate-90' : ''}`} />
+                    <ChevronRight size={14} className={`ml-2 transform transition-transform duration-200 ${isFilterOpen ? 'rotate-90' : ''}`} />
                   </button>
                   
                   {isFilterOpen && (
-                    <div className="absolute z-10 mt-2 w-48 bg-white rounded-lg shadow-lg p-2 right-0">
+                    <div className="absolute z-10 mt-2 w-full md:w-48 bg-white rounded-lg shadow-lg p-2 right-0">
                       {categories.map(category => (
                         <button 
                           key={category}
@@ -222,7 +222,7 @@ const RecipeList = () => {
                             setSelectedCategory(category);
                             setIsFilterOpen(false);
                           }}
-                          className={`w-full text-left px-3 py-2 rounded-md mb-1 ${
+                          className={`w-full text-left px-3 py-2 rounded-md mb-1 text-sm min-h-[44px] flex items-center ${
                             selectedCategory === category 
                               ? 'bg-purple-100 text-purple-600 font-medium'
                               : 'hover:bg-gray-50'
@@ -237,43 +237,43 @@ const RecipeList = () => {
               </div>
 
               {/* Popular tags as quick filters */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="text-sm text-gray-600 mr-1 flex items-center">
-                  <Tag size={14} className="mr-1" /> Populära:
+              <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
+                <span className="text-xs md:text-sm text-gray-600 mr-1 flex items-center">
+                  <Tag size={12} className="mr-1" /> Populära:
                 </span>
                 <button 
                   onClick={() => setSearchTerm('Fisk')}
-                  className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
                   Fisk
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Vegetariskt')}
-                  className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
                   Vegetariskt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Snabb')}
-                  className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
                   Snabbt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Traditionell')}
-                  className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
                   Traditionellt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Assyriskt')}
-                  className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
                   Assyriskt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Syriskt')}
-                  className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
                   Syriskt
                 </button>
@@ -283,8 +283,8 @@ const RecipeList = () => {
 
           {/* Search results count */}
           {searchTerm && (
-            <div className="mb-6 text-center">
-              <p className="text-purple-100">
+            <div className="mb-4 md:mb-6 text-center">
+              <p className="text-purple-100 text-sm md:text-base">
                 {filteredRecipes.length === 0 
                   ? `Inga recept matchar sökningen "${searchTerm}"` 
                   : `Visar ${filteredRecipes.length} recept för "${searchTerm}"`}
@@ -294,33 +294,33 @@ const RecipeList = () => {
 
           {/* Recipe grid */}
           {filteredRecipes.length === 0 ? (
-            <div className="text-center py-12 bg-white/90 backdrop-blur-md rounded-lg shadow-md max-w-xl mx-auto">
+            <div className="text-center py-8 md:py-12 bg-white/90 backdrop-blur-md rounded-lg shadow-md max-w-xl mx-auto">
               <div className="text-gray-400 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 md:h-16 md:w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-4">Inga recept hittades</h3>
-              <p className="text-gray-500 mb-6">Vi kunde inte hitta några recept som matchar din sökning.</p>
+              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Inga recept hittades</h3>
+              <p className="text-gray-500 mb-4 md:mb-6 text-sm md:text-base">Vi kunde inte hitta några recept som matchar din sökning.</p>
               <button 
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedCategory('Alla recept');
                 }}
-                className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px]"
               >
                 Visa alla recept
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
               {filteredRecipes.map((recipe) => (
                 <div
                   key={recipe.id}
                   className="bg-white/95 backdrop-blur-md rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer recipe-card"
                   onClick={(e) => handleRecipeClick(recipe.id, e)}
                 >
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-40 sm:h-48 overflow-hidden">
                     <img
                       src={recipe.image}
                       alt={recipe.title}
@@ -329,7 +329,6 @@ const RecipeList = () => {
                       width="400" 
                       height="260"
                       onError={(e) => {
-                        console.error('Image failed to load:', recipe.title, e.target.src);
                         // Fallback to a colored div with emoji if image fails
                         e.target.style.display = 'none';
                         const fallback = document.createElement('div');
@@ -338,70 +337,72 @@ const RecipeList = () => {
                         e.target.parentNode.appendChild(fallback);
                       }}
                     />
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="bg-purple-600/90 text-white text-xs py-1 px-3 rounded-full flex items-center">
+                    <div className="absolute top-3 md:top-4 left-3 md:left-4 flex gap-2">
+                      <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
                         <Clock size={12} className="mr-1" /> {recipe.time} min
                       </span>
                     </div>
                     
                     {recipe.trending && (
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-orange-500/90 text-white text-xs py-1 px-3 rounded-full">
+                      <div className="absolute top-3 md:top-4 right-3 md:right-4">
+                        <span className="bg-orange-500/90 text-white text-xs py-1 px-2 md:px-3 rounded-full">
                           Populärt
                         </span>
                       </div>
                     )}
                   </div>
 
-                  <div className="p-6">
-                    <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="p-4 md:p-6">
+                    <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-3">
                       {recipe.badges.map((badge, index) => (
-                        <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-3 rounded-full">
+                        <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-2 rounded-full">
                           {badge}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-2 md:mb-3">
                       <div className="flex items-center">
                         <div className="flex">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              size={16}
+                              size={14}
                               fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
                               className={i < Math.floor(recipe.rating) ? 'text-amber-400' : 'text-gray-300'}
                             />
                           ))}
                         </div>
-                        <span className="text-sm text-gray-600 ml-1">{recipe.rating}</span>
+                        <span className="text-xs md:text-sm text-gray-600 ml-1">{recipe.rating}</span>
                         <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
                       </div>
-                      <span className="text-gray-500 text-sm flex items-center">
-                        <Heart size={16} className="mr-1" /> {recipe.likes}
+                      <span className="text-gray-500 text-xs md:text-sm flex items-center">
+                        <Heart size={14} className="mr-1" /> {recipe.likes}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors">
+                    <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors">
                       {recipe.title}
                     </h3>
                     
-                    <p className="text-gray-600 mb-4 text-sm line-clamp-2">
+                    <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm line-clamp-2">
                       {recipe.description}
                     </p>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 text-sm flex items-center">
-                        <Users size={16} className="mr-1" /> {recipe.portions} portioner
+                      <span className="text-gray-600 text-xs md:text-sm flex items-center">
+                        <Users size={14} className="mr-1" /> {recipe.portions} portioner
                       </span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleRecipeClick(recipe.id, e);
                         }}
-                        className="text-purple-600 hover:text-purple-800 flex items-center text-sm font-medium group"
+                        className="text-purple-600 hover:text-purple-800 flex items-center text-xs md:text-sm font-medium group min-h-[44px] px-2 py-1"
                       >
-                        Visa recept <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                        <span className="hidden sm:inline">Visa recept</span>
+                        <span className="sm:hidden">Visa</span>
+                        <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
                       </button>
                     </div>
                   </div>
@@ -411,41 +412,42 @@ const RecipeList = () => {
           )}
 
           {/* Newsletter signup */}
-          <div className="mt-16 bg-white/90 backdrop-blur-md p-8 rounded-xl shadow-md max-w-xl mx-auto">
-            <h3 className="text-2xl font-bold text-purple-600 mb-3">
+          <div className="mt-12 md:mt-16 bg-white/90 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-md max-w-xl mx-auto">
+            <h3 className="text-xl md:text-2xl font-bold text-purple-600 mb-3">
               Få nya recept direkt i din inkorg
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">
               Prenumerera på mitt nyhetsbrev och få exklusiva recept, säsongstips och inspiration direkt i din inkorg varje månad.
             </p>
             <form className="flex flex-col sm:flex-row gap-2" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
                 placeholder="Din e-postadress"
-                className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="flex-1 px-3 md:px-4 py-2 md:py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px]"
+                required
               />
               <button
                 type="submit"
-                className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px]"
               >
                 Prenumerera
               </button>
             </form>
-            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+            <div className="mt-3 md:mt-4 grid grid-cols-2 gap-2 md:gap-3 text-xs md:text-sm">
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
+                <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
                 Nya recept varje månad
               </div>
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
+                <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
                 Säsongsbaserade tips
               </div>
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
+                <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
                 Exklusiva recept
               </div>
               <div className="flex items-center text-gray-600">
-                <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
+                <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
                 Matlagningstekniker
               </div>
             </div>
