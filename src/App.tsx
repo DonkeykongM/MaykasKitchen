@@ -308,15 +308,7 @@ function App() {
             <div className="section-divider" aria-hidden="true"></div>
             
             {/* Recipe section with recipes variant */}
-            <FoodBlogBackground variant="recipes" className="relative">
-              <RecipeSection />
-            </FoodBlogBackground>
-            
-            <div className="section-divider" aria-hidden="true"></div>
-            
-            <CollaborationSection />
-            
-            <div className="section-divider" aria-hidden="true"></div>
+          }
         });
         </div>
     },
