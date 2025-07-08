@@ -134,6 +134,8 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
 // Helper function to get recipe emoji
 const getRecipeEmoji = (recipeId) => {
   const emojiMap = {
+    'pannpizzor': '🍕',
+    'batata-harra': '🥔',
     'kofta-bil-sanieh': '🥩',
     'lax-risbowl': '🐟',
     'kafta-bil-sejnie': '🍲',
@@ -157,6 +159,34 @@ const RecipeList = () => {
   }, []);
 
   const recipes = [
+    {
+      id: 'pannpizzor',
+      title: 'Snabba pannpizzor direkt i ugnsformen',
+      description: 'Perfekt när du har kylskåpsrester att ta vara på! Släng på det du har hemma och njut av en enkel middag på nolltid.',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8QIv7W2f',
+      time: '90',
+      portions: '4-6',
+      likes: 78,
+      rating: 4.8,
+      reviews: 32,
+      badges: ['Vegetariskt', 'Bakverk', 'Pizza'],
+      trending: true,
+      difficulty: 'Lätt'
+    },
+    {
+      id: 'batata-harra',
+      title: 'Batata Harra – Friterad potatis med tomatsås',
+      description: 'En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfWaFTn48dYxTFVG4qu9OSWrN21vZPBkJiCoK',
+      time: '35',
+      portions: '4-6',
+      likes: 95,
+      rating: 4.9,
+      reviews: 41,
+      badges: ['Vegan', 'Libanesiskt', 'Potatis'],
+      trending: true,
+      difficulty: 'Medel'
+    },
     {
       id: 'kofta-bil-sanieh',
       title: 'Köfta bil Sanieh',

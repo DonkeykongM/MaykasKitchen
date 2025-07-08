@@ -2,6 +2,174 @@ import React from 'react';
 import { RecipeDetails } from './RecipeDetails';
 
 const recipes = {
+  'pannpizzor': {
+    id: 'pannpizzor',
+    title: 'Snabba pannpizzor direkt i ugnsformen',
+    description: 'Perfekt när du har kylskåpsrester att ta vara på! Släng på det du har hemma – ost, skinka, grönsaker – och njut av en enkel middag på nolltid.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8QIv7W2f',
+    time: '90',
+    portions: '4-6',
+    likes: 78,
+    rating: 4.8,
+    reviews: 32,
+    badges: ['Vegetariskt', 'Bakverk', 'Pizza'],
+    videoUrl: '',
+    difficulty: 'Lätt',
+    nutritionInfo: {
+      calories: '280 kcal',
+      protein: '12g',
+      carbs: '45g',
+      fat: '8g',
+      fiber: '3g',
+      salt: '1.1g'
+    },
+    allergens: ['Gluten', 'Kan innehålla ägg'],
+    content: {
+      ingredients: [
+        {
+          section: 'Pizzadeg (räcker till flera pannpizzor)',
+          items: [
+            '5 dl ljummet vatten',
+            '25g färsk jäst (eller 1/2 paket)',
+            '2 tsk salt',
+            '2 msk olivolja',
+            'ca 10–12 dl vetemjöl (börja med mindre, tillsätt mer efter behov)'
+          ]
+        },
+        {
+          section: 'Toppings (exempel)',
+          items: [
+            'Tomatsås',
+            'Ost (mozzarella, cheddar eller vad du har hemma)',
+            'Kylskåpsrester (skinka, grönsaker, champinjoner)',
+            'Örter (oregano, basilika)'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          steps: [
+            'Smula ner jästen i en bunke. Häll över det ljumma vattnet och rör tills jästen lösts upp.',
+            'Tillsätt salt och olivolja.',
+            'Arbeta in mjölet lite i taget tills du får en smidig och ganska lös deg.',
+            'Låt jäsa under duk i ca 45–60 minuter, tills degen blivit dubbelt så stor.',
+            'Dela 2 lika stora bitar. Lägg varje bit på en ugnsform med bakplåtspapper och dra ut plus pressa ut med fingertopparna – anpassa till ugnsformens storlek.',
+            'Låt jäsa i 20 min.',
+            'Lägg på tomatsås och valfria kylskåpsrester som topping.',
+            'Grädda i ugnen i ca 15-20 min på 230°C över- & undervärme.',
+            'Sen är det bara att njuta! 😊'
+          ]
+        }
+      ],
+      tips: [
+        'Perfekt sätt att använda kylskåpsrester',
+        'Degen kan förberedas dagen innan och förvaras i kylskåpet',
+        'Prova olika toppings: skinka, champinjoner, paprika, oliver',
+        'För glutenfri variant, använd glutenfritt mjöl',
+        'Kan frysas efter gräddning och värmas upp vid behov'
+      ]
+    }
+  },
+  'batata-harra': {
+    id: 'batata-harra',
+    title: 'Batata Harra – Friterad potatis med tomatsås',
+    description: 'En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze, tillbehör eller huvudrätt!',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfWaFTn48dYxTFVG4qu9OSWrN21vZPBkJiCoK',
+    time: '35',
+    portions: '4-6',
+    likes: 95,
+    rating: 4.9,
+    reviews: 41,
+    badges: ['Vegan', 'Libanesiskt', 'Potatis'],
+    videoUrl: '',
+    difficulty: 'Medel',
+    nutritionInfo: {
+      calories: '320 kcal',
+      protein: '4g',
+      carbs: '38g',
+      fat: '18g',
+      fiber: '4g',
+      salt: '1.5g'
+    },
+    allergens: ['Inga kända allergener'],
+    content: {
+      ingredients: [
+        {
+          section: 'Potatis',
+          items: [
+            '1 kg fast potatis',
+            'Olja till fritering (t.ex. rapsolja)'
+          ]
+        },
+        {
+          section: 'Tomatsås',
+          items: [
+            '1,5 msk tomatpuré',
+            '2 msk rapsolja',
+            '1 msk lökpulver',
+            '½ msk svartpeppar',
+            '1 dl vatten',
+            '1,5 tsk salt',
+            '1 vitlöksklyfta (riven eller pressad)',
+            '1,5 tsk chiliflakes',
+            '1 msk paprikapulver'
+          ]
+        },
+        {
+          section: 'Topping',
+          items: [
+            'Färsk persilja (finhackad)',
+            'Färsk mynta (finhackad)',
+            'Tajinkrydda (efter smak)'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          section: 'Förbered potatisen',
+          steps: [
+            'Skala och tärna potatisen i kuber.',
+            'Lägg dem i kallt vatten i ca 5 minuter för att dra ut stärkelsen.',
+            'Häll av vattnet, torka potatisen ordentligt med en kökshandduk eller hushållspapper.'
+          ]
+        },
+        {
+          section: 'Fritera',
+          steps: [
+            'Hetta upp olja i en kastrull eller fritös.',
+            'Fritera potatisen tills den är gyllene och ca 80% genomstekt – de ska bli krispiga men inte helt mjuka.',
+            'Låt rinna av på hushållspapper.'
+          ]
+        },
+        {
+          section: 'Gör tomatsåsen',
+          steps: [
+            'Hetta upp 2 msk rapsolja i en stekpanna.',
+            'Stek tomatpurén kort i oljan för att fördjupa smaken.',
+            'Häll i vattnet och rör om till en slät sås.',
+            'Tillsätt lökpulver, svartpeppar, salt, chiliflakes, paprikapulver och vitlök.',
+            'Rör om väl och låt sjuda någon minut.'
+          ]
+        },
+        {
+          section: 'Slutför rätten',
+          steps: [
+            'Vänd ner de friterade potatisarna i såsen och rör om så att allt täcks ordentligt.',
+            'Strö över rikligt med finhackad persilja och mynta.',
+            'Smaka av med tajinkrydda och rör om försiktigt.',
+            'Servera varm som en del av ett mezebord, till grillat eller som ensam rätt med libabröd och hummus.'
+          ]
+        }
+      ],
+      tips: [
+        'Viktigt att torka potatisen ordentligt för att få bra fritering',
+        'Fritera inte potatisen helt färdig första gången – den ska vara ca 80% klar',
+        'Tajinkrydda finns i mellanösternbutiker och ger en autentisk smak',
+        'Kan serveras som tillbehör till kött eller som vegetarisk huvudrätt',
+        'Supergott med libabröd och hummus på sidan'
+      ]
+    }
+  },
   'lax-risbowl': {
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
@@ -525,4 +693,20 @@ export const KycklingShawarmaPost = () => {
   };
 
   return <RecipeDetails recipe={recipes['kyckling-shawarma']} onBack={handleBack} />;
+};
+
+export const PannpizzorPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['pannpizzor']} onBack={handleBack} />;
+};
+
+export const BatataHarraPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['batata-harra']} onBack={handleBack} />;
 };

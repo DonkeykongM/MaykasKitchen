@@ -5,6 +5,36 @@ import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoad
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
   {
+    id: 'pannpizzor',
+    title: 'Snabba pannpizzor direkt i ugnsformen',
+    description: 'Perfekt när du har kylskåpsrester att ta vara på! Släng på det du har hemma och njut av en enkel middag på nolltid.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8QIv7W2f',
+    time: '90',
+    portions: '4-6',
+    likes: 78,
+    rating: 4.8,
+    reviews: 32,
+    badges: ['Vegetariskt', 'Bakverk', 'Pizza'],
+    difficulty: 'Lätt',
+    trending: true,
+    fallbackEmoji: '🍕'
+  },
+  {
+    id: 'batata-harra',
+    title: 'Batata Harra – Friterad potatis med tomatsås',
+    description: 'En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfWaFTn48dYxTFVG4qu9OSWrN21vZPBkJiCoK',
+    time: '35',
+    portions: '4-6',
+    likes: 95,
+    rating: 4.9,
+    reviews: 41,
+    badges: ['Vegan', 'Libanesiskt', 'Potatis'],
+    difficulty: 'Medel',
+    trending: true,
+    fallbackEmoji: '🥔'
+  },
+  {
     id: 'kofta-bil-sanieh',
     title: 'Köfta bil Sanieh',
     description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',

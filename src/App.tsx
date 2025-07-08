@@ -18,6 +18,8 @@ const KaftaBilSejniePost = lazy(() => import('./components/BlogPost').then(modul
 const KoftaBilSaniehPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KoftaBilSaniehPost })));
 const PastaPestoPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PastaPestoPost })));
 const KycklingShawarmaPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingShawarmaPost })));
+const PannpizzorPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PannpizzorPost })));
+const BatataHarraPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BatataHarraPost })));
 
 // Enhanced loading component with skeleton states
 const LoadingSpinner = () => (
@@ -113,6 +115,14 @@ function App() {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
+            },
+            'pannpizzor': {
+              title: "Snabba pannpizzor direkt i ugnsformen - MaykasKitchen",
+              description: "Perfekt när du har kylskåpsrester att ta vara på! Enkla pannpizzor med hemmagjord deg som hela familjen älskar."
+            },
+            'batata-harra': {
+              title: "Batata Harra – Friterad potatis med tomatsås - MaykasKitchen",
+              description: "En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!"
             }
           });
         },

@@ -52,6 +52,59 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   // Memoized initial comments for better performance
   const getInitialComments = useMemo(() => {
     const commentsByRecipe = {
+      'pannpizzor': [
+        {
+          id: 1,
+          name: "Sofia Andersson",
+          rating: 5,
+          date: "4 januari 2025",
+          text: "Så genialt enkelt! Användde kylskåpsrester som jag annars skulle kasta - blev helt perfekt. Barnen älskade sina egna små pizzor 🍕"
+        },
+        {
+          id: 2,
+          name: "Marcus Lindberg",
+          rating: 5,
+          date: "2 januari 2025",
+          text: "Degen blev supermjuk och go! Så skönt att bara pressa ut den i formen istället för att kavla. Kommer bli vår nya fredagsmys-tradition 👌"
+        },
+        {
+          id: 3,
+          name: "Emma Karlsson",
+          rating: 4,
+          date: "30 december 2024",
+          text: "Perfekt vardagsrecept! Tog lite längre tid än förväntat med jäsningen men resultatet var värt det. Så gott med alla möjliga toppings!"
+        }
+      ],
+      'batata-harra': [
+        {
+          id: 1,
+          name: "Ahmad Hassan",
+          rating: 5,
+          date: "3 januari 2025",
+          text: "Exakt som min mormor gjorde i Libanon! Tajinkryddan gjorde verkligen skillnad - får mig att känna mig som hemma igen ❤️🇱🇧"
+        },
+        {
+          id: 2,
+          name: "Lina Pettersson",
+          rating: 5,
+          date: "1 januari 2025",
+          text: "Så krispig potatis och sådan smakrik sås! Serverade som tillbehör till grillat men kunde lätt ätit det som huvudrätt. Helt fantastisk libanesisk mat! 🔥"
+        },
+        {
+          id: 3,
+          name: "David Johansson",
+          rating: 5,
+          date: "29 december 2024",
+          text: "Första gången jag provat Batata Harra - vilken smakupplevelse! Älskar hur krispiga potatisarna blir och tomatsåsen var magisk. Definitivt en ny favorit 🥔"
+        },
+        {
+          id: 4,
+          name: "Fatima El-Khoury",
+          rating: 5,
+          date: "27 december 2024",
+          text: "Som libanesiska kan jag säga att detta recept är autentiskt och perfekt! Precis rätt balans av kryddor och så vackert presenterat. Shukran! 🙏"
+        }
+      ],
       'lax-risbowl': [
         {
           id: 1,
