@@ -18,6 +18,8 @@ const KaftaBilSejniePost = lazy(() => import('./components/BlogPost').then(modul
 const KoftaBilSaniehPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KoftaBilSaniehPost })));
 const PastaPestoPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PastaPestoPost })));
 const KycklingShawarmaPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingShawarmaPost })));
+const PannpizzorPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PannpizzorPost })));
+const BatataHarraPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BatataHarraPost })));
 
 // Enhanced loading component with skeleton states
 const LoadingSpinner = () => (
@@ -158,6 +160,14 @@ function App() {
         "#recipe/kyckling-shawarma": {
           title: "Kyckling Shawarma - MaykasKitchen",
           description: "Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!"
+        },
+        "#recipe/pannpizzor": {
+          title: "Snabba pannpizzor direkt i ugnsformen - MaykasKitchen",
+          description: "Perfekt när du har kylskåpsrester att ta vara på! Enkla pannpizzor med hemmagjord deg som hela familjen älskar."
+        },
+        "#recipe/batata-harra": {
+          title: "Batata Harra – Friterad potatis med tomatsås - MaykasKitchen",
+          description: "En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!"
         }
       };
 
@@ -215,7 +225,9 @@ function App() {
         "kafta-bil-sejnie": KaftaBilSejniePost,
         "kofta-bil-sanieh": KoftaBilSaniehPost,
         "pasta-pesto": PastaPestoPost,
-        "kyckling-shawarma": KycklingShawarmaPost
+        "kyckling-shawarma": KycklingShawarmaPost,
+        "pannpizzor": PannpizzorPost,
+        "batata-harra": BatataHarraPost
       };
 
       const Component = recipeComponents[recipeId];
@@ -290,28 +302,25 @@ function App() {
             <div className="section-divider" aria-hidden="true"></div>
             
             {/* Recipe section with recipes variant */}
-            <FoodBlogBackground variant="recipes" className="relative">
-              <RecipeSection />
-            </FoodBlogBackground>
-            
-            <div className="section-divider" aria-hidden="true"></div>
-            
-            <CollaborationSection />
-            
-            <div className="section-divider" aria-hidden="true"></div>
-            
-            {/* Contact section with contact variant */}
-            <FoodBlogBackground variant="contact" className="relative">
-              <ContactSection />
-            </FoodBlogBackground>
-            
-            <Newsletter />
-          </main>
-          <Footer />
-        </div>
-      </FoodBlogBackground>
-    </ErrorBoundary>
-  );
-}
-
-export default App;
+          <FoodBlogBackground variant="recipes" className="relative">
+            <RecipeSection />
+          </FoodBlogBackground>
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Collaboration section */}
+          <CollaborationSection />
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Contact section */}
+          <ContactSection />
+          
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
+    </FoodBlogBackground>
+  </ErrorBoundary>
+);
+}</Action>
