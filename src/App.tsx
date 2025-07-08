@@ -300,10 +300,6 @@ function App() {
             <div className="section-divider" aria-hidden="true"></div>
             
             {/* Recipe section with recipes variant */}
-          }
-        });
-        </div>
-    },
           <FoodBlogBackground variant="recipes" className="relative">
             <RecipeSection />
           </FoodBlogBackground>
