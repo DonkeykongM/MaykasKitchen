@@ -15,7 +15,7 @@ const RecipeList = () => {
     }
   }, []);
 
-  const recipes = [
+  const initialRecipes = [
     {
       id: 'kofta-bil-sanieh',
       title: 'Köfta bil Sanieh',
@@ -46,7 +46,7 @@ const RecipeList = () => {
     },
     {
       id: 'kafta-bil-sejnie',
-      title: 'Kafta bil sejnie',
+      title: 'Kafta bil sejnie', // Duplicate title, different id and image
       description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
       image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8zXxYz037zrR9qXSut4TKmZEpjlBcOhHew02',
       time: '60',
@@ -86,6 +86,13 @@ const RecipeList = () => {
       difficulty: 'Medel'
     }
   ];
+
+  // Remove duplicates based on title, keeping the first occurrence
+  const recipes = initialRecipes.filter((recipe, index, self) =>
+    index === self.findIndex((r) => (
+      r.title.toLowerCase() === recipe.title.toLowerCase()
+    ))
+  );
 
   const categories = [
     'Alla recept',
@@ -199,6 +206,7 @@ const RecipeList = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px]"
                     aria-label="Sök recept"
+                    id="recipe-search-input"
                   />
                 </div>
 
@@ -207,17 +215,20 @@ const RecipeList = () => {
                     onClick={() => setIsFilterOpen(!isFilterOpen)}
                     className="bg-purple-600 text-white px-3 md:px-4 py-2 md:py-3 rounded-lg flex items-center text-sm md:text-base min-h-[44px] w-full md:w-auto justify-center"
                     aria-expanded={isFilterOpen}
+                    aria-controls="filter-options-list"
                   >
-                    <Filter size={16} className="mr-2" />
+                    <Filter size={16} className="mr-2" aria-hidden="true" />
                     Filter
-                    <ChevronRight size={14} className={`ml-2 transform transition-transform duration-200 ${isFilterOpen ? 'rotate-90' : ''}`} />
+                    <ChevronRight size={14} className={`ml-2 transform transition-transform duration-200 ${isFilterOpen ? 'rotate-90' : ''}`} aria-hidden="true" />
                   </button>
                   
                   {isFilterOpen && (
-                    <div className="absolute z-10 mt-2 w-full md:w-48 bg-white rounded-lg shadow-lg p-2 right-0">
+                    <div id="filter-options-list" role="listbox" className="absolute z-10 mt-2 w-full md:w-48 bg-white rounded-lg shadow-lg p-2 right-0">
                       {categories.map(category => (
                         <button 
                           key={category}
+                          role="option"
+                          aria-selected={selectedCategory === category}
                           onClick={() => {
                             setSelectedCategory(category);
                             setIsFilterOpen(false);
@@ -326,11 +337,12 @@ const RecipeList = () => {
                       alt={recipe.title}
                       className="w-full h-full object-cover transform transition-transform hover:scale-105"
                       loading="lazy"
-                      width="400" 
+                      width="400"
                       height="260"
-                      onError={(e) => {
+                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                        const target = e.target as HTMLImageElement;
                         // Fallback to a colored div with emoji if image fails
-                        e.target.style.display = 'none';
+                        target.style.display = 'none';
                         const fallback = document.createElement('div');
                         fallback.className = 'w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center text-purple-600 text-4xl';
                         fallback.innerHTML = '🍽️';

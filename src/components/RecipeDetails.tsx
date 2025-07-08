@@ -1,5 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Clock, Users, Heart, Instagram, ArrowLeft, Printer, Bookmark, Share2, AlertCircle, Star, MessageCircle, Send } from 'lucide-react';
+import { RecipeMetaTags } from './SEO/MetaTags';
+import { RecipeStructuredData } from './SEO/StructuredData';
 
 interface RecipeDetailsProps {
   recipe: {
@@ -48,6 +50,11 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const [comment, setComment] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
 
   // Memoized initial comments for better performance
   const getInitialComments = useMemo(() => {
@@ -295,10 +302,22 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
-      <article className="py-4 md:py-8 print:py-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back button */}
+    <>
+      <RecipeMetaTags recipe={recipe} url={currentUrl} />
+      <RecipeStructuredData
+        recipe={{
+          ...recipe,
+          author: 'Mayka Gulo', // Assuming Mayka is the author
+          datePublished: new Date().toISOString(), // Placeholder, ideally from recipe data
+          ingredients: recipe.content.ingredients.flatMap(section => section.items),
+          instructions: recipe.content.instructions.flatMap(section => section.steps),
+          // prepTime, cookTime, totalTime, recipeCategory, recipeCuisine, keywords, nutritionInfo can be added if available in recipe object
+        }}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+        <article className="py-4 md:py-8 print:py-0">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Back button */}
           <button 
             onClick={onBack}
             className="flex items-center text-purple-600 hover:text-purple-700 mb-6 md:mb-8 group print:hidden transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg min-h-[44px]"
@@ -445,13 +464,15 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               <button 
                 onClick={() => setPortionCount(Math.max(1, portionCount - 1))}
                 className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
+                aria-label="Minska antal portioner"
               >
                 -
               </button>
-              <span className="mx-4 md:mx-6 text-lg md:text-xl font-semibold text-purple-600">{portionCount} portioner</span>
+              <span className="mx-4 md:mx-6 text-lg md:text-xl font-semibold text-purple-600" aria-live="polite">{portionCount} portioner</span>
               <button 
                 onClick={() => setPortionCount(portionCount + 1)}
                 className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
+                aria-label="Öka antal portioner"
               >
                 +
               </button>
@@ -544,15 +565,16 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                             <li key={i} className="flex items-center text-sm">
                               <div className="flex items-center justify-center w-full">
                                 <input 
-                                  type="checkbox" 
+                                  type="checkbox"
+                                  id={`ingredient-${recipe.id}-${index}-${i}`}
                                   className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
                                 />
-                                <div className="flex-1 text-center">
+                                <label htmlFor={`ingredient-${recipe.id}-${index}-${i}`} className="flex-1 text-center cursor-pointer">
                                   <span className="block">
                                     <strong className="text-purple-600 font-semibold text-sm">{adjustedAmount}</strong>
                                   </span>
                                   <span className="block text-gray-700 text-sm leading-tight">{ingredientName}</span>
-                                </div>
+                                </label>
                               </div>
                             </li>
                           );
@@ -562,12 +584,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                           <li key={i} className="flex items-center text-sm">
                             <div className="flex items-center justify-center w-full">
                               <input 
-                                type="checkbox" 
+                                type="checkbox"
+                                id={`ingredient-${recipe.id}-${index}-${i}`}
                                 className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
                               />
-                              <div className="flex-1 text-center">
+                              <label htmlFor={`ingredient-${recipe.id}-${index}-${i}`} className="flex-1 text-center cursor-pointer">
                                 <span className="text-gray-700 text-sm leading-tight">{ingredient}</span>
-                              </div>
+                              </label>
                             </div>
                           </li>
                         );
@@ -594,18 +617,20 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     key={star}
                     onClick={() => handleRating(star)}
                     className="text-xl md:text-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    aria-label={`Ge ${star} stjärn${star === 1 ? 'a' : 'or'} i betyg`}
                   >
                     <Star 
                       fill={userRating >= star ? "#fbbf24" : "none"} 
                       className={userRating >= star ? "text-amber-400" : "text-gray-300"}
                       size={24}
+                      aria-hidden="true"
                     />
                   </button>
                 ))}
               </div>
               {userRating > 0 && (
-                <span className="ml-3 md:ml-4 text-gray-600 text-sm md:text-base">
-                  {userRating} stjärn{userRating === 1 ? 'a' : 'or'}
+                <span className="ml-3 md:ml-4 text-gray-600 text-sm md:text-base" aria-live="polite">
+                  Du har gett {userRating} stjärn{userRating === 1 ? 'a' : 'or'}.
                 </span>
               )}
             </div>
@@ -613,39 +638,51 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             {/* Comment form */}
             <form onSubmit={handleSubmitComment} className="mb-6 md:mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
-                <input
-                  type="text"
-                  placeholder="Ditt namn"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Din e-post (visas ej)"
-                  value={userEmail}
-                  onChange={(e) => setUserEmail(e.target.value)}
-                  className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
+                <div>
+                  <label htmlFor="comment-name" className="sr-only">Ditt namn</label>
+                  <input
+                    type="text"
+                    id="comment-name"
+                    placeholder="Ditt namn"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px] w-full"
+                    required
+                    autoComplete="name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="comment-email" className="sr-only">Din e-post (visas ej)</label>
+                  <input
+                    type="email"
+                    id="comment-email"
+                    placeholder="Din e-post (visas ej)"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px] w-full"
+                    required
+                    autoComplete="email"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="comment-text" className="sr-only">Skriv din kommentar här...</label>
+                <textarea
+                  id="comment-text"
+                  placeholder="Skriv din kommentar här..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  rows={4}
+                  className="w-full px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3 md:mb-4 bg-white/90 text-sm md:text-base"
                   required
                 />
               </div>
-              
-              <textarea
-                placeholder="Skriv din kommentar här..."
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                rows={4}
-                className="w-full px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3 md:mb-4 bg-white/90 text-sm md:text-base"
-                required
-              />
-              
               <div className="text-center">
                 <button
                   type="submit"
                   className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center mx-auto text-sm md:text-base min-h-[44px]"
                 >
-                  <Send size={16} className="mr-2" />
+                  <Send size={16} className="mr-2" aria-hidden="true" />
                   Skicka kommentar
                 </button>
               </div>
@@ -682,5 +719,6 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
         </div>
       </article>
     </div>
+    </>
   );
 };

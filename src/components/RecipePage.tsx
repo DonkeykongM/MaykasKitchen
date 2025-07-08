@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, Search, Filter, Clock, Users, Heart, Star, Tag, ArrowRight, ChevronDown } from 'lucide-react';
 
 export const RecipePage = () => {
-  const [recipes, setRecipes] = useState([
+  const [initialRecipes, setInitialRecipes] = useState([
     {
       id: 'lax-risbowl',
       title: 'Kryddig lax- & risbowl',
@@ -59,6 +59,13 @@ export const RecipePage = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const pageRef = useRef(null);
+
+  // Remove duplicates based on title, keeping the first occurrence
+  const recipes = initialRecipes.filter((recipe, index, self) =>
+    index === self.findIndex((r) => (
+      r.title.toLowerCase() === recipe.title.toLowerCase()
+    ))
+  );
 
   // Check for saved search from localStorage on mount
   useEffect(() => {
@@ -139,6 +146,8 @@ export const RecipePage = () => {
                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  aria-label="Sök recept och ingredienser"
+                  id="recipe-page-search-input"
                 />
               </div>
               
@@ -146,34 +155,44 @@ export const RecipePage = () => {
                 <button 
                   className="bg-primary-color text-white px-4 py-2 rounded-lg flex items-center"
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  aria-expanded={isFilterOpen}
+                  aria-controls="recipe-page-filter-options"
                 >
-                  <Filter size={18} className="mr-2" />
+                  <Filter size={18} className="mr-2" aria-hidden="true" />
                   Filter
-                  <ChevronDown size={16} className={`ml-2 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown size={16} className={`ml-2 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </button>
                 
                 {isFilterOpen && (
-                  <div className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg z-10 w-48 p-2">
+                  <div id="recipe-page-filter-options" role="listbox" className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg z-10 w-48 p-2">
                     <button
                       onClick={() => handleFilterClick('alla')}
+                      role="option"
+                      aria-selected={activeFilter === 'alla'}
                       className={`block w-full text-left px-3 py-2 rounded-md ${activeFilter === 'alla' ? 'bg-beige-50 text-primary-color' : 'hover:bg-beige-50'}`}
                     >
                       Alla recept
                     </button>
                     <button
                       onClick={() => handleFilterClick('huvudratt')}
+                      role="option"
+                      aria-selected={activeFilter === 'huvudratt'}
                       className={`block w-full text-left px-3 py-2 rounded-md ${activeFilter === 'huvudratt' ? 'bg-beige-50 text-primary-color' : 'hover:bg-beige-50'}`}
                     >
                       Huvudrätter
                     </button>
                     <button
                       onClick={() => handleFilterClick('gryta')}
+                      role="option"
+                      aria-selected={activeFilter === 'gryta'}
                       className={`block w-full text-left px-3 py-2 rounded-md ${activeFilter === 'gryta' ? 'bg-beige-50 text-primary-color' : 'hover:bg-beige-50'}`}
                     >
                       Grytor
                     </button>
                     <button
                       onClick={() => handleFilterClick('bakverk')}
+                      role="option"
+                      aria-selected={activeFilter === 'bakverk'}
                       className={`block w-full text-left px-3 py-2 rounded-md ${activeFilter === 'bakverk' ? 'bg-beige-50 text-primary-color' : 'hover:bg-beige-50'}`}
                     >
                       Bakverk
@@ -252,6 +271,17 @@ export const RecipePage = () => {
                     alt={recipe.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    width="400"
+                    height="208" // Assuming aspect ratio for h-52, adjust if needed
+                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                      const target = e.target as HTMLImageElement;
+                      // Fallback to a colored div with emoji if image fails
+                      target.style.display = 'none';
+                      const fallback = document.createElement('div');
+                      fallback.className = 'w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center text-purple-600 text-4xl';
+                      fallback.innerHTML = '🍽️';
+                      target.parentNode?.appendChild(fallback);
+                    }}
                   />
                   
                   {/* Badges */}
