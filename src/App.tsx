@@ -304,12 +304,25 @@ function App() {
         });
         </div>
     },
-    </ErrorBoundary>
-  );
-}
-
-export default App;
-  )
-}
-  )
+          <FoodBlogBackground variant="recipes" className="relative">
+            <RecipeSection />
+          </FoodBlogBackground>
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Collaboration section */}
+          <CollaborationSection />
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Contact section */}
+          <ContactSection />
+          
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
+    </FoodBlogBackground>
+  </ErrorBoundary>
+);
 }
