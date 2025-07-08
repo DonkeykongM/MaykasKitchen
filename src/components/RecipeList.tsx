@@ -2,6 +2,147 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Clock, Users, Heart, Star, ChevronRight, ArrowLeft, Filter, Tag } from 'lucide-react';
 import FoodBlogBackground from './ui/food-blog-background';
 
+// Enhanced recipe card component with robust image handling
+const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true);
+    setImageError(false);
+  }, []);
+
+  const handleImageError = useCallback(() => {
+    setImageError(true);
+    setImageLoaded(false);
+  }, []);
+
+  return (
+    <div
+      className="bg-white/95 backdrop-blur-md rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer recipe-card"
+      onClick={(e) => onRecipeClick(recipe.id, e)}
+    >
+      <div className="relative h-40 sm:h-48 overflow-hidden">
+        {!imageError ? (
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="w-full h-full object-cover transform transition-transform hover:scale-105"
+            loading="lazy"
+            width="400" 
+            height="260"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            style={{ 
+              opacity: imageLoaded ? 1 : 0,
+              transition: 'opacity 0.3s ease'
+            }}
+          />
+        ) : null}
+        
+        {/* Enhanced fallback content when image fails to load */}
+        {imageError && (
+          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex flex-col items-center justify-center text-purple-600 border border-purple-300">
+            <div className="text-3xl md:text-4xl mb-2">{getRecipeEmoji(recipe.id)}</div>
+            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.title}</div>
+          </div>
+        )}
+        
+        {/* Loading state */}
+        {!imageLoaded && !imageError && (
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center animate-pulse">
+            <div className="text-gray-400 text-center">
+              <div className="text-xl md:text-2xl mb-1">📸</div>
+              <div className="text-xs">Laddar...</div>
+            </div>
+          </div>
+        )}
+
+        <div className="absolute top-3 md:top-4 left-3 md:left-4 flex gap-2">
+          <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
+            <Clock size={12} className="mr-1" /> {recipe.time} min
+          </span>
+        </div>
+        
+        {recipe.trending && (
+          <div className="absolute top-3 md:top-4 right-3 md:right-4">
+            <span className="bg-orange-500/90 text-white text-xs py-1 px-2 md:px-3 rounded-full">
+              Populärt
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div className="p-4 md:p-6">
+        <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-3">
+          {recipe.badges.map((badge, index) => (
+            <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-2 rounded-full">
+              {badge}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between mb-2 md:mb-3">
+          <div className="flex items-center">
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={14}
+                  fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
+                  className={i < Math.floor(recipe.rating) ? 'text-amber-400' : 'text-gray-300'}
+                />
+              ))}
+            </div>
+            <span className="text-xs md:text-sm text-gray-600 ml-1">{recipe.rating}</span>
+            <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
+          </div>
+          <span className="text-gray-500 text-xs md:text-sm flex items-center">
+            <Heart size={14} className="mr-1" /> {recipe.likes}
+          </span>
+        </div>
+
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors">
+          {recipe.title}
+        </h3>
+        
+        <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm line-clamp-2">
+          {recipe.description}
+        </p>
+
+        <div className="flex justify-between items-center">
+          <span className="text-gray-600 text-xs md:text-sm flex items-center">
+            <Users size={14} className="mr-1" /> {recipe.portions} portioner
+          </span>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onRecipeClick(recipe.id, e);
+            }}
+            className="text-purple-600 hover:text-purple-800 flex items-center text-xs md:text-sm font-medium group min-h-[44px] px-2 py-1"
+          >
+            <span className="hidden sm:inline">Visa recept</span>
+            <span className="sm:hidden">Visa</span>
+            <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+// Helper function to get recipe emoji
+const getRecipeEmoji = (recipeId) => {
+  const emojiMap = {
+    'kofta-bil-sanieh': '🥩',
+    'lax-risbowl': '🐟',
+    'kafta-bil-sejnie': '🍲',
+    'pasta-pesto': '🍝',
+    'kyckling-shawarma': '🌯'
+  };
+  return emojiMap[recipeId] || '🍽️';
+};
+
 const RecipeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Alla recept');
@@ -315,98 +456,11 @@ const RecipeList = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
               {filteredRecipes.map((recipe) => (
-                <div
-                  key={recipe.id}
-                  className="bg-white/95 backdrop-blur-md rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer recipe-card"
-                  onClick={(e) => handleRecipeClick(recipe.id, e)}
-                >
-                  <div className="relative h-40 sm:h-48 overflow-hidden">
-                    <img
-                      src={recipe.image}
-                      alt={recipe.title}
-                      className="w-full h-full object-cover transform transition-transform hover:scale-105"
-                      loading="lazy"
-                      width="400" 
-                      height="260"
-                      onError={(e) => {
-                        // Fallback to a colored div with emoji if image fails
-                        e.target.style.display = 'none';
-                        const fallback = document.createElement('div');
-                        fallback.className = 'w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center text-purple-600 text-4xl';
-                        fallback.innerHTML = '🍽️';
-                        e.target.parentNode.appendChild(fallback);
-                      }}
-                    />
-                    <div className="absolute top-3 md:top-4 left-3 md:left-4 flex gap-2">
-                      <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
-                        <Clock size={12} className="mr-1" /> {recipe.time} min
-                      </span>
-                    </div>
-                    
-                    {recipe.trending && (
-                      <div className="absolute top-3 md:top-4 right-3 md:right-4">
-                        <span className="bg-orange-500/90 text-white text-xs py-1 px-2 md:px-3 rounded-full">
-                          Populärt
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="p-4 md:p-6">
-                    <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-3">
-                      {recipe.badges.map((badge, index) => (
-                        <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-2 rounded-full">
-                          {badge}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between mb-2 md:mb-3">
-                      <div className="flex items-center">
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={14}
-                              fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
-                              className={i < Math.floor(recipe.rating) ? 'text-amber-400' : 'text-gray-300'}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-xs md:text-sm text-gray-600 ml-1">{recipe.rating}</span>
-                        <span className="text-xs text-gray-500 ml-1">({recipe.reviews})</span>
-                      </div>
-                      <span className="text-gray-500 text-xs md:text-sm flex items-center">
-                        <Heart size={14} className="mr-1" /> {recipe.likes}
-                      </span>
-                    </div>
-
-                    <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors">
-                      {recipe.title}
-                    </h3>
-                    
-                    <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm line-clamp-2">
-                      {recipe.description}
-                    </p>
-
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600 text-xs md:text-sm flex items-center">
-                        <Users size={14} className="mr-1" /> {recipe.portions} portioner
-                      </span>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRecipeClick(recipe.id, e);
-                        }}
-                        className="text-purple-600 hover:text-purple-800 flex items-center text-xs md:text-sm font-medium group min-h-[44px] px-2 py-1"
-                      >
-                        <span className="hidden sm:inline">Visa recept</span>
-                        <span className="sm:hidden">Visa</span>
-                        <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <RecipeCard 
+                  key={recipe.id} 
+                  recipe={recipe} 
+                  onRecipeClick={handleRecipeClick}
+                />
               ))}
             </div>
           )}
