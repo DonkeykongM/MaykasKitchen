@@ -115,6 +115,14 @@ function App() {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
+            },
+            'pannpizzor': {
+              title: "Snabba pannpizzor direkt i ugnsformen - MaykasKitchen",
+              description: "Perfekt när du har kylskåpsrester att ta vara på! Enkla pannpizzor med hemmagjord deg som hela familjen älskar."
+            },
+            'batata-harra': {
+              title: "Batata Harra – Friterad potatis med tomatsås - MaykasKitchen",
+              description: "En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!"
             }
           });
         },
@@ -317,7 +325,3 @@ function App() {
 }
 
 export default App;
-  )
-}
-  )
-}
