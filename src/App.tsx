@@ -168,6 +168,14 @@ function App() {
         "#recipe/kyckling-shawarma": {
           title: "Kyckling Shawarma - MaykasKitchen",
           description: "Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!"
+        },
+        "#recipe/pannpizzor": {
+          title: "Snabba pannpizzor direkt i ugnsformen - MaykasKitchen",
+          description: "Perfekt när du har kylskåpsrester att ta vara på! Enkla pannpizzor med hemmagjord deg som hela familjen älskar."
+        },
+        "#recipe/batata-harra": {
+          title: "Batata Harra – Friterad potatis med tomatsås - MaykasKitchen",
+          description: "En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!"
         }
       };
 
@@ -309,17 +317,9 @@ function App() {
             <CollaborationSection />
             
             <div className="section-divider" aria-hidden="true"></div>
-            
-            {/* Contact section with contact variant */}
-            <FoodBlogBackground variant="contact" className="relative">
-              <ContactSection />
-            </FoodBlogBackground>
-            
-            <Newsletter />
-          </main>
-          <Footer />
+        });
         </div>
-      </FoodBlogBackground>
+    },
     </ErrorBoundary>
   );
 }
