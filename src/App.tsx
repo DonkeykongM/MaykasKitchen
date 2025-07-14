@@ -20,6 +20,7 @@ const PastaPestoPost = lazy(() => import('./components/BlogPost').then(module =>
 const KycklingShawarmaPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingShawarmaPost })));
 const PannpizzorPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PannpizzorPost })));
 const BatataHarraPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BatataHarraPost })));
+const KycklingfilePotatisDragonPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingfilePotatisDragonPost })));
 
 // Enhanced loading component with skeleton states
 const LoadingSpinner = () => (

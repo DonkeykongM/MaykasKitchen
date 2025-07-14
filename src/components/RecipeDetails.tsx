@@ -52,6 +52,43 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   // Memoized initial comments for better performance
   const getInitialComments = useMemo(() => {
     const commentsByRecipe = {
+      'kycklingfile-potatis-dragon': [
+        {
+          id: 1,
+          name: "Maria Johansson",
+          rating: 5,
+          date: "5 januari 2025",
+          text: "Vilken fantastisk rätt! Dragonsåsen var helt magisk och kycklingen blev så saftig. Hela familjen älskade det - kommer definitivt bli en återkommande favorit! 🐔✨"
+        },
+        {
+          id: 2,
+          name: "Anders Nilsson",
+          rating: 5,
+          date: "3 januari 2025",
+          text: "Perfekt vardagslyx! Följde receptet exakt och resultatet var restaurangkvalité. Dragonsåsen var pricken över i - så krämig och smakrik! 👨‍🍳"
+        },
+        {
+          id: 3,
+          name: "Lisa Bergman",
+          rating: 5,
+          date: "1 januari 2025",
+          text: "Gjorde denna till nyårskvällen och alla gäster frågade efter receptet! Så vacker presentation och smaken var otrolig. Tack för ett perfekt recept! 🥂"
+        },
+        {
+          id: 4,
+          name: "Erik Svensson",
+          rating: 4,
+          date: "30 december 2024",
+          text: "Riktigt gott! Tog lite längre tid än väntat men resultatet var värt det. Próxima gång kanske jag förbereder såsen i förväg. Familjen var mycket nöjd! 👍"
+        },
+        {
+          id: 5,
+          name: "Anna Lindström",
+          rating: 5,
+          date: "28 december 2024",
+          text: "Så här ska kyckling lagas! Blev så mör och smakrik. Brysselkålen blev överraskande god - även barnen åt upp allt. Definitivt en keeper! 🥬"
+        }
+      ],
       'pannpizzor': [
         {
           id: 1,
