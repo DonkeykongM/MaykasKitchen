@@ -828,3 +828,11 @@ export const BatataHarraPost = () => {
 
   return <RecipeDetails recipe={recipes['batata-harra']} onBack={handleBack} />;
 };
+
+export const KycklingfilePotatisDragonPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['kycklingfile-potatis-dragon']} onBack={handleBack} />;
+};
