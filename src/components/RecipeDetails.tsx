@@ -129,93 +129,120 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           rating: 4,
           date: "1 januari 2025",
           text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett!"
-        }
-      ],
-      'kyckling-shawarma': [
-        {
+            name: "Sarah Johansson",
+            rating: 5,
+            date: "15 december 2024",
+            text: "Fantastiskt recept! Perfekt balans av smaker och så mättande. Sumaken ger verkligen den där extra smaken som gör skillnad."
           id: 1,
           name: "Carl Magnusson",
           rating: 4,
-          date: "29 december 2024",
-          text: "Gjorde hela menyn från scratch - vilken upplevelse! Tunnbröden var enklare än jag trodde och vitlökssåsen var fantastisk."
-        }
-      ]
+            name: "Marcus Andersson",
+            rating: 5,
+            date: "28 november 2024",
+            text: "Gjorde detta till hela familjen och alla älskade det! Så enkelt att laga och resultatet var verkligen professionellt. Kommer definitivt göra igen."
     };
     
     return commentsByRecipe[recipe.id] || [];
   }, [recipe.id]);
 
-  const [comments, setComments] = useState(getInitialComments);
-
-  // Optimized portion adjustment function
-  const adjustAmount = useCallback((amount: string, originalPortions: number): string => {
+            name: "Anna Petersson",
+            rating: 5,
+            date: "10 december 2024",
+            text: "Denna rätt är så lyxig! Dragonsåsen var helt perfekt och kycklingen så saftig. Kändes som restaurangmat hemma."
+          },
+          {
+            id: 2,
+            name: "Johan Eriksson",
+            rating: 5,
+            date: "22 november 2024",
+            text: "Fantastisk smakkombination! Lite mer avancerat än vad jag brukar laga men instruktionerna var så tydliga. Gästerna var imponerade."
     const regex = /(\d+(?:\.\d+)?)\s*([a-zA-ZåäöÅÄÖ]+)?/;
     const match = amount.match(regex);
     
     if (match) {
       const value = parseFloat(match[1]);
-      const unit = match[2] || '';
-      const adjustedValue = (value / originalPortions) * portionCount;
-      
-      let formattedValue: string;
+            name: "Lisa Holm",
+            rating: 5,
+            date: "5 december 2024",
+            text: "Perfekt för fredagsmys! Barnen älskade att få välja sina egna toppings. Degen blev så luftig och god."
+          },
+          {
+            id: 2,
+            name: "David Larsson",
+            rating: 5,
+            date: "18 november 2024",
+            text: "Så smart att göra pizza direkt i ugnsformen! Sparade så mycket tid och resultatet var fantastiskt. Kommer använda detta recept ofta."
       if (adjustedValue % 1 === 0) {
         formattedValue = adjustedValue.toString();
       } else {
         formattedValue = adjustedValue.toFixed(1).replace(/\.0$/, '');
       }
-      
-      return `${formattedValue} ${unit}`;
-    }
-    
+            name: "Emma Nilsson",
+            rating: 5,
+            date: "2 december 2024",
+            text: "Älskar denna rätt! Perfekt kryddstyrka och potatisen blev så krispig. Serverade med grillad kyckling - himmelskt!"
     return amount;
   }, [portionCount]);
 
   // Optimized handlers with useCallback
   const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
+            name: "Sofia Lindberg",
+            rating: 5,
 
-  const handleSave = useCallback(() => {
+            text: "Så fräsch och god! Perfekt för en lättare middag. Majonnäsen var verkligen pricken över i - så kreativ kombination!"
+          },
+          {
+            id: 2,
+            name: "Andreas Holm",
+            rating: 5,
+            date: "15 december 2024",
+            text: "Fantastisk bowl! Laxen blev perfekt kryddig och grönsakerna så färska. Min nya favorit för vardagsmiddag."
     setIsSaved(!isSaved);
     if (!isSaved) {
       localStorage.setItem(`saved-recipe-${recipe.id}`, 'true');
     } else {
       localStorage.removeItem(`saved-recipe-${recipe.id}`);
-    }
-  }, [isSaved, recipe.id]);
-
-  const handleShare = useCallback(() => {
+            name: "Linnea Svensson",
+            rating: 5,
+            date: "20 december 2024",
+            text: "Så autentiskt och gott! Första gången jag lagade assyrisk mat och resultatet var fantastiskt. Hela familjen älskade det!"
     if (navigator.share) {
       navigator.share({
         title: recipe.title,
         text: recipe.description,
         url: window.location.href,
-      }).catch((error) => console.log('Error sharing', error));
-    } else {
+            name: "Maria Andersson",
+            rating: 5,
       const shareUrl = encodeURIComponent(window.location.href);
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
+            text: "Otroligt smakrik rätt! Padron paprikorna var genialiska och såsen så god. Känns som att äta på en riktig restaurang."
     }
   }, [recipe.title, recipe.description]);
 
   const handleRating = useCallback((rating: number) => {
     setUserRating(rating);
-  }, []);
-
-  const handleSubmitComment = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (userName.trim() && comment.trim()) {
+            name: "Helena Johansson",
+            rating: 5,
+            date: "12 december 2024",
+            text: "Så färgglad och god! Ugnsbakade tomaterna var perfekta och halloumin gav den extra smaken. Enkel men lyxig känsla."
+    if (userName.trim() && comment.trim() && userRating > 0) {
       const newComment = {
         id: comments.length + 1,
         name: userName,
-        rating: userRating || 5,
-        date: new Date().toLocaleDateString('sv-SE', { 
-          year: 'numeric', 
+        rating: userRating,
+            name: "Peter Karlsson",
+            rating: 5,
           month: 'long', 
-          day: 'numeric' 
+            text: "Imponerande recept! Tog tid men var så värt det. Tunnbröden blev perfekta och köttet så smakrikt. Kändes som riktig shawarma!"
         }),
         text: comment
       };
       setComments([newComment, ...comments]);
+      
+      // Update recipe rating based on all comments
+      const allRatings = [newComment, ...comments].map(c => c.rating);
+      const newAverageRating = allRatings.reduce((sum, rating) => sum + rating, 0) / allRatings.length;
+      // Update the recipe rating in the parent component if needed
+      
       setComment('');
       setUserName('');
       setUserEmail('');
@@ -558,7 +585,6 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
                   className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
-                  required
                 />
               </div>
               
