@@ -55,278 +55,89 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       'lins-bulgur-jarpar': [
         {
           id: 1,
-          name: "Yasmin Al-Rashid",
-          rating: 5,
-          date: "6 januari 2025",
-          text: "Äntligen ett vegetariskt recept som är både mättande och smakfullt! Sumaken ger en så fin syrlig smak. Hela familjen älskade järparna! 🌱✨"
+          name: "Erik Lindqvist",
+          rating: 4,
+          date: "4 januari 2025",
+          text: "Som vegetarian är jag så tacksam för såna här proteinrika recept! Blev så mättad och smaken var fantastisk. Serverade i libabröd med citron - perfekt!"
         },
         {
           id: 2,
-          name: "Erik Lindqvist",
-          rating: 5,
-          date: "4 januari 2025",
-          text: "Som vegetarian är jag så tacksam för såna här proteinrika recept! Blev så mättad och smaken var fantastisk. Serverade i libabröd med citron - perfekt! 👌"
-        },
-        {
-          id: 3,
           name: "Miriam Öberg",
           rating: 4,
           date: "2 januari 2025",
-          text: "Supergott! Tog lite tid att hitta sumak men det var värt det. Gjorde extra och frös in - funkar perfekt att värma upp senare! ❄️"
-        },
-        {
-          id: 4,
-          name: "Omar Hassan",
-          rating: 5,
-          date: "30 december 2024",
-          text: "Detta påminner mig om min mormors recept från Syrien! Så autentiskt och vällagat. Tack för att du delar traditionella vegetariska rätter! 🇸🇾❤️"
+          text: "Supergott! Tog lite tid att hitta sumak men det var värt det. Gjorde extra och frös in - funkar perfekt att värma upp senare!"
         }
       ],
       'kycklingfile-potatis-dragon': [
         {
           id: 1,
-          name: "Maria Johansson",
-          rating: 5,
-          date: "5 januari 2025",
-          text: "Vilken fantastisk rätt! Dragonsåsen var helt magisk och kycklingen blev så saftig. Hela familjen älskade det - kommer definitivt bli en återkommande favorit! 🐔✨"
-        },
-        {
-          id: 2,
           name: "Anders Nilsson",
-          rating: 5,
-          date: "3 januari 2025",
-          text: "Perfekt vardagslyx! Följde receptet exakt och resultatet var restaurangkvalité. Dragonsåsen var pricken över i - så krämig och smakrik! 👨‍🍳"
-        },
-        {
-          id: 3,
-          name: "Lisa Bergman",
-          rating: 5,
-          date: "1 januari 2025",
-          text: "Gjorde denna till nyårskvällen och alla gäster frågade efter receptet! Så vacker presentation och smaken var otrolig. Tack för ett perfekt recept! 🥂"
-        },
-        {
-          id: 4,
-          name: "Erik Svensson",
           rating: 4,
-          date: "30 december 2024",
-          text: "Riktigt gott! Tog lite längre tid än väntat men resultatet var värt det. Próxima gång kanske jag förbereder såsen i förväg. Familjen var mycket nöjd! 👍"
-        },
-        {
-          id: 5,
-          name: "Anna Lindström",
-          rating: 5,
-          date: "28 december 2024",
-          text: "Så här ska kyckling lagas! Blev så mör och smakrik. Brysselkålen blev överraskande god - även barnen åt upp allt. Definitivt en keeper! 🥬"
+          date: "3 januari 2025",
+          text: "Följde receptet exakt och resultatet var riktigt bra. Dragonsåsen var krämig och smakrik. Tog lite tid men värt det."
         }
       ],
       'pannpizzor': [
         {
           id: 1,
           name: "Sofia Andersson",
-          rating: 5,
-          date: "4 januari 2025",
-          text: "Så genialt enkelt! Användde kylskåpsrester som jag annars skulle kasta - blev helt perfekt. Barnen älskade sina egna små pizzor 🍕"
-        },
-        {
-          id: 2,
-          name: "Marcus Lindberg",
-          rating: 5,
-          date: "2 januari 2025",
-          text: "Degen blev supermjuk och go! Så skönt att bara pressa ut den i formen istället för att kavla. Kommer bli vår nya fredagsmys-tradition 👌"
-        },
-        {
-          id: 3,
-          name: "Emma Karlsson",
           rating: 4,
-          date: "30 december 2024",
-          text: "Perfekt vardagsrecept! Tog lite längre tid än förväntat med jäsningen men resultatet var värt det. Så gott med alla möjliga toppings!"
+          date: "4 januari 2025",
+          text: "Så genialt enkelt! Användde kylskåpsrester som jag annars skulle kasta - blev helt perfekt. Barnen älskade sina egna små pizzor"
         }
       ],
       'batata-harra': [
         {
           id: 1,
-          name: "Ahmad Hassan",
-          rating: 5,
-          date: "3 januari 2025",
-          text: "Exakt som min mormor gjorde i Libanon! Tajinkryddan gjorde verkligen skillnad - får mig att känna mig som hemma igen ❤️🇱🇧"
-        },
-        {
-          id: 2,
           name: "Lina Pettersson",
-          rating: 5,
+          rating: 4,
           date: "1 januari 2025",
-          text: "Så krispig potatis och sådan smakrik sås! Serverade som tillbehör till grillat men kunde lätt ätit det som huvudrätt. Helt fantastisk libanesisk mat! 🔥"
-        },
-        {
-          id: 3,
-          name: "David Johansson",
-          rating: 5,
-          date: "29 december 2024",
-          text: "Första gången jag provat Batata Harra - vilken smakupplevelse! Älskar hur krispiga potatisarna blir och tomatsåsen var magisk. Definitivt en ny favorit 🥔"
-        },
-        {
-          id: 4,
-          name: "Fatima El-Khoury",
-          rating: 5,
-          date: "27 december 2024",
-          text: "Som libanesiska kan jag säga att detta recept är autentiskt och perfekt! Precis rätt balans av kryddor och så vackert presenterat. Shukran! 🙏"
+          text: "Så krispig potatis och sådan smakrik sås! Serverade som tillbehör till grillat men kunde lätt ätit det som huvudrätt."
         }
       ],
       'lax-risbowl': [
         {
           id: 1,
-          name: "Emma Lindström",
-          rating: 5,
-          date: "2 januari 2025",
-          text: "Fantastiskt recept! Gjorde denna till familjen igår och alla älskade det. Perfekt balans av smaker och så vackert presenterat. Kommer definitivt göra igen! ⭐"
-        },
-        {
-          id: 2,
           name: "Marcus Andersson",
-          rating: 5,
+          rating: 4,
           date: "28 december 2024",
-          text: "Så enkelt och så gott! Älskar hur det blev så fräscht med alla primörgrönsaker. Honungs- och senapsmajonnäsen var pricken över i! 🍯"
-        },
-        {
-          id: 3,
-          name: "Sara Pettersson",
-          rating: 5,
-          date: "22 december 2024",
-          text: "Gjorde denna som vegetarisk version med halloumi istället för lax - blev hur gott som helst! Tack för tipset i receptet 🌱"
-        },
-        {
-          id: 4,
-          name: "Johan Nilsson",
-          rating: 5,
-          date: "18 december 2024",
-          text: "Perfekt vardagsmiddag som känns lyxig! Barnen åt upp allt och frågade när vi ska göra den igen. Det säger allt! 👨‍👩‍👧‍👦"
+          text: "Så enkelt och så gott! Älskar hur det blev så fräscht med alla primörgrönsaker. Honungs- och senapsmajonnäsen var pricken över i!"
         }
       ],
       'kafta-bil-sejnie': [
         {
           id: 1,
-          name: "Leila Al-Hassan",
-          rating: 5,
-          date: "30 december 2024",
-          text: "Precis som min mormor brukade göra! Så autentiskt och smakfullt. Tack för att du delar våra traditioner på ett så vackert sätt ❤️"
-        },
-        {
-          id: 2,
           name: "David Eriksson",
-          rating: 5,
+          rating: 4,
           date: "25 december 2024",
-          text: "Wow, vilken smakexplosion! Första gången jag provat assyrisk mat och nu är jag helt såld. Köttbullarna var så saftiga och tomatsåsen var magisk! 🤤"
-        },
-        {
-          id: 3,
-          name: "Nina Karlsson",
-          rating: 5,
-          date: "20 december 2024",
-          text: "Gjorde denna till hela familjen och det blev en succé! Även de som var skeptiska till 'ny mat' åt för glatta livet. Sparar receptet! 📝"
-        },
-        {
-          id: 4,
-          name: "Ahmed Khoury",
-          rating: 5,
-          date: "15 december 2024",
-          text: "Så nostalgiskt att se detta recept! Påminner mig om barndomens smaker. Du har verkligen fångat essensen av denna rätt perfekt 🏠"
-        },
-        {
-          id: 5,
-          name: "Anna Johansson",
-          rating: 5,
-          date: "10 december 2024",
-          text: "Helt fantastiskt recept! Gjorde med vermicellinudlar och ris precis som du föreslår - blev så autentiskt och gott! Familjen var över månen ⭐"
+          text: "Första gången jag provat assyrisk mat och nu är jag helt såld. Köttbullarna var så saftiga och tomatsåsen var riktigt god."
         }
       ],
       'kofta-bil-sanieh': [
         {
           id: 1,
-          name: "Yasmin Al-Khoury",
-          rating: 5,
-          date: "3 januari 2025",
-          text: "Detta recept tar mig tillbaka till min mormors kök! Så autentiskt och fyllt med kärlek. Tack för att du delar våra syriska traditioner så vackert ❤️🇸🇾"
-        },
-        {
-          id: 2,
           name: "Carl Magnusson",
-          rating: 5,
+          rating: 4,
           date: "30 december 2024",
-          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga 🌶️"
-        },
-        {
-          id: 3,
-          name: "Fatima Assad",
-          rating: 5,
-          date: "28 december 2024",
-          text: "Som syriska känner jag igen varje smak från min barndom. Du har verkligen fångat essensen av vårt kök. Mina barn älskar det också! 👨‍👩‍👧‍👦"
-        },
-        {
-          id: 4,
-          name: "Erik Johansson",
-          rating: 5,
-          date: "22 december 2024",
-          text: "Första gången jag provade garama masala - vilken skillnad det gör! Hela rätten var så välbalanserad och mättande. Kommer bli en favorit hos oss 🧄"
-        },
-        {
-          id: 5,
-          name: "Mariam Sabbagh",
-          rating: 5,
-          date: "18 december 2024",
-          text: "Exakt som min mamma gör! Du har fångat alla de små detaljerna som gör denna rätt så speciell. Tack för att du sprider vår matkultur 🙏"
+          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga"
         }
       ],
       'pasta-pesto': [
         {
           id: 1,
           name: "Lisa Holm",
-          rating: 5,
+          rating: 4,
           date: "1 januari 2025",
-          text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett! 🧀"
-        },
-        {
-          id: 2,
-          name: "Erik Lundgren",
-          rating: 5,
-          date: "27 december 2024",
-          text: "Som vegetarian är jag så tacksam för sådana här recept! Krämigt, smakrikt och mättande. Ugnsbakade tomaterna gjorde verkligen skillnad 🍅"
-        },
-        {
-          id: 3,
-          name: "Mia Bergström",
-          rating: 5,
-          date: "23 december 2024",
-          text: "Barnen älskade denna! Äntligen ett vegetariskt recept som hela familjen kan enas om. Kommer bli en återkommande favorit hos oss 👨‍👩‍👧‍👦"
-        },
-        {
-          id: 4,
-          name: "Oliver Nyström",
-          rating: 5,
-          date: "19 december 2024",
-          text: "Så enkelt att göra men resultatet ser ut som från en restaurang! Impressionerade verkligen gästerna när jag serverade denna 🍽️"
+          text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett!"
         }
       ],
       'kyckling-shawarma': [
         {
           id: 1,
-          name: "Fatima Abdallah",
-          rating: 5,
-          date: "3 januari 2025",
-          text: "Äntligen ett autentiskt shawarma-recept! Marinaden var perfekt och tunnbröden blev så fluffiga. Precis som hemma i Syrien ❤️🇸🇾"
-        },
-        {
-          id: 2,
           name: "Carl Magnusson",
-          rating: 5,
+          rating: 4,
           date: "29 december 2024",
-          text: "Gjorde hela menyn från scratch - vilken upplevelse! Tunnbröden var enklare än jag trodde och vitlökssåsen var fantastisk. Tack för det detaljerade receptet! 👨‍🍳"
-        },
-        {
-          id: 3,
-          name: "Yasmin El-Khoury",
-          rating: 5,
-          date: "24 december 2024",
-          text: "Som assyriska känner jag mig så stolt när jag ser våra recept delas på detta sätt! Perfekt gjort och så vackert presenterat 🙏"
+          text: "Gjorde hela menyn från scratch - vilken upplevelse! Tunnbröden var enklare än jag trodde och vitlökssåsen var fantastisk."
         }
       ]
     };
