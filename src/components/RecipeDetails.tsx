@@ -129,110 +129,101 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           rating: 4,
           date: "1 januari 2025",
           text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett!"
-            name: "Sarah Johansson",
-            rating: 5,
-            date: "15 december 2024",
-            text: "Fantastiskt recept! Perfekt balans av smaker och så mättande. Sumaken ger verkligen den där extra smaken som gör skillnad."
-          id: 1,
+        },
+        {
+          id: 2,
+          name: "Sarah Johansson",
+          rating: 5,
+          date: "15 december 2024",
+          text: "Fantastiskt recept! Perfekt balans av smaker och så mättande. Sumaken ger verkligen den där extra smaken som gör skillnad."
+        },
+        {
+          id: 3,
           name: "Carl Magnusson",
           rating: 4,
-            name: "Marcus Andersson",
-            rating: 5,
-            date: "28 november 2024",
-            text: "Gjorde detta till hela familjen och alla älskade det! Så enkelt att laga och resultatet var verkligen professionellt. Kommer definitivt göra igen."
+          date: "30 december 2024",
+          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga"
+        },
+        {
+          id: 4,
+          name: "Marcus Andersson",
+          rating: 5,
+          date: "28 november 2024",
+          text: "Gjorde detta till hela familjen och alla älskade det! Så enkelt att laga och resultatet var verkligen professionellt. Kommer definitivt göra igen."
+        }
+      ]
     };
     
     return commentsByRecipe[recipe.id] || [];
   }, [recipe.id]);
 
-            name: "Anna Petersson",
-            rating: 5,
-            date: "10 december 2024",
-            text: "Denna rätt är så lyxig! Dragonsåsen var helt perfekt och kycklingen så saftig. Kändes som restaurangmat hemma."
-          },
-          {
-            id: 2,
-            name: "Johan Eriksson",
-            rating: 5,
-            date: "22 november 2024",
-            text: "Fantastisk smakkombination! Lite mer avancerat än vad jag brukar laga men instruktionerna var så tydliga. Gästerna var imponerade."
+  const [comments, setComments] = useState(getInitialComments);
+
+  const adjustAmount = useCallback((amount: string, originalPortions: number) => {
     const regex = /(\d+(?:\.\d+)?)\s*([a-zA-ZåäöÅÄÖ]+)?/;
     const match = amount.match(regex);
     
     if (match) {
       const value = parseFloat(match[1]);
-            name: "Lisa Holm",
-            rating: 5,
-            date: "5 december 2024",
-            text: "Perfekt för fredagsmys! Barnen älskade att få välja sina egna toppings. Degen blev så luftig och god."
-          },
-          {
-            id: 2,
-            name: "David Larsson",
-            rating: 5,
-            date: "18 november 2024",
-            text: "Så smart att göra pizza direkt i ugnsformen! Sparade så mycket tid och resultatet var fantastiskt. Kommer använda detta recept ofta."
+      const unit = match[2] || '';
+      const adjustedValue = (value * portionCount) / originalPortions;
+      
+      let formattedValue: string;
       if (adjustedValue % 1 === 0) {
         formattedValue = adjustedValue.toString();
       } else {
         formattedValue = adjustedValue.toFixed(1).replace(/\.0$/, '');
       }
-            name: "Emma Nilsson",
-            rating: 5,
-            date: "2 december 2024",
-            text: "Älskar denna rätt! Perfekt kryddstyrka och potatisen blev så krispig. Serverade med grillad kyckling - himmelskt!"
+      
+      return `${formattedValue} ${unit}`.trim();
+    }
+    
     return amount;
   }, [portionCount]);
 
   // Optimized handlers with useCallback
   const handlePrint = useCallback(() => {
-            name: "Sofia Lindberg",
-            rating: 5,
+    window.print();
+  }, []);
 
-            text: "Så fräsch och god! Perfekt för en lättare middag. Majonnäsen var verkligen pricken över i - så kreativ kombination!"
-          },
-          {
-            id: 2,
-            name: "Andreas Holm",
-            rating: 5,
-            date: "15 december 2024",
-            text: "Fantastisk bowl! Laxen blev perfekt kryddig och grönsakerna så färska. Min nya favorit för vardagsmiddag."
+  const handleSave = useCallback(() => {
     setIsSaved(!isSaved);
     if (!isSaved) {
       localStorage.setItem(`saved-recipe-${recipe.id}`, 'true');
     } else {
       localStorage.removeItem(`saved-recipe-${recipe.id}`);
-            name: "Linnea Svensson",
-            rating: 5,
-            date: "20 december 2024",
-            text: "Så autentiskt och gott! Första gången jag lagade assyrisk mat och resultatet var fantastiskt. Hela familjen älskade det!"
+    }
+  }, [isSaved, recipe.id]);
+
+  const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator.share({
         title: recipe.title,
         text: recipe.description,
         url: window.location.href,
-            name: "Maria Andersson",
-            rating: 5,
+      });
+    } else {
       const shareUrl = encodeURIComponent(window.location.href);
-            text: "Otroligt smakrik rätt! Padron paprikorna var genialiska och såsen så god. Känns som att äta på en riktig restaurang."
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
     }
   }, [recipe.title, recipe.description]);
 
   const handleRating = useCallback((rating: number) => {
     setUserRating(rating);
-            name: "Helena Johansson",
-            rating: 5,
-            date: "12 december 2024",
-            text: "Så färgglad och god! Ugnsbakade tomaterna var perfekta och halloumin gav den extra smaken. Enkel men lyxig känsla."
+  }, []);
+
+  const handleSubmitComment = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    
     if (userName.trim() && comment.trim() && userRating > 0) {
       const newComment = {
         id: comments.length + 1,
         name: userName,
         rating: userRating,
-            name: "Peter Karlsson",
-            rating: 5,
+        date: new Date().toLocaleDateString('sv-SE', { 
+          year: 'numeric', 
           month: 'long', 
-            text: "Imponerande recept! Tog tid men var så värt det. Tunnbröden blev perfekta och köttet så smakrikt. Kändes som riktig shawarma!"
+          day: 'numeric' 
         }),
         text: comment
       };
