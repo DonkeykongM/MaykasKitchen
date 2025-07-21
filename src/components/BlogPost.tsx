@@ -925,10 +925,11 @@ export const KycklingfilePotatisDragonPost = () => {
   };
 
   return <RecipeDetails recipe={recipes['kycklingfile-potatis-dragon']} onBack={handleBack} />;
+};
+
 export const LinsBulgurJarparPost = () => {
   const handleBack = () => {
     window.location.hash = '';
   };
-};
   return <RecipeDetails recipe={recipes['lins-bulgur-jarpar']} onBack={handleBack} />;
 };
