@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Clock, Users, Heart, Instagram, ArrowLeft, Printer, Bookmark, Share2, AlertCircle, Star, MessageCircle, Send } from 'lucide-react';
+import { getRecipeStats, getRecipeComments, submitComment, submitRating, type RecipeComment } from '../lib/recipeService';
 
 interface RecipeDetailsProps {
   recipe: {
@@ -48,23 +49,55 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const [comment, setComment] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  
+  // Real-time data from database
+  const [liveComments, setLiveComments] = useState<RecipeComment[]>([]);
+  const [liveRating, setLiveRating] = useState(recipe.rating);
+  const [liveReviewCount, setLiveReviewCount] = useState(recipe.reviews);
+  const [loading, setLoading] = useState(true);
 
-  // Memoized initial comments for better performance
-  const getInitialComments = useMemo(() => {
+  // Load real-time data on component mount
+  useEffect(() => {
+    const loadRecipeData = async () => {
+      setLoading(true);
+      try {
+        // Load comments
+        const comments = await getRecipeComments(recipe.id);
+        setLiveComments(comments);
+        
+        // Load statistics
+        const stats = await getRecipeStats(recipe.id);
+        setLiveRating(stats.average_rating);
+        setLiveReviewCount(stats.total_comments);
+      } catch (error) {
+        console.error('Error loading recipe data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRecipeData();
+  }, [recipe.id]);
+
+  // Fallback comments for display while loading
+  const fallbackComments = useMemo(() => {
     const commentsByRecipe = {
       'lins-bulgur-jarpar': [
         {
           id: 1,
           name: "Erik Lindqvist",
           rating: 4,
-          date: "4 januari 2025",
+          date: "4 december 2024",
           text: "Som vegetarian är jag så tacksam för såna här proteinrika recept! Blev så mättad och smaken var fantastisk. Serverade i libabröd med citron - perfekt!"
         },
         {
           id: 2,
           name: "Miriam Öberg",
           rating: 4,
-          date: "2 januari 2025",
+          date: "2 december 2024",
           text: "Supergott! Tog lite tid att hitta sumak men det var värt det. Gjorde extra och frös in - funkar perfekt att värma upp senare!"
         }
       ],
@@ -73,7 +106,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "Anders Nilsson",
           rating: 4,
-          date: "3 januari 2025",
+          date: "3 december 2024",
           text: "Följde receptet exakt och resultatet var riktigt bra. Dragonsåsen var krämig och smakrik. Tog lite tid men värt det."
         }
       ],
@@ -82,7 +115,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "Sofia Andersson",
           rating: 4,
-          date: "4 januari 2025",
+          date: "4 december 2024",
           text: "Så genialt enkelt! Användde kylskåpsrester som jag annars skulle kasta - blev helt perfekt. Barnen älskade sina egna små pizzor"
         }
       ],
@@ -91,7 +124,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "Lina Pettersson",
           rating: 4,
-          date: "1 januari 2025",
+          date: "1 december 2024",
           text: "Så krispig potatis och sådan smakrik sås! Serverade som tillbehör till grillat men kunde lätt ätit det som huvudrätt."
         }
       ],
@@ -100,7 +133,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "Marcus Andersson",
           rating: 4,
-          date: "28 december 2024",
+          date: "28 november 2024",
           text: "Så enkelt och så gott! Älskar hur det blev så fräscht med alla primörgrönsaker. Honungs- och senapsmajonnäsen var pricken över i!"
         }
       ],
@@ -109,7 +142,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "David Eriksson",
           rating: 4,
-          date: "25 december 2024",
+          date: "25 november 2024",
           text: "Första gången jag provat assyrisk mat och nu är jag helt såld. Köttbullarna var så saftiga och tomatsåsen var riktigt god."
         }
       ],
@@ -118,7 +151,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "Carl Magnusson",
           rating: 4,
-          date: "30 december 2024",
+          date: "30 november 2024",
           text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga"
         }
       ],
@@ -127,14 +160,14 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           id: 1,
           name: "Lisa Holm",
           rating: 4,
-          date: "1 januari 2025",
+          date: "1 december 2024",
           text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett!"
         },
         {
           id: 2,
           name: "Sarah Johansson",
           rating: 5,
-          date: "15 december 2024",
+          date: "15 november 2024",
           text: "Fantastiskt recept! Perfekt balans av smaker och så mättande. Sumaken ger verkligen den där extra smaken som gör skillnad."
         },
         {
@@ -157,7 +190,18 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     return commentsByRecipe[recipe.id] || [];
   }, [recipe.id]);
 
-  const [comments, setComments] = useState(getInitialComments);
+  // Use live comments if available, otherwise fallback
+  const displayComments = loading ? fallbackComments : liveComments.map(comment => ({
+    id: comment.id,
+    name: comment.user_name,
+    rating: comment.rating || 4,
+    date: new Date(comment.created_at).toLocaleDateString('sv-SE', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }),
+    text: comment.comment_text
+  }));
 
   const adjustAmount = useCallback((amount: string, originalPortions: number) => {
     const regex = /(\d+(?:\.\d+)?)\s*([a-zA-ZåäöÅÄÖ]+)?/;
@@ -212,34 +256,63 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     setUserRating(rating);
   }, []);
 
-  const handleSubmitComment = useCallback((e: React.FormEvent) => {
+  const handleSubmitComment = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (userName.trim() && comment.trim() && userRating > 0) {
-      const newComment = {
-        id: comments.length + 1,
-        name: userName,
-        rating: userRating,
-        date: new Date().toLocaleDateString('sv-SE', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        }),
-        text: comment
-      };
-      setComments([newComment, ...comments]);
-      
-      // Update recipe rating based on all comments
-      const allRatings = [newComment, ...comments].map(c => c.rating);
-      const newAverageRating = allRatings.reduce((sum, rating) => sum + rating, 0) / allRatings.length;
-      // Update the recipe rating in the parent component if needed
-      
-      setComment('');
-      setUserName('');
-      setUserEmail('');
-      setUserRating(0);
+    if (!userName.trim()) {
+      setSubmitError('Namn är obligatoriskt');
+      return;
     }
-  }, [userName, comment, userRating, comments]);
+    
+    if (!comment.trim()) {
+      setSubmitError('Kommentar är obligatorisk');
+      return;
+    }
+    
+    if (userRating === 0) {
+      setSubmitError('Vänligen sätt ett betyg');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError('');
+    
+    try {
+      const result = await submitComment(
+        recipe.id,
+        userName,
+        comment,
+        userRating,
+        userEmail || undefined
+      );
+      
+      if (result.success) {
+        setSubmitSuccess(true);
+        setComment('');
+        setUserName('');
+        setUserEmail('');
+        setUserRating(0);
+        
+        // Reload data to show new comment and updated rating
+        const newComments = await getRecipeComments(recipe.id);
+        setLiveComments(newComments);
+        
+        const newStats = await getRecipeStats(recipe.id);
+        setLiveRating(newStats.average_rating);
+        setLiveReviewCount(newStats.total_comments);
+        
+        // Clear success message after 3 seconds
+        setTimeout(() => setSubmitSuccess(false), 3000);
+      } else {
+        setSubmitError(result.error || 'Något gick fel');
+      }
+    } catch (error) {
+      setSubmitError('Något gick fel. Försök igen.');
+      console.error('Error submitting comment:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [recipe.id, userName, comment, userRating, userEmail]);
 
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
@@ -331,12 +404,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       <Star
                         key={i}
                         size={16}
-                        fill={i < Math.floor(recipe.rating) ? "#fbbf24" : "none"}
-                        className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
+                        fill={i < Math.floor(liveRating) ? "#fbbf24" : "none"}
+                        className={i < Math.floor(liveRating) ? "text-amber-400" : "text-gray-300"}
                       />
                     ))}
                   </div>
-                  <span className="ml-2 text-gray-600 text-sm md:text-base">({recipe.rating}/5 • {recipe.reviews} recensioner)</span>
+                  <span className="ml-2 text-gray-600 text-sm md:text-base">({liveRating}/5 • {liveReviewCount} recensioner)</span>
                 </div>
 
                 <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
@@ -591,40 +664,77 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center mx-auto text-sm md:text-base min-h-[44px]"
+                  disabled={isSubmitting}
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center mx-auto text-sm md:text-base min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send size={16} className="mr-2" />
-                  Skicka kommentar
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Skickar...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} className="mr-2" />
+                      Skicka kommentar
+                    </>
+                  )}
                 </button>
               </div>
+              
+              {submitError && (
+                <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-lg text-center text-sm">
+                  {submitError}
+                </div>
+              )}
+              
+              {submitSuccess && (
+                <div className="mt-4 p-3 bg-green-50 text-green-600 rounded-lg text-center text-sm">
+                  Tack för din kommentar! Den visas nu på sidan.
+                </div>
+              )}
             </form>
             
             {/* Comments list */}
             <div className="space-y-4 md:space-y-6">
               <h3 className="text-lg md:text-xl font-semibold flex items-center justify-center">
                 <MessageCircle size={18} className="mr-2 text-purple-600" />
-                Kommentarer ({comments.length})
+                Kommentarer ({displayComments.length})
               </h3>
               
-              {comments.map((comment) => (
-                <div key={comment.id} className="border-b border-purple-100 pb-4 md:pb-6 last:border-b-0">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium text-gray-800 text-sm md:text-base">{comment.name}</h4>
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i}
-                          size={14}
-                          fill={i < comment.rating ? "#fbbf24" : "none"}
-                          className={i < comment.rating ? "text-amber-400" : "text-gray-300"}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-gray-500 text-xs md:text-sm mb-2 md:mb-3">{comment.date}</p>
-                  <p className="text-gray-700 leading-relaxed text-sm md:text-base">{comment.text}</p>
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+                  <p className="text-gray-500 mt-2">Laddar kommentarer...</p>
                 </div>
-              ))}
+              ) : displayComments.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  <MessageCircle size={48} className="mx-auto mb-4 text-gray-300" />
+                  <p>Inga kommentarer än. Bli först att kommentera!</p>
+                </div>
+              ) : (
+                displayComments.map((comment) => (
+                  <div key={comment.id} className="border-b border-purple-100 pb-4 md:pb-6 last:border-b-0">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-medium text-gray-800 text-sm md:text-base">{comment.name}</h4>
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star 
+                            key={i}
+                            size={14}
+                            fill={i < comment.rating ? "#fbbf24" : "none"}
+                            className={i < comment.rating ? "text-amber-400" : "text-gray-300"}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-gray-500 text-xs md:text-sm mb-2 md:mb-3">{comment.date}</p>
+                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">{comment.text}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
