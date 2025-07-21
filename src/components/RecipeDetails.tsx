@@ -52,6 +52,36 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   // Memoized initial comments for better performance
   const getInitialComments = useMemo(() => {
     const commentsByRecipe = {
+      'lins-bulgur-jarpar': [
+        {
+          id: 1,
+          name: "Yasmin Al-Rashid",
+          rating: 5,
+          date: "6 januari 2025",
+          text: "Äntligen ett vegetariskt recept som är både mättande och smakfullt! Sumaken ger en så fin syrlig smak. Hela familjen älskade järparna! 🌱✨"
+        },
+        {
+          id: 2,
+          name: "Erik Lindqvist",
+          rating: 5,
+          date: "4 januari 2025",
+          text: "Som vegetarian är jag så tacksam för såna här proteinrika recept! Blev så mättad och smaken var fantastisk. Serverade i libabröd med citron - perfekt! 👌"
+        },
+        {
+          id: 3,
+          name: "Miriam Öberg",
+          rating: 4,
+          date: "2 januari 2025",
+          text: "Supergott! Tog lite tid att hitta sumak men det var värt det. Gjorde extra och frös in - funkar perfekt att värma upp senare! ❄️"
+        },
+        {
+          id: 4,
+          name: "Omar Hassan",
+          rating: 5,
+          date: "30 december 2024",
+          text: "Detta påminner mig om min mormors recept från Syrien! Så autentiskt och vällagat. Tack för att du delar traditionella vegetariska rätter! 🇸🇾❤️"
+        }
+      ],
       'kycklingfile-potatis-dragon': [
         {
           id: 1,

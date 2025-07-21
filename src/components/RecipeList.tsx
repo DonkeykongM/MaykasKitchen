@@ -134,6 +134,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
 // Helper function to get recipe emoji
 const getRecipeEmoji = (recipeId) => {
   const emojiMap = {
+    'lins-bulgur-jarpar': '🌱',
     'pannpizzor': '🍕',
     'batata-harra': '🥔',
     'kofta-bil-sanieh': '🥩',
@@ -159,6 +160,20 @@ const RecipeList = () => {
   }, []);
 
   const recipes = [
+    {
+      id: 'lins-bulgur-jarpar',
+      title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
+      description: 'Proteinrika och mättande vegetariska järpar med smakrik kombination av röda linser, bulgur och aromatiska kryddor från mellanöstern.',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
+      time: '45',
+      portions: '4-6',
+      likes: 89,
+      rating: 4.8,
+      reviews: 42,
+      badges: ['Vegetariskt', 'Mellanöstern', 'Protein'],
+      trending: true,
+      difficulty: 'Medel'
+    },
     {
       id: 'kycklingfile-potatis-dragon',
       title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',

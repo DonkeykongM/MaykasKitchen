@@ -5,6 +5,21 @@ import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoad
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
   {
+    id: 'lins-bulgur-jarpar',
+    title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
+    description: 'Proteinrika och mättande vegetariska järpar med smakrik kombination av röda linser, bulgur och aromatiska kryddor från mellanöstern.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
+    time: '45',
+    portions: '4-6',
+    likes: 89,
+    rating: 4.8,
+    reviews: 42,
+    badges: ['Vegetariskt', 'Mellanöstern', 'Protein'],
+    difficulty: 'Medel',
+    trending: true,
+    fallbackEmoji: '🌱'
+  },
+  {
     id: 'kycklingfile-potatis-dragon',
     title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
     description: 'En rätt som snabbt blev en favorit både hemma och på jobbet. Kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.',
