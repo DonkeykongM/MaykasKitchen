@@ -135,6 +135,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
 const getRecipeEmoji = (recipeId) => {
   const emojiMap = {
     'balloh-lins-bulgur': '🌱',
+    'balloh-lins-bulgur': '🌱',
     'pannpizzor': '🍕',
     'batata-harra': '🥔',
     'kofta-bil-sanieh': '🥩',
@@ -160,6 +161,20 @@ const RecipeList = () => {
   }, []);
 
   const recipes = [
+    {
+      id: 'balloh-lins-bulgur',
+      title: 'Lins- och bulgurjärpar med sumak och spetspaprika (Balloh)',
+      description: 'En traditionell vegetarisk rätt med röda linser, bulgur och kryddiga grönsaker. Perfekt som huvudrätt eller i libabröd med citron och sirap.',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
+      time: '45',
+      portions: '6-8',
+      likes: 89,
+      rating: 4.8,
+      reviews: 34,
+      badges: ['Vegetariskt', 'Vegan', 'Traditionell', 'Assyriskt'],
+      trending: true,
+      difficulty: 'Medel'
+    },
     {
       id: 'balloh-lins-bulgur',
       title: 'Lins- och bulgurjärpar med sumak och spetspaprika (Balloh)',

@@ -20,6 +20,21 @@ const RECIPES = [
     fallbackEmoji: '🌱'
   },
   {
+    id: 'balloh-lins-bulgur',
+    title: 'Lins- och bulgurjärpar med sumak och spetspaprika (Balloh)',
+    description: 'En traditionell vegetarisk rätt med röda linser, bulgur och kryddiga grönsaker. Perfekt som huvudrätt eller i libabröd med citron och sirap.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
+    time: '45',
+    portions: '6-8',
+    likes: 89,
+    rating: 4.8,
+    reviews: 34,
+    badges: ['Vegetariskt', 'Vegan', 'Traditionell', 'Assyriskt'],
+    difficulty: 'Medel',
+    trending: true,
+    fallbackEmoji: '🌱'
+  },
+  {
     id: 'kycklingfile-potatis-dragon',
     title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
     description: 'En rätt som snabbt blev en favorit både hemma och på jobbet. Kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.',

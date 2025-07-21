@@ -21,6 +21,7 @@ const KycklingShawarmaPost = lazy(() => import('./components/BlogPost').then(mod
 const PannpizzorPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PannpizzorPost })));
 const BatataHarraPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BatataHarraPost })));
 const KycklingfilePotatisDragonPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingfilePotatisDragonPost })));
+const BallohLinsBulgurPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BallohLinsBulgurPost })));
 
 // Enhanced loading component with skeleton states
 const LoadingSpinner = () => (
@@ -169,6 +170,10 @@ function App() {
         "#recipe/batata-harra": {
           title: "Batata Harra – Friterad potatis med tomatsås - MaykasKitchen",
           description: "En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!"
+        },
+        "#recipe/balloh-lins-bulgur": {
+          title: "Lins- och bulgurjärpar med sumak och spetspaprika (Balloh) - MaykasKitchen",
+          description: "En traditionell vegetarisk rätt med röda linser, bulgur och kryddiga grönsaker. Perfekt som huvudrätt eller i libabröd med citron och sirap."
         }
       };
 
@@ -229,7 +234,8 @@ function App() {
         "kyckling-shawarma": KycklingShawarmaPost,
         "pannpizzor": PannpizzorPost,
         "batata-harra": BatataHarraPost,
-        "kycklingfile-potatis-dragon": KycklingfilePotatisDragonPost
+        "kycklingfile-potatis-dragon": KycklingfilePotatisDragonPost,
+        "balloh-lins-bulgur": BallohLinsBulgurPost
       };
 
       const Component = recipeComponents[recipeId];

@@ -89,6 +89,43 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           text: "Tack för detta recept! Påminner mig om barndomens smaker. Garam masala och sumak - perfekt kombination. Blev så gott med dadelsirap! 🍯"
         }
       ],
+      'balloh-lins-bulgur': [
+        {
+          id: 1,
+          name: "Fatima Al-Assad",
+          rating: 5,
+          date: "6 januari 2025",
+          text: "Äntligen ett autentiskt Balloh-recept! Precis som min mormor gjorde det. Sumaken gör verkligen skillnad och järparna blev perfekta. Tack för att du delar våra traditioner! 🌱❤️"
+        },
+        {
+          id: 2,
+          name: "Erik Lindström",
+          rating: 5,
+          date: "4 januari 2025",
+          text: "Som vegetarian älskar jag såna här recept! Så mättande och smakfullt. Serverade med libabröd och citron som föreslaget - helt fantastiskt! 🍋"
+        },
+        {
+          id: 3,
+          name: "Mariam Khoury",
+          rating: 5,
+          date: "2 januari 2025",
+          text: "Detta är exakt som vi gör hemma i Syrien! Du har fångat alla rätta proportioner och tekniker. Mina barn älskar när jag gör Balloh 👨‍👩‍👧‍👦"
+        },
+        {
+          id: 4,
+          name: "Anna Johansson",
+          rating: 4,
+          date: "31 december 2024",
+          text: "Första gången jag provade detta - vilken smakupplevelse! Lite krångligt först men resultatet var så värt det. Kommer definitivt göra igen 🌟"
+        },
+        {
+          id: 5,
+          name: "Ahmad Hassan",
+          rating: 5,
+          date: "29 december 2024",
+          text: "Tack för detta recept! Påminner mig om barndomens smaker. Garam masala och sumak - perfekt kombination. Blev så gott med dadelsirap! 🍯"
+        }
+      ],
       'kycklingfile-potatis-dragon': [
         {
           id: 1,

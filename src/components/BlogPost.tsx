@@ -1,300 +1,28 @@
-import React from 'react';
-import { RecipeDetails } from './RecipeDetails';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
+import { Header } from './components/Header';
+import { Hero } from './components/Hero';
+import { AboutSection } from './components/AboutSection';
+import { RecipeSection } from './components/RecipeSection';
+import { CollaborationSection } from './components/CollaborationSection';
+import { ContactSection } from './components/ContactSection';
+import { Newsletter } from './components/Newsletter';
+import { NewsletterPopup } from './components/NewsletterPopup';
+import { Footer } from './components/Footer';
+import FoodBlogBackground from './components/ui/food-blog-background';
+import { HeroSkeleton } from './components/LoadingStates/SkeletonLoader';
 
-const recipes = {
-  'kycklingfile-potatis-dragon': {
-    id: 'kycklingfile-potatis-dragon',
-    title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
-    description: 'En rätt som snabbt blev en favorit både hemma och på jobbet. Kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8m7bPB037zrR9qXSut4TKmZEpjlBcOhHew02',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCYrirAg5FD3Nod0fKROYijVPHAbra9e8uWhMJ',
-    time: '60',
-    portions: '3-4',
-    likes: 156,
-    rating: 4.9,
-    reviews: 67,
-    badges: ['Kött', 'Klassisk', 'Vardagslyx'],
-    videoUrl: '',
-    difficulty: 'Medel',
-    nutritionInfo: {
-      calories: '580 kcal',
-      protein: '42g',
-      carbs: '28g',
-      fat: '32g',
-      fiber: '4g',
-      salt: '1.8g'
-    },
-    allergens: ['Laktos (från grädde och smör)'],
-    personalStory: 'Det här är en rätt som snabbt blev en favorit både hemma och på jobbet. Jag började experimentera med den i köket hemma, och det dröjde inte länge förrän den blev en självklar klassiker hos familjen – en sådan där rätt som alla ber om "igen, snart". Den kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.\n\nDet är en sådan rätt som ser ut och smakar som helg – men som faktiskt går snabbt nog att laga en vanlig vardagskväll. Vällagad, färgstark och full av smak – det här är vardagslyx när den är som bäst.',
-    content: {
-      ingredients: [
-        {
-          section: 'Kycklingfilé',
-          items: [
-            '3 st kycklingfiléer',
-            'Salt och svartpeppar',
-            'Smör och neutral olja till stekning',
-            'Färsk timjan, rosmarin eller vitlök (valfritt)',
-            'Ev. lite kycklingbuljong för extra smak i ugnen'
-          ]
-        },
-        {
-          section: 'Smörstekt potatis och grönsaker',
-          items: [
-            '800g delikatesspotatis',
-            '1 röd paprika',
-            '1 gul paprika',
-            '1 orange paprika',
-            '1 stor rödlök',
-            'Ca 300g brysselkål',
-            '50–75g smör',
-            'Salt och svartpeppar',
-            'Ev. lite olivolja eller rapsolja',
-            'Färsk persilja (valfritt)'
-          ]
-        },
-        {
-          section: 'Dragonsås',
-          items: [
-            '2 dl vispgrädde',
-            '1 dl crème fraîche',
-            '1–2 tsk dijonsenap',
-            '1 tsk vitvinsvinäger (eller citronjuice)',
-            '1–2 tsk torkad dragon (eller 1 msk färsk)',
-            'Salt och svartpeppar'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          section: 'Förbered kycklingen',
-          steps: [
-            'Sätt ugnen på 150°C (över- och undervärme).',
-            'Ta fram kycklingen i god tid så den inte är kylskåpskall.',
-            'Krydda filéerna runtom med salt och peppar.',
-            'Hetta upp en panna med smör och lite olja.',
-            'Bryn filéerna 2–3 minuter per sida tills de fått en fin gyllene yta. Lägg gärna i en kvist timjan, rosmarin eller en krossad vitlöksklyfta för smak.',
-            'Lägg de brynta filéerna i en ugnsform. Tillsätt ev. en skvätt buljong eller en klick smör i formen.',
-            'Tillaga i ugn tills innertemperaturen är 70–72°C.',
-            'Låt vila i 5–10 minuter innan servering så att köttsaften sätter sig.'
-          ]
-        },
-        {
-          section: 'Smörstekt potatis och grönsaker',
-          steps: [
-            'Koka potatisen nästan klar i saltat vatten, ca 12–15 minuter. Häll av, låt ånga av och dela stora potatisar i halvor.',
-            'Skär paprikorna i stora klyftor.',
-            'Skala och skär rödlöken i båtar eller grova strimlor.',
-            'Ansa och halvera brysselkålen. Förkoka i lättsaltat vatten i ca 3 minuter, häll av och låt torka.',
-            'Hetta upp en stor stekpanna med hälften smör, hälften olja.',
-            'Lägg i potatisen först och stek tills den får fin gyllenbrun yta.',
-            'Tillsätt brysselkål, rödlök och paprika. Stek på medelhög värme i cirka 10 minuter tills grönsakerna är mjuka men fortfarande har lite tuggmotstånd.',
-            'Avsluta med en klick smör. Smaka av med salt, peppar och eventuellt finhackad persilja.'
-          ]
-        },
-        {
-          section: 'Dragonsås',
-          steps: [
-            'Häll grädde och crème fraîche i en kastrull och koka upp.',
-            'Sänk värmen något och vispa ner dijonsenap, dragon och vinäger.',
-            'Låt såsen sjuda i 5–10 minuter tills den tjocknar lätt.',
-            'Smaka av med salt, peppar och ev. mer vinäger eller senap om du vill ha mer syra.'
-          ]
-        },
-        {
-          section: 'Servering',
-          steps: [
-            'Skär den färdiga kycklingen i sneda skivor.',
-            'Lägg potatis- och grönsaksblandningen i botten på tallriken.',
-            'Placera kycklingskivorna ovanpå.',
-            'Ringla över dragonsåsen eller servera den vid sidan.',
-            'Garnera eventuellt med färsk dragon eller persilja.'
-          ]
-        }
-      ],
-      tips: [
-        'Använd en kötttermometer för perfekt resultat – 70-72°C är optimalt för kycklingfilé',
-        'Låt kycklingen vila efter ugnen så köttsaften sätter sig',
-        'Förkoka brysselkålen så den inte blir för hård',
-        'Dragonsåsen kan göras i förväg och värmas upp vid servering',
-        'Varierar grönsaker efter säsong – zucchini, sparris och morötter funkar också bra'
-      ]
-    }
-  },
-  'pannpizzor': {
-    id: 'pannpizzor',
-    title: 'Snabba pannpizzor direkt i ugnsformen',
-    description: 'Perfekt när du har kylskåpsrester att ta vara på! Släng på det du har hemma – ost, skinka, grönsaker – och njut av en enkel middag på nolltid.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8QIv7W2f',
-    time: '90',
-    portions: '4-6',
-    likes: 78,
-    rating: 4.8,
-    reviews: 32,
-    badges: ['Vegetariskt', 'Bakverk', 'Pizza'],
-    videoUrl: '',
-    difficulty: 'Lätt',
-    nutritionInfo: {
-      calories: '280 kcal',
-      protein: '12g',
-      carbs: '45g',
-      fat: '8g',
-      fiber: '3g',
-      salt: '1.1g'
-    },
-    allergens: ['Gluten', 'Kan innehålla ägg'],
-    content: {
-      ingredients: [
-        {
-          section: 'Pizzadeg (räcker till flera pannpizzor)',
-          items: [
-            '5 dl ljummet vatten',
-            '25g färsk jäst (eller 1/2 paket)',
-            '2 tsk salt',
-            '2 msk olivolja',
-            'ca 10–12 dl vetemjöl (börja med mindre, tillsätt mer efter behov)'
-          ]
-        },
-        {
-          section: 'Toppings (exempel)',
-          items: [
-            'Tomatsås',
-            'Ost (mozzarella, cheddar eller vad du har hemma)',
-            'Kylskåpsrester (skinka, grönsaker, champinjoner)',
-            'Örter (oregano, basilika)'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          steps: [
-            'Smula ner jästen i en bunke. Häll över det ljumma vattnet och rör tills jästen lösts upp.',
-            'Tillsätt salt och olivolja.',
-            'Arbeta in mjölet lite i taget tills du får en smidig och ganska lös deg.',
-            'Låt jäsa under duk i ca 45–60 minuter, tills degen blivit dubbelt så stor.',
-            'Dela 2 lika stora bitar. Lägg varje bit på en ugnsform med bakplåtspapper och dra ut plus pressa ut med fingertopparna – anpassa till ugnsformens storlek.',
-            'Låt jäsa i 20 min.',
-            'Lägg på tomatsås och valfria kylskåpsrester som topping.',
-            'Grädda i ugnen i ca 15-20 min på 230°C över- & undervärme.',
-            'Sen är det bara att njuta! 😊'
-          ]
-        }
-      ],
-      tips: [
-        'Perfekt sätt att använda kylskåpsrester',
-        'Degen kan förberedas dagen innan och förvaras i kylskåpet',
-        'Prova olika toppings: skinka, champinjoner, paprika, oliver',
-        'För glutenfri variant, använd glutenfritt mjöl',
-        'Kan frysas efter gräddning och värmas upp vid behov'
-      ]
-    }
-  },
-  'batata-harra': {
-    id: 'batata-harra',
-    title: 'Batata Harra – Friterad potatis med tomatsås',
-    description: 'En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze, tillbehör eller huvudrätt!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfWaFTn48dYxTFVG4qu9OSWrN21vZPBkJiCoK',
-    time: '35',
-    portions: '4-6',
-    likes: 95,
-    rating: 4.9,
-    reviews: 41,
-    badges: ['Vegan', 'Libanesiskt', 'Potatis'],
-    videoUrl: '',
-    difficulty: 'Medel',
-    nutritionInfo: {
-      calories: '320 kcal',
-      protein: '4g',
-      carbs: '38g',
-      fat: '18g',
-      fiber: '4g',
-      salt: '1.5g'
-    },
-    allergens: ['Inga kända allergener'],
-    content: {
-      ingredients: [
-        {
-          section: 'Potatis',
-          items: [
-            '1 kg fast potatis',
-            'Olja till fritering (t.ex. rapsolja)'
-          ]
-        },
-        {
-          section: 'Tomatsås',
-          items: [
-            '1,5 msk tomatpuré',
-            '2 msk rapsolja',
-            '1 msk lökpulver',
-            '½ msk svartpeppar',
-            '1 dl vatten',
-            '1,5 tsk salt',
-            '1 vitlöksklyfta (riven eller pressad)',
-            '1,5 tsk chiliflakes',
-            '1 msk paprikapulver'
-          ]
-        },
-        {
-          section: 'Topping',
-          items: [
-            'Färsk persilja (finhackad)',
-            'Färsk mynta (finhackad)',
-            'Tajinkrydda (efter smak)'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          section: 'Förbered potatisen',
-          steps: [
-            'Skala och tärna potatisen i kuber.',
-            'Lägg dem i kallt vatten i ca 5 minuter för att dra ut stärkelsen.',
-            'Häll av vattnet, torka potatisen ordentligt med en kökshandduk eller hushållspapper.'
-          ]
-        },
-        {
-          section: 'Fritera',
-          steps: [
-            'Hetta upp olja i en kastrull eller fritös.',
-            'Fritera potatisen tills den är gyllene och ca 80% genomstekt – de ska bli krispiga men inte helt mjuka.',
-            'Låt rinna av på hushållspapper.'
-          ]
-        },
-        {
-          section: 'Gör tomatsåsen',
-          steps: [
-            'Hetta upp 2 msk rapsolja i en stekpanna.',
-            'Stek tomatpurén kort i oljan för att fördjupa smaken.',
-            'Häll i vattnet och rör om till en slät sås.',
-            'Tillsätt lökpulver, svartpeppar, salt, chiliflakes, paprikapulver och vitlök.',
-            'Rör om väl och låt sjuda någon minut.'
-          ]
-        },
-        {
-          section: 'Slutför rätten',
-          steps: [
-            'Vänd ner de friterade potatisarna i såsen och rör om så att allt täcks ordentligt.',
-            'Strö över rikligt med finhackad persilja och mynta.',
-            'Smaka av med tajinkrydda och rör om försiktigt.',
-            'Servera varm som en del av ett mezebord, till grillat eller som ensam rätt med libabröd och hummus.'
-          ]
-        }
-      ],
-      tips: [
-        'Viktigt att torka potatisen ordentligt för att få bra fritering',
-        'Fritera inte potatisen helt färdig första gången – den ska vara ca 80% klar',
-        'Tajinkrydda finns i mellanösternbutiker och ger en autentisk smak',
-        'Kan serveras som tillbehör till kött eller som vegetarisk huvudrätt',
-        'Supergott med libabröd och hummus på sidan'
-      ]
-    }
-  },
-  'balloh-lins-bulgur': {
-    id: 'balloh-lins-bulgur',
-    title: 'Lins- och bulgurjärpar med sumak och spetspaprika (Balloh)',
-    description: 'En traditionell vegetarisk rätt med röda linser, bulgur och kryddiga grönsaker. Perfekt som huvudrätt eller i libabröd med citron och sirap.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
-    time: '45',
+// Lazy load components for better performance
+const RecipeList = lazy(() => import('./components/RecipeList').then(module => ({ default: module.RecipeList })));
+const LaxRisbowlPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.LaxRisbowlPost })));
+const KaftaBilSejniePost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KaftaBilSejniePost })));
+const KoftaBilSaniehPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KoftaBilSaniehPost })));
+const PastaPestoPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PastaPestoPost })));
+const KycklingShawarmaPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingShawarmaPost })));
+const PannpizzorPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.PannpizzorPost })));
+const BatataHarraPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BatataHarraPost })));
+const KycklingfilePotatisDragonPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingfilePotatisDragonPost })));
+const BallohLinsBulgurPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BallohLinsBulgurPost })));
+
     portions: '6-8',
     likes: 89,
     rating: 4.8,
@@ -379,551 +107,309 @@ const recipes = {
       ]
     }
   },
-  'lax-risbowl': {
-    id: 'lax-risbowl',
-    title: 'Kryddig lax- & risbowl',
-    description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt, du kommer vilja göra det här om och om igen!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
-    time: '45',
-    portions: '4',
-    likes: 156,
-    rating: 4.9,
-    reviews: 87,
-    badges: ['Fisk', 'Snabb', 'Under 60 min'],
-    videoUrl: 'https://www.instagram.com/reel/DJXHMYpCoaR/',
-    difficulty: 'Lätt',
-    nutritionInfo: {
-      calories: '420 kcal',
-      protein: '35g',
-      carbs: '48g',
-      fat: '12g',
-      fiber: '5g',
-      salt: '1.2g'
-    },
-    allergens: ['Fisk', 'Kan innehålla spår av senap'],
-    content: {
-      ingredients: [
-        {
-          section: 'Laxen',
-          items: [
-            '500g färsk laxfilé (utan skinn och ben)',
-            '1 tsk salt',
-            '½ tsk cayennepeppar',
-            '1 tsk vitlökspulver'
-          ]
-        },
-        {
-          section: 'Riset',
-          items: [
-            '3 dl basmatiris',
-            '6 dl vatten',
-            '1 tsk salt'
-          ]
-        },
-        {
-          section: 'Primörgrönsaker',
-          items: [
-            '1 bunt sparris',
-            '1 påse mini morötter',
-            '3-4 salladslökar',
-            '5-6 rädisor',
-            '1 paket sockerärtor',
-            '1 vitlöksklyfta',
-            '1 tsk havssalt',
-            '1 krm chiliflakes',
-            'Rivet skal från ½ citron',
-            '1 msk olivolja för fräsning'
-          ]
-        },
-        {
-          section: 'Honungs- & senapsmajonnäs',
-          items: [
-            '1 dl majonnäs (hemmagjord eller köpt)',
-            '2 tsk dijonsenap',
-            '1 tsk honung',
-            '1 krm cayennepeppar',
-            'Saften från ½ citron'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          section: 'Tillagning',
-          steps: [
-            'Förbered laxen: Skär laxen i kuber och lägg i en ugnsform. Krydda med salt, cayennepeppar och vitlökspulver. Tillaga i ugnen på 180°C i ca 15 minuter.',
-            'Koka riset: Skölj riset noggrant. Koka upp vatten med salt och lägg i riset. Sänk värmen, lägg på lock och låt sjuda i ca 10 minuter tills riset är mjukt.',
-            'Gör majonnäsen: Blanda majonnäs med dijonsenap, honung, cayennepeppar och citronsaft. Rör eller mixa tills såsen är slät och krämig.',
-            'Fräs grönsakerna: Skär primörgrönsaker i bitar. Hetta upp olivolja i en panna och fräs dem snabbt med vitlök, havssalt, chili och citronzest.',
-            'Montera bowlen: Fördela riset i skålar, toppa med grönsakerna, laxen och ringla över honungs- & senapsmajonnäs'
-          ]
-        }
-      ],
-      tips: [
-        'Byt ut lax mot tofu eller ugnsbakad halloumi för ett veganskt/vegetariskt alternativ',
-        'Förbered grönsakerna i förväg för snabbare tillagning',
-        'Servera gärna med extra citronklyftor',
-        'För en glutenfri variant, kontrollera att majonnäsen är glutenfri',
-        'Övriga grönsaker som funkar bra: broccoli, ärtor, avokado eller marinerad rödlök'
-      ]
-    }
-  },
-  'kafta-bil-sejnie': {
-    id: 'kafta-bil-sejnie',
-    title: 'Kafta bil sejnie - Köttbullar i tomatsås',
-    description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8zXxYz037zrR9qXSut4TKmZEpjlBcOhHew02',
-    time: '60',
-    portions: '5-6',
-    likes: 134,
-    rating: 4.8,
-    reviews: 73,
-    badges: ['Kött', 'Traditionell', 'Assyriskt'],
-    videoUrl: 'https://www.instagram.com/reel/DJT6lr7iPsV/',
-    difficulty: 'Medel',
-    nutritionInfo: {
-      calories: '480 kcal',
-      protein: '28g',
-      carbs: '38g',
-      fat: '24g',
-      fiber: '4g',
-      salt: '1.5g'
-    },
-    allergens: ['Kan innehålla spår av gluten från buljongen'],
-    content: {
-      ingredients: [
-        {
-          section: 'Biffarna',
-          items: [
-            '450g nötfärs',
-            '1 liten gul lök, finskuren',
-            '1/2 liten gul paprika, finskuren',
-            'Näve persilja'
-          ]
-        },
-        {
-          section: 'Tomatsåsen / Grytan',
-          items: [
-            'Stekta biffarna',
-            '450g delikatesspotatis',
-            '1 liter vatten',
-            '3 stora msk tomatpuré',
-            '3 msk kalvbuljong',
-            '1 tsk biber (chiliflakes)',
-            '1 nypa havsalt',
-            '1 tsk koriander'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          section: 'Tillagning',
-          steps: [
-            'Blanda färs med grönsaker, forma till små bollar och platta ut dem i handen.',
-            'Stek dem lätt i olja.',
-            'Tillsätt vatten och tomatpuré.',
-            'Halvera delikatesspotatisarna och lägg dem i grytan.',
-            'Tillsätt buljong och krydda med biber (chiliflakes), havssalt och koriander.',
-            'Lägg på lock och låt grytan koka klart.',
-            'Under tiden, koka ris med vermicellinudlar.'
-          ]
-        }
-      ],
-      tips: [
-        'Servera med ris och vermicellinudlar för en autentisk upplevelse',
-        'Justera mängden chiliflakes efter önskad styrka',
-        'Grytan kan förberedas dagen innan och värmas upp vid servering',
-        'För en vegetarisk version, byt ut nötfärsen mot sojafärs eller linser',
-        'För ökad smak, tillsätt en nypa spiskummin till färsen'
-      ]
-    }
-  },
-  'kofta-bil-sanieh': {
-    id: 'kofta-bil-sanieh',
-    title: 'Köfta bil Sanieh',
-    description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika i mustig tomatsås.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCGg5LVZ9bnLa0KVhUD3INroEj6yqmid4HwlYB',
-    time: '60',
-    portions: '8',
-    likes: 89,
-    rating: 4.9,
-    reviews: 45,
-    badges: ['Kött', 'Traditionell', 'Syriskt', 'Mellanöstern'],
-    videoUrl: '',
-    difficulty: 'Medel',
-    nutritionInfo: {
-      calories: '450 kcal',
-      protein: '32g',
-      carbs: '35g',
-      fat: '22g',
-      fiber: '5g',
-      salt: '1.8g'
-    },
-    allergens: ['Kan innehålla spår av gluten'],
-    personalStory: 'Köfta bil Sanieh är en rätt som doftar av barndom, gemenskap och kryddor från det syriska köket. Mina föräldrar kommer från Syrien och just den här rätten har alltid haft en självklar plats vid våra matbord. Det var ofta den som stod i ugnen när vi samlades med släktingar, högljudda och hungriga, med skratt och samtal som blandades med doften av stekt lök och tomatsås.\n\nDet är enkel mat, men med djup. Kryddig köttfärs blandas med lök, persilja och värmande smaker. Potatis och biffarna varvas i ugnsformen och får sjuda ihop i en mustig tomatsås tills allt är mjukt, saftigt och dofterna liksom vilar kvar i köket långt efter att maten är uppäten.\n\nFör mig bär Köfta bil Sanieh inte bara smaken av Mellanöstern, utan också smaken av min familj, vår historia och de där stunderna då vi verkligen var tillsammans.',
-    content: {
-      ingredients: [
-        {
-          section: 'Köftabiffarna',
-          items: [
-            '1kg nötfärs (gärna 10–15 % fetthalt)',
-            '2 st salladslök hackad fint eller riv den',
-            '1 knippe persilja, finhackad',
-            '3 vitlöksklyftor',
-            '3 msk olivolja',
-            '1 msk salt',
-            '1 tsk svartpeppar',
-            '1 tsk garamasala'
-          ]
-        },
-        {
-          section: 'Grönsakerna',
-          items: [
-            'Ca 4 st (fasta) potatisar, skalade och klyftade',
-            '5-6 st padron paprika'
-          ]
-        },
-        {
-          section: 'Tomatsåsen',
-          items: [
-            '3 dl vatten',
-            '1 msk tomatpuré',
-            '1 tsk lökpulver',
-            '1 tsk salt',
-            '1 tsk chiliflakes',
-            'Olja till att steka/panera potatis och biffar'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          section: 'Förbered järparna',
-          steps: [
-            'Hacka lök, vitlök och persilja fint (gärna i matberedare). Blanda i olivolja och alla kryddorna och mixa fint. Blanda örtoljan i färsen och knåda ihop till en jämn smet. Forma färsen till lika stora järpar.'
-          ]
-        },
-        {
-          section: 'Förstek potatisen',
-          steps: [
-            'Halvstek potatisskivorna i olja tills de är gyllenbruna men inte helt genomstekta. Detta ser till att potatisarna blir klara i ugnen.'
-          ]
-        },
-        {
-          section: 'Stek järparna lätt',
-          steps: [
-            'Snabbstek biffarna i het panna 1–2 minuter per sida för smak och för att de ska hålla formen.'
-          ]
-        },
-        {
-          section: 'Varva i ugnsform',
-          steps: [
-            'Lägg järparna och potatisklyftorna i en smörad form - varva järpar och potatis.'
-          ]
-        },
-        {
-          section: 'Häll på tomatsås',
-          steps: [
-            'Rör ihop tomatpuré och vatten. Smaka av med kryddorna. Häll över så att det täcker ingredienserna nästan helt.'
-          ]
-        },
-        {
-          section: 'Grädda',
-          steps: [
-            'Baka i 250°C i ca 20 minuter, sedan lägg på padron paprikorna och baka i ytterligare 15 min.',
-            'Ta ut och servera med ris eller bara som den är med lite bröd till, supergott!'
-          ]
-        }
-      ],
-      tips: [
-        'Garama masala ger en autentisk smak - finns i mellanösternbutiker',
-        'Padron paprika kan ersättas med annan mild paprika',
-        'För bästa resultat, använd färs med lite högre fetthalt för saftigare järpar',
-        'Rätten smakar ännu bättre dagen efter när smakerna hunnit sätta sig',
-        'Servera gärna med basmatiris och lite yoghurt på sidan'
-      ]
-    }
-  },
-  'pasta-pesto': {
-    id: 'pasta-pesto',
-    title: 'Pasta pesto med ugnsbakade tomater & stekt halloumi',
-    description: 'En smakrik, krämig och färgsprakande pastarätt med pesto, ugnsbakade tomater och stekt halloumi - perfekt för hela familjen.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
-    time: '40',
-    portions: '4',
-    likes: 142,
-    rating: 4.9,
-    reviews: 79,
-    badges: ['Vegetariskt', 'Snabb', 'Pasta'],
-    videoUrl: 'https://www.instagram.com/',
-    difficulty: 'Lätt',
-    nutritionInfo: {
-      calories: '520 kcal',
-      protein: '18g',
-      carbs: '58g',
-      fat: '26g',
-      fiber: '6g',
-      salt: '1.8g'
-    },
-    allergens: ['Laktos', 'Gluten (från pastan)', 'Kan innehålla spår av nötter från peston'],
-    content: {
-      ingredients: [
-        {
-          section: 'Ugnsbakade tomater',
-          items: [
-            '400g körsbärstomater eller små tomater',
-            '2 msk olivolja',
-            '1 tsk havssalt',
-            '1 krm svartpeppar'
-          ]
-        },
-        {
-          section: 'Såsen',
-          items: [
-            '1 gul lök',
-            '5 dl matgrädde',
-            '380g grön pesto',
-            '400g pasta'
-          ]
-        },
-        {
-          section: 'Halloumi och garnering',
-          items: [
-            '250g halloumi',
-            '1 knippe färsk basilika',
-            'Nymalen svartpeppar'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          steps: [
-            'Ugnsbaka tomaterna: Lägg tomaterna i en ugnsform, ringla över olivolja och strö över lite salt. Baka i ugnen i 200°C i ca 15 minuter tills de är mjuka och lätt karamelliserade.',
-            'Koka pastan enligt anvisningarna på paketet. Spara gärna lite av pastavattnet till såsen.',
-            'Gör såsen: Fräs finhackad lök i lite olja tills den blir mjuk och glansig. Tillsätt grädden och låt den börja småputtra. Rör därefter ner peston och låt allt blandas till en krämig sås.',
-            'Blanda: Vänd ner den nykokta pastan i pestosåsen. Tillsätt en skvätt av det sparade pastavattnet om såsen behöver bli lite lösare.',
-            'Stek halloumin: Skiva halloumin och stek gyllene på båda sidor i en het, torr stekpanna.',
-            'Servera: Lägg upp pastan på tallrikar, toppa med de ugnsbakade tomaterna och stekt halloumi. Avsluta gärna med lite färsk basilika och ett drag med pepparkvarnen.'
-          ]
-        }
-      ],
-      tips: [
-        'Använd gärna olika färger på tomaterna för en vackrare presentation',
-        'Pastavattnet hjälper till att binda såsen och gör den krämigare',
-        'Halloumin kan bytas ut mot grillad zucchini för en vegansk version',
-        'För en matigare rätt, tillsätt ugnsbakade grönsaker som paprika, aubergine eller zucchini',
-        'Prova att använda soltorkade tomater istället för ugnsbakade för en annan smakprofil'
-      ]
-    }
-  },
-  'kyckling-shawarma': {
-    id: 'kyckling-shawarma',
-    title: 'Kyckling Shawarma',
-    description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCG7jiQH9bnLa0KVhUD3INroEj6yqmid4HwlYB',
-    time: '120',
-    portions: '5',
-    likes: 89,
-    rating: 5.0,
-    reviews: 23,
-    badges: ['Kött', 'Mellanöstern', 'Familj'],
-    videoUrl: 'https://www.instagram.com/',
-    difficulty: 'Medel',
-    nutritionInfo: {
-      calories: '650 kcal',
-      protein: '42g',
-      carbs: '58g',
-      fat: '28g',
-      fiber: '4g',
-      salt: '2.1g'
-    },
-    allergens: ['Gluten', 'Laktos (från yoghurt)'],
-    content: {
-      ingredients: [
-        {
-          section: 'Till köttet',
-          items: [
-            '900g kycklinglårfilé (eller kycklingbröst, men lår är saftigare)',
-            '1 tsk malen spiskummin',
-            '1 tsk paprikapulver',
-            '1 tsk gurkmeja',
-            '1 tsk malen koriander',
-            '1 msk vitlökspulver',
-            '1 msk lökpulver',
-            '1 tsk cayennepeppar',
-            '1 tsk dragon',
-            '1 msk salt',
-            '1 tsk svartpeppar',
-            '1 msk tomatpuré'
-          ]
-        },
-        {
-          section: 'Vitlökssås',
-          items: [
-            '2.5 dl grekisk yoghurt',
-            '2 vitlöksklyftor (rivna)',
-            'Några blad mynta och handfull persilja, finhackad',
-            '1 tsk limesaft',
-            'Flingsalt (efter smak)'
-          ]
-        },
-        {
-          section: 'Löksallad med persilja & sumak',
-          items: [
-            '2 röda lökar',
-            '1 msk torkad persilja',
-            '1-2 tsk sumak',
-            '1 msk olivolja',
-            'Flingsalt (efter smak)'
-          ]
-        },
-        {
-          section: 'Tunnbröd (ca 5 st)',
-          items: [
-            '5.5 dl vetemjöl',
-            '2.5 dl ljummet vatten',
-            '1 tsk salt',
-            '15g färsk jäst'
-          ]
-        },
-        {
-          section: 'Till servering',
-          items: [
-            'Tunnbröd, libabröd eller pita',
-            'Vitlökssåsen',
-            'Pirri pirrisås eller harissa',
-            'Lök- & persilja sallad',
-            'Tomat, saltgurka och sallad'
-          ]
-        }
-      ],
-      instructions: [
-        {
-          section: 'Marinera kycklingen',
-          steps: [
-            'Skär kycklingen i strimlor och lägg i en djup skål.',
-            'Häll över alla kryddor och avsluta med tomatpuré.',
-            'Blanda ordentligt, plasta och ställ i kylen i minst 1 timme.'
-          ]
-        },
-        {
-          section: 'Gör vitlökssåsen',
-          steps: [
-            'Häll yoghurt i en skål.',
-            'Riv i vitlök, finhacka örterna och pressa i limesaft.',
-            'Smaka av med salt och blanda väl.'
-          ]
-        },
-        {
-          section: 'Löksallad med persilja & sumak',
-          steps: [
-            'Skiva löken tunt – helst i halvmånar. Lägg i en skål.',
-            'Hacka persiljan fint.',
-            'Lägg lök och persilja i en skål. Tillsätt sumak, olivolja och avsluta med salt.',
-            'Blanda ordentligt med händerna eller en sked – gärna så att sumaken fördelas jämnt.',
-            'Låt gärna stå i 10–15 min innan servering så smakerna hinner sätta sig.'
-          ]
-        },
-        {
-          section: 'Tunnbröd',
-          steps: [
-            'Lös upp jästen i vattnet.',
-            'Tillsätt mjöl och salt.',
-            'Knåda i ca 8–10 minuter tills du har en mjuk, smidig deg.',
-            'Täck med duk och låt jäsa i 1 timme tills den dubblats i storlek.',
-            'Dela degen i 5 lika stora bitar.',
-            'Rulla till bollar och låt vila 10 min under en duk.',
-            'Kavla ut tunt (ca 2 mm), till runda eller ovala bröd – cirka 20 cm diameter.',
-            'Hetta upp en stekpanna (gärna gjutjärn) till medelhög värme.',
-            'Grädda ett bröd i taget, ca 1 minut per sida. Det ska få ljusa bruna fläckar och puffa lite.',
-            'Lägg de färdiga bröden i en handduk så de håller sig mjuka.'
-          ]
-        },
-        {
-          section: 'Tillaga kycklingen',
-          steps: [
-            'Hetta upp lite olja i en panna.',
-            'Stek kycklingen tills den är genomstekt och fått färg (ca 4–5 min/sida).'
-          ]
-        },
-        {
-          section: 'Bygg din shawarma',
-          steps: [
-            'Lägg kyckling i bröd.',
-            'Toppa med grönsaker, vitlökssås och lite färska örter.',
-            'Rulla ihop till wrap eller vik som en kebab.'
-          ]
-        }
-      ],
-      tips: [
-        'Marinera kycklingen över natten för ännu bättre smak',
-        'Kan serveras med ris istället för bröd',
-        'Gör extra vitlökssås - den är fantastisk som dipp till mycket annat!',
-        'Tunnbröden kan göras i förväg och frysas',
-        'Prova att grilla kycklingen för rökig smak'
-      ]
-    }
+// Enhanced loading component with skeleton states
+const LoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+      <p className="text-purple-600 font-medium">Laddar...</p>
+    </div>
+  </div>
+);
+
+// Error boundary component
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode; fallback?: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
   }
-};
 
-export const LaxRisbowlPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
 
-  return <RecipeDetails recipe={recipes['lax-risbowl']} onBack={handleBack} />;
-};
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
 
-export const KaftaBilSejniePost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Något gick fel</h2>
+            <p className="text-gray-600 mb-4">Vi arbetar på att lösa problemet.</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Försök igen
+            </button>
+          </div>
+        </div>
+      );
+    }
 
-  return <RecipeDetails recipe={recipes['kafta-bil-sejnie']} onBack={handleBack} />;
-};
+    return this.props.children;
+  }
+}
 
-export const KoftaBilSaniehPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+function App() {
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-  return <RecipeDetails recipe={recipes['kofta-bil-sanieh']} onBack={handleBack} />;
-};
+  useEffect(() => {
+    // Optimized loading with performance monitoring
+    const startTime = performance.now();
+    
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      setIsInitialLoad(false);
+      
+      const loadTime = performance.now() - startTime;
+      if (loadTime > 3000) {
+        console.warn(`Page load time exceeded 3 seconds: ${loadTime.toFixed(2)}ms`);
+      }
+    }, 100);
+    
+    // Optimized hash change detection
+    let hashChangeTimeout: number;
+    const handleHashChange = () => {
+      clearTimeout(hashChangeTimeout);
+      hashChangeTimeout = window.setTimeout(() => {
+        const newHash = window.location.hash;
+        if (newHash !== currentHash) {
+          setCurrentHash(newHash);
+          
+          // Smooth scroll to top for major section changes
+          if (newHash === '' || newHash.startsWith('#recipe/') || newHash.startsWith('#recept/')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }
+      }, 50);
+    };
 
-export const PastaPestoPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+    // Optimized scroll animation with Intersection Observer
+    const observeScrollTriggers = () => {
+      const scrollTriggers = document.querySelectorAll('.scroll-trigger');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '50px' }
+      );
+      
+      scrollTriggers.forEach(element => {
+        observer.observe(element);
+      });
+      
+      return () => observer.disconnect();
+    };
 
-  return <RecipeDetails recipe={recipes['pasta-pesto']} onBack={handleBack} />;
-};
+    // Event listeners with passive option for better performance
+    window.addEventListener('hashchange', handleHashChange);
+    const cleanupObserver = observeScrollTriggers();
+    
+    // Initial trigger
+    setTimeout(observeScrollTriggers, 500);
 
-export const KycklingShawarmaPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+    // Optimized page title and meta description updates
+    const updatePageMeta = () => {
+      let title = "MaykasKitchen - Autentisk assyrisk/syriansk matlagning med Mayka Gulo";
+      let description = "Upptäck smakrika recept och matinspiration från Mayka Gulo, kock och matkreatör med assyrisk/syriansk tradition och passion för säsongsbaserad matlagning";
+      
+      const metaUpdates = {
+        "#recipe/lax-risbowl": {
+          title: "Kryddig lax- & risbowl - MaykasKitchen",
+          description: "Recept på kryddig lax- & risbowl. Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Enkelt och smakrikt recept från MaykasKitchen."
+        },
+        "#recipe/kafta-bil-sejnie": {
+          title: "Köttbullar i tomatsås (Kafta bil sejnie) - MaykasKitchen",
+          description: "Autentiskt recept på mellanösterns köttbullar i tomatsås. En traditionell assyrisk/syriansk rätt med smakrik tomatsås från MaykasKitchen."
+        },
+        "#recipe/kofta-bil-sanieh": {
+          title: "Köfta bil Sanieh - MaykasKitchen",
+          description: "Autentiskt syriskt recept på Köfta bil Sanieh. Mellanösterns vardagsfavorit med kryddig köttfärs, potatis och padron paprika i mustig tomatsås."
+        },
+        "#recipe/pasta-pesto": {
+          title: "Pasta pesto med ugnsbakade tomater & stekt halloumi - MaykasKitchen",
+          description: "Smakrik pastarätt med krämig pestosås, ugnsbakade tomater och stekt halloumi - enkel att laga och älskad av hela familjen."
+        },
+        "#recipe/kyckling-shawarma": {
+          title: "Kyckling Shawarma - MaykasKitchen",
+          description: "Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!"
+        },
+        "#recipe/pannpizzor": {
+          title: "Snabba pannpizzor direkt i ugnsformen - MaykasKitchen",
+          description: "Perfekt när du har kylskåpsrester att ta vara på! Enkla pannpizzor med hemmagjord deg som hela familjen älskar."
+        },
+        "#recipe/batata-harra": {
+          title: "Batata Harra – Friterad potatis med tomatsås - MaykasKitchen",
+          description: "En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!"
+        }
+      };
 
-  return <RecipeDetails recipe={recipes['kyckling-shawarma']} onBack={handleBack} />;
-};
+      if (currentHash.startsWith("#recept/")) {
+        title = "Alla recept - MaykasKitchen";
+        description = "Upptäck alla våra recept - från traditionella assyriska rätter till moderna tolkningar. Fisk, kött, vegetariskt och mycket mer hos MaykasKitchen.";
+      } else if (metaUpdates[currentHash]) {
+        ({ title, description } = metaUpdates[currentHash]);
+      }
+      
+      // Batched DOM updates for better performance
+      requestAnimationFrame(() => {
+        document.title = title;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute("content", description);
+        }
+      });
+    };
+    
+    updatePageMeta();
+    
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(hashChangeTimeout);
+      window.removeEventListener('hashchange', handleHashChange);
+      cleanupObserver();
+    };
+  }, [currentHash]);
 
-export const PannpizzorPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+  // Performance monitoring
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'performance' in window) {
+      window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        if (loadTime > 3000) {
+          console.warn(`Total page load time: ${loadTime.toFixed(2)}ms - Consider optimization`);
+        }
+      });
+    }
+  }, []);
 
-  return <RecipeDetails recipe={recipes['pannpizzor']} onBack={handleBack} />;
-};
+  // Show loading screen with skeleton
+  if (isLoading) {
+    return isInitialLoad ? <LoadingSpinner /> : <HeroSkeleton />;
+  }
 
-export const BatataHarraPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+  // Recipe pages with lazy loading and error boundary
+  if (currentHash.startsWith("#recipe/")) {
+    const recipeId = currentHash.replace("#recipe/", "");
+    
+    const RecipeComponent = () => {
+      const recipeComponents = {
+        "lax-risbowl": LaxRisbowlPost,
+        "kafta-bil-sejnie": KaftaBilSejniePost,
+        "kofta-bil-sanieh": KoftaBilSaniehPost,
+        "pasta-pesto": PastaPestoPost,
+        "kyckling-shawarma": KycklingShawarmaPost,
+        "pannpizzor": PannpizzorPost,
+        "batata-harra": BatataHarraPost,
+        "kycklingfile-potatis-dragon": KycklingfilePotatisDragonPost
+      };
 
-  return <RecipeDetails recipe={recipes['batata-harra']} onBack={handleBack} />;
-};
+      const Component = recipeComponents[recipeId];
+      
+      if (!Component) {
+        // Redirect to home if recipe not found
+        window.location.hash = '';
+        return null;
+      }
 
-export const KycklingfilePotatisDragonPost = () => {
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+      return <Component />;
+    };
 
-  return <RecipeDetails recipe={recipes['kycklingfile-potatis-dragon']} onBack={handleBack} />;
-};
+    return (
+      <ErrorBoundary>
+        <FoodBlogBackground className="min-h-screen" variant="recipes">
+          <div className="font-sans bg-transparent text-text-color relative z-10">
+            <Header />
+            <main id="main-content" role="main">
+              <Suspense fallback={<LoadingSpinner />}>
+                <RecipeComponent />
+              </Suspense>
+              <Newsletter />
+            </main>
+            <Footer />
+          </div>
+        </FoodBlogBackground>
+      </ErrorBoundary>
+    );
+  }
+
+  // Recipe list page with lazy loading
+  if (currentHash.startsWith("#recept/")) {
+    return (
+      <ErrorBoundary>
+        <FoodBlogBackground className="min-h-screen" variant="recipes">
+          <div className="font-sans bg-transparent text-text-color relative z-10">
+            <Header />
+            <main id="main-content" role="main">
+              <Suspense fallback={<LoadingSpinner />}>
+                <RecipeList />
+              </Suspense>
+              <Newsletter />
+            </main>
+            <Footer />
+          </div>
+        </FoodBlogBackground>
+      </ErrorBoundary>
+    );
+  }
+
+  // Optimized home page with different variants for different sections
+  return (
+    <ErrorBoundary>
+      <FoodBlogBackground className="min-h-screen" variant="default">
+        <div className="font-sans bg-transparent text-text-color relative z-10">
+          <Header />
+          <main id="main-content" role="main">
+            {/* Hero section with dark gradient background */}
+            <Hero />
+            
+            <div className="section-divider" aria-hidden="true"></div>
+            
+            {/* Newsletter popup - återställd med 90 sekunders intervall */}
+            <NewsletterPopup />
+            
+            {/* About section with about variant */}
+            <FoodBlogBackground variant="about" className="relative">
+              <AboutSection />
+            </FoodBlogBackground>
+            
+            <div className="section-divider" aria-hidden="true"></div>
+            
+            {/* Recipe section with recipes variant */}
+          <FoodBlogBackground variant="recipes" className="relative">
+            <RecipeSection />
+          </FoodBlogBackground>
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Collaboration section */}
+          <CollaborationSection />
+          
+          <div className="section-divider" aria-hidden="true"></div>
+          
+          {/* Contact section */}
+          <ContactSection />
+          
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
+    </FoodBlogBackground>
+  </ErrorBoundary>
+);
+}
+
+export default App;
