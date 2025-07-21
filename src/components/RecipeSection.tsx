@@ -8,7 +8,7 @@ const RECIPES = [
     id: 'kycklingfile-potatis-dragon',
     title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
     description: 'En rätt som snabbt blev en favorit både hemma och på jobbet. Kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8m7bPB037zrR9qXSut4TKmZEpjlBcOhHew02',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCYrirAg5FD3Nod0fKROYijVPHAbra9e8uWhMJ',
     time: '60',
     portions: '3-4',
     likes: 156,
