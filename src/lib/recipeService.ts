@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase, isSupabaseConfigured } from './supabase';
 
 export interface RecipeRating {
   id: string;
@@ -30,6 +30,17 @@ export interface RecipeStats {
 // Get recipe statistics
 export const getRecipeStats = async (recipeId: string): Promise<RecipeStats> => {
   try {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured || !supabase) {
+      console.warn('Supabase not configured, returning default stats');
+      return {
+        average_rating: 4.8,
+        total_ratings: 0,
+        total_comments: 0,
+        rating_distribution: {}
+      };
+    }
+
     // Get ratings
     const { data: ratings, error: ratingsError } = await supabase
       .from('recipe_ratings')
@@ -87,6 +98,11 @@ export const getRecipeStats = async (recipeId: string): Promise<RecipeStats> => 
 // Get recipe comments
 export const getRecipeComments = async (recipeId: string): Promise<RecipeComment[]> => {
   try {
+    if (!isSupabaseConfigured || !supabase) {
+      console.warn('Supabase not configured, returning empty comments');
+      return [];
+    }
+
     const { data, error } = await supabase
       .from('recipe_comments')
       .select('*')
@@ -111,6 +127,14 @@ export const submitRating = async (
   userEmail?: string
 ): Promise<{ success: boolean; error?: string }> => {
   try {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured || !supabase) {
+      return { 
+        success: false, 
+        error: 'Database inte tillgänglig för tillfället. Försök igen senare.' 
+      };
+    }
+
     // Validate rating is within allowed range
     if (rating < 1 || rating > 5) {
       return { success: false, error: 'Betyg måste vara mellan 1 och 5' };
@@ -142,6 +166,14 @@ export const submitComment = async (
   userEmail?: string
 ): Promise<{ success: boolean; error?: string }> => {
   try {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured || !supabase) {
+      return { 
+        success: false, 
+        error: 'Database inte tillgänglig för tillfället. Försök igen senare.' 
+      };
+    }
+
     // Validate inputs
     if (!userName.trim()) {
       return { success: false, error: 'Namn är obligatoriskt' };
@@ -182,6 +214,11 @@ export const submitComment = async (
 // Get recipe ratings for display
 export const getRecipeRatings = async (recipeId: string): Promise<RecipeRating[]> => {
   try {
+    if (!isSupabaseConfigured || !supabase) {
+      console.warn('Supabase not configured, returning empty ratings');
+      return [];
+    }
+
     const { data, error } = await supabase
       .from('recipe_ratings')
       .select('*')
@@ -199,6 +236,11 @@ export const getRecipeRatings = async (recipeId: string): Promise<RecipeRating[]
 // Seed initial data to maintain 4.7-5.0 rating range
 export const seedInitialRatings = async (recipeId: string) => {
   try {
+    if (!isSupabaseConfigured || !supabase) {
+      console.warn('Supabase not configured, skipping seed data');
+      return;
+    }
+
     // Check if recipe already has ratings
     const { count } = await supabase
       .from('recipe_ratings')
