@@ -289,6 +289,96 @@ const recipes = {
       ]
     }
   },
+  'balloh-lins-bulgur': {
+    id: 'balloh-lins-bulgur',
+    title: 'Lins- och bulgurjärpar med sumak och spetspaprika (Balloh)',
+    description: 'En traditionell vegetarisk rätt med röda linser, bulgur och kryddiga grönsaker. Perfekt som huvudrätt eller i libabröd med citron och sirap.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
+    time: '45',
+    portions: '6-8',
+    likes: 89,
+    rating: 4.8,
+    reviews: 34,
+    badges: ['Vegetariskt', 'Vegan', 'Traditionell', 'Assyriskt'],
+    videoUrl: '',
+    difficulty: 'Medel',
+    nutritionInfo: {
+      calories: '280 kcal',
+      protein: '12g',
+      carbs: '48g',
+      fat: '6g',
+      fiber: '8g',
+      salt: '1.4g'
+    },
+    allergens: ['Inga kända allergener'],
+    content: {
+      ingredients: [
+        {
+          section: 'Bas',
+          items: [
+            '1 liter vatten',
+            '3 dl röda linser',
+            '6 dl finmalen bulgur'
+          ]
+        },
+        {
+          section: 'Grönsaker och kryddor',
+          items: [
+            '1,5 gul lök, finhackad',
+            '2 röda spetspaprikor, finhackade',
+            '5–6 salladslökar, finhackade',
+            '0,5 dl rapsolja (till stekning)',
+            '1–1,5 msk tomatpuré',
+            '2,5 tsk salt',
+            '1 msk sumak',
+            '1 tsk svartpeppar',
+            '1 tsk garam masala',
+            '1 tsk cayennepeppar'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          section: 'Koka linser och bulgur',
+          steps: [
+            'Koka upp 1 liter vatten i en stor kastrull.',
+            'Skölj linserna noggrant och tillsätt dem i det kokande vattnet.',
+            'Skumma av ytan med en sked eller sil när skum bildas.',
+            'Koka linserna i ca 10 minuter, tills de får en grönaktig ton.',
+            'Stäng av värmen.',
+            'Skölj bulguren i kallt vatten och rör ner den i kastrullen med linserna.',
+            'Blanda väl och låt blandningen stå och svälla tills den tjocknar.'
+          ]
+        },
+        {
+          section: 'Förbered grönsaksröran',
+          steps: [
+            'Finhacka lök, paprika och salladslök.',
+            'Hetta upp rapsoljan i en stekpanna och fräs den gula löken tills den blir mjuk.',
+            'Tillsätt spetspaprika och tomatpuré, låt fräsa i ytterligare ett par minuter.',
+            'Vänd ner salladslöken och kryddorna. Stek ihop allting i ca 5–7 minuter.',
+            'Låt röran svalna något.'
+          ]
+        },
+        {
+          section: 'Blanda och forma',
+          steps: [
+            'När både lins- och bulgurröran samt grönsaksröran har svalnat – blanda ihop dem ordentligt.',
+            'Tillsätt vatten emellanåt om degen inte vill fastna eller känns för torr. Degen ska vara lättformad och mjuk i konsistensen.',
+            'Forma järpar eller bollar av smeten med händerna.'
+          ]
+        }
+      ],
+      tips: [
+        'Servera järparna som de är eller i libabröd',
+        'Pressa gärna citron över och ringla lite dadelsirap eller granatäpplesirap ovanpå',
+        'Även mörk sirap fungerar fint som topping',
+        'Kan göras i förväg och förvaras i kylskåpet',
+        'Perfekt som vegetarisk proteinrik måltid',
+        'Sumak finns i mellanösternbutiker och ger en härlig syrlig smak'
+      ]
+    }
+  },
   'lax-risbowl': {
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
