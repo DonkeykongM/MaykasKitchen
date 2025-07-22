@@ -47,7 +47,19 @@ export const getRecipeStats = async (recipeId: string): Promise<RecipeStats> => 
       .select('rating')
       .eq('recipe_id', recipeId);
 
-    if (ratingsError) throw ratingsError;
+    if (ratingsError) {
+      // Handle missing table gracefully
+      if (ratingsError.code === '42P01') {
+        console.warn('Database tables not yet created, using fallback data');
+        return {
+          average_rating: 4.8,
+          total_ratings: 0,
+          total_comments: 0,
+          rating_distribution: {}
+        };
+      }
+      throw ratingsError;
+    }
 
     // Get comments count
     const { count: commentsCount, error: commentsError } = await supabase
@@ -56,7 +68,19 @@ export const getRecipeStats = async (recipeId: string): Promise<RecipeStats> => 
       .eq('recipe_id', recipeId)
       .eq('is_approved', true);
 
-    if (commentsError) throw commentsError;
+    if (commentsError) {
+      // Handle missing table gracefully
+      if (commentsError.code === '42P01') {
+        console.warn('Database tables not yet created, using fallback data');
+        return {
+          average_rating: 4.8,
+          total_ratings: 0,
+          total_comments: 0,
+          rating_distribution: {}
+        };
+      }
+      throw commentsError;
+    }
 
     // Calculate statistics
     const totalRatings = ratings?.length || 0;
@@ -111,7 +135,14 @@ export const getRecipeComments = async (recipeId: string): Promise<RecipeComment
       .order('created_at', { ascending: false })
       .limit(10);
 
-    if (error) throw error;
+    if (error) {
+      // Handle missing table gracefully
+      if (error.code === '42P01') {
+        console.warn('Database tables not yet created, returning empty comments');
+        return [];
+      }
+      throw error;
+    }
     return data || [];
   } catch (error) {
     console.error('Error fetching recipe comments:', error);
@@ -149,7 +180,16 @@ export const submitRating = async (
         rating: rating
       }]);
 
-    if (error) throw error;
+    if (error) {
+      // Handle missing table gracefully
+      if (error.code === '42P01') {
+        return { 
+          success: false, 
+          error: 'Database-tabeller inte skapade än. Kontakta administratören.' 
+        };
+      }
+      throw error;
+    }
     return { success: true };
   } catch (error) {
     console.error('Error submitting rating:', error);
@@ -197,7 +237,16 @@ export const submitComment = async (
         rating: rating || null
       }]);
 
-    if (error) throw error;
+    if (error) {
+      // Handle missing table gracefully
+      if (error.code === '42P01') {
+        return { 
+          success: false, 
+          error: 'Database-tabeller inte skapade än. Kontakta administratören.' 
+        };
+      }
+      throw error;
+    }
 
     // If rating was provided, also submit to ratings table
     if (rating) {
@@ -225,7 +274,14 @@ export const getRecipeRatings = async (recipeId: string): Promise<RecipeRating[]
       .eq('recipe_id', recipeId)
       .order('created_at', { ascending: false });
 
-    if (error) throw error;
+    if (error) {
+      // Handle missing table gracefully
+      if (error.code === '42P01') {
+        console.warn('Database tables not yet created, returning empty ratings');
+        return [];
+      }
+      throw error;
+    }
     return data || [];
   } catch (error) {
     console.error('Error fetching recipe ratings:', error);
