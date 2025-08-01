@@ -22,6 +22,7 @@ const PannpizzorPost = lazy(() => import('./components/BlogPost').then(module =>
 const BatataHarraPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.BatataHarraPost })));
 const KycklingfilePotatisDragonPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KycklingfilePotatisDragonPost })));
 const LinsBulgurJarparPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.LinsBulgurJarparPost })));
+const MiniLahmacunPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.MiniLahmacunPost })));
 
 // Enhanced loading component with skeleton states
 const LoadingSpinner = () => (
