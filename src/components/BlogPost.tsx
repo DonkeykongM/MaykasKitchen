@@ -1030,3 +1030,4 @@ export const LinsBulgurJarparPost = () => {
     window.location.hash = '';
   };
   return <RecipeDetails recipe={recipes['lins-bulgur-jarpar']} onBack={handleBack} />;
+}
