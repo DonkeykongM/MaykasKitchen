@@ -1031,3 +1031,10 @@ export const LinsBulgurJarparPost = () => {
   };
   return <RecipeDetails recipe={recipes['lins-bulgur-jarpar']} onBack={handleBack} />;
 }
+export const MiniLahmacunPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['mini-lahmacun']} onBack={handleBack} />;
+};
