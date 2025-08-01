@@ -5,6 +5,21 @@ import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoad
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
   {
+    id: 'mini-lahmacun',
+    title: 'Mini Lahmacun – Perfekt mängd, noll svinn!',
+    description: '15 små perfekta lahmacun – köttfärs pizzor. Inget svinn, bara ren lycka! Perfekt att frysa in för framtida måltider.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCFL7L57kjIHwnGYgUvXdix8ms3ac07hetyqO4',
+    time: '75',
+    portions: '15',
+    likes: 25,
+    rating: 4.9,
+    reviews: 1,
+    badges: ['Turkiskt', 'Kött', 'Traditionellt'],
+    trending: true,
+    difficulty: 'Medel',
+    fallbackEmoji: '🫓'
+  },
+  {
     id: 'lins-bulgur-jarpar',
     title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
     description: 'Proteinrika och mättande vegetariska järpar med smakrik kombination av röda linser, bulgur och aromatiska kryddor från mellanöstern.',

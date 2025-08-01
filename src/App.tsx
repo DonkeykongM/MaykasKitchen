@@ -235,7 +235,8 @@ function App() {
         "pannpizzor": PannpizzorPost,
         "batata-harra": BatataHarraPost,
         "kycklingfile-potatis-dragon": KycklingfilePotatisDragonPost,
-        "lins-bulgur-jarpar": LinsBulgurJarparPost
+        "lins-bulgur-jarpar": LinsBulgurJarparPost,
+        "mini-lahmacun": MiniLahmacunPost
       };
 
       const Component = recipeComponents[recipeId];
