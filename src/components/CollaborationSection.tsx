@@ -70,7 +70,7 @@ export const CollaborationSection = () => {
                 <div className="text-sm text-gray-600">Engagemang</div>
               </div>
               <div className="text-center bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <div className="text-2xl font-bold text-purple-600">25-45</div>
+                <div className="text-2xl font-bold text-purple-600">20-65</div>
                 <div className="text-sm text-gray-600">Åldersgrupp</div>
               </div>
             </div>
