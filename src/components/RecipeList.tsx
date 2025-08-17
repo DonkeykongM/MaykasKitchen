@@ -138,6 +138,7 @@ const getRecipeEmoji = (recipeId) => {
     'pannpizzor': '🍕',
     'batata-harra': '🥔',
     'kofta-bil-sanieh': '🥩',
+    'kall-foul-medames': '🫘',
     'lax-risbowl': '🐟',
     'kafta-bil-sejnie': '🍲',
     'pasta-pesto': '🍝',
@@ -160,6 +161,20 @@ const RecipeList = () => {
   }, []);
 
   const recipes = [
+    {
+      id: 'kall-foul-medames',
+      title: 'Kall foul medames',
+      description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCzNWv2DP9mAtjTsb7I6ZNyREunpVPwDz3h850',
+      time: '15',
+      portions: '4',
+      likes: 15,
+      rating: 4.8,
+      reviews: 1,
+      badges: ['Vegan', 'Mellanöstern', 'Snabb', 'Sallad'],
+      trending: true,
+      difficulty: 'Lätt'
+    },
     {
       id: 'mini-lahmacun',
       title: 'Mini Lahmacun – Perfekt mängd, noll svinn!',

@@ -91,6 +91,67 @@ const recipes = {
       ]
     }
   },
+  'kall-foul-medames': {
+    id: 'kall-foul-medames',
+    title: 'Kall foul medames',
+    description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCzNWv2DP9mAtjTsb7I6ZNyREunpVPwDz3h850',
+    time: '15',
+    portions: '4',
+    likes: 15,
+    rating: 4.8,
+    reviews: 1,
+    badges: ['Vegan', 'Mellanöstern', 'Snabb', 'Sallad'],
+    videoUrl: '',
+    difficulty: 'Lätt',
+    nutritionInfo: {
+      calories: '240 kcal',
+      protein: '12g',
+      carbs: '32g',
+      fat: '8g',
+      fiber: '10g',
+      salt: '1.2g'
+    },
+    allergens: ['Inga kända allergener'],
+    content: {
+      ingredients: [
+        {
+          section: 'Huvudingredienser',
+          items: [
+            '2 burkar kokta bruna bönor eller favabönor (à ca 400g)',
+            '2–3 vitlöksklyftor, finhackade eller pressade',
+            '1 liten lök, finhackad',
+            '1 stor tomat, hackad (eller 6 körsbärstomater)',
+            '1 grön chili, finhackad (den styrkan du föredrar)',
+            '1 dl färsk persilja, grovhackad',
+            '2-3 msk färsk salvia, finhackad',
+            '2 msk färsk mynta, finhackad',
+            '1 citron, saften',
+            '0,5 dl olivolja (gärna extra till servering)',
+            'Salt och svartpeppar, efter smak'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          steps: [
+            'Skölj bönorna noga och häll av vätskan.',
+            'Lägg bönorna i en skål och blanda med alla grönsaker.',
+            'Ringla över citron och olivolja.',
+            'Krydda med färska örter, salt och peppar.',
+            'Rör om och låt gärna stå 5–10 minuter så smakerna sätter sig.'
+          ]
+        }
+      ],
+      tips: [
+        'Servera med libabröd eller pita',
+        'Kan förberedas dagen innan och förvaras i kylskåp',
+        'Supergott med extra olivolja och färsk citron vid servering',
+        'Prova att tillsätta feta eller tahini för extra smak',
+        'Perfekt som tillbehör till grillat eller som lätt lunch'
+      ]
+    }
+  },
   'kycklingfile-potatis-dragon': {
     id: 'kycklingfile-potatis-dragon',
     title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
@@ -1037,4 +1098,12 @@ export const MiniLahmacunPost = () => {
   };
 
   return <RecipeDetails recipe={recipes['mini-lahmacun']} onBack={handleBack} />;
+};
+
+export const KallFoulMedamesPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['kall-foul-medames']} onBack={handleBack} />;
 };

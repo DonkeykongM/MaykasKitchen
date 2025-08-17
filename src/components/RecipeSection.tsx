@@ -5,6 +5,21 @@ import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoad
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
   {
+    id: 'kall-foul-medames',
+    title: 'Kall foul medames',
+    description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCzNWv2DP9mAtjTsb7I6ZNyREunpVPwDz3h850',
+    time: '15',
+    portions: '4',
+    likes: 15,
+    rating: 4.8,
+    reviews: 1,
+    badges: ['Vegan', 'Mellanöstern', 'Snabb', 'Sallad'],
+    trending: true,
+    difficulty: 'Lätt',
+    fallbackEmoji: '🫘'
+  },
+  {
     id: 'mini-lahmacun',
     title: 'Mini Lahmacun – Perfekt mängd, noll svinn!',
     description: '15 små perfekta lahmacun – köttfärs pizzor. Inget svinn, bara ren lycka! Perfekt att frysa in för framtida måltider.',
