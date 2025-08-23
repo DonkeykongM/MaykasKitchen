@@ -24,6 +24,7 @@ const KycklingfilePotatisDragonPost = lazy(() => import('./components/BlogPost')
 const LinsBulgurJarparPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.LinsBulgurJarparPost })));
 const MiniLahmacunPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.MiniLahmacunPost })));
 const KallFoulMedamesPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KallFoulMedamesPost })));
+const KikartsTikkaMasalaPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.KikartsTikkaMasalaPost })));
 
 // Enhanced loading component with skeleton states
 const LoadingSpinner = () => (
@@ -239,7 +240,8 @@ function App() {
         "kycklingfile-potatis-dragon": KycklingfilePotatisDragonPost,
         "lins-bulgur-jarpar": LinsBulgurJarparPost,
         "mini-lahmacun": MiniLahmacunPost,
-        "kall-foul-medames": KallFoulMedamesPost
+        "kall-foul-medames": KallFoulMedamesPost,
+        "kikarts-tikka-masala": KikartsTikkaMasalaPost
       };
 
       const Component = recipeComponents[recipeId];

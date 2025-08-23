@@ -5,6 +5,21 @@ import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoad
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
   {
+    id: 'kikarts-tikka-masala',
+    title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
+    description: 'En otroligt krämig och smakrik vegetarisk tikka masala med kikärtor i en rik tomatsås med kokosmjölk och aromatiska kryddor.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
+    time: '35',
+    portions: '4-6',
+    likes: 12,
+    rating: 4.9,
+    reviews: 1,
+    badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
+    trending: true,
+    difficulty: 'Lätt',
+    fallbackEmoji: '🍛'
+  },
+  {
     id: 'kall-foul-medames',
     title: 'Kall foul medames',
     description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',

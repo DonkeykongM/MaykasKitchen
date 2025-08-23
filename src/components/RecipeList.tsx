@@ -139,6 +139,7 @@ const getRecipeEmoji = (recipeId) => {
     'batata-harra': '🥔',
     'kofta-bil-sanieh': '🥩',
     'kall-foul-medames': '🫘',
+    'kikarts-tikka-masala': '🍛',
     'lax-risbowl': '🐟',
     'kafta-bil-sejnie': '🍲',
     'pasta-pesto': '🍝',
@@ -161,6 +162,20 @@ const RecipeList = () => {
   }, []);
 
   const recipes = [
+    {
+      id: 'kikarts-tikka-masala',
+      title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
+      description: 'En otroligt krämig och smakrik vegetarisk tikka masala med kikärtor i en rik tomatsås med kokosmjölk och aromatiska kryddor.',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
+      time: '35',
+      portions: '4-6',
+      likes: 12,
+      rating: 4.9,
+      reviews: 1,
+      badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
+      trending: true,
+      difficulty: 'Lätt'
+    },
     {
       id: 'kall-foul-medames',
       title: 'Kall foul medames',

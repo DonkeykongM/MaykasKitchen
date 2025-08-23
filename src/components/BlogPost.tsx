@@ -537,6 +537,77 @@ const recipes = {
       ]
     }
   },
+  'kikarts-tikka-masala': {
+    id: 'kikarts-tikka-masala',
+    title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
+    description: 'En otroligt krämig och smakrik vegetarisk tikka masala med kikärtor i en rik tomatsås med kokosmjölk och aromatiska kryddor.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
+    time: '35',
+    portions: '4-6',
+    likes: 12,
+    rating: 4.9,
+    reviews: 1,
+    badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
+    videoUrl: '',
+    difficulty: 'Lätt',
+    nutritionInfo: {
+      calories: '380 kcal',
+      protein: '16g',
+      carbs: '45g',
+      fat: '18g',
+      fiber: '12g',
+      salt: '1.6g'
+    },
+    allergens: ['Inga kända allergener (naturligt glutenfri)'],
+    content: {
+      ingredients: [
+        {
+          section: 'Huvudingredienser',
+          items: [
+            '1 gul lök, finhackad',
+            '3 vitlöksklyftor, finrivna',
+            '390g krossade tomater',
+            '5 dl vatten',
+            '2 × 380g kikärtor (tetrapack, avrunna och sköljda)',
+            '350g kokosmjölk',
+            'Rapsolja till stekning'
+          ]
+        },
+        {
+          section: 'Kryddor',
+          items: [
+            '1 msk salt',
+            '1 msk lökpulver',
+            '1 msk paprikapulver',
+            '1 tsk chiliflakes',
+            '1 msk malen ingefära',
+            '1 msk spiskummin',
+            '½ msk malen koriander',
+            '1 msk gurkmeja'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          steps: [
+            'Hetta upp lite rapsolja i en kastrull eller djup panna. Fräs den finhackade löken tills den blir mjuk och lätt gyllene.',
+            'Tillsätt vitlöken och låt fräsa med en kort stund.',
+            'Häll i krossade tomater och vatten, rör om och låt sjuda under lock i ca 10 minuter.',
+            'Blanda ner alla kryddorna och låt dem fräsa med i såsen så smakerna kommer fram.',
+            'Rör ner kikärtor och kokosmjölk, låt koka ihop på låg värme i ca 10 minuter.',
+            'Smaka av och servera med ris, naan eller bara som den är.'
+          ]
+        }
+      ],
+      tips: [
+        'Extra gott med nybakat naan – recept hittar du bland mina reels',
+        'Kan serveras med basmatiris, quinoa eller bara med bröd',
+        'För extra krämighet, mixa hälften av kikärtorna före servering',
+        'Rätten smakar ännu bättre dagen efter när smakerna hunnit sätta sig',
+        'Kan frysas i upp till 3 månader – perfekt att laga större portioner'
+      ]
+    }
+  },
   'lax-risbowl': {
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
@@ -1106,4 +1177,12 @@ export const KallFoulMedamesPost = () => {
   };
 
   return <RecipeDetails recipe={recipes['kall-foul-medames']} onBack={handleBack} />;
+};
+
+export const KikartsTikkaMasalaPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['kikarts-tikka-masala']} onBack={handleBack} />;
 };
