@@ -290,6 +290,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center block">
               📱 Dela på WhatsApp
             </a>
+            <a href="https://www.instagram.com/" 
+               target="_blank" 
+               onclick="navigator.clipboard.writeText('${window.location.href}'); alert('Receptlänk kopierad! Öppnar Instagram så du kan klistra in i din story eller post.');" 
+               class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white p-3 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-colors flex items-center justify-center block">
+              📸 Dela på Instagram
+            </a>
             <button onclick="document.body.removeChild(this.closest('div[class*=fixed]'))" 
                     class="w-full bg-gray-100 text-gray-700 p-3 rounded-lg hover:bg-gray-200 transition-colors">
               Stäng
