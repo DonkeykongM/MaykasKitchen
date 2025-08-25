@@ -7,7 +7,7 @@ const RECIPES = [
   {
     id: 'kikarts-tikka-masala',
     title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
-    description: 'En otroligt krämig och smakrik vegetarisk tikka masala med kikärtor i en rik tomatsås med kokosmjölk och aromatiska kryddor.',
+    description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig. Fullproppad med dofter, kryddor och värme, och ändå klar på bara 20 minuter. Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
     time: '35',
     portions: '4-6',
