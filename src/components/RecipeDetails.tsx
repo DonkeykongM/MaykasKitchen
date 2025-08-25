@@ -377,7 +377,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   ))}
                 </div>
 
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif leading-tight">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif leading-tight select-text cursor-text">
                   {recipe.title}
                 </h1>
 
@@ -412,7 +412,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   <span className="ml-2 text-gray-600 text-sm md:text-base">({liveRating}/5 • {liveReviewCount} recensioner)</span>
                 </div>
 
-                <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
+                <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base select-text cursor-text">
                   {recipe.description}
                 </p>
 
@@ -502,7 +502,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                           <span className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold mr-3 md:mr-4 text-xs md:text-sm">
                             {i + 1}
                           </span>
-                          <p className="pt-1 text-gray-700 leading-relaxed text-sm md:text-base">{step}</p>
+                          <p className="pt-1 text-gray-700 leading-relaxed text-sm md:text-base select-text cursor-text">{step}</p>
                         </li>
                       ))}
                     </ol>
@@ -520,7 +520,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     {recipe.content.tips.map((tip, index) => (
                       <li key={index} className="flex items-start">
                         <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-purple-500 rounded-full mr-2 md:mr-3 mt-2"></span>
-                        <span className="text-gray-700 leading-relaxed text-sm md:text-base">{tip}</span>
+                        <span className="text-gray-700 leading-relaxed text-sm md:text-base select-text cursor-text">{tip}</span>
                       </li>
                     ))}
                   </ul>
@@ -570,10 +570,10 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                                   className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
                                 />
                                 <div className="flex-1 text-center">
-                                  <span className="block">
+                                  <span className="block select-text cursor-text">
                                     <strong className="text-purple-600 font-semibold text-sm">{adjustedAmount}</strong>
                                   </span>
-                                  <span className="block text-gray-700 text-sm leading-tight">{ingredientName}</span>
+                                  <span className="block text-gray-700 text-sm leading-tight select-text cursor-text">{ingredientName}</span>
                                 </div>
                               </div>
                             </li>
@@ -588,7 +588,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                                 className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
                               />
                               <div className="flex-1 text-center">
-                                <span className="text-gray-700 text-sm leading-tight">{ingredient}</span>
+                                <span className="text-gray-700 text-sm leading-tight select-text cursor-text">{ingredient}</span>
                               </div>
                             </div>
                           </li>
