@@ -480,7 +480,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     <span>{portionCount} portioner</span>
                   </div>
                   <div className="flex items-center">
-                    <Heart size={16} className="mr-2 text-purple-600" />
+                    <Heart size={16} className={`mr-2 ${isLiked ? 'text-red-500' : 'text-purple-600'}`} fill={isLiked ? 'currentColor' : 'none'} />
                     <span>{likeCount} gillar</span>
                   </div>
                 </div>
@@ -538,12 +538,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   
                   <button 
                     onClick={handleLike}
-                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-colors text-sm min-h-[44px] transform hover:scale-105 ${
-                     isLiked ? 'bg-red-500 text-white' : 'bg-red-100 text-red-700 hover:bg-red-200'
+                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all text-sm min-h-[44px] transform hover:scale-105 ${
+                     isLiked ? 'bg-red-500 text-white shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-600'
                     }`}
                     aria-label={isLiked ? 'Ta bort gilla' : 'Gilla receptet'}
                   >
-                    <Heart size={16} fill={isLiked ? "white" : "none"} />
+                    <Heart size={16} fill={isLiked ? "white" : "none"} className={`transition-all duration-200 ${isLiked ? 'animate-pulse' : ''}`} />
                     <span className="hidden sm:inline">{isLiked ? 'Gillad' : 'Gilla'}</span>
                   </button>
                   
