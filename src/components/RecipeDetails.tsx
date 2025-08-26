@@ -189,11 +189,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       ]
     };
     
-    return commentsByRecipe[recipe.id] || [];
+    // Filter out any Pierre comments and return filtered results
+    const recipeComments = commentsByRecipe[recipe.id] || [];
+    return recipeComments.filter(comment => comment.name !== 'Pierre');
   }, [recipe.id]);
 
   // Use live comments if available, otherwise fallback
-  const displayComments = loading ? fallbackComments : liveComments.map(comment => ({
+  const displayComments = loading ? fallbackComments : liveComments.filter(comment => comment.user_name !== 'Pierre').map(comment => ({
     id: comment.id,
     name: comment.user_name,
     rating: comment.rating || 4,
@@ -538,12 +540,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   
                   <button 
                     onClick={handleLike}
-                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all text-sm min-h-[44px] transform hover:scale-105 ${
-                     isLiked ? 'bg-red-500 text-white shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-600'
+                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all text-sm min-h-[44px] transform hover:scale-105 shadow-md ${
+                     isLiked ? 'bg-red-500 text-white shadow-lg scale-105' : 'bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-600'
                     }`}
                     aria-label={isLiked ? 'Ta bort gilla' : 'Gilla receptet'}
                   >
-                    <Heart size={16} fill={isLiked ? "white" : "none"} className={`transition-all duration-200 ${isLiked ? 'animate-pulse' : ''}`} />
+                    <Heart size={16} fill={isLiked ? "#FF0000" : "none"} className={`transition-all duration-200 ${isLiked ? 'text-red-500 animate-pulse' : ''}`} />
                     <span className="hidden sm:inline">{isLiked ? 'Gillad' : 'Gilla'}</span>
                   </button>
                   
