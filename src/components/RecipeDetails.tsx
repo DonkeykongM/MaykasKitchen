@@ -52,6 +52,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(recipe.likes);
   
   // Real-time data from database
   const [liveComments, setLiveComments] = useState<RecipeComment[]>([]);
@@ -377,6 +379,29 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     }
   }, [recipe.id, userName, comment, userRating, userEmail]);
 
+  // Handle like functionality
+  const handleLike = useCallback(() => {
+    const recipeKey = `liked-recipe-${recipe.id}`;
+    const currentlyLiked = localStorage.getItem(recipeKey) === 'true';
+    
+    if (!currentlyLiked) {
+      setIsLiked(true);
+      setLikeCount(prev => prev + 1);
+      localStorage.setItem(recipeKey, 'true');
+    } else {
+      setIsLiked(false);
+      setLikeCount(prev => Math.max(0, prev - 1));
+      localStorage.removeItem(recipeKey);
+    }
+  }, [recipe.id]);
+
+  // Check if recipe is liked on mount
+  useEffect(() => {
+    const recipeKey = `liked-recipe-${recipe.id}`;
+    const liked = localStorage.getItem(recipeKey) === 'true';
+    setIsLiked(liked);
+  }, [recipe.id]);
+
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
@@ -456,7 +481,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   </div>
                   <div className="flex items-center">
                     <Heart size={16} className="mr-2 text-purple-600" />
-                    <span>{recipe.likes} gillar</span>
+                    <span>{likeCount} gillar</span>
                   </div>
                 </div>
 
@@ -509,6 +534,17 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   >
                     <Bookmark size={16} fill={isSaved ? "white" : "none"} />
                     <span className="hidden sm:inline">{isSaved ? 'Sparat' : 'Spara'}</span>
+                  </button>
+                  
+                  <button 
+                    onClick={handleLike}
+                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-colors text-sm min-h-[44px] transform hover:scale-105 ${
+                      isLiked ? 'bg-pink-500 text-white' : 'bg-pink-100 text-pink-700 hover:bg-pink-200'
+                    }`}
+                    aria-label={isLiked ? 'Ta bort gilla' : 'Gilla receptet'}
+                  >
+                    <Heart size={16} fill={isLiked ? "white" : "none"} />
+                    <span className="hidden sm:inline">{isLiked ? 'Gillad' : 'Gilla'}</span>
                   </button>
                   
                   <button 
