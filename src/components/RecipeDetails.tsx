@@ -539,7 +539,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   <button 
                     onClick={handleLike}
                     className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-colors text-sm min-h-[44px] transform hover:scale-105 ${
-                      isLiked ? 'bg-pink-500 text-white' : 'bg-pink-100 text-pink-700 hover:bg-pink-200'
+                     isLiked ? 'bg-red-500 text-white' : 'bg-red-100 text-red-700 hover:bg-red-200'
                     }`}
                     aria-label={isLiked ? 'Ta bort gilla' : 'Gilla receptet'}
                   >
