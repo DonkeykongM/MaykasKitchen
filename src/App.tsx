@@ -93,6 +93,7 @@ function App() {
   useEffect(() => {
     // Performance-optimized loading sequence
     const startTime = performance.now();
+    let initialLoadTimer: number;
     
     // Critical resource loading
     const criticalResourcesLoaded = Promise.all([
@@ -119,7 +120,7 @@ function App() {
       }
       
       // Hide loader after slight delay for smooth transition
-      setTimeout(() => {
+      initialLoadTimer = window.setTimeout(() => {
         setIsInitialLoad(false);
         setShowLoader(false);
       }, 200);
@@ -230,7 +231,7 @@ function App() {
     updatePageMeta();
     
     return () => {
-      clearTimeout(timer);
+      clearTimeout(initialLoadTimer);
       clearTimeout(hashChangeTimeout);
       window.removeEventListener('hashchange', handleHashChange);
       cleanupObserver();

@@ -92,4 +92,3 @@ export const useBundleOptimization = () => {
     return () => window.removeEventListener('load', analyzeBundle);
   }, []);
 };
-</parameter>
