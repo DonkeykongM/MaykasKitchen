@@ -22,8 +22,8 @@ export const EnhancedMetaTags: React.FC<EnhancedMetaTagsProps> = ({ page, recipe
     switch (page) {
       case 'home':
         return {
-          title: "MaykasKitchen - Autentisk Assyrisk & Syriansk Matlagning | 125k+ Följare",
-          description: "Upptäck autentiska assyriska & syrianska recept med Mayka Gulo. ⭐ 4.8/5 betyg • 🍽️ 50+ recept • 📱 125k+ följare. Traditionell matlagning för moderna kök.",
+          title: "Assyrisk & Syriansk Matlagning | Autentiska Recept | MaykasKitchen",
+          description: "Upptäck 50+ autentiska assyriska & syrianska recept med Mayka Gulo. Från kafta bil sejnie till lax-risbowl. ⭐ 4.8/5 betyg • 125k följare • Gratis recept med steg-för-steg instruktioner.",
           keywords: "assyrisk mat, syriansk matlagning, mellanöstern recept, mayka gulo, kafta bil sejnie, traditionella recept, matblogg, köttbullar tomatsås, autentisk matlagning",
           canonical: "https://maykaskitchen.se",
           breadcrumb: []
