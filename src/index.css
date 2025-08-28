@@ -74,9 +74,12 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Critical performance optimizations */
-  contain: layout style paint;
-  content-visibility: auto;
+  /* Better performance on mobile */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 body {
@@ -95,60 +98,21 @@ body {
   height: 100%;
   background: transparent;
   position: relative;
-  /* Critical rendering optimizations */
-  contain: layout style;
-  will-change: auto;
-}
-
-/* Performance-optimized image loading */
-img {
-  max-width: 100%;
-  height: auto;
-  vertical-align: middle;
-  content-visibility: auto;
-  contain-intrinsic-size: 400px 300px;
-}
-
-img[loading="lazy"] {
-  transition: opacity 0.3s ease;
-}
-
-img[loading="lazy"]:not([src]) {
-  opacity: 0;
-}
-
-/* Critical resource hints */
-.critical-image {
-  content-visibility: auto;
-  contain: layout size;
-}
-
-/* Optimized animations for better performance */
-@media (prefers-reduced-motion: no-preference) {
-  .animate-on-scroll {
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-  }
-  
-  .animate-on-scroll.visible {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  /* Optimized for mobile performance */
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Prevent multiple scroll containers */
 * {
   box-sizing: border-box;
-  /* Optimize repainting */
-  backface-visibility: hidden;
 }
 
 #root {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  contain: layout;
 }
 
 /* MOBILE-FIRST Typography with better contrast and WCAG 2.1 compliance */

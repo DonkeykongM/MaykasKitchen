@@ -1,17 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { ChevronDown, Instagram, UtensilsCrossed, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
-import { HeroOptimizedImage } from './ui/OptimizedImage';
-import { useImagePreloader } from '../hooks/useOptimizedImages';
 
 export const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
-  
-  // Preload critical images
-  useImagePreloader([
-    'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4'
-  ]);
   
   useEffect(() => {
     setIsVisible(true);
@@ -154,16 +147,14 @@ export const Hero = () => {
         <div className={`w-full lg:w-1/2 flex justify-center transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
             <div className="rounded-full overflow-hidden h-48 w-48 sm:h-56 sm:w-56 md:h-72 md:w-72 lg:h-80 lg:w-80 xl:h-96 xl:w-96 border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm">
-              <HeroOptimizedImage 
+              <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4" 
                 alt="Mayka Gulo i köket med färska råvaror" 
-                className="transform transition-transform duration-700 hover:scale-105"
+                className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105"
+                loading="eager"
                 width="384"
                 height="384"
-                quality={95}
-                priority={true}
-                fallbackEmoji="👩‍🍳"
-                fallbackText="Mayka Gulo - Kock och matkreatör"
+                decoding="async"
               />
             </div>
           </div>

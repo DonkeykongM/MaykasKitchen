@@ -1,7 +1,7 @@
 import React from 'react';
 import { RecipeDetails } from './RecipeDetails';
 
-export const recipes = {
+const recipes = {
   'lins-bulgur-jarpar': {
     id: 'lins-bulgur-jarpar',
     title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
