@@ -1,0 +1,57 @@
+# Performance optimization headers for Netlify
+/*
+  # Cache static assets for 1 year
+  Cache-Control: public, max-age=31536000, immutable
+  
+  # Security headers
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # Performance headers
+  X-DNS-Prefetch-Control: on
+
+# HTML files - cache for 1 hour only
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Images - aggressive caching
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS and JS - cache with etag validation
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# API endpoints - no cache
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Fonts - cache for 1 year
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  
+# Enable compression for text files
+/*.html
+  Content-Encoding: gzip
+  
+/*.css
+  Content-Encoding: gzip
+  
+/*.js
+  Content-Encoding: gzip
+
+# Preload critical resources
+/
+  Link: </fonts/poppins.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+  Link: </src/index.css>; rel=preload; as=style
+  
+# Resource hints for better performance
+/*
+  Link: <https://j0bzpddd4j.ufs.sh>; rel=dns-prefetch
+  Link: <https://fonts.googleapis.com>; rel=dns-prefetch
+  Link: <https://fonts.gstatic.com>; rel=dns-prefetch
+</parameter>
