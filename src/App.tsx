@@ -258,6 +258,7 @@ function App() {
   // Recipe pages with lazy loading and error boundary
   if (currentHash.startsWith("#recipe/")) {
     const recipeId = currentHash.replace("#recipe/", "");
+    const currentRecipe = recipes[recipeId];
     
     const RecipeComponent = () => {
       const recipeComponents = {
@@ -288,7 +289,7 @@ function App() {
 
     return (
       <ErrorBoundary>
-        <EnhancedMetaTags page="recipe" />
+        <EnhancedMetaTags page="recipe" recipe={currentRecipe} />
         <FoodBlogBackground className="min-h-screen" variant="recipes">
           <div className="font-sans bg-transparent text-text-color relative z-10">
             <Header />

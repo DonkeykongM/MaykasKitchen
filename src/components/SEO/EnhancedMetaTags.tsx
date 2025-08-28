@@ -31,6 +31,18 @@ export const EnhancedMetaTags: React.FC<EnhancedMetaTagsProps> = ({ page, recipe
       
       case 'recipe':
         if (!recipe) return getPageMeta();
+        if (!recipe) {
+          return {
+            title: "Alla Recept - Assyrisk & Syriansk Matlagning | MaykasKitchen",
+            description: "Bläddra bland 50+ autentiska assyriska & syrianska recept. Filtrera på kött, vegetariskt, snabbt. Från traditionell kafta bil sejnie till moderna bowls.",
+            keywords: "alla recept, assyriska recept, syrianska recept, receptsamling, mellanöstern mat, vegetariska recept, köttrecept",
+            canonical: "https://maykaskitchen.se#recept",
+            breadcrumb: [
+              { name: "Hem", url: "https://maykaskitchen.se" },
+              { name: "Alla Recept", url: "https://maykaskitchen.se#recept" }
+            ]
+          };
+        }
         return {
           title: `${recipe.title} - Recept | MaykasKitchen`,
           description: `${recipe.description} ⏱️ ${recipe.time} min | 👥 ${recipe.portions} portioner | ⭐ ${recipe.rating}/5 från ${recipe.reviews} recensioner. Steg-för-steg guide.`,
@@ -80,7 +92,13 @@ export const EnhancedMetaTags: React.FC<EnhancedMetaTagsProps> = ({ page, recipe
         };
       
       default:
-        return getPageMeta();
+        return {
+          title: "Assyrisk & Syriansk Matlagning | Autentiska Recept | MaykasKitchen",
+          description: "Upptäck 50+ autentiska assyriska & syrianska recept med Mayka Gulo. Från kafta bil sejnie till lax-risbowl. ⭐ 4.8/5 betyg • 125k följare • Gratis recept med steg-för-steg instruktioner.",
+          keywords: "assyrisk mat, syriansk matlagning, mellanöstern recept, mayka gulo, kafta bil sejnie, traditionella recept, matblogg, köttbullar tomatsås, autentisk matlagning",
+          canonical: "https://maykaskitchen.se",
+          breadcrumb: []
+        };
     }
   };
 
