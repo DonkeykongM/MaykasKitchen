@@ -244,10 +244,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   }, [isSaved, recipe.id]);
 
   const handleShare = useCallback(() => {
+    // Get the current recipe URL
+    const currentUrl = `${window.location.origin}${window.location.pathname}#recipe/${recipe.id}`;
+    
     const shareData = {
       title: `${recipe.title} - MaykasKitchen`,
-      text: `Kolla in detta recept: ${recipe.description}`,
-      url: window.location.href,
+      text: `Kolla in detta recept från MaykasKitchen: ${recipe.title}`,
+      url: currentUrl,
     };
 
     // Try native sharing first (mobile devices)
@@ -262,7 +265,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
     function fallbackShare() {
       // Create a simple share menu
-      const shareUrl = encodeURIComponent(window.location.href);
+      const shareUrl = encodeURIComponent(currentUrl);
       const shareTitle = encodeURIComponent(`${recipe.title} - MaykasKitchen`);
       const shareText = encodeURIComponent(`Kolla in detta recept från MaykasKitchen: ${recipe.title}`);
       
@@ -276,8 +279,9 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           <h3 class="text-lg font-semibold mb-4 text-center">Dela receptet</h3>
           <div class="space-y-3">
             <button onclick="navigator.clipboard.writeText('${window.location.href}').then(() => alert('Länk kopierad!')); document.body.removeChild(this.closest('div[class*=fixed]'))" 
+            <button onclick="navigator.clipboard.writeText('${currentUrl}').then(() => alert('Receptlänk kopierad!')); document.body.removeChild(this.closest('div[class*=fixed]'))" 
                     class="w-full bg-purple-100 text-purple-700 p-3 rounded-lg hover:bg-purple-200 transition-colors flex items-center justify-center">
-              📋 Kopiera länk
+              📋 Kopiera receptlänk
             </button>
             <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" 
                target="_blank" 
@@ -296,7 +300,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             </a>
             <a href="https://www.instagram.com/" 
                target="_blank" 
-               onclick="navigator.clipboard.writeText('${window.location.href}'); alert('Receptlänk kopierad! Öppnar Instagram så du kan klistra in i din story eller post.');" 
+               onclick="navigator.clipboard.writeText('${currentUrl}'); alert('Receptlänk kopierad! Öppnar Instagram så du kan klistra in i din story eller post.');" 
                class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white p-3 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-colors flex items-center justify-center block">
               📸 Dela på Instagram
             </a>
