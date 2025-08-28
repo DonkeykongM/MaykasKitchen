@@ -124,3 +124,4 @@ export const FastRecipeCardSkeleton: React.FC = () => (
     </div>
   </div>
 );
+</parameter>

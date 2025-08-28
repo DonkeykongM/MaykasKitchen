@@ -95,3 +95,4 @@ export const CardOptimizedImage: React.FC<OptimizedImageProps> = (props) => (
     loading="lazy"
   />
 );
+</parameter>
