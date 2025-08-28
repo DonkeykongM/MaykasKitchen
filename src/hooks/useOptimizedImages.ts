@@ -118,4 +118,3 @@ export const useImagePreloader = (images: string[]) => {
     };
   }, [images]);
 };
-</parameter>
