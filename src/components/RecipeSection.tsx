@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
+import { CardOptimizedImage } from './ui/OptimizedImage';
 
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
@@ -219,42 +220,18 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
     >
       {/* Enhanced image with robust error handling */}
       <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
-        {!imageError ? (
-          <img
+        <CardOptimizedImage
             src={recipe.image}
             alt={recipe.title}
             width={400}
             height={260}
-            className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
-            loading="lazy"
-            decoding="async"
+            className="transform transition hover:scale-105 will-change-transform"
+            quality={75}
+            priority={false}
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            style={{ 
-              opacity: imageLoaded ? 1 : 0,
-              transition: 'opacity 0.3s ease'
-            }}
+            fallbackEmoji={recipe.fallbackEmoji || '🍽️'}
+            fallbackText={recipe.title}
           />
-        ) : null}
-        
-        {/* Enhanced fallback content when image fails to load */}
-        {imageError && (
-          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex flex-col items-center justify-center text-purple-600 border border-purple-300">
-            <div className="text-3xl md:text-4xl mb-2">{recipe.fallbackEmoji || '🍽️'}</div>
-            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.title}</div>
-          </div>
-        )}
-        
-        {/* Loading state */}
-        {!imageLoaded && !imageError && (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center animate-pulse">
-            <div className="text-gray-400 text-center">
-              <div className="text-xl md:text-2xl mb-1">📸</div>
-              <div className="text-xs">Laddar...</div>
-            </div>
-          </div>
-        )}
         
         <div className="absolute top-2 md:top-4 left-2 md:left-4">
           <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
