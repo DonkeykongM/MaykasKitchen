@@ -1087,6 +1087,7 @@ export const recipes = {
       ]
     }
   }
+}
 'qrimyothe-munkar': {
   id: 'qrimyothe-munkar',
   title: 'Qrimyothe – Mormors munkar 🍩',
