@@ -1086,9 +1086,8 @@ export const recipes = {
         'Prova att grilla kycklingen för rökig smak'
       ]
     }
-  }
-}
-'qrimyothe-munkar': {
+  },
+  'qrimyothe-munkar': {
   id: 'qrimyothe-munkar',
   title: 'Qrimyothe – Mormors munkar 🍩',
   description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
@@ -1166,4 +1165,5 @@ export const recipes = {
       'Kan frysas och värmas upp i ugnen vid behov'
     ]
   }
+}
 }
