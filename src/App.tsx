@@ -11,7 +11,8 @@ import { Footer } from './components/Footer';
 import FoodBlogBackground from './components/ui/food-blog-background';
 import { HeroSkeleton } from './components/LoadingStates/SkeletonLoader';
 import EnhancedMetaTags from './components/SEO/EnhancedMetaTags';
-import { WebsiteStructuredData, PersonStructuredData, FAQStructuredData } from './components/SEO/EnhancedStructuredData';</parameter>
+import { WebsiteStructuredData, PersonStructuredData, FAQStructuredData } from './components/SEO/EnhancedStructuredData';
+
 // Lazy load components for better performance
 const RecipeList = lazy(() => import('./components/RecipeList').then(module => ({ default: module.RecipeList })));
 const LaxRisbowlPost = lazy(() => import('./components/BlogPost').then(module => ({ default: module.LaxRisbowlPost })));
