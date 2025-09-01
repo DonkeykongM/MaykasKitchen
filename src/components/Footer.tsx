@@ -246,8 +246,7 @@ export const Footer = () => {
                 <div className="flex items-center text-gray-300">
                   <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
                   Matlagningstekniker
-          body: JSON.stringify({
-            type: 'newsletter',
+                </div>
               </div>
             </div>
           </div>
