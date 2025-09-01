@@ -5,10 +5,7 @@ import { useOptimizedScroll } from '../hooks/useOptimizedScroll';
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Optimized scroll handler with throttling
   const handleScrollOptimized = useCallback((scrollY: number) => {
@@ -31,33 +28,7 @@ export const Header = () => {
 
   useOptimizedScroll(handleScrollOptimized);
 
-  useEffect(() => {
-    if (isSearchOpen && searchInputRef.current) {
-      requestAnimationFrame(() => {
-        searchInputRef.current?.focus();
-      });
-    }
-  }, [isSearchOpen]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (isSearchOpen) setIsSearchOpen(false);
-        if (isMenuOpen) setIsMenuOpen(false);
-      }
-      
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setIsSearchOpen(true);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown, { passive: false });
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isSearchOpen, isMenuOpen]);
-
   const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
-  const toggleSearch = useCallback(() => setIsSearchOpen(prev => !prev), []);
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
   const handleNavLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -91,25 +62,12 @@ export const Header = () => {
     setActiveSection('');
   }, []);
 
-  const handleSearchSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (searchTerm.trim()) {
-      localStorage.setItem('lastSearch', searchTerm.trim());
-      window.location.hash = 'recept/alla';
-      setIsSearchOpen(false);
-      setSearchTerm('');
-    }
-  }, [searchTerm]);
-
-  const popularSearches = ['Fisk', 'Vegetariskt', 'Snabba recept', 'Dessert', 'Assyriskt'];
-
   return (
     <header 
       className={`fixed top-0 z-50 transition-all duration-300 w-full ${
         isScrolled 
-          ? 'py-2 shadow-lg bg-white/95 backdrop-blur-md border-b border-purple-200' 
-          : 'py-3 md:py-4 bg-white shadow-sm'
+          ? 'py-3 md:py-4 shadow-xl bg-white/98 backdrop-blur-lg border-b border-purple-100' 
+          : 'py-4 md:py-5 bg-white shadow-md'
       }`}
       role="banner"
       style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999 }}
@@ -123,13 +81,13 @@ export const Header = () => {
           <a 
             href="#" 
             onClick={handleHomeClick}
-            className="flex items-center group min-w-0 flex-shrink-0"
+            className="flex items-center group min-w-0 flex-shrink-0 hover:scale-105 transition-transform duration-200"
             aria-label="MaykasKitchen, gå till startsidan"
           >
-            <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-purple-100 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 group-hover:bg-purple-200 group-hover:scale-110 flex-shrink-0">
-              <Salad className="w-4 h-4 md:w-6 md:h-6 text-purple-600 transition-colors" />
+            <div className="relative mr-3 md:mr-4 flex items-center justify-center bg-gradient-to-br from-purple-500 to-purple-600 w-10 h-10 md:w-12 md:h-12 rounded-xl transition-all duration-300 group-hover:from-purple-600 group-hover:to-purple-700 group-hover:scale-110 flex-shrink-0 shadow-lg">
+              <Salad className="w-5 h-5 md:w-7 md:h-7 text-white transition-colors" />
             </div>
-            <span className="text-lg md:text-xl lg:text-2xl font-bold text-purple-600 tracking-tight truncate transition-colors group-hover:text-purple-700 font-serif">
+            <span className="text-xl md:text-2xl lg:text-3xl font-bold text-purple-600 tracking-tight truncate transition-colors group-hover:text-purple-700 font-serif">
               MaykasKitchen
             </span>
           </a>
@@ -138,7 +96,7 @@ export const Header = () => {
             <a 
               href="#om-mig" 
               onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-              className={`nav-link text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap text-sm lg:text-base ${
+              className={`nav-link text-gray-700 hover:text-purple-600 transition-all duration-200 whitespace-nowrap text-sm lg:text-base font-medium ${
                 activeSection === 'om-mig' ? 'text-purple-600 active' : ''
               }`}
               aria-current={activeSection === 'om-mig' ? 'page' : undefined}
@@ -148,7 +106,7 @@ export const Header = () => {
             <a 
               href="#recept" 
               onClick={(e) => handleNavLinkClick(e, 'recept')}
-              className={`nav-link text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap text-sm lg:text-base ${
+              className={`nav-link text-gray-700 hover:text-purple-600 transition-all duration-200 whitespace-nowrap text-sm lg:text-base font-medium ${
                 activeSection === 'recept' ? 'text-purple-600 active' : ''
               }`}
               aria-current={activeSection === 'recept' ? 'page' : undefined}
@@ -158,7 +116,7 @@ export const Header = () => {
             <a 
               href="#samarbeten" 
               onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-              className={`nav-link text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap text-sm lg:text-base ${
+              className={`nav-link text-gray-700 hover:text-purple-600 transition-all duration-200 whitespace-nowrap text-sm lg:text-base font-medium ${
                 activeSection === 'samarbeten' ? 'text-purple-600 active' : ''
               }`}
               aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
@@ -169,16 +127,77 @@ export const Header = () => {
               href="https://www.instagram.com/maykaskitchen/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="nav-link text-gray-700 hover:text-purple-600 transition-colors flex items-center whitespace-nowrap text-sm lg:text-base"
+              className="nav-link text-gray-700 hover:text-purple-600 transition-all duration-200 flex items-center whitespace-nowrap text-sm lg:text-base font-medium bg-purple-50 px-3 py-2 rounded-lg hover:bg-purple-100"
               aria-label="Besök min Instagram (öppnas i nytt fönster)"
             >
               <Instagram size={14} className="mr-1" aria-hidden="true" /> 
               Instagram
             </a>
-            
-            <button 
-              onClick={toggleSearch} 
-              className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 relative"
+          </nav>
+          
+          {/* Mobile menu button */}
+          <button 
+            onClick={toggleMenu}
+            className="lg:hidden p-2 text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg min-h-[44px] min-w-[44px]"
+            aria-label="Öppna meny"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+        
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-lg border-b border-purple-100 shadow-xl">
+            <nav className="container mx-auto px-4 py-4">
+              <div className="flex flex-col space-y-2">
+                <a 
+                  href="#om-mig" 
+                  onClick={(e) => {
+                    handleNavLinkClick(e, 'om-mig');
+                    closeMenu();
+                  }}
+                  className="block py-3 px-4 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all font-medium"
+                >
+                  Om mig
+                </a>
+                <a 
+                  href="#recept" 
+                  onClick={(e) => {
+                    handleNavLinkClick(e, 'recept');
+                    closeMenu();
+                  }}
+                  className="block py-3 px-4 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all font-medium"
+                >
+                  Recept
+                </a>
+                <a 
+                  href="#samarbeten" 
+                  onClick={(e) => {
+                    handleNavLinkClick(e, 'samarbeten');
+                    closeMenu();
+                  }}
+                  className="block py-3 px-4 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all font-medium"
+                >
+                  Samarbeten
+                </a>
+                <a 
+                  href="https://www.instagram.com/maykaskitchen/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="block py-3 px-4 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all font-medium"
+                  onClick={closeMenu}
+                >
+                  <Instagram size={16} className="inline mr-2" /> 
+                  Instagram
+                </a>
+              </div>
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
             >
               <Search size={18} />
             </button>

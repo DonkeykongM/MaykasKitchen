@@ -333,7 +333,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         </div>
         
         {/* Title with improved typography */}
-        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight">
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight font-serif">
           {recipe.title}
         </h3>
         
