@@ -198,7 +198,8 @@ export const ContactSection = () => {
                       aria-invalid={!!fieldErrors.email}
                       aria-describedby={fieldErrors.email ? "email-error" : undefined}
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
-                      } max-w-full`}
+                        fieldErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                       placeholder="Din e-postadress"
                     />
                     {fieldErrors.email && (
@@ -213,7 +214,7 @@ export const ContactSection = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300 max-w-full"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300"
                       placeholder="Vad handlar ditt meddelande om?"
                     />
                   </div>
@@ -231,7 +232,7 @@ export const ContactSection = () => {
                       aria-describedby={fieldErrors.message ? "message-error" : undefined}
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
                         fieldErrors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                      } max-w-full resize-none`}
+                      }`}
                       placeholder="Skriv ditt meddelande här..."
                     ></textarea>
                     {fieldErrors.message && (
@@ -260,7 +261,7 @@ export const ContactSection = () => {
                   <button 
                     type="submit" 
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70 max-w-full"
+                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70"
                   >
                     {formStatus === 'submitting' ? (
                       <>
@@ -281,7 +282,7 @@ export const ContactSection = () => {
             </div>
           </div>
           
-          <div className="md:w-1/2 w-full">
+          <div className="md:w-1/2">
             <div className="bg-white p-8 rounded-lg shadow-md mb-8">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Mail className="mr-2 text-primary-color" size={20} />
@@ -310,17 +311,17 @@ export const ContactSection = () => {
               </div>
             </div>
             
-            <div className="bg-white p-6 md:p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Instagram className="mr-2 text-primary-color" size={20} />
                 Följ mig
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <Instagram className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -333,7 +334,7 @@ export const ContactSection = () => {
                   href="https://www.tiktok.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <TikTok className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -346,7 +347,7 @@ export const ContactSection = () => {
                   href="https://www.youtube.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <Youtube className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -359,7 +360,7 @@ export const ContactSection = () => {
                   href="https://www.facebook.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <Facebook className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -370,13 +371,13 @@ export const ContactSection = () => {
                 </a>
               </div>
               
-              <div className="mt-4 md:mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
+              <div className="mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
                 <p className="font-medium mb-2">Snabbast svar får du via Instagram DM</p>
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-white hover:text-beige-50 font-medium min-h-[44px]"
+                  className="inline-flex items-center text-white hover:text-beige-50 font-medium"
                 >
                   Skicka DM <ArrowRight size={16} className="ml-1" />
                 </a>
