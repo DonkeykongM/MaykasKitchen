@@ -432,7 +432,6 @@ const RecipeList = () => {
             <span className="sm:hidden">Tillbaka</span>
           </button>
 
-          <span className="block text-center text-purple-300 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
           <span className="block text-center text-purple-600 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
             Matinspiration
           </span>
