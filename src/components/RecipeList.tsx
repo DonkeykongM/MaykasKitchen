@@ -234,4 +234,23 @@ const RecipeList = () => {
       id: 'pannpizzor',
       title: 'Snabba pannpizzor direkt i ugnsformen',
       description: 'Perfekt när du har kylskåpsrester att ta vara på! Släng på det du har hemma och njut av en enkel middag på nolltid.',
-      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8Q
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8Q',
+      time: '30',
+      portions: '4',
+      likes: 42,
+      rating: 4.7,
+      reviews: 3,
+      badges: ['Snabb', 'Vardagsmat', 'Restmat'],
+      trending: false,
+      difficulty: 'Lätt'
+    }
+  ];
+
+  return (
+    <div>
+      {/* Recipe list content would go here */}
+    </div>
+  );
+};
+
+export default RecipeList;
