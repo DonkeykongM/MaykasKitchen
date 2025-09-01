@@ -62,6 +62,7 @@ export const Header = () => {
 
   const handleNavLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    e.stopPropagation();
     
     const element = document.getElementById(id);
     if (element) {
@@ -81,6 +82,7 @@ export const Header = () => {
 
   const handleHomeClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     window.location.hash = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setActiveSection('');
@@ -88,6 +90,7 @@ export const Header = () => {
 
   const handleSearchSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (searchTerm.trim()) {
       localStorage.setItem('lastSearch', searchTerm.trim());
       window.location.hash = 'recept/alla';
@@ -172,160 +175,4 @@ export const Header = () => {
             
             <button 
               onClick={toggleSearch} 
-              className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 relative group min-h-[44px] min-w-[44px] flex items-center justify-center"
-              aria-label={`Sök (${navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'} + K)`}
-              aria-expanded={isSearchOpen}
-              title={`Sök (${navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + K)`}
-            >
-              <Search size={16} />
-              <span className="sr-only">Sök</span>
-            </button>
-            
-            <a 
-              href="#kontakt" 
-              onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-              className="btn-primary transform hover:scale-105 transition-all duration-300 whitespace-nowrap focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 text-sm lg:text-base px-4 py-2"
-            >
-              Kontakt
-            </a>
-          </nav>
-          
-          <div className="lg:hidden flex items-center space-x-2">
-            <button 
-              onClick={toggleSearch} 
-              className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label="Sök"
-              aria-expanded={isSearchOpen}
-            >
-              <Search size={18} />
-            </button>
-            <button 
-              onClick={toggleMenu} 
-              className="text-gray-700 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label={isMenuOpen ? "Stäng meny" : "Öppna meny"}
-              aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      {/* Search Panel */}
-      <div 
-        className={`bg-white border-t border-purple-100 shadow-lg py-3 md:py-4 transform transition-all duration-300 ease-in-out ${
-          isSearchOpen 
-            ? 'translate-y-0 opacity-100' 
-            : '-translate-y-full opacity-0 pointer-events-none'
-        } absolute left-0 right-0 top-full z-20 w-full`}
-        aria-hidden={!isSearchOpen}
-        role="search"
-      >
-        <div className="container mx-auto px-4 max-w-7xl">
-          <form onSubmit={handleSearchSubmit} className="relative">
-            <label htmlFor="search-input" className="sr-only">
-              Sök efter recept, ingredienser eller tekniker
-            </label>
-            <input
-              id="search-input"
-              ref={searchInputRef}
-              type="text"
-              placeholder="Sök efter recept, ingredienser eller tekniker..."
-              className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 pr-8 md:pr-10 text-sm md:text-base min-h-[44px]"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              autoComplete="off"
-            />
-            <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-purple-400" size={16} aria-hidden="true" />
-            <button
-              type="button"
-              className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-1 min-w-[32px] min-h-[32px] flex items-center justify-center"
-              aria-label="Stäng sökning"
-              onClick={toggleSearch}
-            >
-              <X size={16} />
-            </button>
-          </form>
-          
-          <div className="mt-3 md:mt-4">
-            <p className="text-xs md:text-sm text-gray-600 mb-2">Populära sökningar:</p>
-            <div className="flex flex-wrap gap-1 md:gap-2">
-              {popularSearches.map((search) => (
-                <button 
-                  key={search}
-                  onClick={() => setSearchTerm(search)} 
-                  className="text-xs bg-purple-50 text-purple-700 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-1 min-h-[32px]"
-                  type="button"
-                >
-                  {search}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Mobile Menu */}
-      <nav 
-        className={`lg:hidden bg-white border-t border-purple-100 shadow-lg overflow-hidden transition-all duration-300 ease-in-out w-full ${
-          isMenuOpen 
-            ? 'max-h-screen opacity-100' 
-            : 'max-h-0 opacity-0 pointer-events-none'
-        }`}
-        aria-hidden={!isMenuOpen}
-        role="navigation"
-        aria-label="Mobil navigation"
-      >
-        <div className="container mx-auto px-4 py-4 flex flex-col space-y-2 max-w-7xl">
-          <a 
-            href="#om-mig" 
-            onClick={(e) => handleNavLinkClick(e, 'om-mig')}
-            className={`text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-purple-50 flex items-center transition-colors min-h-[44px] ${
-              activeSection === 'om-mig' ? 'text-purple-600' : ''
-            }`}
-            aria-current={activeSection === 'om-mig' ? 'page' : undefined}
-          >
-            Om mig
-          </a>
-          <a 
-            href="#recept" 
-            onClick={(e) => handleNavLinkClick(e, 'recept')}
-            className={`text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-purple-50 flex items-center transition-colors min-h-[44px] ${
-              activeSection === 'recept' ? 'text-purple-600' : ''
-            }`}
-            aria-current={activeSection === 'recept' ? 'page' : undefined}
-          >
-            Recept
-          </a>
-          <a 
-            href="#samarbeten" 
-            onClick={(e) => handleNavLinkClick(e, 'samarbeten')}
-            className={`text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-purple-50 flex items-center transition-colors min-h-[44px] ${
-              activeSection === 'samarbeten' ? 'text-purple-600' : ''
-            }`}
-            aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
-          >
-            Samarbeten
-          </a>
-          <a 
-            href="https://www.instagram.com/maykaskitchen/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-gray-700 hover:text-purple-600 font-medium py-3 border-b border-purple-50 flex items-center transition-colors min-h-[44px]"
-            aria-label="Besök min Instagram (öppnas i nytt fönster)"
-          >
-            <Instagram size={18} className="mr-2" aria-hidden="true" /> 
-            Instagram
-          </a>
-          <a 
-            href="#kontakt" 
-            onClick={(e) => handleNavLinkClick(e, 'kontakt')}
-            className="bg-purple-600 text-white py-3 px-6 rounded-lg text-center hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium min-h-[44px] flex items-center justify-center mt-4"
-          >
-            Kontakt
-          </a>
-        </div>
-      </nav>
-    </header>
-  );
-};
+              className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 relative

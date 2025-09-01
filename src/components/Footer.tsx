@@ -44,6 +44,8 @@ export const Footer = () => {
 
   // Optimerad navigation med korrekt funktionalitet
   const handleNavigation = (sectionId: string) => {
+    if (!sectionId) return;
+    
     const element = document.getElementById(sectionId);
     if (element) {
       const headerHeight = 80;
