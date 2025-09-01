@@ -44,26 +44,15 @@ export const Footer = () => {
 
   // Optimerad navigation med korrekt funktionalitet
   const handleNavigation = (sectionId: string) => {
-    if (!sectionId) {
-      // Navigate to home
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerHeight = 90;
+      const headerHeight = 80;
       const elementPosition = element.offsetTop - headerHeight;
       
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
       });
-      
-      // Update hash after scroll
-      setTimeout(() => {
-        window.history.pushState(null, '', `#${sectionId}`);
-      }, 100);
     }
   };
 

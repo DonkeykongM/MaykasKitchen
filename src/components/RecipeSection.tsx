@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
+import { CardOptimizedImage } from './ui/OptimizedImage';
 
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
@@ -182,22 +183,6 @@ const RECIPES = [
     difficulty: 'Medel',
     fallbackEmoji: '🌯'
   }
-  ,
-  {
-    id: 'qrimyothe-munkar',
-    title: 'Qrimyothe – Mormors munkar 🍩',
-    description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
-    time: '120',
-    portions: '20-25',
-    likes: 5,
-    rating: 5.0,
-    reviews: 1,
-    badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
-    difficulty: 'Medel',
-    trending: true,
-    fallbackEmoji: '🍩'
-  }
 ];
 
 // Enhanced recipe card component with robust image handling
@@ -206,14 +191,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
   const [imageError, setImageError] = useState(false);
 
   if (isLoading) {
-    return (
-      <div className="bg-white rounded-xl shadow-lg p-4">
-        <div className="h-48 bg-gray-200 rounded-lg mb-4 animate-pulse"></div>
-        <div className="h-6 bg-gray-200 rounded mb-2 animate-pulse"></div>
-        <div className="h-4 bg-gray-200 rounded mb-2 animate-pulse"></div>
-        <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-      </div>
-    );
+    return <SkeletonLoader variant="recipe" />;
   }
 
   const handleImageLoad = useCallback(() => {
@@ -228,7 +206,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
 
   return (
     <article 
-      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all cursor-pointer w-full recipe-card border border-purple-100"
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card border border-purple-100 will-change-transform"
       onClick={(e) => onRecipeClick(recipe.id, e)}
       role="button"
       tabIndex={0}
@@ -242,42 +220,18 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
     >
       {/* Enhanced image with robust error handling */}
       <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
-        {!imageError ? (
-          <img
+        <CardOptimizedImage
             src={recipe.image}
             alt={recipe.title}
             width={400}
             height={260}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async"
+            className="transform transition hover:scale-105 will-change-transform"
+            quality={75}
+            priority={false}
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            style={{ 
-              opacity: imageLoaded ? 1 : 0,
-              transition: 'opacity 0.3s ease'
-            }}
+            fallbackEmoji={recipe.fallbackEmoji || '🍽️'}
+            fallbackText={recipe.title}
           />
-        ) : null}
-        
-        {/* Enhanced fallback content when image fails to load */}
-        {imageError && (
-          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex flex-col items-center justify-center text-purple-600 border border-purple-300">
-            <div className="text-3xl md:text-4xl mb-2">{recipe.fallbackEmoji || '🍽️'}</div>
-            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.title}</div>
-          </div>
-        )}
-        
-        {/* Loading state */}
-        {!imageLoaded && !imageError && (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center animate-pulse">
-            <div className="text-gray-400 text-center">
-              <div className="text-xl md:text-2xl mb-1">📸</div>
-              <div className="text-xs">Laddar...</div>
-            </div>
-          </div>
-        )}
         
         <div className="absolute top-2 md:top-4 left-2 md:left-4">
           <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
@@ -333,7 +287,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         </div>
         
         {/* Title with improved typography */}
-        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight font-serif">
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight">
           {recipe.title}
         </h3>
         
@@ -370,19 +324,28 @@ RecipeCard.displayName = 'RecipeCard';
 
 export const RecipeSection = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
+  const [isLoading, setIsLoading] = useState(false);
   const sectionRef = useRef(null);
 
   // Optimized navigation with useCallback for better performance
   const handleRecipeClick = useCallback((id, e) => {
     e.preventDefault();
     e.stopPropagation();
-    window.location.hash = `recipe/${id}`;
+    
+    // Add loading state for better UX
+    setIsLoading(true);
+    
+    // Simulate network delay for skeleton loader demonstration
+    setTimeout(() => {
+      setIsLoading(false);
+      // Direct hash change for fastest navigation
+      window.location.hash = `recipe/${id}`;
+    }, 200);
   }, []);
 
   // Handle "Se alla recept" button click
   const handleSeeAllRecipes = useCallback((e) => {
     e.preventDefault();
-    e.stopPropagation();
     
     // Navigate to the recipe list page
     window.location.hash = 'recept/alla';
@@ -409,6 +372,9 @@ export const RecipeSection = () => {
   // Optimized filter handler
   const handleFilterChange = useCallback((filterId) => {
     setActiveFilter(filterId);
+    // Add slight loading state for visual feedback
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 100);
   }, []);
 
   return (
@@ -447,34 +413,37 @@ export const RecipeSection = () => {
         </div>
         
         {/* Optimized recipe grid with lazy loading and error boundaries */}
-        <Suspense fallback={<div className="text-center py-8">Laddar recept...</div>}>
+        <Suspense fallback={<RecipeGridSkeleton />}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-12">
-            {filteredRecipes.map(recipe => (
-              <RecipeCard 
-                key={recipe.id} 
-                recipe={recipe} 
-                onRecipeClick={handleRecipeClick}
-              />
-            ))}
+            {isLoading ? (
+              // Show skeleton loaders during transitions
+              [...Array(4)].map((_, index) => (
+                <SkeletonLoader key={index} variant="recipe" />
+              ))
+            ) : (
+              filteredRecipes.map(recipe => (
+                <RecipeCard 
+                  key={recipe.id} 
+                  recipe={recipe} 
+                  onRecipeClick={handleRecipeClick}
+                />
+              ))
+            )}
           </div>
         </Suspense>
         
         {/* Call to action with improved accessibility and WORKING functionality */}
         <div className="text-center mb-8 md:mb-12 lg:mb-20">
           <button 
-            onClick={(e) => {
-              e.preventDefault();
-              localStorage.setItem('lastPage', 'home');
-              window.location.hash = 'recept/alla';
-            }}
-            className="bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px] transform hover:scale-105"
+            onClick={handleSeeAllRecipes}
+            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px]"
             role="button"
             aria-label="Se alla våra recept"
           >
             Se alla recept
           </button>
         </div>
-    </div>
+      </div>
     </section>
   );
 };
