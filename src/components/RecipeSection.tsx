@@ -182,6 +182,22 @@ const RECIPES = [
     difficulty: 'Medel',
     fallbackEmoji: '🌯'
   }
+  ,
+  {
+    id: 'qrimyothe-munkar',
+    title: 'Qrimyothe – Mormors munkar 🍩',
+    description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
+    time: '120',
+    portions: '20-25',
+    likes: 5,
+    rating: 5.0,
+    reviews: 1,
+    badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+    difficulty: 'Medel',
+    trending: true,
+    fallbackEmoji: '🍩'
+  }
 ];
 
 // Enhanced recipe card component with robust image handling

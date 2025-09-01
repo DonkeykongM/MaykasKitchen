@@ -328,6 +328,20 @@ const RecipeList = () => {
       badges: ['Kött', 'Mellanöstern', 'Familj'],
       trending: true,
       difficulty: 'Medel'
+    },
+    {
+      id: 'qrimyothe-munkar',
+      title: 'Qrimyothe – Mormors munkar 🍩',
+      description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
+      time: '120',
+      portions: '20-25',
+      likes: 5,
+      rating: 5.0,
+      reviews: 1,
+      badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+      trending: true,
+      difficulty: 'Medel'
     }
   ];
 
@@ -346,6 +360,7 @@ const RecipeList = () => {
   // Optimerad navigation med useCallback
   const handleRecipeClick = useCallback((id, e) => {
     e.preventDefault();
+    e.stopPropagation();
     e.stopPropagation();
     // Direkt hash-ändring för snabbast möjliga navigation
     window.location.hash = `recipe/${id}`;

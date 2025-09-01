@@ -97,3 +97,11 @@ export const KikartsTikkaMasalaPost = () => {
 
   return <RecipeDetails recipe={recipes['kikarts-tikka-masala']} onBack={handleBack} />;
 };
+
+export const QrimyotheMunkarPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['qrimyothe-munkar']} onBack={handleBack} />;
+};

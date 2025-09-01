@@ -243,7 +243,8 @@ function App() {
         "lins-bulgur-jarpar": LinsBulgurJarparPost,
         "mini-lahmacun": MiniLahmacunPost,
         "kall-foul-medames": KallFoulMedamesPost,
-        "kikarts-channa-masala": KikartsTikkaMasalaPost
+        "kikarts-tikka-masala": KikartsTikkaMasalaPost,
+        "qrimyothe-munkar": QrimyotheMunkarPost
       };
 
       const Component = recipeComponents[recipeId];
