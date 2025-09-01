@@ -193,20 +193,36 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   }));
 
   const adjustAmount = useCallback((amount: string, originalPortions: number) => {
-    const regex = /^(\d+(?:[.,]\d+)?)\s*(\w+)?\s*(.*)$/;
+    // Improved regex to handle various ingredient formats
+    const regex = /^(\d+(?:[.,]\d+)?(?:-\d+(?:[.,]\d+)?)?)\s*(\w+)?\s*(.*)$/;
     const match = amount.match(regex);
     
     if (match && match.length >= 2) {
-      const originalValue = parseFloat(match[1].replace(',', '.'));
+      // Handle ranges like "2-3" by taking the average
+      const amountStr = match[1].replace(',', '.');
+      let originalValue: number;
+      
+      if (amountStr.includes('-')) {
+        const [min, max] = amountStr.split('-').map(n => parseFloat(n));
+        originalValue = (min + max) / 2;
+      } else {
+        originalValue = parseFloat(amountStr);
+      }
+      
       const unit = match[2] || '';
       const remainingText = match[3] || '';
-      const adjustedValue = (originalValue * portionCount) / originalPortions;
+      
+      // Calculate adjusted value with proper rounding
+      const ratio = portionCount / originalPortions;
+      const adjustedValue = originalValue * ratio;
       
       let formattedValue: string;
       if (adjustedValue % 1 === 0) {
         formattedValue = adjustedValue.toString();
+      } else if (adjustedValue < 1) {
+        formattedValue = adjustedValue.toFixed(2).replace(/\.?0+$/, '');
       } else {
-        formattedValue = adjustedValue.toFixed(1).replace(/\.0$/, '');
+        formattedValue = adjustedValue.toFixed(1).replace(/\.0$/, '').replace(',', '.');
       }
       
       return `${formattedValue} ${unit} ${remainingText}`.trim();

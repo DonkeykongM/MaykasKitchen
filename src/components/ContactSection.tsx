@@ -122,7 +122,15 @@ export const ContactSection = () => {
       setSubscribeToNewsletter(true);
       
       // Scroll to top of form
-      formRef.current?.scrollIntoView({ behavior: 'smooth' });
+      if (formRef.current) {
+        const headerHeight = 90;
+        const elementPosition = formRef.current.offsetTop - headerHeight;
+        
+        window.scrollTo({
+          top: elementPosition,
+          behavior: 'smooth'
+        });
+      }
       
     } catch (error) {
       setFormStatus('error');

@@ -43,7 +43,13 @@ export const Hero = () => {
   const scrollToRecipes = useCallback(() => {
     const element = document.getElementById('recept');
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = 90;
+      const elementPosition = element.offsetTop - headerHeight;
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
     }
   }, []);
 

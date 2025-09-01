@@ -67,7 +67,7 @@ export const Header = () => {
     const element = document.getElementById(id);
     if (element) {
       closeMenu();
-      const headerHeight = 80;
+      const headerHeight = 90; // Account for fixed header height
       const elementPosition = element.offsetTop - headerHeight;
       
       window.scrollTo({
@@ -75,8 +75,11 @@ export const Header = () => {
         behavior: 'smooth'
       });
       
+      // Ensure hash updates after scroll
+      setTimeout(() => {
       window.history.pushState(null, '', `#${id}`);
       setActiveSection(id);
+      }, 100);
     }
   }, [closeMenu]);
 
