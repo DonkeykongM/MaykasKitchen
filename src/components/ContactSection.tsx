@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Mail, Home, Instagram, BookText as TikTok, Youtube, Facebook, Send, ArrowRight, ChevronRight, MapPin } from 'lucide-react';
 
 export const ContactSection = () => {
-  const [formStatus, setFormStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -141,40 +141,49 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="kontakt" className="py-16 bg-white relative w-full">
+    <section id="kontakt" className="section-padding gradient-light relative w-full">
       <div className="container mx-auto px-4 relative z-10">
-        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">Nå mig</span>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">Kontakta mig</h2>
-        <p className="text-center mb-12 max-w-2xl mx-auto">Hör gärna av dig för samarbeten, frågor eller bara för att säga hej!</p>
+        <div className="text-center mb-16">
+          <span className="inline-block text-purple-600 text-sm font-semibold mb-3 uppercase tracking-wider bg-purple-50 px-4 py-2 rounded-full">
+            Kontakt & Samarbeten
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-purple-600 font-serif">
+            Låt oss skapa tillsammans
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Hör gärna av dig för samarbeten, frågor eller bara för att säga hej! Jag svarar alltid så snart jag kan.
+          </p>
+        </div>
         
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/2">
-            <div className="bg-white p-4 md:p-8 rounded-lg shadow-md" ref={formRef}>
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
-                <Send className="mr-2 text-primary-color" size={20} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <div className="order-2 lg:order-1">
+            <div className="card-modern" ref={formRef}>
+              <h3 className="text-2xl font-bold mb-8 flex items-center text-purple-600">
+                <Send className="mr-3 text-purple-600" size={24} />
                 Skicka ett meddelande
               </h3>
               
               {formStatus === 'success' ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                  <div className="inline-flex items-center justify-center bg-green-100 p-3 rounded-full text-green-600 mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="success-message text-center p-8 rounded-2xl">
+                  <div className="inline-flex items-center justify-center bg-green-100 p-4 rounded-2xl text-green-600 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h4 className="text-lg font-bold text-gray-800 mb-2">Tack för ditt meddelande!</h4>
-                  <p className="text-gray-600 mb-4">Jag återkommer till dig så snart som möjligt.</p>
+                  <h4 className="text-2xl font-bold text-gray-800 mb-3">Tack för ditt meddelande!</h4>
+                  <p className="text-gray-600 mb-6 text-lg">Jag återkommer till dig så snart som möjligt.</p>
                   <button 
-                    onClick={() => setFormStatus(null)}
-                    className="text-primary-color font-medium hover:text-accent-color"
+                    onClick={() => setFormStatus('idle')}
+                    className="btn-secondary hover-lift"
                   >
                     Skicka ett nytt meddelande
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
-                  <div className="mb-4">
-                    <label htmlFor="name" className="block text-brown-700 mb-2 font-medium">Namn <span className="text-primary-color">*</span></label>
+                  <div className="form-group">
+                    <label htmlFor="name" className="form-label">Namn <span className="text-red-500">*</span></label>
                     <input 
                       type="text" 
                       id="name"
@@ -185,16 +194,18 @@ export const ContactSection = () => {
                       aria-required="true"
                       aria-invalid={!!fieldErrors.name}
                       aria-describedby={fieldErrors.name ? "name-error" : undefined}
-                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border ${
-                        fieldErrors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      className={`form-input ${
+                        fieldErrors.name ? 'error' : ''
                       }`}
+                      placeholder="Ditt fullständiga namn"
                     />
                     {fieldErrors.name && (
-                      <p id="name-error" className="text-red-500 text-sm mt-1">{fieldErrors.name}</p>
+                      <p id="name-error" className="error-message">{fieldErrors.name}</p>
                     )}
                   </div>
-                  <div className="mb-4">
-                    <label htmlFor="email" className="block text-brown-700 mb-2 font-medium">E-post <span className="text-primary-color">*</span></label>
+                  
+                  <div className="form-group">
+                    <label htmlFor="email" className="form-label">E-post <span className="text-red-500">*</span></label>
                     <input 
                       type="email" 
                       id="email" 
@@ -205,29 +216,31 @@ export const ContactSection = () => {
                       aria-required="true"
                       aria-invalid={!!fieldErrors.email}
                       aria-describedby={fieldErrors.email ? "email-error" : undefined}
-                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border ${
-                        fieldErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      className={`form-input ${
+                        fieldErrors.email ? 'error' : ''
                       }`}
                       placeholder="Din e-postadress"
                     />
                     {fieldErrors.email && (
-                      <p id="email-error" className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>
+                      <p id="email-error" className="error-message">{fieldErrors.email}</p>
                     )}
                   </div>
-                  <div className="mb-4">
-                    <label htmlFor="subject" className="block text-brown-700 mb-2 font-medium">Ämne</label>
+                  
+                  <div className="form-group">
+                    <label htmlFor="subject" className="form-label">Ämne</label>
                     <input 
                       type="text" 
                       id="subject" 
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300 max-w-full box-border"
+                      className="form-input"
                       placeholder="Vad handlar ditt meddelande om?"
                     />
                   </div>
-                  <div className="mb-6">
-                    <label htmlFor="message" className="block text-brown-700 mb-2 font-medium">Meddelande <span className="text-primary-color">*</span></label>
+                  
+                  <div className="form-group">
+                    <label htmlFor="message" className="form-label">Meddelande <span className="text-red-500">*</span></label>
                     <textarea 
                       id="message" 
                       name="message"
@@ -238,30 +251,32 @@ export const ContactSection = () => {
                       aria-required="true"
                       aria-invalid={!!fieldErrors.message}
                       aria-describedby={fieldErrors.message ? "message-error" : undefined}
-                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border resize-none ${
-                        fieldErrors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      className={`form-input resize-none ${
+                        fieldErrors.message ? 'error' : ''
                       }`}
                       placeholder="Skriv ditt meddelande här..."
                     ></textarea>
                     {fieldErrors.message && (
-                      <p id="message-error" className="text-red-500 text-sm mt-1">{fieldErrors.message}</p>
+                      <p id="message-error" className="error-message">{fieldErrors.message}</p>
                     )}
                   </div>
                   
-                  <div className="mb-6">
-                    <label className="flex items-center">
+                  <div className="form-group">
+                    <label className="flex items-start cursor-pointer">
                       <input 
                         type="checkbox" 
-                        className="form-checkbox h-5 w-5 text-primary-color rounded focus:ring-primary-color"
+                        className="w-5 h-5 text-purple-600 rounded-md focus:ring-purple-600 focus:ring-2 mr-3 mt-0.5"
                         checked={subscribeToNewsletter}
                         onChange={() => setSubscribeToNewsletter(!subscribeToNewsletter)}
                       />
-                      <span className="ml-2 text-sm text-gray-700">Jag vill prenumerera på nyhetsbrevet och få de senaste recepten direkt i min inkorg.</span>
+                      <span className="text-sm text-gray-700 leading-relaxed">
+                        Jag vill prenumerera på nyhetsbrevet och få de senaste recepten direkt i min inkorg.
+                      </span>
                     </label>
                   </div>
                   
-                  {formStatus === 'error' && !Object.keys(fieldErrors).length && (
-                    <div className="mb-4 p-3 bg-red-50 text-red-600 border border-red-200 rounded-md text-sm">
+                  {formStatus === 'error' && errorMessage && (
+                    <div className="error-message mb-6">
                       {errorMessage || 'Ett fel uppstod när meddelandet skulle skickas. Försök igen.'}
                     </div>
                   )}
@@ -269,11 +284,11 @@ export const ContactSection = () => {
                   <button 
                     type="submit" 
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70 max-w-full"
+                    className="btn-primary w-full py-4 rounded-2xl text-lg font-semibold hover-lift disabled:opacity-70 disabled:transform-none"
                   >
                     {formStatus === 'submitting' ? (
                       <>
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className="animate-spin mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -281,7 +296,8 @@ export const ContactSection = () => {
                       </>
                     ) : (
                       <>
-                        Skicka meddelande <ArrowRight size={18} className="ml-2" />
+                        <Send size={20} className="mr-3" />
+                        Skicka meddelande
                       </>
                     )}
                   </button>
@@ -290,104 +306,111 @@ export const ContactSection = () => {
             </div>
           </div>
           
-          <div className="md:w-1/2">
-            <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
-                <Mail className="mr-2 text-primary-color" size={20} />
+          {/* Contact Info */}
+          <div className="order-1 lg:order-2">
+            <div className="card-modern mb-8">
+              <h3 className="text-2xl font-bold mb-8 flex items-center text-purple-600">
+                <Mail className="mr-3 text-purple-600" size={24} />
                 Kontaktuppgifter
               </h3>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-beige-100 p-3 rounded-full mr-4">
-                    <Mail className="text-primary-color" size={18} />
+              <div className="space-y-8">
+                <div className="flex items-start p-4 rounded-xl bg-purple-50 hover:bg-purple-100 transition-all">
+                  <div className="bg-purple-100 p-3 rounded-2xl mr-4 shadow-md">
+                    <Mail className="text-purple-600" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">E-post</h4>
-                    <a href="mailto:info@maykaskitchen.se" className="text-brown-500 hover:text-primary-color transition-colors">info@maykaskitchen.se</a>
+                    <h4 className="font-semibold text-gray-800 mb-1">E-post</h4>
+                    <a href="mailto:info@maykaskitchen.se" className="text-purple-600 hover:text-purple-700 transition-colors font-medium">info@maykaskitchen.se</a>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <div className="bg-beige-100 p-3 rounded-full mr-4">
-                    <MapPin className="text-primary-color" size={18} />
+                
+                <div className="flex items-start p-4 rounded-xl bg-purple-50 hover:bg-purple-100 transition-all">
+                  <div className="bg-purple-100 p-3 rounded-2xl mr-4 shadow-md">
+                    <MapPin className="text-purple-600" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Plats</h4>
-                    <p className="text-brown-500">Skåne, Sverige</p>
-                    <p className="text-xs text-gray-500 mt-1">Tillgänglig för uppdrag i hela Sverige</p>
+                    <h4 className="font-semibold text-gray-800 mb-1">Plats</h4>
+                    <p className="text-purple-600 font-medium">Skåne, Sverige</p>
+                    <p className="text-sm text-gray-600 mt-1">Tillgänglig för uppdrag i hela Sverige</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
-                <Instagram className="mr-2 text-primary-color" size={20} />
+            {/* Social Media */}
+            <div className="card-modern">
+              <h3 className="text-2xl font-bold mb-8 flex items-center text-purple-600">
+                <Instagram className="mr-3 text-purple-600" size={24} />
                 Följ mig
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl hover:from-purple-100 hover:to-pink-100 transition-all group hover-lift shadow-md"
                 >
-                  <Instagram className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
+                  <Instagram className="text-purple-600 mr-4 group-hover:scale-110 transition-transform" size={28} />
                   <div>
-                    <h4 className="font-semibold">Instagram</h4>
-                    <p className="text-brown-500 text-sm">125 000+ följare</p>
+                    <h4 className="font-bold text-gray-800">Instagram</h4>
+                    <p className="text-purple-600 text-sm font-medium">125 000+ följare</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-purple-600 transition-all group-hover:translate-x-1" size={20} />
                 </a>
+                
                 <a 
                   href="https://www.tiktok.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-5 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl hover:from-purple-100 hover:to-indigo-100 transition-all group hover-lift shadow-md"
                 >
-                  <TikTok className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
+                  <TikTok className="text-purple-600 mr-4 group-hover:scale-110 transition-transform" size={28} />
                   <div>
-                    <h4 className="font-semibold">TikTok</h4>
-                    <p className="text-brown-500 text-sm">62 000+ följare</p>
+                    <h4 className="font-bold text-gray-800">TikTok</h4>
+                    <p className="text-purple-600 text-sm font-medium">62 000+ följare</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-purple-600 transition-all group-hover:translate-x-1" size={20} />
                 </a>
+                
                 <a 
                   href="https://www.youtube.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-5 bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl hover:from-red-100 hover:to-pink-100 transition-all group hover-lift shadow-md"
                 >
-                  <Youtube className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
+                  <Youtube className="text-red-600 mr-4 group-hover:scale-110 transition-transform" size={28} />
                   <div>
-                    <h4 className="font-semibold">YouTube</h4>
-                    <p className="text-brown-500 text-sm">ca 2000 prenumeranter</p>
+                    <h4 className="font-bold text-gray-800">YouTube</h4>
+                    <p className="text-red-600 text-sm font-medium">2 000+ prenumeranter</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-red-600 transition-all group-hover:translate-x-1" size={20} />
                 </a>
+                
                 <a 
                   href="https://www.facebook.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl hover:from-blue-100 hover:to-indigo-100 transition-all group hover-lift shadow-md"
                 >
-                  <Facebook className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
+                  <Facebook className="text-blue-600 mr-4 group-hover:scale-110 transition-transform" size={28} />
                   <div>
-                    <h4 className="font-semibold">Facebook</h4>
-                    <p className="text-brown-500 text-sm">25 000+ följare</p>
+                    <h4 className="font-bold text-gray-800">Facebook</h4>
+                    <p className="text-blue-600 text-sm font-medium">25 000+ följare</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-blue-600 transition-all group-hover:translate-x-1" size={20} />
                 </a>
               </div>
               
-              <div className="mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
-                <p className="font-medium mb-2">Snabbast svar får du via Instagram DM</p>
+              {/* Quick response tip */}
+              <div className="mt-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6 rounded-2xl shadow-lg">
+                <p className="font-semibold mb-3 text-lg">💬 Snabbast svar får du via Instagram DM</p>
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-white hover:text-beige-50 font-medium"
+                  className="inline-flex items-center text-white hover:text-purple-100 font-semibold transition-all hover-scale"
                 >
-                  Skicka DM <ArrowRight size={16} className="ml-1" />
+                  Skicka DM <ArrowRight size={18} className="ml-2" />
                 </a>
               </div>
             </div>
