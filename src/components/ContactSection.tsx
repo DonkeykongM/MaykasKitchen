@@ -132,15 +132,15 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="kontakt" className="py-16 bg-white relative">
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="kontakt" className="py-16 bg-white relative w-full overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">Nå mig</span>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">Kontakta mig</h2>
         <p className="text-center mb-12 max-w-2xl mx-auto">Hör gärna av dig för samarbeten, frågor eller bara för att säga hej!</p>
         
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/2">
-            <div className="bg-white p-8 rounded-lg shadow-md" ref={formRef}>
+        <div className="flex flex-col md:flex-row gap-8 w-full">
+          <div className="md:w-1/2 w-full max-w-none">
+            <div className="bg-white p-4 md:p-8 rounded-lg shadow-md w-full" ref={formRef}>
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Send className="mr-2 text-primary-color" size={20} />
                 Skicka ett meddelande
@@ -198,8 +198,7 @@ export const ContactSection = () => {
                       aria-invalid={!!fieldErrors.email}
                       aria-describedby={fieldErrors.email ? "email-error" : undefined}
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
-                        fieldErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                      }`}
+                      } max-w-full`}
                       placeholder="Din e-postadress"
                     />
                     {fieldErrors.email && (
@@ -214,7 +213,7 @@ export const ContactSection = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300 max-w-full"
                       placeholder="Vad handlar ditt meddelande om?"
                     />
                   </div>
@@ -232,7 +231,7 @@ export const ContactSection = () => {
                       aria-describedby={fieldErrors.message ? "message-error" : undefined}
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
                         fieldErrors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                      }`}
+                      } max-w-full resize-none`}
                       placeholder="Skriv ditt meddelande här..."
                     ></textarea>
                     {fieldErrors.message && (
@@ -261,7 +260,7 @@ export const ContactSection = () => {
                   <button 
                     type="submit" 
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70"
+                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70 max-w-full"
                   >
                     {formStatus === 'submitting' ? (
                       <>
@@ -282,7 +281,7 @@ export const ContactSection = () => {
             </div>
           </div>
           
-          <div className="md:w-1/2">
+          <div className="md:w-1/2 w-full">
             <div className="bg-white p-8 rounded-lg shadow-md mb-8">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Mail className="mr-2 text-primary-color" size={20} />
@@ -311,17 +310,17 @@ export const ContactSection = () => {
               </div>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-md">
+            <div className="bg-white p-6 md:p-8 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Instagram className="mr-2 text-primary-color" size={20} />
                 Följ mig
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
                   <Instagram className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -334,7 +333,7 @@ export const ContactSection = () => {
                   href="https://www.tiktok.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
                   <TikTok className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -347,7 +346,7 @@ export const ContactSection = () => {
                   href="https://www.youtube.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
                   <Youtube className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -360,7 +359,7 @@ export const ContactSection = () => {
                   href="https://www.facebook.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 md:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
                   <Facebook className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
@@ -371,13 +370,13 @@ export const ContactSection = () => {
                 </a>
               </div>
               
-              <div className="mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
+              <div className="mt-4 md:mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
                 <p className="font-medium mb-2">Snabbast svar får du via Instagram DM</p>
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-white hover:text-beige-50 font-medium"
+                  className="inline-flex items-center text-white hover:text-beige-50 font-medium min-h-[44px]"
                 >
                   Skicka DM <ArrowRight size={16} className="ml-1" />
                 </a>
