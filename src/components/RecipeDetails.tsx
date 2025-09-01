@@ -419,11 +419,10 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           {/* Back button */}
           <button 
             onClick={onBack}
-            className="flex items-center text-purple-600 hover:text-purple-700 mb-6 md:mb-8 group print:hidden transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg min-h-[44px]"
+            className="flex items-center text-white bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 mb-6 md:mb-8 group print:hidden transition-all duration-300 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] border border-purple-500"
           >
-            <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
-            <span className="hidden sm:inline">Tillbaka till receptsamlingen</span>
-            <span className="sm:hidden">Tillbaka</span>
+            <ArrowLeft size={18} className="mr-2 transition-transform group-hover:-translate-x-1" />
+            <span className="font-medium">Tillbaka</span>
           </button>
 
           {/* Personal story section */}
