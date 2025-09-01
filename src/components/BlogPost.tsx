@@ -152,6 +152,92 @@ const recipes = {
       ]
     }
   },
+  'qrimyothe-munkar': {
+    id: 'qrimyothe-munkar',
+    title: 'Qrimyothe – Mormors munkar 🍩',
+    description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
+    time: '120',
+    portions: '20',
+    likes: 8,
+    rating: 4.9,
+    reviews: 1,
+    badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+    videoUrl: '',
+    difficulty: 'Medel',
+    nutritionInfo: {
+      calories: '180 kcal',
+      protein: '4g',
+      carbs: '28g',
+      fat: '6g',
+      fiber: '1g',
+      salt: '0.3g'
+    },
+    allergens: ['Gluten'],
+    personalStory: 'Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.\n\nMin mamma har berättat hur mormor brukade baka dessa munkar hemma, särskilt när resurserna var knappa. Med mjöl, vatten, jäst och en nypa socker skapade hon något sött, varmt och älskat av barnen 👌😋.\n\nQrimyothe blev en kär tradition – ett sätt att visa kärlek genom enkelhet. Doften av nygräddade munkar bar med sig barndom, trygghet och omtanke. De påminde oss om att det inte krävs mycket för att ge – bara vilja, kärlek och omtanke 💫⭐️🌟.\n\nMed det här receptet vill jag bevara hennes minne och föra vidare smaken av våra rötter ❤️.',
+    content: {
+      ingredients: [
+        {
+          section: 'Huvudingredienser',
+          items: [
+            '7 dl varmt vatten (minst 40°C)',
+            '1 paket torrjäst (ca 12 g)',
+            '2 msk socker',
+            '1 msk salt',
+            '16 dl vetemjöl (ca 960 g)',
+            'Olja till fritering'
+          ]
+        }
+      ],
+      instructions: [
+        {
+          section: 'Förbered degen',
+          steps: [
+            'Häll det varma vattnet i en stor bunke.',
+            'Tillsätt socker och torrjäst. Rör om och låt stå i 10 minuter tills det börjar bubbla (det visar att jästen aktiverats).',
+            'Tillsätt salt och sedan mjölet lite i taget under omrörning.',
+            'Knåda degen tills den blir jämn och elastisk – cirka 10 minuter för hand eller 5–7 minuter i maskin.'
+          ]
+        },
+        {
+          section: 'Jäsning',
+          steps: [
+            'Täck bunken med plastfolie eller bakduk.',
+            'Låt degen jäsa i 1–1,5 timme på en varm plats tills den fördubblats i storlek.'
+          ]
+        },
+        {
+          section: 'Forma munkarna',
+          steps: [
+            'Häll lite olja på händerna för att degen inte ska fastna.',
+            'Ta små bitar av degen och forma till bollar eller ringar.'
+          ]
+        },
+        {
+          section: 'Fritering',
+          steps: [
+            'Hetta upp olja i en djup kastrull eller fritös till cirka 180°C.',
+            'Fritera några munkar åt gången tills de är gyllenbruna och genomstekta – vänd dem för jämn färg.',
+            'Låt munkarna rinna av på hushållspapper.'
+          ]
+        },
+        {
+          section: 'Serveringstips',
+          steps: [
+            'Servera som de är, eller pudra med florsocker.',
+            'Ringla över sirap eller servera med glass, hallon och mynta 😍.'
+          ]
+        }
+      ],
+      tips: [
+        'Degen ska vara mjuk och elastisk – tillsätt mer mjöl om den känns för klibbig',
+        'Temperaturen på oljan är viktig – för kall olja ger seg konsistens, för het gör munkarna mörka utanpå men råa inuti',
+        'Traditionellt serveras de med socker eller honung',
+        'Kan förvaras i lufttät behållare i 2-3 dagar',
+        'Blir extra goda uppvärmda kort i ugnen innan servering'
+      ]
+    }
+  },
   'kycklingfile-potatis-dragon': {
     id: 'kycklingfile-potatis-dragon',
     title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
@@ -1185,4 +1271,12 @@ export const KikartsTikkaMasalaPost = () => {
   };
 
   return <RecipeDetails recipe={recipes['kikarts-tikka-masala']} onBack={handleBack} />;
+};
+
+export const QrimyotheMunkarPost = () => {
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
+  return <RecipeDetails recipe={recipes['qrimyothe-munkar']} onBack={handleBack} />;
 };

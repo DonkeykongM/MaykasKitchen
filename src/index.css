@@ -66,20 +66,12 @@
 /* Optimized base styles for performance - MOBILE FIRST */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
   width: 100%;
-  max-width: 100vw;
   font-size: 16px;
   height: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Better performance on mobile */
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
 }
 
 body {
@@ -89,29 +81,16 @@ body {
   font-size: 1rem;
   font-weight: 400;
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: auto;
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 100vw;
   height: 100%;
   background: transparent;
   position: relative;
-  /* Optimized for mobile performance */
-  -webkit-overflow-scrolling: touch;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* Prevent multiple scroll containers */
-* {
-  box-sizing: border-box;
 }
 
 #root {
   min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
 }
 

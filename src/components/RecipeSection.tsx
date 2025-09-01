@@ -5,6 +5,21 @@ import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoad
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
   {
+    id: 'qrimyothe-munkar',
+    title: 'Qrimyothe – Mormors munkar 🍩',
+    description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
+    time: '120',
+    portions: '20',
+    likes: 8,
+    rating: 4.9,
+    reviews: 1,
+    badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+    trending: true,
+    difficulty: 'Medel',
+    fallbackEmoji: '🍩'
+  },
+  {
     id: 'kikarts-tikka-masala',
     title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
     description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig. Fullproppad med dofter, kryddor och värme, och ändå klar på bara 20 minuter. Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊',

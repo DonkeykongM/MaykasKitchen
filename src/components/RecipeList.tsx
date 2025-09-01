@@ -134,6 +134,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
 // Helper function to get recipe emoji
 const getRecipeEmoji = (recipeId) => {
   const emojiMap = {
+    'qrimyothe-munkar': '🍩',
     'lins-bulgur-jarpar': '🌱',
     'pannpizzor': '🍕',
     'batata-harra': '🥔',
@@ -162,6 +163,20 @@ const RecipeList = () => {
   }, []);
 
   const recipes = [
+    {
+      id: 'qrimyothe-munkar',
+      title: 'Qrimyothe – Mormors munkar 🍩',
+      description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
+      time: '120',
+      portions: '20',
+      likes: 8,
+      rating: 4.9,
+      reviews: 1,
+      badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+      trending: true,
+      difficulty: 'Medel'
+    },
     {
       id: 'kikarts-tikka-masala',
       title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
