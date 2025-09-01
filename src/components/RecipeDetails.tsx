@@ -413,7 +413,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-16 lg:pt-20">
       <article className="py-4 md:py-8 print:py-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}

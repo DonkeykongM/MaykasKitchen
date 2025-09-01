@@ -126,7 +126,7 @@ function App() {
 
   // Home page
   return (
-    <div className="font-sans bg-white text-gray-800">
+    <div className="font-sans bg-white text-gray-800 pt-16 lg:pt-20">
       <Header />
       <main id="main-content" role="main">
         <Hero />

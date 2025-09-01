@@ -27,7 +27,7 @@ export const Hero = () => {
     <header 
       ref={heroRef}
       id="hero"
-      className="relative py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full min-h-screen flex items-center"
+      className="relative py-4 md:py-8 lg:py-12 xl:py-16 overflow-hidden w-full min-h-screen flex items-center -mt-16 lg:-mt-20 pt-16 lg:pt-20"
       style={{
         background: 'linear-gradient(135deg, #800080 0%, #4B0082 50%, #2E0054 100%)'
       }}
