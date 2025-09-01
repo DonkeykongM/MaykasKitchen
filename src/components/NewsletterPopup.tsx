@@ -71,6 +71,7 @@ export const NewsletterPopup = () => {
         },
         body: JSON.stringify({
           type: 'newsletter',
+          type: 'newsletter',
           email,
           source: 'popup' 
         })

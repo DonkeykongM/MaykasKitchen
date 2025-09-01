@@ -24,6 +24,7 @@ export const Newsletter = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
+          type: 'newsletter',
           email,
           source: 'main_newsletter'
         })
