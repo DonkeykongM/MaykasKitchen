@@ -167,7 +167,21 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
         },
         {
           id: 2,
-          name: "Marcus Andersson", 
+          name: "Sarah Johansson",
+          rating: 5,
+          date: "15 november 2024",
+          text: "Fantastiskt recept! Perfekt balans av smaker och så mättande. Sumaken ger verkligen den där extra smaken som gör skillnad."
+        },
+        {
+          id: 3,
+          name: "Carl Magnusson",
+          rating: 4,
+          date: "30 december 2024",
+          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga"
+        },
+        {
+          id: 4,
+          name: "Marcus Andersson",
           rating: 5,
           date: "28 november 2024",
           text: "Gjorde detta till hela familjen och alla älskade det! Så enkelt att laga och resultatet var verkligen professionellt. Kommer definitivt göra igen."
@@ -175,8 +189,9 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
       ]
     };
     
-    // Return comments for the recipe (Pierre already removed)
-    return commentsByRecipe[recipe.id] || [];
+    // Filter out any Pierre comments and return filtered results
+    const recipeComments = commentsByRecipe[recipe.id] || [];
+    return recipeComments.filter(comment => comment.name !== 'Pierre');
   }, [recipe.id]);
 
   // Use live comments if available, otherwise fallback

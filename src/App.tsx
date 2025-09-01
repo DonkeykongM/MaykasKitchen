@@ -10,8 +10,6 @@ import { NewsletterPopup } from './components/NewsletterPopup';
 import { Footer } from './components/Footer';
 import FoodBlogBackground from './components/ui/food-blog-background';
 import { HeroSkeleton } from './components/LoadingStates/SkeletonLoader';
-import EnhancedMetaTags from './components/SEO/EnhancedMetaTags';
-import { WebsiteStructuredData, PersonStructuredData, FAQStructuredData } from './components/SEO/EnhancedStructuredData';
 
 // Lazy load components for better performance
 const RecipeList = lazy(() => import('./components/RecipeList').then(module => ({ default: module.RecipeList })));
@@ -243,7 +241,7 @@ function App() {
         "lins-bulgur-jarpar": LinsBulgurJarparPost,
         "mini-lahmacun": MiniLahmacunPost,
         "kall-foul-medames": KallFoulMedamesPost,
-        "kikarts-channa-masala": KikartsTikkaMasalaPost
+        "kikarts-tikka-masala": KikartsTikkaMasalaPost
       };
 
       const Component = recipeComponents[recipeId];
@@ -259,7 +257,6 @@ function App() {
 
     return (
       <ErrorBoundary>
-        <EnhancedMetaTags page="recipe" />
         <FoodBlogBackground className="min-h-screen" variant="recipes">
           <div className="font-sans bg-transparent text-text-color relative z-10">
             <Header />
@@ -280,7 +277,6 @@ function App() {
   if (currentHash.startsWith("#recept/")) {
     return (
       <ErrorBoundary>
-        <EnhancedMetaTags page="recipes" />
         <FoodBlogBackground className="min-h-screen" variant="recipes">
           <div className="font-sans bg-transparent text-text-color relative z-10">
             <Header />
@@ -300,10 +296,6 @@ function App() {
   // Optimized home page with different variants for different sections
   return (
     <ErrorBoundary>
-      <EnhancedMetaTags page="home" />
-      <WebsiteStructuredData />
-      <PersonStructuredData />
-      <FAQStructuredData />
       <FoodBlogBackground className="min-h-screen" variant="default">
         <div className="font-sans bg-transparent text-text-color relative z-10">
           <Header />
