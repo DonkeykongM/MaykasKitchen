@@ -182,6 +182,9 @@ export const Header = () => {
             >
               <Search size={18} />
             </button>
-}
-  )
-}
+          </nav>
+        </div>
+      </div>
+    </header>
+  );
+};
