@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Clock, Users, Heart, Instagram, ArrowLeft, Printer, Bookmark, Share2, AlertCircle, Star, MessageCircle, Send } from 'lucide-react';
 import { getRecipeStats, getRecipeComments, submitComment, submitRating, type RecipeComment } from '../lib/recipeService';
-import { OptimizedImage } from './ui/OptimizedImage';
 
 interface RecipeDetailsProps {
   recipe: {
@@ -436,16 +435,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-purple-100">
             <div className="flex flex-col lg:flex-row">
               <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-auto">
-                <OptimizedImage 
+                <img 
                   src={recipe.image} 
                   alt={recipe.title}
-                  className=""
+                  className="w-full h-full object-cover"
+                  loading="eager"
                   width="600"
                   height="400"
-                  priority={true}
-                  quality={90}
-                  fallbackEmoji="🍽️"
-                  fallbackText={recipe.title}
                 />
               </div>
               <div className="p-4 md:p-6 lg:p-8 w-full lg:w-1/2">

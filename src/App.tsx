@@ -1,5 +1,4 @@
 import React, { useEffect, useState, Suspense, lazy } from 'react';
-import { recipes } from './data/recipes';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
@@ -13,8 +12,6 @@ import FoodBlogBackground from './components/ui/food-blog-background';
 import { HeroSkeleton } from './components/LoadingStates/SkeletonLoader';
 import EnhancedMetaTags from './components/SEO/EnhancedMetaTags';
 import { WebsiteStructuredData, PersonStructuredData, FAQStructuredData } from './components/SEO/EnhancedStructuredData';
-import { usePerformanceMonitoring, useBundleOptimization } from './hooks/usePerformanceMonitoring';
-import { PerformanceOptimizedLoader } from './components/LoadingStates/PerformanceOptimizedLoader';
 
 // Lazy load components for better performance
 const RecipeList = lazy(() => import('./components/RecipeList').then(module => ({ default: module.RecipeList })));
@@ -85,47 +82,20 @@ function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
   const [isLoading, setIsLoading] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [showLoader, setShowLoader] = useState(true);
-  
-  // Performance monitoring
-  usePerformanceMonitoring();
-  useBundleOptimization();
 
   useEffect(() => {
-    // Performance-optimized loading sequence
+    // Optimized loading with performance monitoring
     const startTime = performance.now();
-    let initialLoadTimer: number;
     
-    // Critical resource loading
-    const criticalResourcesLoaded = Promise.all([
-      // Wait for DOM content loaded
-      new Promise(resolve => {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', resolve, { once: true });
-        } else {
-          resolve(null);
-        }
-      }),
-      // Wait for critical images to start loading
-      new Promise(resolve => setTimeout(resolve, 100))
-    ]);
-
-    criticalResourcesLoaded.then(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
+      setIsInitialLoad(false);
       
       const loadTime = performance.now() - startTime;
-      
-      // Performance budget monitoring
-      if (loadTime > 2500) {
-        console.warn(`Initial load time: ${loadTime.toFixed(2)}ms - Consider further optimization`);
+      if (loadTime > 3000) {
+        console.warn(`Page load time exceeded 3 seconds: ${loadTime.toFixed(2)}ms`);
       }
-      
-      // Hide loader after slight delay for smooth transition
-      initialLoadTimer = window.setTimeout(() => {
-        setIsInitialLoad(false);
-        setShowLoader(false);
-      }, 200);
-    });
+    }, 100);
     
     // Optimized hash change detection
     let hashChangeTimeout: number;
@@ -232,7 +202,7 @@ function App() {
     updatePageMeta();
     
     return () => {
-      clearTimeout(initialLoadTimer);
+      clearTimeout(timer);
       clearTimeout(hashChangeTimeout);
       window.removeEventListener('hashchange', handleHashChange);
       cleanupObserver();
@@ -252,14 +222,13 @@ function App() {
   }, []);
 
   // Show loading screen with skeleton
-  if (showLoader) {
-    return <PerformanceOptimizedLoader isLoading={isLoading} onLoadComplete={() => setShowLoader(false)} />;
+  if (isLoading) {
+    return isInitialLoad ? <LoadingSpinner /> : <HeroSkeleton />;
   }
 
   // Recipe pages with lazy loading and error boundary
   if (currentHash.startsWith("#recipe/")) {
     const recipeId = currentHash.replace("#recipe/", "");
-    const currentRecipe = recipes[recipeId];
     
     const RecipeComponent = () => {
       const recipeComponents = {
@@ -290,7 +259,7 @@ function App() {
 
     return (
       <ErrorBoundary>
-        <EnhancedMetaTags page="recipe" recipe={currentRecipe} />
+        <EnhancedMetaTags page="recipe" />
         <FoodBlogBackground className="min-h-screen" variant="recipes">
           <div className="font-sans bg-transparent text-text-color relative z-10">
             <Header />
