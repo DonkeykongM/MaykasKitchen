@@ -1,11 +1,16 @@
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 
-export const useOptimizedScroll = (callback: (scrollY: number) => void, delay: number = 16) => {
+export const useOptimizedScroll = (callback?: (scrollY: number) => void, delay: number = 16) => {
+  const [scrollY, setScrollY] = useState(0);
   const lastCallTime = useRef<number>(0);
   const rafId = useRef<number>();
 
   const optimizedCallback = useCallback(() => {
-    callback(window.scrollY);
+    const currentScrollY = window.scrollY;
+    setScrollY(currentScrollY);
+    if (callback) {
+      callback(currentScrollY);
+    }
   }, [callback]);
 
   const handleScroll = useCallback(() => {
@@ -36,4 +41,6 @@ export const useOptimizedScroll = (callback: (scrollY: number) => void, delay: n
       }
     };
   }, [handleScroll]);
+
+  return { scrollY };
 };
