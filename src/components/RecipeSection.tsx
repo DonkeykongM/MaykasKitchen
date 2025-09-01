@@ -462,7 +462,11 @@ export const RecipeSection = () => {
         {/* Call to action with improved accessibility and WORKING functionality */}
         <div className="text-center mb-8 md:mb-12 lg:mb-20">
           <button 
-            onClick={handleSeeAllRecipes}
+            onClick={(e) => {
+              e.preventDefault();
+              localStorage.setItem('lastPage', 'home');
+              window.location.hash = 'recept/alla';
+            }}
             className="bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px] transform hover:scale-105"
             role="button"
             aria-label="Se alla våra recept"

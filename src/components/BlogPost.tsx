@@ -5,7 +5,13 @@ import { recipes } from '../data/recipes';
 // Clean component exports using shared recipe data
 export const LaxRisbowlPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    // Check if user came from recipe list or homepage
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['lax-risbowl']} onBack={handleBack} />;
@@ -13,7 +19,12 @@ export const LaxRisbowlPost = () => {
 
 export const KaftaBilSejniePost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['kafta-bil-sejnie']} onBack={handleBack} />;
@@ -21,7 +32,12 @@ export const KaftaBilSejniePost = () => {
 
 export const KoftaBilSaniehPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['kofta-bil-sanieh']} onBack={handleBack} />;
@@ -29,7 +45,12 @@ export const KoftaBilSaniehPost = () => {
 
 export const PastaPestoPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['pasta-pesto']} onBack={handleBack} />;
@@ -37,7 +58,12 @@ export const PastaPestoPost = () => {
 
 export const KycklingShawarmaPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['kyckling-shawarma']} onBack={handleBack} />;
@@ -45,7 +71,12 @@ export const KycklingShawarmaPost = () => {
 
 export const PannpizzorPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['pannpizzor']} onBack={handleBack} />;
@@ -53,7 +84,12 @@ export const PannpizzorPost = () => {
 
 export const BatataHarraPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['batata-harra']} onBack={handleBack} />;
@@ -61,7 +97,12 @@ export const BatataHarraPost = () => {
 
 export const KycklingfilePotatisDragonPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['kycklingfile-potatis-dragon']} onBack={handleBack} />;
@@ -69,14 +110,25 @@ export const KycklingfilePotatisDragonPost = () => {
 
 export const LinsBulgurJarparPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
+  
   return <RecipeDetails recipe={recipes['lins-bulgur-jarpar']} onBack={handleBack} />;
 };
 
 export const MiniLahmacunPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['mini-lahmacun']} onBack={handleBack} />;
@@ -84,7 +136,12 @@ export const MiniLahmacunPost = () => {
 
 export const KallFoulMedamesPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['kall-foul-medames']} onBack={handleBack} />;
@@ -92,7 +149,12 @@ export const KallFoulMedamesPost = () => {
 
 export const KikartsTikkaMasalaPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['kikarts-tikka-masala']} onBack={handleBack} />;
@@ -100,7 +162,12 @@ export const KikartsTikkaMasalaPost = () => {
 
 export const QrimyotheMunkarPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
+    if (document.referrer.includes('#recept/') || localStorage.getItem('lastPage') === 'recept') {
+      window.location.hash = 'recept/alla';
+    } else {
+      window.location.hash = '';
+    }
+    localStorage.removeItem('lastPage');
   };
 
   return <RecipeDetails recipe={recipes['qrimyothe-munkar']} onBack={handleBack} />;
