@@ -257,22 +257,24 @@ p {
 .nav-link {
   position: relative;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   padding: 0.75rem 0;
   min-height: 44px;
   display: flex;
   align-items: center;
+  border-radius: 0.5rem;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
+  height: 3px;
   bottom: 0;
   left: 0;
-  background-color: #800080;
+  background: linear-gradient(90deg, #800080, #4B0082);
   transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
 .nav-link:hover::after,
@@ -285,6 +287,7 @@ p {
   outline: 2px solid #800080;
   outline-offset: 4px;
   border-radius: 4px;
+  background-color: rgba(128, 0, 128, 0.05);
 }
 
 /* Form elements */
