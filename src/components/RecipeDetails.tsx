@@ -244,6 +244,10 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   }, [isSaved, recipe.id]);
 
   const handleShare = useCallback(() => {
+    // Remove any existing share modals first
+    const existingModals = document.querySelectorAll('.share-modal');
+    existingModals.forEach(modal => modal.remove());
+
     const shareData = {
       title: `${recipe.title} - MaykasKitchen`,
       text: `Kolla in detta recept: ${recipe.description}`,
@@ -261,21 +265,18 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     }
 
     function fallbackShare() {
-      // Create a simple share menu
       const shareUrl = encodeURIComponent(window.location.href);
-      const shareTitle = encodeURIComponent(`${recipe.title} - MaykasKitchen`);
       const shareText = encodeURIComponent(`Kolla in detta recept från MaykasKitchen: ${recipe.title}`);
       
-      // Create modal with share options
       const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
+      modal.className = 'share-modal fixed inset-0 bg-black/50 flex items-center justify-center p-4';
       modal.style.zIndex = '9999';
       
       modal.innerHTML = `
-        <div class="bg-white rounded-xl p-6 max-w-sm w-full">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-2xl">
           <h3 class="text-lg font-semibold mb-4 text-center">Dela receptet</h3>
           <div class="space-y-3">
-            <button onclick="navigator.clipboard.writeText('${window.location.href}').then(() => alert('Länk kopierad!')); document.body.removeChild(this.closest('div[class*=fixed]'))" 
+            <button onclick="navigator.clipboard.writeText('${window.location.href}').then(() => { alert('Länk kopierad!'); document.querySelector('.share-modal').remove(); })" 
                     class="w-full bg-purple-100 text-purple-700 p-3 rounded-lg hover:bg-purple-200 transition-colors flex items-center justify-center">
               📋 Kopiera länk
             </button>
@@ -284,23 +285,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center block">
               📘 Dela på Facebook
             </a>
-            <a href="https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}" 
-               target="_blank" 
-               class="w-full bg-black text-white p-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center block">
-              🐦 Dela på Twitter
-            </a>
             <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" 
                target="_blank" 
                class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center block">
               📱 Dela på WhatsApp
             </a>
-            <a href="https://www.instagram.com/" 
-               target="_blank" 
-               onclick="navigator.clipboard.writeText('${window.location.href}'); alert('Receptlänk kopierad! Öppnar Instagram så du kan klistra in i din story eller post.');" 
-               class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white p-3 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-colors flex items-center justify-center block">
-              📸 Dela på Instagram
-            </a>
-            <button onclick="document.body.removeChild(this.closest('div[class*=fixed]'))" 
+            <button onclick="document.querySelector('.share-modal').remove()" 
                     class="w-full bg-gray-100 text-gray-700 p-3 rounded-lg hover:bg-gray-200 transition-colors">
               Stäng
             </button>
@@ -308,10 +298,9 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
         </div>
       `;
       
-      // Close on outside click
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-          document.body.removeChild(modal);
+          modal.remove();
         }
       });
       
