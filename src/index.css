@@ -717,6 +717,17 @@ img {
   max-width: 100%;
   height: auto;
   vertical-align: middle;
+  overflow: hidden;
+}
+
+/* Fix scroll issues in buttons and images */
+button, .btn-primary, .btn-secondary, .recipe-card {
+  overflow: hidden;
+}
+
+/* Remove horizontal scrollbars globally */
+* {
+  overflow-x: hidden;
 }
 
 img[loading="lazy"] {

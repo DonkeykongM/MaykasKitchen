@@ -19,10 +19,7 @@ interface EnhancedMetaTagsProps {
 
 export const EnhancedMetaTags: React.FC<EnhancedMetaTagsProps> = ({ page, recipe }) => {
   const getPageMeta = () => {
-    // Prevent infinite recursion by falling back to 'recipes' page when recipe data is missing
-    const effectivePage = (page === 'recipe' && !recipe) ? 'recipes' : page;
-    
-    switch (effectivePage) {
+    switch (page) {
       case 'home':
         return {
           title: "Assyrisk & Syriansk Matlagning | Autentiska Recept | MaykasKitchen",
@@ -33,7 +30,20 @@ export const EnhancedMetaTags: React.FC<EnhancedMetaTagsProps> = ({ page, recipe
         };
       
       case 'recipe':
-        // This case now only handles when recipe data exists
+        if (!recipe) {
+          // Return recipes page meta instead of recursion
+          return {
+            title: "Alla Recept - Assyrisk & Syriansk Matlagning | MaykasKitchen",
+            description: "Bläddra bland 50+ autentiska assyriska & syrianska recept. Filtrera på kött, vegetariskt, snabbt. Från traditionell kafta bil sejnie till moderna bowls.",
+            keywords: "alla recept, assyriska recept, syrianska recept, receptsamling, mellanöstern mat, vegetariska recept, köttrecept",
+            canonical: "https://maykaskitchen.se#recept",
+            breadcrumb: [
+              { name: "Hem", url: "https://maykaskitchen.se" },
+              { name: "Alla Recept", url: "https://maykaskitchen.se#recept" }
+            ]
+          };
+        }
+        
         return {
           title: `${recipe.title} - Recept | MaykasKitchen`,
           description: `${recipe.description} ⏱️ ${recipe.time} min | 👥 ${recipe.portions} portioner | ⭐ ${recipe.rating}/5 från ${recipe.reviews} recensioner. Steg-för-steg guide.`,
