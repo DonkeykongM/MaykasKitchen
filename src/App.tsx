@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
 import { RecipeSection } from './components/RecipeSection';
+import { BlogSection } from './components/BlogSection';
 import { CollaborationSection } from './components/CollaborationSection';
 import { ContactSection } from './components/ContactSection';
 import { Newsletter } from './components/Newsletter';
@@ -132,6 +133,7 @@ function App() {
         <Hero />
         <AboutSection />
         <RecipeSection />
+        <BlogSection />
         <CollaborationSection />
         <ContactSection />
         <Newsletter />

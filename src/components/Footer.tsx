@@ -182,6 +182,15 @@ export const Footer = () => {
                 </li>
                 <li>
                   <button 
+                    onClick={() => handleNavigation('min-blogg')}
+                    className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
+                  >
+                    <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
+                    Blogg
+                  </button>
+                </li>
+                <li>
+                  <button 
                     onClick={() => handleNavigation('samarbeten')}
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
                   >
