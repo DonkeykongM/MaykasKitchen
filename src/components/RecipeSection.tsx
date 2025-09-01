@@ -469,7 +469,6 @@ export const RecipeSection = () => {
             Se alla recept
           </button>
         </div>
-      </div>
     </div>
   );
 };
