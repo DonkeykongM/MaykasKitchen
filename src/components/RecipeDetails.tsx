@@ -193,13 +193,14 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   }));
 
   const adjustAmount = useCallback((amount: string, originalPortions: number) => {
-    const regex = /(\d+(?:\.\d+)?)\s*([a-zA-ZåäöÅÄÖ]+)?/;
+    const regex = /^(\d+(?:[.,]\d+)?)\s*(\w+)?\s*(.*)$/;
     const match = amount.match(regex);
     
-    if (match) {
-      const value = parseFloat(match[1]);
+    if (match && match.length >= 2) {
+      const originalValue = parseFloat(match[1].replace(',', '.'));
       const unit = match[2] || '';
-      const adjustedValue = (value * portionCount) / originalPortions;
+      const remainingText = match[3] || '';
+      const adjustedValue = (originalValue * portionCount) / originalPortions;
       
       let formattedValue: string;
       if (adjustedValue % 1 === 0) {
@@ -208,7 +209,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
         formattedValue = adjustedValue.toFixed(1).replace(/\.0$/, '');
       }
       
-      return `${formattedValue} ${unit}`.trim();
+      return `${formattedValue} ${unit} ${remainingText}`.trim();
     }
     
     return amount;
