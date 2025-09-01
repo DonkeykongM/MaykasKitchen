@@ -176,5 +176,7 @@ export const Header = () => {
             <button 
               onClick={toggleSearch} 
               className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 relative"
-  )
+            >
+              <Search size={18} />
+            </button>
 }
