@@ -413,7 +413,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+    <div className="min-h-screen bg-white">
       <article className="py-4 md:py-8 print:py-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
@@ -428,7 +428,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
           {/* Personal story section */}
           {recipe.personalStory && (
-            <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 p-4 md:p-8 border border-purple-100">
+            <div className="bg-white rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 p-4 md:p-8 border border-purple-100">
               <div className="flex items-center mb-4 md:mb-6">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
                   <Heart className="text-white" size={20} />
@@ -449,7 +449,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           )}
 
           {/* Recipe header */}
-          <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-purple-100">
+          <div className="bg-white rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-purple-100">
             <div className="flex flex-col lg:flex-row">
               <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-auto">
                 <img 
@@ -569,7 +569,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           </div>
 
           {/* Portions adjuster */}
-          <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 mb-6 md:mb-8 shadow-lg border border-purple-100">
+          <div className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 mb-6 md:mb-8 shadow-lg border border-purple-100">
             <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-center text-purple-600">Justera portioner</h3>
             <div className="flex items-center justify-center">
               <button 
@@ -592,7 +592,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
             {/* Instructions - NOW ON LEFT (3/4 width on desktop) */}
             <div className="lg:col-span-3 order-2 lg:order-1">
-              <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
+              <div className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
                 <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
                   Gör såhär
                 </h2>
@@ -620,7 +620,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
               {/* Tips */}
               {recipe.content.tips && recipe.content.tips.length > 0 && (
-                <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
+                <div className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
                   <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-center text-purple-600 font-serif">
                     Tips & variationer
                   </h2>
@@ -638,7 +638,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
             {/* Ingredients - NOW ON RIGHT (1/4 width on desktop, MUCH SMALLER & BETTER ALIGNED) */}
             <div className="lg:col-span-1 order-1 lg:order-2">
-              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-4">
+              <div className="bg-white rounded-lg shadow-lg sticky top-8 border border-purple-100 p-4">
                 <h2 className="text-base md:text-lg font-bold mb-4 text-center text-purple-600 font-serif">
                   Ingredienser
                 </h2>
@@ -710,7 +710,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           </div>
 
           {/* Rating and Comments */}
-          <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-purple-100">
+          <div className="bg-white rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-purple-100">
             <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
               Betygsätt & kommentera
             </h2>

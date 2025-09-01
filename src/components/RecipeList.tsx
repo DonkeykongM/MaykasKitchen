@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Clock, Users, Heart, Star, ChevronRight, ArrowLeft, Filter, Tag } from 'lucide-react';
-import FoodBlogBackground from './ui/food-blog-background';
 
-// Enhanced recipe card component with robust image handling
 const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -422,13 +420,12 @@ const RecipeList = () => {
   };
 
   return (
-    <FoodBlogBackground className="min-h-screen" variant="recipes">
-      <div className="py-8 md:py-12 relative z-10" id="recipe-list">
-        <div className="container mx-auto px-4">
+    <div className="py-8 md:py-12 bg-gray-50 min-h-screen" id="recipe-list">
+      <div className="container mx-auto px-4">
           {/* Back button */}
           <button 
             onClick={handleBack}
-            className="flex items-center text-purple-300 hover:text-white mb-6 md:mb-8 group bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-white/20 min-h-[44px]"
+            className="flex items-center text-purple-600 hover:text-purple-800 mb-6 md:mb-8 group bg-white px-4 py-2 rounded-full transition-all border border-purple-200 min-h-[44px]"
           >
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
             <span className="hidden sm:inline">Tillbaka till startsidan</span>
@@ -436,18 +433,19 @@ const RecipeList = () => {
           </button>
 
           <span className="block text-center text-purple-300 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
+          <span className="block text-center text-purple-600 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
             Matinspiration
           </span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-3 md:mb-4 text-white">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-3 md:mb-4 text-purple-600">
             Alla våra recept
           </h2>
-          <p className="text-center mb-6 md:mb-8 max-w-2xl mx-auto text-purple-100 text-sm md:text-base lg:text-lg">
+          <p className="text-center mb-6 md:mb-8 max-w-2xl mx-auto text-gray-600 text-sm md:text-base lg:text-lg">
             Upptäck alla våra recept som kombinerar traditionell assyrisk/syriansk matlagning med moderna smaker och enkla tillagningsmetoder.
           </p>
 
           {/* Search and filters */}
           <div className="max-w-4xl mx-auto mb-8 md:mb-12">
-            <div className="bg-white/90 backdrop-blur-md p-3 md:p-4 rounded-lg shadow-md">
+            <div className="bg-white p-3 md:p-4 rounded-lg shadow-md">
               <div className="flex flex-col md:flex-row gap-3 md:gap-4 mb-3 md:mb-4">
                 <div className="relative flex-grow">
                   <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
@@ -497,7 +495,7 @@ const RecipeList = () => {
 
               {/* Popular tags as quick filters */}
               <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
-                <span className="text-xs md:text-sm text-gray-600 mr-1 flex items-center">
+                <span className="text-xs md:text-sm text-gray-700 mr-1 flex items-center">
                   <Tag size={12} className="mr-1" /> Populära:
                 </span>
                 <button 
@@ -543,7 +541,7 @@ const RecipeList = () => {
           {/* Search results count */}
           {searchTerm && (
             <div className="mb-4 md:mb-6 text-center">
-              <p className="text-purple-100 text-sm md:text-base">
+              <p className="text-gray-600 text-sm md:text-base">
                 {filteredRecipes.length === 0 
                   ? `Inga recept matchar sökningen "${searchTerm}"` 
                   : `Visar ${filteredRecipes.length} recept för "${searchTerm}"`}
@@ -553,7 +551,7 @@ const RecipeList = () => {
 
           {/* Recipe grid */}
           {filteredRecipes.length === 0 ? (
-            <div className="text-center py-8 md:py-12 bg-white/90 backdrop-blur-md rounded-lg shadow-md max-w-xl mx-auto">
+            <div className="text-center py-8 md:py-12 bg-white rounded-lg shadow-md max-w-xl mx-auto">
               <div className="text-gray-400 mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 md:h-16 md:w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -584,7 +582,7 @@ const RecipeList = () => {
           )}
 
           {/* Newsletter signup */}
-          <div className="mt-12 md:mt-16 bg-white/90 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-md max-w-xl mx-auto">
+          <div className="mt-12 md:mt-16 bg-white p-6 md:p-8 rounded-xl shadow-md max-w-xl mx-auto">
             <h3 className="text-xl md:text-2xl font-bold text-purple-600 mb-3">
               Få nya recept direkt i din inkorg
             </h3>
@@ -625,8 +623,7 @@ const RecipeList = () => {
             </div>
           </div>
         </div>
-      </div>
-    </FoodBlogBackground>
+    </div>
   );
 };
 

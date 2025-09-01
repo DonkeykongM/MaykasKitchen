@@ -206,7 +206,14 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
   const [imageError, setImageError] = useState(false);
 
   if (isLoading) {
-    return <SkeletonLoader variant="recipe" />;
+    return (
+      <div className="bg-white rounded-xl shadow-lg p-4">
+        <div className="h-48 bg-gray-200 rounded-lg mb-4 animate-pulse"></div>
+        <div className="h-6 bg-gray-200 rounded mb-2 animate-pulse"></div>
+        <div className="h-4 bg-gray-200 rounded mb-2 animate-pulse"></div>
+        <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+      </div>
+    );
   }
 
   const handleImageLoad = useCallback(() => {
@@ -221,7 +228,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
 
   return (
     <article 
-      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card border border-purple-100 will-change-transform"
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all cursor-pointer w-full recipe-card border border-purple-100"
       onClick={(e) => onRecipeClick(recipe.id, e)}
       role="button"
       tabIndex={0}
@@ -241,7 +248,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
             alt={recipe.title}
             width={400}
             height={260}
-            className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
+            className="w-full h-full object-cover"
             loading="lazy"
             decoding="async"
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -363,23 +370,13 @@ RecipeCard.displayName = 'RecipeCard';
 
 export const RecipeSection = () => {
   const [activeFilter, setActiveFilter] = useState('alla');
-  const [isLoading, setIsLoading] = useState(false);
   const sectionRef = useRef(null);
 
   // Optimized navigation with useCallback for better performance
   const handleRecipeClick = useCallback((id, e) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    // Add loading state for better UX
-    setIsLoading(true);
-    
-    // Simulate network delay for skeleton loader demonstration
-    setTimeout(() => {
-      setIsLoading(false);
-      // Direct hash change for fastest navigation
-      window.location.hash = `recipe/${id}`;
-    }, 200);
+    window.location.hash = `recipe/${id}`;
   }, []);
 
   // Handle "Se alla recept" button click
@@ -411,9 +408,6 @@ export const RecipeSection = () => {
   // Optimized filter handler
   const handleFilterChange = useCallback((filterId) => {
     setActiveFilter(filterId);
-    // Add slight loading state for visual feedback
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 100);
   }, []);
 
   return (
@@ -452,22 +446,15 @@ export const RecipeSection = () => {
         </div>
         
         {/* Optimized recipe grid with lazy loading and error boundaries */}
-        <Suspense fallback={<RecipeGridSkeleton />}>
+        <Suspense fallback={<div className="text-center py-8">Laddar recept...</div>}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-12">
-            {isLoading ? (
-              // Show skeleton loaders during transitions
-              [...Array(4)].map((_, index) => (
-                <SkeletonLoader key={index} variant="recipe" />
-              ))
-            ) : (
-              filteredRecipes.map(recipe => (
-                <RecipeCard 
-                  key={recipe.id} 
-                  recipe={recipe} 
-                  onRecipeClick={handleRecipeClick}
-                />
-              ))
-            )}
+            {filteredRecipes.map(recipe => (
+              <RecipeCard 
+                key={recipe.id} 
+                recipe={recipe} 
+                onRecipeClick={handleRecipeClick}
+              />
+            ))}
           </div>
         </Suspense>
         
@@ -475,7 +462,7 @@ export const RecipeSection = () => {
         <div className="text-center mb-8 md:mb-12 lg:mb-20">
           <button 
             onClick={handleSeeAllRecipes}
-            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px]"
+            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px]"
             role="button"
             aria-label="Se alla våra recept"
           >
@@ -483,6 +470,6 @@ export const RecipeSection = () => {
           </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

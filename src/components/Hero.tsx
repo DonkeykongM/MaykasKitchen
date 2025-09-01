@@ -2,42 +2,12 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { ChevronDown, Instagram, UtensilsCrossed, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
 
 export const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const heroRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
-    setIsVisible(true);
-    
-    // Detect mobile devices
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile, { passive: true });
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '50px' }
-    );
-    
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
-    }
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current);
-      }
-    };
+    // Simple visibility trigger
+    setTimeout(() => setIsVisible(true), 100);
   }, []);
 
   const scrollToRecipes = useCallback(() => {
@@ -59,21 +29,10 @@ export const Hero = () => {
       id="hero"
       className="relative py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full min-h-screen flex items-center"
       style={{
-        background: isMobile 
-          ? 'linear-gradient(135deg, #800080 0%, #4B0082 50%, #2E0054 100%)' 
-          : 'linear-gradient(135deg, #800080 0%, #4B0082 25%, #2E0054 50%, #1A001A 75%, #000000 100%)'
+        background: 'linear-gradient(135deg, #800080 0%, #4B0082 50%, #2E0054 100%)'
       }}
       aria-labelledby="hero-heading"
     >
-      {/* Minimala dekorativa element för mobil - ingen animation */}
-      {!isMobile && (
-        <>
-          <div className="absolute top-[20%] right-[10%] w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 bg-white/3 rounded-full"></div>
-          <div className="absolute bottom-[25%] left-[8%] w-6 h-6 md:w-8 md:h-8 lg:w-12 lg:h-12 bg-white/3 rounded-full"></div>
-          <div className="absolute top-[35%] left-[15%] w-4 h-4 md:w-6 md:h-6 lg:w-10 lg:h-10 bg-white/3 rounded-full"></div>
-        </>
-      )}
-      
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         {/* OPTIMERAD TEXT-SEKTION FÖR MOBIL */}
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-6 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -156,7 +115,7 @@ export const Hero = () => {
               <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4" 
                 alt="Mayka Gulo i köket med färska råvaror" 
-                className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105"
+                className="object-cover w-full h-full"
                 loading="eager"
                 width="384"
                 height="384"
@@ -171,7 +130,7 @@ export const Hero = () => {
       <div className="md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2">
         <button 
           onClick={scrollToRecipes}
-          className="animate-bounce bg-white/20 backdrop-blur-sm h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all min-h-[44px]"
+          className="bg-white/20 h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all min-h-[44px]"
           aria-label="Scrolla ner för att utforska recept"
         >
           <ChevronDown size={24} className="text-white" />
