@@ -142,10 +142,3 @@ function App() {
 }
 
 export default App;
-      </div>
-    </FoodBlogBackground>
-  </ErrorBoundary>
-);
-}
-
-export default App;
