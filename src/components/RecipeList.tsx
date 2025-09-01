@@ -401,7 +401,8 @@ const RecipeList = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
+          type: 'newsletter',
           email,
           source: 'recipe_list' 
         })
@@ -595,12 +596,12 @@ const RecipeList = () => {
               <input
                 type="email"
                 placeholder="Din e-postadress"
-                className="flex-1 px-3 md:px-4 py-2 md:py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px]"
+                className="flex-1 px-3 md:px-4 py-2 md:py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px] max-w-full box-border"
                 required
               />
               <button
                 type="submit"
-                className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px]"
+                className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px] max-w-full"
               >
                 Prenumerera
               </button>

@@ -71,14 +71,14 @@ export const Newsletter = () => {
               <p className="text-gray-600">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-full">
               <div className="relative flex-grow">
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Din e-postadress" 
-                  className={`w-full px-4 py-4 rounded-lg border text-gray-800 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white ${
+                  className={`w-full px-4 py-4 rounded-lg border text-gray-800 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white max-w-full box-border ${
                     submitStatus === 'error' ? 'border-red-500 bg-red-50' : ''
                   }`}
                   aria-label="Din e-postadress"
@@ -93,7 +93,7 @@ export const Newsletter = () => {
               <button 
                 type="submit"
                 disabled={submitStatus === 'submitting'}
-                className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition-all font-semibold flex items-center justify-center group whitespace-nowrap disabled:opacity-70 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition-all font-semibold flex items-center justify-center group whitespace-nowrap disabled:opacity-70 shadow-lg hover:shadow-xl"
               >
                 {submitStatus === 'submitting' ? (
                   <span className="flex items-center">

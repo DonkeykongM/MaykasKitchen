@@ -72,6 +72,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -87,11 +88,13 @@ body {
   height: 100%;
   background: transparent;
   position: relative;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* MOBILE-FIRST Typography with better contrast and WCAG 2.1 compliance */
@@ -194,14 +197,14 @@ section {
   position: relative;
   z-index: 10;
   overflow-x: hidden;
-  /* Reduced hardware acceleration on mobile */
   will-change: auto;
+  width: 100%;
+  max-width: 100vw;
 }
 
 @media (min-width: 768px) {
   section {
     will-change: transform;
-    transform: translateZ(0);
   }
 }
 
@@ -333,15 +336,14 @@ section {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  /* Reduced transforms on mobile */
   will-change: auto;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
   .recipe-card {
     backdrop-filter: blur(10px);
     will-change: transform;
-    transform: translateZ(0);
   }
 }
 
@@ -354,7 +356,7 @@ section {
 @media (min-width: 768px) {
   .recipe-card:hover,
   .recipe-card:focus-within {
-    transform: translateY(-8px) translateZ(0);
+    transform: translateY(-8px);
   }
 }
 
@@ -419,6 +421,7 @@ input, textarea, select {
   background-color: rgba(255, 255, 255, 0.95);
   min-height: 44px; /* WCAG touch target size */
   will-change: border-color, box-shadow;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -575,12 +578,14 @@ textarea:invalid {
   /* Ensure hero takes full viewport on mobile */
   #hero {
     min-height: 100vh;
+    overflow-x: hidden;
   }
   
   /* Improved touch targets for mobile */
   .nav-link {
     min-height: 48px;
     padding: 0.75rem 0;
+    overflow-x: hidden;
   }
   
   /* Disable transform effects on mobile for better performance */
@@ -591,6 +596,12 @@ textarea:invalid {
   .btn-primary:hover,
   .btn-secondary:hover {
     transform: none;
+  }
+  
+  /* Fix any potential overflow issues on mobile */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 

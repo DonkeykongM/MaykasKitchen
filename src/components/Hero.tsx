@@ -106,24 +106,24 @@ export const Hero = () => {
           {/* FÖRBÄTTRADE MOBILANPASSADE SOCIALA MEDIER */}
           <div className="mb-4 md:mb-6 lg:mb-8 xl:mb-10">
             <h4 className="font-semibold mb-3 md:mb-4 text-white text-sm md:text-base lg:text-lg">Följ mig här:</h4>
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 md:gap-3 lg:gap-4">
+            <div className="flex flex-wrap gap-2 md:gap-3 lg:gap-4 justify-center sm:justify-start">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-2 md:p-3 lg:p-4 rounded-full transition-all transform hover:scale-110 shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
                 aria-label="Instagram">
                 <Instagram size={18} />
               </a>
               <a href="https://www.tiktok.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-2 md:p-3 lg:p-4 rounded-full transition-all transform hover:scale-110 shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
                 aria-label="TikTok">
                 <TikTok size={18} />
               </a>
               <a href="https://www.youtube.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-2 md:p-3 lg:p-4 rounded-full transition-all transform hover:scale-110 shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
                 aria-label="YouTube">
                 <Youtube size={18} />
               </a>
               <a href="https://www.facebook.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-2 md:p-3 lg:p-4 rounded-full transition-all transform hover:scale-110 shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
                 aria-label="Facebook">
                 <Facebook size={18} />
               </a>

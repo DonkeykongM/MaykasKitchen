@@ -244,10 +244,6 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   }, [isSaved, recipe.id]);
 
   const handleShare = useCallback(() => {
-    // Remove any existing share modals first
-    const existingModals = document.querySelectorAll('.share-modal');
-    existingModals.forEach(modal => modal.remove());
-
     const shareData = {
       title: `${recipe.title} - MaykasKitchen`,
       text: `Kolla in detta recept: ${recipe.description}`,
@@ -258,53 +254,18 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
       navigator.share(shareData).catch(err => {
         console.log('Error sharing:', err);
-        fallbackShare();
+        copyToClipboard();
       });
     } else {
-      fallbackShare();
+      copyToClipboard();
     }
 
-    function fallbackShare() {
-      const shareUrl = encodeURIComponent(window.location.href);
-      const shareText = encodeURIComponent(`Kolla in detta recept från MaykasKitchen: ${recipe.title}`);
-      
-      const modal = document.createElement('div');
-      modal.className = 'share-modal fixed inset-0 bg-black/50 flex items-center justify-center p-4';
-      modal.style.zIndex = '9999';
-      
-      modal.innerHTML = `
-        <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-2xl">
-          <h3 class="text-lg font-semibold mb-4 text-center">Dela receptet</h3>
-          <div class="space-y-3">
-            <button onclick="navigator.clipboard.writeText('${window.location.href}').then(() => { alert('Länk kopierad!'); document.querySelector('.share-modal').remove(); })" 
-                    class="w-full bg-purple-100 text-purple-700 p-3 rounded-lg hover:bg-purple-200 transition-colors flex items-center justify-center">
-              📋 Kopiera länk
-            </button>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" 
-               target="_blank" 
-               class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center block">
-              📘 Dela på Facebook
-            </a>
-            <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" 
-               target="_blank" 
-               class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center block">
-              📱 Dela på WhatsApp
-            </a>
-            <button onclick="document.querySelector('.share-modal').remove()" 
-                    class="w-full bg-gray-100 text-gray-700 p-3 rounded-lg hover:bg-gray-200 transition-colors">
-              Stäng
-            </button>
-          </div>
-        </div>
-      `;
-      
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.remove();
-        }
+    function copyToClipboard() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Länk kopierad till urklipp!');
+      }).catch(() => {
+        alert('Kunde inte kopiera länken. Markera och kopiera URL:en manuellt.');
       });
-      
-      document.body.appendChild(modal);
     }
   }, [recipe.title, recipe.description]);
 

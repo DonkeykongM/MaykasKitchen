@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { Mail, Home, Instagram, BookText as TikTok, Youtube, Facebook, Send, ArrowRight, ChevronRight, MapPin } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 export const ContactSection = () => {
   const [formStatus, setFormStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
@@ -74,35 +73,45 @@ export const ContactSection = () => {
     setFormStatus('submitting');
     
     try {
-      const { error } = await supabase.from('contact_submissions').insert([
-        { 
+      // Send to Make webhook
+      const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: 'contact',
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          subscribe_to_newsletter: subscribeToNewsletter
-        }
-      ]);
+          subscribe_to_newsletter: subscribeToNewsletter,
+          source: 'contact_form'
+        })
+      });
       
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       
       // Also add to newsletter if checked
       if (subscribeToNewsletter) {
         try {
-          // Send directly to Make webhook
-          const response = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
+          // Send separate newsletter signup
+          const newsletterResponse = await fetch('https://hook.eu2.make.com/sfjfkezizhjh4x7r1rrjmjwyei2sufj2', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
+              type: 'newsletter',
               email: formData.email,
               name: formData.name,
               source: 'contact_form'
             })
           });
           
-          if (!response.ok) {
+          if (!newsletterResponse.ok) {
             console.error("Error sending to webhook: Response not OK");
           }
         } catch (error) {
@@ -127,20 +136,20 @@ export const ContactSection = () => {
     } catch (error) {
       setFormStatus('error');
       setErrorMessage('Något gick fel när ditt meddelande skulle skickas. Försök igen senare.');
-      console.error("Error sending to Supabase:", error);
+      console.error("Error sending to webhook:", error);
     }
   };
 
   return (
-    <section id="kontakt" className="py-16 bg-white relative w-full overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+    <section id="kontakt" className="py-16 bg-white relative w-full">
+      <div className="container mx-auto px-4 relative z-10">
         <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">Nå mig</span>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">Kontakta mig</h2>
         <p className="text-center mb-12 max-w-2xl mx-auto">Hör gärna av dig för samarbeten, frågor eller bara för att säga hej!</p>
         
-        <div className="flex flex-col md:flex-row gap-8 w-full">
-          <div className="md:w-1/2 w-full max-w-none">
-            <div className="bg-white p-4 md:p-8 rounded-lg shadow-md w-full" ref={formRef}>
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="md:w-1/2">
+            <div className="bg-white p-4 md:p-8 rounded-lg shadow-md" ref={formRef}>
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Send className="mr-2 text-primary-color" size={20} />
                 Skicka ett meddelande
@@ -176,10 +185,9 @@ export const ContactSection = () => {
                       aria-required="true"
                       aria-invalid={!!fieldErrors.name}
                       aria-describedby={fieldErrors.name ? "name-error" : undefined}
-                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
+                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border ${
                         fieldErrors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
-                      placeholder="Ditt namn"
                     />
                     {fieldErrors.name && (
                       <p id="name-error" className="text-red-500 text-sm mt-1">{fieldErrors.name}</p>
@@ -197,7 +205,7 @@ export const ContactSection = () => {
                       aria-required="true"
                       aria-invalid={!!fieldErrors.email}
                       aria-describedby={fieldErrors.email ? "email-error" : undefined}
-                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
+                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border ${
                         fieldErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       placeholder="Din e-postadress"
@@ -214,7 +222,7 @@ export const ContactSection = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300 max-w-full box-border"
                       placeholder="Vad handlar ditt meddelande om?"
                     />
                   </div>
@@ -230,7 +238,7 @@ export const ContactSection = () => {
                       aria-required="true"
                       aria-invalid={!!fieldErrors.message}
                       aria-describedby={fieldErrors.message ? "message-error" : undefined}
-                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all ${
+                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border resize-none ${
                         fieldErrors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       placeholder="Skriv ditt meddelande här..."
@@ -261,7 +269,7 @@ export const ContactSection = () => {
                   <button 
                     type="submit" 
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70"
+                    className="w-full bg-primary-color text-white py-3 rounded-lg hover:bg-accent-color transition duration-300 flex items-center justify-center disabled:opacity-70 max-w-full"
                   >
                     {formStatus === 'submitting' ? (
                       <>

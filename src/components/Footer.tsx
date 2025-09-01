@@ -205,12 +205,12 @@ export const Footer = () => {
                     placeholder="Din e-post" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full sm:w-auto flex-1 bg-purple-700 border-0 rounded-lg sm:rounded-r-none p-2 md:p-3 text-xs md:text-sm text-white focus:outline-none focus:ring-1 focus:ring-purple-300 placeholder-purple-200 mb-2 sm:mb-0 min-h-[44px]"
+                    className="w-full sm:w-auto flex-1 bg-purple-700 border-0 rounded-lg sm:rounded-r-none p-2 md:p-3 text-xs md:text-sm text-white focus:outline-none focus:ring-1 focus:ring-purple-300 placeholder-purple-200 mb-2 sm:mb-0 min-h-[44px] max-w-full box-border"
                     aria-label="Din e-postadress för nyhetsbrev"
                   />
                   <button 
                     type="submit"
-                    className="bg-black text-white text-xs md:text-sm py-2 md:py-3 px-3 rounded-lg sm:rounded-l-none hover:bg-gray-800 transition-colors min-h-[44px]"
+                    className="bg-black text-white text-xs md:text-sm py-2 md:py-3 px-3 rounded-lg sm:rounded-l-none hover:bg-gray-800 transition-colors min-h-[44px] max-w-full"
                     aria-label="Prenumerera på nyhetsbrev"
                     disabled={submitStatus === 'submitting'}
                   >
@@ -246,7 +246,8 @@ export const Footer = () => {
                 <div className="flex items-center text-gray-300">
                   <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
                   Matlagningstekniker
-                </div>
+          body: JSON.stringify({
+            type: 'newsletter',
               </div>
             </div>
           </div>
