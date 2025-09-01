@@ -470,5 +470,6 @@ export const RecipeSection = () => {
           </button>
         </div>
     </div>
+    </section>
   );
 };
