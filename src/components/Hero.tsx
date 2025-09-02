@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { Typography, Button } from './ui/DesignSystem';
 import { ChevronDown, Instagram, UtensilsCrossed, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
 
 export const Hero = () => {
@@ -77,40 +78,43 @@ export const Hero = () => {
           </span>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD RUBRIK */}
-          <h1 id="hero-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 md:mb-4 lg:mb-6 leading-tight font-serif">
-            Mat från hjärtat<br />
-            <span className="text-white">& själen</span>
-          </h1>
+          <Typography variant="h1" as="h1" className="text-white mb-3 md:mb-4 lg:mb-6">
+            Mat från hjärtat & själen
+          </Typography>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD BESKRIVNING */}
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mb-2 md:mb-3 lg:mb-4 text-white leading-relaxed">
+          <Typography variant="body-large" className="text-white mb-2 md:mb-3 lg:mb-4 max-w-2xl">
             Upptäck <mark className="bg-purple-600/90 text-white font-semibold px-1 md:px-2 py-0.5 md:py-1 rounded text-sm sm:text-base md:text-lg lg:text-xl">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
-          </p>
+          </Typography>
           
-          <p className="mb-4 md:mb-6 lg:mb-8 xl:mb-10 text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
+          <Typography variant="body-base" className="text-white/80 mb-4 md:mb-6 lg:mb-8 xl:mb-10 max-w-xl">
             Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.
-          </p>
+          </Typography>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD KNAPP */}
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-4 md:mb-6 lg:mb-8 xl:mb-10">
-            <button 
+            <Button
+              variant="primary"
+              size="lg"
               onClick={scrollToRecipes}
-              className="bg-purple-600 text-white hover:bg-purple-700 transition-all duration-300 py-3 md:py-4 px-6 md:px-8 rounded-full font-semibold flex items-center justify-center group text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm md:text-base min-h-[44px] w-full sm:w-auto"
               aria-label="Utforska recept"
+              className="w-full sm:w-auto shadow-lg hover:shadow-xl"
             >
-              <UtensilsCrossed size={16} className="mr-2 md:mr-3 transform transition-transform group-hover:rotate-12" />
-              <span>Utforska recept</span>
-            </button>
+              <UtensilsCrossed size={20} />
+              Utforska recept
+            </Button>
           </div>
 
           {/* FÖRBÄTTRADE MOBILANPASSADE SOCIALA MEDIER */}
           <div className="mb-4 md:mb-6 lg:mb-8 xl:mb-10">
-            <h4 className="font-semibold mb-3 md:mb-4 text-white text-sm md:text-base lg:text-lg">Följ mig här:</h4>
+            <Typography variant="body-base" className="font-semibold mb-3 md:mb-4 text-white">
+              Följ mig här:
+            </Typography>
             <div className="flex flex-wrap gap-2 md:gap-3 lg:gap-4 justify-center sm:justify-start">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:scale-110 p-3 rounded-full transition-all duration-300 shadow-lg border border-white/20 flex items-center justify-center min-h-[48px] min-w-[48px]" 
                 aria-label="Instagram">
-                <Instagram size={18} />
+                <Instagram size={20} />
               </a>
               <a href="https://www.tiktok.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
                 className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 

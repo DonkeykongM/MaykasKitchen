@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
+import { Typography, Card, Badge, Rating } from './ui/DesignSystem';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
 
@@ -219,21 +220,13 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
   }, []);
 
   return (
-    <article 
-      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card border border-purple-100 will-change-transform"
+    <Card
+      interactive
       onClick={(e) => onRecipeClick(recipe.id, e)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onRecipeClick(recipe.id, e);
-        }
-      }}
-      aria-label={`Visa recept för ${recipe.title}`}
+      className="recipe-card cursor-pointer"
     >
       {/* Enhanced image with robust error handling */}
-      <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
+      <div className="relative h-48 md:h-56 overflow-hidden">
         {!imageError ? (
           <img
             src={recipe.image}
@@ -272,89 +265,88 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         )}
         
         <div className="absolute top-2 md:top-4 left-2 md:left-4">
-          <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
-            <Clock size={10} className="mr-1" /> {recipe.time} min
-          </span>
+          <Badge variant="default" size="sm" className="bg-purple-600/90 text-white border-none">
+            <Clock size={12} className="mr-1" />
+            {recipe.time} min
+          </Badge>
         </div>
         {recipe.trending && (
           <div className="absolute top-2 md:top-4 right-2 md:right-4">
-            <span className="bg-black/90 text-white text-xs py-1 px-2 md:px-3 rounded-full">
+            <Badge variant="default" size="sm" className="bg-black/90 text-white border-none">
               Populärt
-            </span>
+            </Badge>
           </div>
         )}
         {recipe.difficulty && (
           <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4">
-            <span className="bg-white/90 text-gray-700 text-xs py-1 px-2 md:px-3 rounded-full">
+            <Badge variant="secondary" size="sm" className="bg-white/90">
               {recipe.difficulty}
-            </span>
+            </Badge>
           </div>
         )}
       </div>
       
-      <div className="p-3 md:p-4 lg:p-6 w-full">
+      <div className="p-4 md:p-6 w-full">
         {/* Tags with improved contrast */}
-        <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-3">
-          {recipe.badges.map((badge, index) => (
-            <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-2 rounded-full border border-purple-200 font-medium">
+        <div className="flex flex-wrap gap-2 mb-3">
+          {recipe.badges.slice(0, 3).map((badge, index) => (
+            <Badge key={index} variant="default" size="sm">
               {badge}
-            </span>
+            </Badge>
           ))}
         </div>
         
         {/* Rating and likes with WCAG compliant colors */}
-        <div className="flex justify-between items-center mb-2 md:mb-3">
-          <div className="flex items-center" role="img" aria-label={`Betyg: ${recipe.rating} av 5 stjärnor`}>
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                size={14}
-                fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
-                className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
-                aria-hidden="true"
-              />
-            ))}
-            <span className="text-xs md:text-sm text-gray-700 ml-1 font-medium">{recipe.rating}</span>
-            <span className="text-xs text-gray-600 ml-1">({recipe.reviews})</span>
+        <div className="flex justify-between items-center mb-3">
+          <div className="flex items-center gap-2">
+            <Rating value={recipe.rating} size="sm" />
+            <Typography variant="body-small" className="text-gray-600">
+              ({recipe.reviews})
+            </Typography>
           </div>
           
-          <span className="text-gray-600 text-xs md:text-sm flex items-center">
+          <div className="flex items-center gap-1 text-gray-600">
             <Heart size={14} className="mr-1" aria-hidden="true" /> 
-            <span className="font-medium">{recipe.likes}</span>
-          </span>
+            <Typography variant="body-small" className="font-medium">
+              {recipe.likes}
+            </Typography>
+          </div>
         </div>
         
         {/* Title with improved typography */}
-        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight">
+        <Typography variant="h3" className="mb-2 text-gray-800 hover:text-purple-600 transition-colors line-clamp-2">
           {recipe.title}
-        </h3>
+        </Typography>
         
         {/* Description with better readability */}
-        <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm line-clamp-2 break-words leading-relaxed">
+        <Typography variant="body-small" className="text-gray-600 mb-4 line-clamp-2">
           {recipe.description}
-        </p>
+        </Typography>
         
         {/* Portions and CTA with improved contrast */}
         <div className="flex justify-between items-center">
-          <span className="text-gray-600 text-xs md:text-sm flex items-center font-medium">
-            <Users size={14} className="mr-1" aria-hidden="true" /> {recipe.portions} portioner
-          </span>
+          <div className="flex items-center gap-1">
+            <Users size={14} className="text-gray-500" />
+            <Typography variant="body-small" className="text-gray-600 font-medium">
+              {recipe.portions} portioner
+            </Typography>
+          </div>
           
           <button
             onClick={(e) => {
               e.stopPropagation();
               onRecipeClick(recipe.id, e);
             }}
-            className="text-purple-600 hover:text-purple-800 flex items-center text-xs md:text-sm font-medium group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-sm min-h-[44px] px-2 py-1"
+            className="text-purple-600 hover:text-purple-800 flex items-center text-sm font-medium group transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg min-h-[44px] px-3 py-2"
             aria-label={`Visa recept för ${recipe.title}`}
           >
             <span className="hidden sm:inline">Visa recept</span>
             <span className="sm:hidden">Visa</span>
-            <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
+            <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
-    </article>
+    </Card>
   );
 });
 
@@ -416,31 +408,33 @@ export const RecipeSection = () => {
   }, []);
 
   return (
-    <section id="recept" ref={sectionRef} className="py-8 md:py-12 lg:py-16 bg-gray-50 w-full overflow-hidden">
+    <section id="recept" ref={sectionRef} className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white w-full overflow-hidden">
       <div className="container mx-auto px-4 w-full max-w-7xl">
-        <span className="block text-center text-purple-600 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
+        <div className="text-center mb-4">
+          <Badge variant="default" className="mb-4">
           MATINSPIRATION
-        </span>
+          </Badge>
+        </div>
         
-        <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-center mb-3 md:mb-4 text-purple-600 break-words">
+        <Typography variant="h2" className="text-center mb-4 text-purple-600">
           Populära recept
-        </h2>
+        </Typography>
         
-        <p className="text-center mb-6 md:mb-8 lg:mb-10 max-w-2xl mx-auto text-gray-700 break-words px-4 leading-relaxed text-sm md:text-base lg:text-lg">
+        <Typography variant="body-large" className="text-center mb-8 md:mb-12 max-w-3xl mx-auto text-gray-700 px-4">
           Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
           med moderna smaker och enkla tillagningsmetoder.
-        </p>
+        </Typography>
         
         {/* Optimized filter buttons with improved accessibility */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-3 lg:gap-4 mb-6 md:mb-8 lg:mb-12 px-4">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12 px-4">
           {filters.map(filter => (
             <button
               key={filter.id}
               onClick={() => handleFilterChange(filter.id)}
-              className={`px-3 md:px-4 lg:px-5 py-2 rounded-full transition-all text-xs md:text-sm lg:text-base will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[44px] ${
+              className={`px-4 md:px-6 py-3 rounded-full transition-all duration-300 text-sm md:text-base font-medium focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[44px] ${
                 activeFilter === filter.id 
-                  ? 'bg-purple-600 text-white transform scale-105 font-medium' 
-                  : 'bg-white text-gray-700 hover:bg-purple-50 border border-purple-200 hover:border-purple-300'
+                  ? 'bg-purple-600 text-white shadow-lg' 
+                  : 'bg-white text-gray-700 hover:bg-purple-50 border border-purple-200 hover:border-purple-300 hover:shadow-md'
               }`}
               aria-pressed={activeFilter === filter.id}
               role="tab"
@@ -452,7 +446,7 @@ export const RecipeSection = () => {
         
         {/* Optimized recipe grid with lazy loading and error boundaries */}
         <Suspense fallback={<RecipeGridSkeleton />}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
             {isLoading ? (
               // Show skeleton loaders during transitions
               [...Array(4)].map((_, index) => (
@@ -471,15 +465,18 @@ export const RecipeSection = () => {
         </Suspense>
         
         {/* Call to action with improved accessibility and WORKING functionality */}
-        <div className="text-center mb-8 md:mb-12 lg:mb-20">
-          <button 
+        <div className="text-center">
+          <Button
+            variant="primary"
+            size="lg"
             onClick={handleSeeAllRecipes}
-            className="inline-block bg-purple-600 text-white py-3 px-6 md:px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium cursor-pointer text-sm md:text-base min-h-[44px]"
-            role="button"
-            aria-label="Se alla våra recept"
+            className="shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
           >
             Se alla recept
-          </button>
+          </Button>
+          <Typography variant="body-small" className="text-gray-500 mt-4">
+            Upptäck {RECIPES.length}+ autentiska recept från Mayka
+          </Typography>
         </div>
       </div>
     </section>

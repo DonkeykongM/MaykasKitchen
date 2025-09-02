@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Design System */
+@import url('./design-system.css');
+
 @layer base {
   :root {
     --background: 248 248 255;
@@ -624,6 +627,32 @@ textarea:invalid {
   }
 }
 
+/* Enhanced design system integration */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Enhanced component styles */
+.recipe-card {
+  transition: all var(--duration-base) var(--timing-ease);
+  will-change: transform, box-shadow;
+}
+
+.recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
 /* Enhanced reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -631,6 +660,10 @@ textarea:invalid {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  .recipe-card:hover {
+    transform: none;
   }
   
   .will-change-transform {
