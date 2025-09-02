@@ -433,8 +433,8 @@ export const RecipeSection = () => {
               onClick={() => handleFilterChange(filter.id)}
               className={`px-4 md:px-6 py-3 rounded-full transition-all duration-300 text-sm md:text-base font-medium focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[44px] ${
                 activeFilter === filter.id 
-                  ? 'bg-purple-600 text-white shadow-lg' 
-                  : 'bg-white text-gray-700 hover:bg-purple-50 border border-purple-200 hover:border-purple-300 hover:shadow-md'
+                  ? 'bg-purple-600 text-white shadow-lg border border-purple-600' 
+                  : 'bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-purple-50 border border-purple-200 hover:border-purple-300 hover:shadow-md'
               }`}
               aria-pressed={activeFilter === filter.id}
               role="tab"
