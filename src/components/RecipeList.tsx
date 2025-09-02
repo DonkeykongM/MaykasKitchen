@@ -447,9 +447,9 @@ const RecipeList = () => {
           </p>
 
           {/* Search and filters */}
-          <div className="max-w-4xl mx-auto mb-8 md:mb-12">
+          <div className="max-w-4xl mx-auto mb-6 md:mb-8 lg:mb-12">
             <div className="bg-white/90 backdrop-blur-md p-3 md:p-4 rounded-lg shadow-md">
-              <div className="flex flex-col md:flex-row gap-3 md:gap-4 mb-3 md:mb-4">
+              <div className="flex flex-col gap-3 md:gap-4 mb-3 md:mb-4">
                 <div className="relative flex-grow">
                   <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                   <input
@@ -457,7 +457,7 @@ const RecipeList = () => {
                     placeholder="Sök efter recept..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px]"
+                    className="w-full px-3 md:px-4 py-3 md:py-4 pl-10 md:pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-base min-h-[48px]"
                     aria-label="Sök recept"
                   />
                 </div>
@@ -465,7 +465,7 @@ const RecipeList = () => {
                 <div className="relative">
                   <button 
                     onClick={() => setIsFilterOpen(!isFilterOpen)}
-                    className="bg-purple-600 text-white px-3 md:px-4 py-2 md:py-3 rounded-lg flex items-center text-sm md:text-base min-h-[44px] w-full md:w-auto justify-center"
+                    className="bg-purple-600 text-white px-4 py-3 md:py-4 rounded-lg flex items-center text-base min-h-[48px] w-full justify-center"
                     aria-expanded={isFilterOpen}
                   >
                     <Filter size={16} className="mr-2" />
@@ -474,7 +474,7 @@ const RecipeList = () => {
                   </button>
                   
                   {isFilterOpen && (
-                    <div className="absolute z-10 mt-2 w-full md:w-48 bg-white rounded-lg shadow-lg p-2 right-0">
+                    <div className="absolute z-10 mt-2 w-full bg-white rounded-lg shadow-lg p-2 right-0">
                       {categories.map(category => (
                         <button 
                           key={category}
@@ -482,7 +482,7 @@ const RecipeList = () => {
                             setSelectedCategory(category);
                             setIsFilterOpen(false);
                           }}
-                          className={`w-full text-left px-3 py-2 rounded-md mb-1 text-sm min-h-[44px] flex items-center ${
+                          className={`w-full text-left px-3 py-3 rounded-md mb-1 text-sm min-h-[48px] flex items-center ${
                             selectedCategory === category 
                               ? 'bg-purple-100 text-purple-600 font-medium'
                               : 'hover:bg-gray-50'
@@ -497,43 +497,43 @@ const RecipeList = () => {
               </div>
 
               {/* Popular tags as quick filters */}
-              <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
+              <div className="flex flex-wrap gap-2 mt-3 md:mt-4 justify-center md:justify-start">
                 <span className="text-xs md:text-sm text-gray-600 mr-1 flex items-center">
                   <Tag size={12} className="mr-1" /> Populära:
                 </span>
                 <button 
                   onClick={() => setSearchTerm('Fisk')}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs md:text-sm bg-gray-100 text-gray-600 px-3 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[36px]"
                 >
                   Fisk
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Vegetariskt')}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs md:text-sm bg-gray-100 text-gray-600 px-3 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[36px]"
                 >
                   Vegetariskt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Snabb')}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs md:text-sm bg-gray-100 text-gray-600 px-3 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[36px]"
                 >
                   Snabbt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Traditionell')}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs md:text-sm bg-gray-100 text-gray-600 px-3 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[36px]"
                 >
                   Traditionellt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Assyriskt')}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs md:text-sm bg-gray-100 text-gray-600 px-3 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[36px]"
                 >
                   Assyriskt
                 </button>
                 <button 
                   onClick={() => setSearchTerm('Syriskt')}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs md:text-sm bg-gray-100 text-gray-600 px-3 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[36px]"
                 >
                   Syriskt
                 </button>
@@ -543,7 +543,7 @@ const RecipeList = () => {
 
           {/* Search results count */}
           {searchTerm && (
-            <div className="mb-4 md:mb-6 text-center">
+            <div className="mb-4 md:mb-6 text-center px-4">
               <p className="text-purple-100 text-sm md:text-base">
                 {filteredRecipes.length === 0 
                   ? `Inga recept matchar sökningen "${searchTerm}"` 
@@ -554,7 +554,7 @@ const RecipeList = () => {
 
           {/* Recipe grid */}
           {filteredRecipes.length === 0 ? (
-            <div className="text-center py-8 md:py-12 bg-white/90 backdrop-blur-md rounded-lg shadow-md max-w-xl mx-auto">
+            <div className="text-center py-8 md:py-12 bg-white/90 backdrop-blur-md rounded-lg shadow-md max-w-xl mx-auto my-8">
               <div className="text-gray-400 mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 md:h-16 md:w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -567,13 +567,13 @@ const RecipeList = () => {
                   setSearchTerm('');
                   setSelectedCategory('Alla recept');
                 }}
-                className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px]"
+                className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors text-base min-h-[48px]"
               >
                 Visa alla recept
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-2">
               {filteredRecipes.map((recipe) => (
                 <RecipeCard 
                   key={recipe.id} 
@@ -585,28 +585,28 @@ const RecipeList = () => {
           )}
 
           {/* Newsletter signup */}
-          <div className="mt-12 md:mt-16 bg-white/90 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-md max-w-xl mx-auto">
+          <div className="mt-8 md:mt-12 lg:mt-16 bg-white/90 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-md max-w-xl mx-auto">
             <h3 className="text-xl md:text-2xl font-bold text-purple-600 mb-3">
               Få nya recept direkt i din inkorg
             </h3>
-            <p className="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">
+            <p className="text-gray-600 mb-4 md:mb-6 text-base">
               Prenumerera på mitt nyhetsbrev och få exklusiva recept, säsongstips och inspiration direkt i din inkorg varje månad.
             </p>
-            <form className="flex flex-col sm:flex-row gap-2" onSubmit={handleNewsletterSubmit}>
+            <form className="flex flex-col gap-3 sm:gap-2 sm:flex-row" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
                 placeholder="Din e-postadress"
-                className="flex-1 px-3 md:px-4 py-2 md:py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px] max-w-full box-border"
+                className="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-base min-h-[48px] max-w-full box-border"
                 required
               />
               <button
                 type="submit"
-                className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px] max-w-full"
+                className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors text-base min-h-[48px] max-w-full font-semibold w-full sm:w-auto"
               >
                 Prenumerera
               </button>
             </form>
-            <div className="mt-3 md:mt-4 grid grid-cols-2 gap-2 md:gap-3 text-xs md:text-sm">
+            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center text-gray-600">
                 <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
                 Nya recept varje månad

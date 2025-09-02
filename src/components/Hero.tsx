@@ -52,7 +52,7 @@ export const Hero = () => {
     <header 
       ref={heroRef}
       id="hero"
-      className="relative py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full min-h-screen flex items-center"
+      className="relative py-4 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full min-h-screen flex items-center"
       style={{
         background: isMobile 
           ? 'linear-gradient(135deg, #800080 0%, #4B0082 50%, #2E0054 100%)' 
@@ -71,7 +71,7 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10 w-full max-w-7xl">
         {/* OPTIMERAD TEXT-SEKTION FÖR MOBIL */}
-        <div className={`w-full lg:w-1/2 lg:pr-8 mb-6 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-flex items-center bg-white/90 backdrop-blur-sm text-purple-700 px-3 py-2 rounded-full text-xs md:text-sm font-medium mb-4 md:mb-6 lg:mb-8 shadow-lg">
             <span className="bg-purple-600 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full mr-2"></span>
             Assyrisk/syriansk matkonst
@@ -92,13 +92,13 @@ export const Hero = () => {
           </Typography>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD KNAPP */}
-          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-4 md:mb-6 lg:mb-8 xl:mb-10">
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 md:mb-6 lg:mb-8 xl:mb-10">
             <Button
               variant="primary"
               size="lg"
               onClick={scrollToRecipes}
               aria-label="Utforska recept"
-              className="w-full sm:w-auto shadow-lg hover:shadow-xl"
+              className="w-full sm:w-auto shadow-lg hover:shadow-xl px-8 py-4 text-lg font-semibold"
             >
               <UtensilsCrossed size={20} />
               Utforska recept
@@ -106,28 +106,28 @@ export const Hero = () => {
           </div>
 
           {/* FÖRBÄTTRADE MOBILANPASSADE SOCIALA MEDIER */}
-          <div className="mb-4 md:mb-6 lg:mb-8 xl:mb-10">
+          <div className="mb-6 md:mb-6 lg:mb-8 xl:mb-10">
             <Typography variant="body-base" className="font-semibold mb-3 md:mb-4 text-white">
               Följ mig här:
             </Typography>
-            <div className="flex flex-wrap gap-2 md:gap-3 lg:gap-4 justify-center sm:justify-start">
+            <div className="flex flex-wrap gap-4 md:gap-3 lg:gap-4 justify-center sm:justify-start">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:scale-110 p-3 rounded-full transition-all duration-300 shadow-lg border border-white/20 flex items-center justify-center min-h-[48px] min-w-[48px]" 
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-4 rounded-full transition-all duration-300 shadow-lg border border-white/30 flex items-center justify-center min-h-[56px] min-w-[56px]" 
                 aria-label="Instagram">
                 <Instagram size={20} />
               </a>
               <a href="https://www.tiktok.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-4 rounded-full transition-all shadow-lg border border-white/30 flex items-center justify-center min-h-[56px] min-w-[56px]" 
                 aria-label="TikTok">
                 <TikTok size={18} />
               </a>
               <a href="https://www.youtube.com/@Maykaskitchen" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-4 rounded-full transition-all shadow-lg border border-white/30 flex items-center justify-center min-h-[56px] min-w-[56px]" 
                 aria-label="YouTube">
                 <Youtube size={18} />
               </a>
               <a href="https://www.facebook.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
-                className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 p-3 rounded-full transition-all shadow-lg border border-white/20 flex items-center justify-center min-h-[44px] min-w-[44px]" 
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 p-4 rounded-full transition-all shadow-lg border border-white/30 flex items-center justify-center min-h-[56px] min-w-[56px]" 
                 aria-label="Facebook">
                 <Facebook size={18} />
               </a>
@@ -149,15 +149,15 @@ export const Hero = () => {
         
         {/* FÖRBÄTTRAD MOBILANPASSAD BILD */}
         <div className={`w-full lg:w-1/2 flex justify-center transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
-            <div className="rounded-full overflow-hidden h-48 w-48 sm:h-56 sm:w-56 md:h-72 md:w-72 lg:h-80 lg:w-80 xl:h-96 xl:w-96 border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm">
+          <div className="relative max-w-sm sm:max-w-md md:max-w-lg lg:max-w-lg xl:max-w-xl">
+            <div className="rounded-2xl overflow-hidden h-64 w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 lg:h-80 lg:w-80 xl:h-96 xl:w-96 border-4 border-white/30 shadow-2xl relative mx-auto backdrop-blur-sm">
               <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4" 
                 alt="Mayka Gulo i köket med färska råvaror" 
                 className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105"
                 loading="eager"
-                width="384"
-                height="384"
+                width="320"
+                height="320"
                 decoding="async"
               />
             </div>
@@ -166,13 +166,13 @@ export const Hero = () => {
       </div>
       
       {/* MOBIL SCROLL INDIKATOR */}
-      <div className="md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2">
+      <div className="md:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2">
         <button 
           onClick={scrollToRecipes}
-          className="animate-bounce bg-white/20 backdrop-blur-sm h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all min-h-[44px]"
+          className="animate-bounce bg-white/30 backdrop-blur-sm h-14 w-14 rounded-full flex items-center justify-center shadow-lg hover:bg-white/40 transition-all min-h-[56px] border-2 border-white/40"
           aria-label="Scrolla ner för att utforska recept"
         >
-          <ChevronDown size={24} className="text-white" />
+          <ChevronDown size={28} className="text-white" />
         </button>
       </div>
     </header>

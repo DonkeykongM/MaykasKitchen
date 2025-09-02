@@ -408,7 +408,7 @@ export const RecipeSection = () => {
   }, []);
 
   return (
-    <section id="recept" ref={sectionRef} className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white w-full overflow-hidden">
+    <section id="recept" ref={sectionRef} className="py-8 md:py-12 lg:py-16 xl:py-20 bg-gradient-to-br from-gray-50 to-white w-full overflow-hidden">
       <div className="container mx-auto px-4 w-full max-w-7xl">
         <div className="text-center mb-4">
           <Badge variant="default" className="mb-4">
@@ -420,21 +420,21 @@ export const RecipeSection = () => {
           Populära recept
         </Typography>
         
-        <Typography variant="body-large" className="text-center mb-8 md:mb-12 max-w-3xl mx-auto text-gray-700 px-4">
+        <Typography variant="body-large" className="text-center mb-6 md:mb-8 lg:mb-12 max-w-3xl mx-auto text-gray-700 px-4 text-base md:text-lg">
           Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
           med moderna smaker och enkla tillagningsmetoder.
         </Typography>
         
         {/* Optimized filter buttons with improved accessibility */}
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12 px-4">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8 lg:mb-12 px-2">
           {filters.map(filter => (
             <button
               key={filter.id}
               onClick={() => handleFilterChange(filter.id)}
-              className={`px-4 md:px-6 py-3 rounded-full transition-all duration-300 text-sm md:text-base font-medium focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[44px] ${
+              className={`px-3 md:px-4 lg:px-6 py-3 rounded-full transition-all duration-300 text-xs md:text-sm lg:text-base font-medium focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 min-h-[48px] ${
                 activeFilter === filter.id 
-                  ? 'bg-purple-600 text-white shadow-lg border border-purple-600 backdrop-blur-none' 
-                  : 'bg-white text-gray-700 hover:bg-purple-50 border border-purple-200 hover:border-purple-300 hover:shadow-md'
+                  ? 'bg-purple-600 text-white shadow-lg border-2 border-purple-600 backdrop-blur-none' 
+                  : 'bg-white text-gray-700 hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 hover:shadow-md'
               }`}
               aria-pressed={activeFilter === filter.id}
               role="tab"
@@ -446,10 +446,10 @@ export const RecipeSection = () => {
         
         {/* Optimized recipe grid with lazy loading and error boundaries */}
         <Suspense fallback={<RecipeGridSkeleton />}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-12">
             {isLoading ? (
               // Show skeleton loaders during transitions
-              [...Array(4)].map((_, index) => (
+              [...Array(6)].map((_, index) => (
                 <SkeletonLoader key={index} variant="recipe" />
               ))
             ) : (
@@ -470,11 +470,11 @@ export const RecipeSection = () => {
             variant="primary"
             size="lg"
             onClick={handleSeeAllRecipes}
-            className="shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
+            className="shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 w-full sm:w-auto px-8 py-4 text-lg font-semibold"
           >
             Se alla recept
           </Button>
-          <Typography variant="body-small" className="text-gray-500 mt-4">
+          <Typography variant="body-small" className="text-gray-500 mt-4 px-4">
             Upptäck {RECIPES.length}+ autentiska recept från Mayka
           </Typography>
         </div>
