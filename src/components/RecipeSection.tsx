@@ -200,7 +200,7 @@ const RECIPES = [
 ];
 
 // Enhanced recipe card component with robust image handling
-const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false, index = 0 }) => {
+const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -220,7 +220,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false, index
 
   return (
     <article 
-      className={`glass-card hover-lift cursor-pointer w-full recipe-card scroll-reveal transition-all duration-500 ${index % 2 === 0 ? 'delay-100' : 'delay-200'}`}
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 cursor-pointer w-full recipe-card border border-purple-100 will-change-transform"
       onClick={(e) => onRecipeClick(recipe.id, e)}
       role="button"
       tabIndex={0}
@@ -233,14 +233,14 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false, index
       aria-label={`Visa recept för ${recipe.title}`}
     >
       {/* Enhanced image with robust error handling */}
-      <div className="relative h-48 sm:h-52 md:h-56 lg:h-60 image-container">
+      <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
         {!imageError ? (
           <img
             src={recipe.image}
             alt={recipe.title}
             width={400}
             height={260}
-            className="w-full h-full object-cover transition-transform duration-500"
+            className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
             loading="lazy"
             decoding="async"
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -255,93 +255,89 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false, index
         
         {/* Enhanced fallback content when image fails to load */}
         {imageError && (
-          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-pink-100 flex flex-col items-center justify-center text-purple-600 rounded-t-2xl">
+          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex flex-col items-center justify-center text-purple-600 border border-purple-300">
             <div className="text-3xl md:text-4xl mb-2">{recipe.fallbackEmoji || '🍽️'}</div>
-            <div className="text-sm font-semibold text-center px-3 text-clamp-2">{recipe.title}</div>
+            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.title}</div>
           </div>
         )}
         
         {/* Loading state */}
         {!imageLoaded && !imageError && (
-          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center skeleton rounded-t-2xl">
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center animate-pulse">
             <div className="text-gray-400 text-center">
-              <div className="text-2xl mb-2">📸</div>
-              <div className="text-sm font-medium">Laddar...</div>
+              <div className="text-xl md:text-2xl mb-1">📸</div>
+              <div className="text-xs">Laddar...</div>
             </div>
           </div>
         )}
         
-        {/* Beautiful overlays */}
-        <div className="absolute top-3 left-3 flex gap-2">
-          <span className="bg-black/70 backdrop-blur-sm text-white text-xs py-2 px-3 rounded-xl flex items-center font-medium shadow-lg">
-            <Clock size={12} className="mr-1.5" /> {recipe.time} min
+        <div className="absolute top-2 md:top-4 left-2 md:left-4">
+          <span className="bg-purple-600/90 text-white text-xs py-1 px-2 md:px-3 rounded-full flex items-center">
+            <Clock size={10} className="mr-1" /> {recipe.time} min
           </span>
         </div>
-        
         {recipe.trending && (
-          <div className="absolute top-3 right-3">
-            <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs py-2 px-3 rounded-xl font-medium shadow-lg">
+          <div className="absolute top-2 md:top-4 right-2 md:right-4">
+            <span className="bg-black/90 text-white text-xs py-1 px-2 md:px-3 rounded-full">
               Populärt
             </span>
           </div>
         )}
-        
         {recipe.difficulty && (
-          <div className="absolute bottom-3 left-3">
-            <span className="bg-white/95 backdrop-blur-sm text-gray-700 text-xs py-2 px-3 rounded-xl font-medium shadow-md">
+          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4">
+            <span className="bg-white/90 text-gray-700 text-xs py-1 px-2 md:px-3 rounded-full">
               {recipe.difficulty}
             </span>
           </div>
         )}
       </div>
       
-      <div className="p-5 md:p-6 lg:p-7 w-full">
+      <div className="p-3 md:p-4 lg:p-6 w-full">
         {/* Tags with improved contrast */}
-        <div className="flex flex-wrap gap-2 mb-3">
+        <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-3">
           {recipe.badges.map((badge, index) => (
-            <span key={index} className="badge badge-primary text-xs hover-scale">
+            <span key={index} className="bg-purple-50 text-purple-700 text-xs py-1 px-2 rounded-full border border-purple-200 font-medium">
               {badge}
             </span>
           ))}
         </div>
         
         {/* Rating and likes with WCAG compliant colors */}
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between items-center mb-2 md:mb-3">
           <div className="flex items-center" role="img" aria-label={`Betyg: ${recipe.rating} av 5 stjärnor`}>
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                size={16}
+                size={14}
                 fill={i < Math.floor(recipe.rating) ? "#FFB74D" : "none"}
                 className={i < Math.floor(recipe.rating) ? "text-amber-400" : "text-gray-300"}
                 aria-hidden="true"
               />
             ))}
-            <span className="text-sm text-gray-700 ml-2 font-semibold">{recipe.rating}</span>
-            <span className="text-xs text-gray-600 ml-1.5">({recipe.reviews})</span>
+            <span className="text-xs md:text-sm text-gray-700 ml-1 font-medium">{recipe.rating}</span>
+            <span className="text-xs text-gray-600 ml-1">({recipe.reviews})</span>
           </div>
           
-          <span className="text-gray-600 text-sm flex items-center">
-            <Heart size={15} className="mr-1.5 text-red-400" aria-hidden="true" /> 
+          <span className="text-gray-600 text-xs md:text-sm flex items-center">
+            <Heart size={14} className="mr-1" aria-hidden="true" /> 
             <span className="font-medium">{recipe.likes}</span>
           </span>
         </div>
         
         {/* Title with improved typography */}
-        <h3 className="text-lg md:text-xl font-bold mb-3 text-gray-800 hover:text-purple-600 transition-colors leading-tight text-clamp-2">
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 text-gray-800 hover:text-purple-600 transition-colors break-words leading-tight">
           {recipe.title}
         </h3>
         
         {/* Description with better readability */}
-        <p className="text-gray-600 mb-4 text-sm leading-relaxed text-clamp-3">
+        <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm line-clamp-2 break-words leading-relaxed">
           {recipe.description}
         </p>
         
         {/* Portions and CTA with improved contrast */}
         <div className="flex justify-between items-center">
-          <span className="text-gray-600 text-sm flex items-center font-semibold">
-            <Users size={15} className="mr-1.5 text-purple-500" aria-hidden="true" /> 
-            <span>{recipe.portions} portioner</span>
+          <span className="text-gray-600 text-xs md:text-sm flex items-center font-medium">
+            <Users size={14} className="mr-1" aria-hidden="true" /> {recipe.portions} portioner
           </span>
           
           <button
@@ -349,11 +345,12 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false, index
               e.stopPropagation();
               onRecipeClick(recipe.id, e);
             }}
-            className="text-purple-600 hover:text-white bg-transparent hover:bg-purple-600 flex items-center text-sm font-semibold group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-xl min-h-[44px] px-4 py-2 border border-purple-200 hover:border-purple-600 transition-all"
+            className="text-purple-600 hover:text-purple-800 flex items-center text-xs md:text-sm font-medium group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-sm min-h-[44px] px-2 py-1"
             aria-label={`Visa recept för ${recipe.title}`}
           >
-            <span>Visa recept</span>
-            <ChevronRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            <span className="hidden sm:inline">Visa recept</span>
+            <span className="sm:hidden">Visa</span>
+            <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
