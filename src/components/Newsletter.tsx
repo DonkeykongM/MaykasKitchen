@@ -44,7 +44,7 @@ export const Newsletter = () => {
   };
   
   return (
-    <section className="bg-gradient-to-br from-purple-50 via-white to-purple-50 py-8 md:py-12 lg:py-16 xl:py-20 relative overflow-hidden">
+    <section className="bg-gradient-to-br from-purple-50 via-white to-purple-50 py-16 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-20 h-20 bg-purple-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-600 rounded-full transform translate-x-1/3 translate-y-1/3"></div>
@@ -55,14 +55,14 @@ export const Newsletter = () => {
           <Mail className="text-white" size={28} />
         </div>
         
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800 font-serif px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 font-serif">
           Få matinspiration direkt i din inkorg
         </h2>
-        <p className="mb-6 md:mb-8 max-w-2xl mx-auto text-gray-600 text-base md:text-lg px-4">
+        <p className="mb-8 max-w-2xl mx-auto text-gray-600 text-lg">
           Prenumerera på mitt nyhetsbrev och få de senaste recepten, säsongsbaserade tips och exklusiva erbjudanden direkt till dig. Jag skickar ut mitt nyhetsbrev ungefär en gång i månaden.
         </p>
         
-        <div className="max-w-xl mx-auto px-4">
+        <div className="max-w-xl mx-auto">
           {submitStatus === 'success' ? (
             <div className="bg-white rounded-2xl p-8 flex flex-col items-center justify-center animate-fadeIn border border-purple-200 shadow-lg">
               <div className="bg-green-500 text-white p-4 rounded-full mb-4">
@@ -72,21 +72,21 @@ export const Newsletter = () => {
               <p className="text-gray-600">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-3 sm:flex-row max-w-full">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-full">
               <div className="relative flex-grow">
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Din e-postadress" 
-                  className={`w-full px-4 py-4 rounded-lg border text-gray-800 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white max-w-full box-border min-h-[56px] text-base ${
+                  className={`w-full px-4 py-4 rounded-lg border text-gray-800 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white max-w-full box-border ${
                     submitStatus === 'error' ? 'border-red-500 bg-red-50' : ''
                   }`}
                   aria-label="Din e-postadress"
                   disabled={submitStatus === 'submitting'}
                 />
                 {submitStatus === 'error' && (
-                  <div className="mt-2 text-sm text-red-600 bg-red-100 px-3 py-2 rounded-lg text-center">
+                  <div className="absolute -bottom-6 left-0 text-xs text-red-600 bg-red-100 px-2 py-1 rounded-sm">
                     {errorMessage}
                   </div>
                 )}
@@ -94,7 +94,7 @@ export const Newsletter = () => {
               <button 
                 type="submit"
                 disabled={submitStatus === 'submitting'}
-                className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition-all font-semibold flex items-center justify-center group whitespace-nowrap disabled:opacity-70 shadow-lg hover:shadow-xl min-h-[56px] text-lg w-full sm:w-auto"
+                className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition-all font-semibold flex items-center justify-center group whitespace-nowrap disabled:opacity-70 shadow-lg hover:shadow-xl"
               >
                 {submitStatus === 'submitting' ? (
                   <span className="flex items-center">
@@ -114,34 +114,34 @@ export const Newsletter = () => {
             </form>
           )}
           
-          <div className="mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Calendar className="text-purple-600" size={20} />
               </div>
-              <span className="text-xs md:text-sm text-gray-700 font-medium">Nya recept varje månad</span>
+              <span className="text-sm text-gray-700 font-medium">Nya recept varje månad</span>
             </div>
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Star className="text-purple-600" size={20} />
               </div>
-              <span className="text-xs md:text-sm text-gray-700 font-medium">Exklusiva recept</span>
+              <span className="text-sm text-gray-700 font-medium">Exklusiva recept</span>
             </div>
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Seedling className="text-purple-600" size={20} />
               </div>
-              <span className="text-xs md:text-sm text-gray-700 font-medium">Säsongsbaserade tips</span>
+              <span className="text-sm text-gray-700 font-medium">Säsongsbaserade tips</span>
             </div>
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Utensils className="text-purple-600" size={20} />
               </div>
-              <span className="text-xs md:text-sm text-gray-700 font-medium">Matlagningstekniker</span>
+              <span className="text-sm text-gray-700 font-medium">Matlagningstekniker</span>
             </div>
           </div>
           
-          <div className="mt-6 md:mt-8 text-xs md:text-sm text-gray-500 px-4">
+          <div className="mt-8 text-sm text-gray-500">
             <p>Genom att prenumerera godkänner du att få mitt nyhetsbrev och accepterar min <a href="#" className="underline hover:text-purple-600 text-purple-500">integritetspolicy</a>. Du kan avsluta prenumerationen när som helst.</p>
           </div>
         </div>

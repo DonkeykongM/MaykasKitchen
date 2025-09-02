@@ -123,7 +123,7 @@ export const Header = () => {
             <div className="relative mr-2 md:mr-3 flex items-center justify-center bg-purple-100 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 group-hover:bg-purple-200 group-hover:scale-110 flex-shrink-0">
               <Salad className="w-4 h-4 md:w-6 md:h-6 text-purple-600 transition-colors" />
             </div>
-            <span className="text-base md:text-lg lg:text-xl font-bold text-purple-600 tracking-tight truncate transition-colors group-hover:text-purple-700 font-serif">
+            <span className="text-lg md:text-xl lg:text-2xl font-bold text-purple-600 tracking-tight truncate transition-colors group-hover:text-purple-700 font-serif">
               MaykasKitchen
             </span>
           </a>
