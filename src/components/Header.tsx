@@ -88,6 +88,7 @@ export const Header = () => {
 
   const handleSearchSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
+    console.log('handleSearchSubmit called. Current search term:', searchTerm);
     if (searchTerm.trim()) {
       localStorage.setItem('lastSearch', searchTerm.trim());
       window.location.hash = 'recept/alla';
@@ -233,7 +234,10 @@ export const Header = () => {
               placeholder="Sök efter recept, ingredienser eller tekniker..."
               className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 pr-8 md:pr-10 text-sm md:text-base min-h-[44px]"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                console.log('Search term updated:', e.target.value);
+              }}
               autoComplete="off"
             />
             <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-purple-400" size={16} aria-hidden="true" />
