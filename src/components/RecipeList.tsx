@@ -156,8 +156,10 @@ const RecipeList = () => {
 
   useEffect(() => {
     const savedSearch = localStorage.getItem('lastSearch');
+    console.log('RecipeList mounted, checking for saved search:', savedSearch);
     if (savedSearch) {
       setSearchTerm(savedSearch);
+      console.log('Setting search term from localStorage:', savedSearch);
       localStorage.removeItem('lastSearch');
     }
   }, []);

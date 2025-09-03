@@ -89,11 +89,15 @@ export const Header = () => {
   const handleSearchSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     console.log('handleSearchSubmit called. Current search term:', searchTerm);
+    console.log('Search form submitted, navigating to recipe list');
     if (searchTerm.trim()) {
+      console.log('Search term is valid, setting localStorage and changing hash');
       localStorage.setItem('lastSearch', searchTerm.trim());
       window.location.hash = 'recept/alla';
       setIsSearchOpen(false);
       setSearchTerm('');
+    } else {
+      console.log('Search term is empty, not proceeding with search');
     }
   }, [searchTerm]);
 

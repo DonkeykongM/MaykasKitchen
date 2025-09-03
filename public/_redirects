@@ -1,0 +1,19 @@
+# Handle www subdomain redirects
+https://www.maykaskitchen.se/* https://maykaskitchen.se/:splat 301!
+
+# Handle trailing slashes
+/recept /recept/ 301
+/om-mig /om-mig/ 301
+/kontakt /kontakt/ 301
+/samarbeten /samarbeten/ 301
+
+# SPA routing - handle client-side routing for hash-based navigation
+/*    /index.html   200
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://hook.eu2.make.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://hook.eu2.make.com https://*.supabase.co; frame-src 'none';

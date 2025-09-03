@@ -6,6 +6,19 @@ import path from 'path';
 export default defineConfig({
   root: '.',
   plugins: [react()],
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          utils: ['clsx', 'tailwind-merge']
+        }
+      }
+    }
+  },
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
