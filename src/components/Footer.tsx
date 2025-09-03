@@ -263,6 +263,19 @@ export const Footer = () => {
             <span>i Skåne, Sverige</span>
           </div>
         </div>
+        <div className="border-t border-purple-500/30 mt-4 pt-4 text-center">
+          <p className="text-gray-400 text-xs">
+            Skapad av{' '}
+            <a 
+              href="https://bahkostudio.se" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-300 hover:text-white transition-colors underline hover:no-underline"
+            >
+              BahkoStudio.se
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
