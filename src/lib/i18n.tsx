@@ -594,7 +594,7 @@ export const en: Translations = {
     tagline: 'Assyrian/Syriac culinary art',
     title: 'Food from the heart & soul',
     description: 'Authentic recipes made with love',
-    subtitle: 'Seasonal cooking that creates joy around the table for the whole family.',
+    subtitle: 'With Assyrian/Syriac roots, adapted for the modern kitchen. Seasonal cooking that creates joy around the table for the whole family.',
     exploreRecipes: 'Explore recipes',
     followMe: 'Follow me here:',
     scrollDown: 'Explore more'

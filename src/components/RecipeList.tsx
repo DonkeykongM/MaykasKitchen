@@ -603,7 +603,7 @@ const RecipeList = () => {
                 </span>
                 <button 
                   onClick={() => setSearchTerm(t.recipes.filters.fish)}
-                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
+                  className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px] cursor-pointer"
                 >
                   {t.recipes.filters.fish}
                 </button>

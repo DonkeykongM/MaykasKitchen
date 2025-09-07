@@ -86,10 +86,10 @@ export const Hero = () => {
           
           {/* FÖRBÄTTRAD MOBILANPASSAD BESKRIVNING */}
           <Typography variant="body-large" className="text-white mb-2 md:mb-3 lg:mb-4 max-w-2xl">
-            <mark className="bg-purple-600/90 text-white font-semibold px-1 md:px-2 py-0.5 md:py-1 rounded text-sm sm:text-base md:text-lg lg:text-xl">{t.hero.description}</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
+            <mark className="bg-purple-600/90 text-white font-semibold px-1 md:px-2 py-0.5 md:py-1 rounded text-sm sm:text-base md:text-lg lg:text-xl">{t.hero.description}</mark>
           </Typography>
           
-          <Typography variant="body-base" className="text-white/80 mb-4 md:mb-6 lg:mb-8 xl:mb-10 max-w-xl">
+          <Typography variant="body-base" className="text-white/80 mb-4 md:mb-6 lg:mb-8 xl:mb-10 max-w-2xl">
             {t.hero.subtitle}
           </Typography>
           
