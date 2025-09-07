@@ -7,7 +7,9 @@ interface RecipeDetailsProps {
   recipe: {
     id: string;
     title: string;
+    titleEn?: string;
     description: string;
+    descriptionEn?: string;
     image: string;
     time: string;
     portions: string;
@@ -15,8 +17,10 @@ interface RecipeDetailsProps {
     rating: number;
     reviews: number;
     badges: string[];
+    badgesEn?: string[];
     videoUrl: string;
     personalStory?: string;
+    personalStoryEn?: string;
     content: {
       ingredients: {
         section?: string;
@@ -29,6 +33,7 @@ interface RecipeDetailsProps {
       tips?: string[];
     };
     difficulty?: string;
+    difficultyEn?: string;
     nutritionInfo?: {
       calories?: string;
       protein?: string;
@@ -39,12 +44,14 @@ interface RecipeDetailsProps {
       [key: string]: string | undefined;
     };
     allergens?: string[];
+    allergensEn?: string[];
   };
   onBack: () => void;
 }
 
 export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) => {
   const { t } = useTranslation();
+  const { language } = useTranslation();
   const [portionCount, setPortionCount] = useState(parseInt(recipe.portions.split(' ')[0], 10));
   const [isSaved, setIsSaved] = useState(false);
   const [userRating, setUserRating] = useState(0);
@@ -418,13 +425,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       key={index}
                       className="bg-purple-100 text-purple-800 text-xs md:text-sm py-1 px-2 md:px-3 rounded-full font-medium"
                     >
-                      {badge}
+                      {language === 'en' && recipe.badgesEn ? recipe.badgesEn[index] : badge}
                     </span>
                   ))}
                 </div>
 
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif leading-tight select-text cursor-text">
-                  {recipe.title}
+                  {language === 'en' && recipe.titleEn ? recipe.titleEn : recipe.title}
                 </h1>
 
                 {/* Recipe meta */}
@@ -459,7 +466,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 </div>
 
                 <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base select-text cursor-text">
-                  {recipe.description}
+                  {language === 'en' && recipe.descriptionEn ? recipe.descriptionEn : recipe.description}
                 </p>
 
                 {/* Action buttons */}

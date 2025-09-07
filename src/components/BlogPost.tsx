@@ -5,7 +5,9 @@ const recipes = {
   'lins-bulgur-jarpar': {
     id: 'lins-bulgur-jarpar',
     title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
+    titleEn: 'Lentil and Bulgur Patties with Sumac and Sweet Pepper',
     description: 'Proteinrika och mättande vegetariska järpar med smakrik kombination av röda linser, bulgur och aromatiska kryddor från mellanöstern.',
+    descriptionEn: 'Protein-rich and filling vegetarian patties with a flavorful combination of red lentils, bulgur and aromatic Middle Eastern spices.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
     time: '45',
     portions: '4-6',
@@ -13,8 +15,10 @@ const recipes = {
     rating: 4.8,
     reviews: 2,
     badges: ['Vegetariskt', 'Mellanöstern', 'Protein'],
+    badgesEn: ['Vegetarian', 'Middle Eastern', 'Protein'],
     videoUrl: '',
     difficulty: 'Medel',
+    difficultyEn: 'Medium',
     nutritionInfo: {
       calories: '320 kcal',
       protein: '18g',
@@ -24,6 +28,7 @@ const recipes = {
       salt: '1.4g'
     },
     allergens: ['Kan innehålla spår av gluten från bulgur'],
+    allergensEn: ['May contain traces of gluten from bulgur'],
     content: {
       ingredients: [
         {
@@ -94,7 +99,9 @@ const recipes = {
   'kall-foul-medames': {
     id: 'kall-foul-medames',
     title: 'Kall foul medames',
+    titleEn: 'Cold Foul Medames',
     description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',
+    descriptionEn: 'A fresh and protein-rich salad with cooked brown beans or fava beans, fresh herbs and lemon. Perfect as meze or light meal!',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCzNWv2DP9mAtjTsb7I6ZNyREunpVPwDz3h850',
     time: '15',
     portions: '4',
@@ -102,8 +109,10 @@ const recipes = {
     rating: 4.8,
     reviews: 1,
     badges: ['Vegan', 'Mellanöstern', 'Snabb', 'Sallad'],
+    badgesEn: ['Vegan', 'Middle Eastern', 'Quick', 'Salad'],
     videoUrl: '',
     difficulty: 'Lätt',
+    difficultyEn: 'Easy',
     nutritionInfo: {
       calories: '240 kcal',
       protein: '12g',
@@ -113,6 +122,7 @@ const recipes = {
       salt: '1.2g'
     },
     allergens: ['Inga kända allergener'],
+    allergensEn: ['No known allergens'],
     content: {
       ingredients: [
         {
@@ -155,7 +165,9 @@ const recipes = {
   'qrimyothe-munkar': {
     id: 'qrimyothe-munkar',
     title: 'Qrimyothe – Mormors munkar 🍩',
+    titleEn: 'Qrimyothe – Grandma\'s Donuts 🍩',
     description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+    descriptionEn: 'Mom tells about grandma\'s love in every bite ♥️ This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
     time: '120',
     portions: '20',
@@ -163,8 +175,10 @@ const recipes = {
     rating: 4.9,
     reviews: 1,
     badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+    badgesEn: ['Traditional', 'Baking', 'Assyrian', 'Dessert'],
     videoUrl: '',
     difficulty: 'Medel',
+    difficultyEn: 'Medium',
     nutritionInfo: {
       calories: '180 kcal',
       protein: '4g',
@@ -174,6 +188,7 @@ const recipes = {
       salt: '0.3g'
     },
     allergens: ['Gluten'],
+    allergensEn: ['Gluten'],
     personalStory: 'Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.\n\nMin mamma har berättat hur mormor brukade baka dessa munkar hemma, särskilt när resurserna var knappa. Med mjöl, vatten, jäst och en nypa socker skapade hon något sött, varmt och älskat av barnen 👌😋.\n\nQrimyothe blev en kär tradition – ett sätt att visa kärlek genom enkelhet. Doften av nygräddade munkar bar med sig barndom, trygghet och omtanke. De påminde oss om att det inte krävs mycket för att ge – bara vilja, kärlek och omtanke 💫⭐️🌟.\n\nMed det här receptet vill jag bevara hennes minne och föra vidare smaken av våra rötter ❤️.',
     content: {
       ingredients: [
