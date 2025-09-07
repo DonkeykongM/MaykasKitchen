@@ -569,7 +569,7 @@ const RecipeList = () => {
               <button 
                 onClick={() => {
                   setSearchTerm('');
-                  setSelectedCategory(t.recipes.categories.all);
+                  setSelectedCategory('Alla recept');
                 }}
                 className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px]"
               >
