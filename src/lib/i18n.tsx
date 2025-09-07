@@ -728,6 +728,7 @@ export const en: Translations = {
     easy: 'Easy',
     medium: 'Medium',
     hard: 'Hard',
+    backToRecipes: 'Back to recipes',
     difficulty: {
       easy: 'Easy',
       medium: 'Medium',

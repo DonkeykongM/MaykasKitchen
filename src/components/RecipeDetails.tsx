@@ -779,20 +779,20 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       <h4 className="font-medium text-gray-800 text-sm md:text-base">{comment.name}</h4>
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
-                          <Star 
+              {recipe.portions} {t.recipes.portions}
                             key={i}
                             size={14}
                             fill={i < comment.rating ? "#fbbf24" : "none"}
                             className={i < comment.rating ? "text-amber-400" : "text-gray-300"}
                           />
-                        ))}
+              ({liveReviewCount})
                       </div>
                     </div>
                     <p className="text-gray-500 text-xs md:text-sm mb-2 md:mb-3">{comment.date}</p>
                     <p className="text-gray-700 leading-relaxed text-sm md:text-base">{comment.text}</p>
                   </div>
-                ))
-              )}
+            <span className="hidden sm:inline">{t.recipes.showRecipe}</span>
+            <span className="sm:hidden">{t.recipes.show}</span>
             </div>
           </div>
         </div>
