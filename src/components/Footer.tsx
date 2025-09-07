@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Instagram, BookText as TikTok, Youtube, Facebook, Mail, MapPin, Heart, ChefHat, Twitter } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 export const Footer = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -11,7 +13,7 @@ export const Footer = () => {
     
     if (!email || !email.includes('@') || !email.includes('.')) {
       setSubmitStatus('error');
-      setErrorMessage('Vänligen ange en giltig e-postadress.');
+      setErrorMessage(t.newsletter.validEmail);
       return;
     }
     
@@ -38,7 +40,7 @@ export const Footer = () => {
       setEmail('');
     } catch (error) {
       setSubmitStatus('error');
-      setErrorMessage('Något gick fel. Försök igen senare.');
+      setErrorMessage(t.newsletter.errorMessage);
       console.error("Error submitting form:", error);
     }
   };
@@ -75,7 +77,7 @@ export const Footer = () => {
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-purple-300 font-serif">MaykasKitchen</h3>
             </div>
-            <p className="max-w-xs mb-3 md:mb-4 text-gray-300 leading-relaxed text-sm md:text-base">Mat från hjärtat & tro i själen. Assyriska/Syrianska rötter, tacksam för min familj & kokar alltid med kärlek!</p>
+            <p className="max-w-xs mb-3 md:mb-4 text-gray-300 leading-relaxed text-sm md:text-base">{t.footer.description}</p>
             
             <div className="flex space-x-3 md:space-x-4 mb-4 md:mb-6">
               <a 
@@ -128,14 +130,14 @@ export const Footer = () => {
               </div>
               <div className="flex items-center text-gray-300 text-sm group">
                 <MapPin size={14} className="mr-2 group-hover:text-purple-300 transition-colors" />
-                <span>Skåne, Sverige</span>
+                <span>Skåne, {t.common.sweden}</span>
               </div>
             </div>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 md:w-2/3">
             <div>
-              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">Utforska</h4>
+              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.explore}</h4>
               <ul className="space-y-2">
                 <li>
                   <button 
@@ -143,7 +145,7 @@ export const Footer = () => {
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]" 
                   >
                     <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Recept
+                    {t.footer.recipes}
                   </button>
                 </li>
                 <li>
@@ -152,14 +154,14 @@ export const Footer = () => {
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
                   >
                     <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Alla recept
+                    {t.footer.allRecipes}
                   </button>
                 </li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">Om</h4>
+              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.about}</h4>
               <ul className="space-y-2">
                 <li>
                   <button 
@@ -167,7 +169,7 @@ export const Footer = () => {
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
                   >
                     <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Om mig
+                    {t.footer.about}
                   </button>
                 </li>
                 <li>
@@ -176,7 +178,7 @@ export const Footer = () => {
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
                   >
                     <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Samarbeten
+                    {t.footer.collaborations}
                   </button>
                 </li>
                 <li>
@@ -185,25 +187,25 @@ export const Footer = () => {
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
                   >
                     <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-2 inline-block transform transition-transform group-hover:scale-125"></span> 
-                    Kontakt
+                    {t.footer.contact}
                   </button>
                 </li>
               </ul>
             </div>
             
             <div className="col-span-2 md:col-span-1">
-              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">Nyhetsbrev</h4>
-              <p className="text-purple-100 text-xs md:text-sm mb-3">Få nya recept och matinspiration direkt i din inkorg!</p>
+              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.newsletter}</h4>
+              <p className="text-purple-100 text-xs md:text-sm mb-3">{t.footer.newsletterDesc}</p>
               
               {submitStatus === 'success' ? (
                 <div className="bg-green-500/20 p-3 rounded-lg text-white text-center">
-                  <p className="font-medium text-sm">Tack för din prenumeration!</p>
+                  <p className="font-medium text-sm">{t.newsletter.subscribed}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row mb-3 md:mb-4">
                   <input 
                     type="email" 
-                    placeholder="Din e-post" 
+                    placeholder={t.footer.emailPlaceholder}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full sm:w-auto flex-1 bg-purple-700 border-0 rounded-lg sm:rounded-r-none p-2 md:p-3 text-xs md:text-sm text-white focus:outline-none focus:ring-1 focus:ring-purple-300 placeholder-purple-200 mb-2 sm:mb-0 min-h-[44px] max-w-full box-border"
@@ -212,7 +214,7 @@ export const Footer = () => {
                   <button 
                     type="submit"
                     className="bg-black text-white text-xs md:text-sm py-2 md:py-3 px-3 rounded-lg sm:rounded-l-none hover:bg-gray-800 transition-colors min-h-[44px] max-w-full"
-                    aria-label="Prenumerera på nyhetsbrev"
+                    aria-label={t.newsletter.subscribe}
                     disabled={submitStatus === 'submitting'}
                   >
                     {submitStatus === 'submitting' ? (
@@ -234,19 +236,19 @@ export const Footer = () => {
               <div className="grid grid-cols-2 gap-2 md:gap-3 text-xs">
                 <div className="flex items-center text-gray-300">
                   <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  Nya recept varje månad
+                  {t.footer.benefits.newRecipes}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  Exklusiva recept
+                  {t.footer.benefits.exclusiveRecipes}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  Säsongsbaserade tips
+                  {t.footer.benefits.seasonalTips}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  Matlagningstekniker
+                  {t.footer.benefits.techniques}
                 </div>
               </div>
             </div>
@@ -255,17 +257,17 @@ export const Footer = () => {
         
         <div className="border-t border-purple-500 mt-6 md:mt-8 pt-4 md:pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-300 text-xs md:text-sm mb-4 md:mb-0 text-center md:text-left">
-            &copy; {currentYear} MaykasKitchen. Alla rättigheter förbehållna.
+            &copy; {currentYear} MaykasKitchen. {t.footer.copyright}
           </p>
           <div className="flex items-center text-gray-300 text-xs md:text-sm">
-            <span>Skapad med</span>
+            <span>{t.footer.madeWith}</span>
             <Heart size={12} className="mx-1 text-purple-300 animate-pulse" />
-            <span>i Skåne, Sverige</span>
+            <span>{t.footer.in}</span>
           </div>
         </div>
         <div className="border-t border-purple-500/30 mt-4 pt-4 text-center">
           <p className="text-gray-400 text-xs">
-            Skapad av{' '}
+            {t.footer.createdBy}{' '}
             <a 
               href="https://bahkostudio.se" 
               target="_blank" 

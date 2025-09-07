@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, ArrowRight, Send, Check, Calendar, Star, Scaling as Seedling, Utensils } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 export const Newsletter = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -11,7 +13,7 @@ export const Newsletter = () => {
     
     if (!email || !email.includes('@') || !email.includes('.')) {
       setSubmitStatus('error');
-      setErrorMessage('Vänligen ange en giltig e-postadress.');
+      setErrorMessage(t.newsletter.validEmail);
       return;
     }
     
@@ -38,7 +40,7 @@ export const Newsletter = () => {
       setEmail('');
     } catch (error) {
       setSubmitStatus('error');
-      setErrorMessage('Något gick fel. Försök igen senare.');
+      setErrorMessage(t.newsletter.errorMessage);
       console.error("Error sending to webhook:", error);
     }
   };
@@ -56,10 +58,10 @@ export const Newsletter = () => {
         </div>
         
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 font-serif">
-          Få matinspiration direkt i din inkorg
+          {t.newsletter.title}
         </h2>
         <p className="mb-8 max-w-2xl mx-auto text-gray-600 text-lg">
-          Prenumerera på mitt nyhetsbrev och få de senaste recepten, säsongsbaserade tips och exklusiva erbjudanden direkt till dig. Jag skickar ut mitt nyhetsbrev ungefär en gång i månaden.
+          {t.newsletter.description}
         </p>
         
         <div className="max-w-xl mx-auto">
@@ -68,8 +70,8 @@ export const Newsletter = () => {
               <div className="bg-green-500 text-white p-4 rounded-full mb-4">
                 <Check size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-800">Tack för din prenumeration!</h3>
-              <p className="text-gray-600">Du kommer nu få mina senaste recept och tips direkt i din inkorg.</p>
+              <h3 className="text-2xl font-bold mb-3 text-gray-800">{t.newsletter.thankYou}</h3>
+              <p className="text-gray-600">{t.newsletter.thankYouMessage}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-full">
@@ -78,11 +80,11 @@ export const Newsletter = () => {
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Din e-postadress" 
+                  placeholder={t.newsletter.emailPlaceholder}
                   className={`w-full px-4 py-4 rounded-lg border text-gray-800 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white max-w-full box-border ${
                     submitStatus === 'error' ? 'border-red-500 bg-red-50' : ''
                   }`}
-                  aria-label="Din e-postadress"
+                  aria-label={t.newsletter.emailPlaceholder}
                   disabled={submitStatus === 'submitting'}
                 />
                 {submitStatus === 'error' && (
@@ -102,12 +104,12 @@ export const Newsletter = () => {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Skickar...
+                    {t.newsletter.sending}
                   </span>
                 ) : (
                   <span className="flex items-center">
                     <Send size={18} className="mr-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    Prenumerera
+                    {t.newsletter.subscribe}
                   </span>
                 )}
               </button>
@@ -119,30 +121,30 @@ export const Newsletter = () => {
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Calendar className="text-purple-600" size={20} />
               </div>
-              <span className="text-sm text-gray-700 font-medium">Nya recept varje månad</span>
+              <span className="text-sm text-gray-700 font-medium">{t.newsletter.benefits.newRecipes}</span>
             </div>
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Star className="text-purple-600" size={20} />
               </div>
-              <span className="text-sm text-gray-700 font-medium">Exklusiva recept</span>
+              <span className="text-sm text-gray-700 font-medium">{t.newsletter.benefits.exclusiveRecipes}</span>
             </div>
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Seedling className="text-purple-600" size={20} />
               </div>
-              <span className="text-sm text-gray-700 font-medium">Säsongsbaserade tips</span>
+              <span className="text-sm text-gray-700 font-medium">{t.newsletter.benefits.seasonalTips}</span>
             </div>
             <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-purple-100 text-center">
               <div className="bg-purple-100 p-2 rounded-full mx-auto mb-2 w-fit">
                 <Utensils className="text-purple-600" size={20} />
               </div>
-              <span className="text-sm text-gray-700 font-medium">Matlagningstekniker</span>
+              <span className="text-sm text-gray-700 font-medium">{t.newsletter.benefits.techniques}</span>
             </div>
           </div>
           
           <div className="mt-8 text-sm text-gray-500">
-            <p>Genom att prenumerera godkänner du att få mitt nyhetsbrev och accepterar min <a href="#" className="underline hover:text-purple-600 text-purple-500">integritetspolicy</a>. Du kan avsluta prenumerationen när som helst.</p>
+            <p>{t.newsletter.privacy} <a href="#" className="underline hover:text-purple-600 text-purple-500">{t.newsletter.privacyPolicy}</a>. Du kan avsluta prenumerationen när som helst.</p>
           </div>
         </div>
       </div>

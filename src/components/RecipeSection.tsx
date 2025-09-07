@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
 import { Typography, Card, Badge, Rating, Button } from './ui/DesignSystem';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
+import { useTranslation } from '../lib/i18n';
 
 // Memoized recipe data with guaranteed working image URLs
 const RECIPES = [
@@ -353,6 +354,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
 RecipeCard.displayName = 'RecipeCard';
 
 export const RecipeSection = () => {
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('alla');
   const [isLoading, setIsLoading] = useState(false);
   const sectionRef = useRef(null);
@@ -383,10 +385,10 @@ export const RecipeSection = () => {
 
   // Memoized filters to prevent unnecessary re-renders
   const filters = useMemo(() => [
-    { id: 'alla', label: 'Alla recept', active: true },
-    { id: 'huvudratter', label: 'Huvudrätter', active: false },
-    { id: 'grytor', label: 'Grytor', active: false },
-    { id: 'bakverk', label: 'Bakverk', active: false }
+    { id: 'alla', label: t.recipes.allRecipes, active: true },
+    { id: 'huvudratter', label: t.recipes.mainDishes, active: false },
+    { id: 'grytor', label: t.recipes.stews, active: false },
+    { id: 'bakverk', label: t.recipes.baking, active: false }
   ], []);
 
   // Memoized filtered recipes for performance
@@ -412,17 +414,16 @@ export const RecipeSection = () => {
       <div className="container mx-auto px-4 w-full max-w-7xl">
         <div className="text-center mb-4">
           <Badge variant="default" className="mb-4">
-          MATINSPIRATION
+          {t.recipes.tagline}
           </Badge>
         </div>
         
         <Typography variant="h2" className="text-center mb-4 text-purple-600">
-          Populära recept
+          {t.recipes.title}
         </Typography>
         
         <Typography variant="body-large" className="text-center mb-8 md:mb-12 max-w-3xl mx-auto text-gray-700 px-4">
-          Upptäck mina mest omtyckta recept som kombinerar traditionell assyrisk/syriansk matlagning
-          med moderna smaker och enkla tillagningsmetoder.
+          {t.recipes.description}
         </Typography>
         
         {/* Optimized filter buttons with improved accessibility */}
@@ -472,10 +473,10 @@ export const RecipeSection = () => {
             onClick={handleSeeAllRecipes}
             className="shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
           >
-            Se alla recept
+            {t.recipes.seeAllRecipes}
           </Button>
           <Typography variant="body-small" className="text-gray-500 mt-4">
-            Upptäck {RECIPES.length}+ autentiska recept från Mayka
+            {t.recipes.discoverRecipes.replace('autentiska recept från Mayka', `${RECIPES.length}+ ${t.recipes.discoverRecipes}`)}
           </Typography>
         </div>
       </div>

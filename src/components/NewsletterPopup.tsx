@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Mail } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 export const NewsletterPopup = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
@@ -56,7 +58,7 @@ export const NewsletterPopup = () => {
     
     if (!email || !email.includes('@') || !email.includes('.')) {
       setSubmitStatus('error');
-      setErrorMessage('Vänligen ange en giltig e-postadress.');
+      setErrorMessage(t.newsletter.validEmail);
       return;
     }
     
@@ -98,7 +100,7 @@ export const NewsletterPopup = () => {
       }, 3000);
     } catch (error) {
       setSubmitStatus('error');
-      setErrorMessage('Något gick fel. Försök igen senare.');
+      setErrorMessage(t.newsletter.errorMessage);
       console.error("Error sending to webhook:", error);
     }
   };
@@ -114,7 +116,7 @@ export const NewsletterPopup = () => {
         <button 
           onClick={handleClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100"
-          aria-label="Stäng popup"
+          aria-label={t.common.close + ' popup'}
         >
           <X size={24} />
         </button>
@@ -124,8 +126,8 @@ export const NewsletterPopup = () => {
             <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <Mail className="text-green-600" size={32} />
             </div>
-            <h3 className="text-2xl font-bold text-green-600 mb-2">Tack för din prenumeration!</h3>
-            <p className="text-gray-600">Du kommer nu få våra senaste recept direkt i din inkorg.</p>
+            <h3 className="text-2xl font-bold text-green-600 mb-2">{t.newsletter.thankYou}</h3>
+            <p className="text-gray-600">{t.newsletter.thankYouMessage}</p>
           </div>
         ) : (
           <>
@@ -134,10 +136,10 @@ export const NewsletterPopup = () => {
                 <Mail className="text-purple-600" size={32} />
               </div>
               <h3 className="text-2xl font-bold text-purple-600 mb-2">
-                🌟 Få nya recept varje vecka!
+                {t.newsletter.popup.title}
               </h3>
               <p className="text-gray-600">
-                Prenumerera på vårt nyhetsbrev och få de senaste recepten, säsongstips och exklusiva erbjudanden direkt i din inkorg.
+                {t.newsletter.popup.description}
               </p>
             </div>
 
@@ -145,11 +147,11 @@ export const NewsletterPopup = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="Din e-postadress"
+                  placeholder={t.newsletter.emailPlaceholder}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-                  aria-label="Din e-postadress för nyhetsbrev"
+                  aria-label={t.newsletter.emailPlaceholder}
                 />
                 {submitStatus === 'error' && (
                   <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
@@ -160,7 +162,7 @@ export const NewsletterPopup = () => {
                 type="submit"
                 disabled={submitStatus === 'submitting'}
                 className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-all disabled:opacity-70 font-semibold transform hover:scale-105 will-change-transform"
-                aria-label="Prenumerera på nyhetsbrev"
+                aria-label={t.newsletter.subscribe}
               >
                 {submitStatus === 'submitting' ? (
                   <span className="flex items-center justify-center">
@@ -168,34 +170,34 @@ export const NewsletterPopup = () => {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Skickar...
+                    {t.newsletter.sending}
                   </span>
                 ) : (
-                  '✨ Prenumerera nu - det är gratis!'
+                  {t.newsletter.popup.subscribeButton}
                 )}
               </button>
 
               <p className="text-xs text-gray-500 text-center">
-                Du kan avsluta prenumerationen när som helst. Vi respekterar din integritet. 🔒
+                {t.newsletter.privacy} 🔒
               </p>
             </form>
 
             <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
               <div className="flex items-center text-gray-600">
                 <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
-                Nya recept varje vecka
+                {t.newsletter.popup.benefits.weekly}
               </div>
               <div className="flex items-center text-gray-600">
                 <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
-                Säsongsbaserade tips
+                {t.newsletter.popup.benefits.seasonal}
               </div>
               <div className="flex items-center text-gray-600">
                 <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
-                Exklusiva recept
+                {t.newsletter.popup.benefits.exclusive}
               </div>
               <div className="flex items-center text-gray-600">
                 <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
-                Matlagningstekniker
+                {t.newsletter.popup.benefits.techniques}
               </div>
             </div>
           </>

@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Mail, Home, Instagram, BookText as TikTok, Youtube, Facebook, Send, ArrowRight, ChevronRight, MapPin } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 export const ContactSection = () => {
+  const { t } = useTranslation();
   const [formStatus, setFormStatus] = useState<null | 'submitting' | 'success' | 'error'>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -65,7 +67,7 @@ export const ContactSection = () => {
     // Validate form
     if (!validateForm()) {
       setFormStatus('error');
-      setErrorMessage('Vänligen åtgärda felen i formuläret.');
+      setErrorMessage(t.contact.fixFormErrors);
       return;
     }
     
@@ -135,7 +137,7 @@ export const ContactSection = () => {
       
     } catch (error) {
       setFormStatus('error');
-      setErrorMessage('Något gick fel när ditt meddelande skulle skickas. Försök igen senare.');
+      setErrorMessage(t.contact.errorMessage);
       console.error("Error sending to webhook:", error);
     }
   };
@@ -143,16 +145,16 @@ export const ContactSection = () => {
   return (
     <section id="kontakt" className="py-16 bg-white relative w-full">
       <div className="container mx-auto px-4 relative z-10">
-        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">Nå mig</span>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">Kontakta mig</h2>
-        <p className="text-center mb-12 max-w-2xl mx-auto">Hör gärna av dig för samarbeten, frågor eller bara för att säga hej!</p>
+        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">{t.contact.tagline}</span>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">{t.contact.title}</h2>
+        <p className="text-center mb-12 max-w-2xl mx-auto">{t.contact.description}</p>
         
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/2">
             <div className="bg-white p-4 md:p-8 rounded-lg shadow-md" ref={formRef}>
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Send className="mr-2 text-primary-color" size={20} />
-                Skicka ett meddelande
+                {t.contact.sendMessage}
               </h3>
               
               {formStatus === 'success' ? (
@@ -163,18 +165,19 @@ export const ContactSection = () => {
                     </svg>
                   </div>
                   <h4 className="text-lg font-bold text-gray-800 mb-2">Tack för ditt meddelande!</h4>
-                  <p className="text-gray-600 mb-4">Jag återkommer till dig så snart som möjligt.</p>
+                  <h4 className="text-lg font-bold text-gray-800 mb-2">{t.contact.thankYouTitle}</h4>
+                  <p className="text-gray-600 mb-4">{t.contact.thankYouMessage}</p>
                   <button 
                     onClick={() => setFormStatus(null)}
                     className="text-primary-color font-medium hover:text-accent-color"
                   >
-                    Skicka ett nytt meddelande
+                    {t.contact.sendNew}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
                   <div className="mb-4">
-                    <label htmlFor="name" className="block text-brown-700 mb-2 font-medium">Namn <span className="text-primary-color">*</span></label>
+                    <label htmlFor="name" className="block text-brown-700 mb-2 font-medium">{t.contact.name} <span className="text-primary-color">*</span></label>
                     <input 
                       type="text" 
                       id="name"
@@ -194,7 +197,7 @@ export const ContactSection = () => {
                     )}
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="email" className="block text-brown-700 mb-2 font-medium">E-post <span className="text-primary-color">*</span></label>
+                    <label htmlFor="email" className="block text-brown-700 mb-2 font-medium">{t.contact.email} <span className="text-primary-color">*</span></label>
                     <input 
                       type="email" 
                       id="email" 
@@ -208,14 +211,14 @@ export const ContactSection = () => {
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border ${
                         fieldErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
-                      placeholder="Din e-postadress"
+                      placeholder={t.newsletter.emailPlaceholder}
                     />
                     {fieldErrors.email && (
                       <p id="email-error" className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>
                     )}
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="subject" className="block text-brown-700 mb-2 font-medium">Ämne</label>
+                    <label htmlFor="subject" className="block text-brown-700 mb-2 font-medium">{t.contact.subject}</label>
                     <input 
                       type="text" 
                       id="subject" 
@@ -223,11 +226,11 @@ export const ContactSection = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all border-gray-300 max-w-full box-border"
-                      placeholder="Vad handlar ditt meddelande om?"
+                      placeholder={t.contact.subjectPlaceholder}
                     />
                   </div>
                   <div className="mb-6">
-                    <label htmlFor="message" className="block text-brown-700 mb-2 font-medium">Meddelande <span className="text-primary-color">*</span></label>
+                    <label htmlFor="message" className="block text-brown-700 mb-2 font-medium">{t.contact.message} <span className="text-primary-color">*</span></label>
                     <textarea 
                       id="message" 
                       name="message"
@@ -241,7 +244,7 @@ export const ContactSection = () => {
                       className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color transition-all max-w-full box-border resize-none ${
                         fieldErrors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
-                      placeholder="Skriv ditt meddelande här..."
+                      placeholder={t.contact.messagePlaceholder}
                     ></textarea>
                     {fieldErrors.message && (
                       <p id="message-error" className="text-red-500 text-sm mt-1">{fieldErrors.message}</p>
@@ -256,13 +259,13 @@ export const ContactSection = () => {
                         checked={subscribeToNewsletter}
                         onChange={() => setSubscribeToNewsletter(!subscribeToNewsletter)}
                       />
-                      <span className="ml-2 text-sm text-gray-700">Jag vill prenumerera på nyhetsbrevet och få de senaste recepten direkt i min inkorg.</span>
+                      <span className="ml-2 text-sm text-gray-700">{t.contact.subscribe}</span>
                     </label>
                   </div>
                   
                   {formStatus === 'error' && !Object.keys(fieldErrors).length && (
                     <div className="mb-4 p-3 bg-red-50 text-red-600 border border-red-200 rounded-md text-sm">
-                      {errorMessage || 'Ett fel uppstod när meddelandet skulle skickas. Försök igen.'}
+                      <p className="text-brown-500 text-sm">25 000+ {t.about.stats.followers}</p>
                     </div>
                   )}
                   
@@ -277,11 +280,11 @@ export const ContactSection = () => {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Skickar...
+                        {t.contact.sending}
                       </>
                     ) : (
                       <>
-                        Skicka meddelande <ArrowRight size={18} className="ml-2" />
+                        {t.contact.submitButton} <ArrowRight size={18} className="ml-2" />
                       </>
                     )}
                   </button>
@@ -294,7 +297,7 @@ export const ContactSection = () => {
             <div className="bg-white p-8 rounded-lg shadow-md mb-8">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Mail className="mr-2 text-primary-color" size={20} />
-                Kontaktuppgifter
+                {t.contact.contactInfo}
               </h3>
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -302,7 +305,7 @@ export const ContactSection = () => {
                     <Mail className="text-primary-color" size={18} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">E-post</h4>
+                    <h4 className="font-semibold">{t.contact.email}</h4>
                     <a href="mailto:info@maykaskitchen.se" className="text-brown-500 hover:text-primary-color transition-colors">info@maykaskitchen.se</a>
                   </div>
                 </div>
@@ -311,9 +314,9 @@ export const ContactSection = () => {
                     <MapPin className="text-primary-color" size={18} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Plats</h4>
-                    <p className="text-brown-500">Skåne, Sverige</p>
-                    <p className="text-xs text-gray-500 mt-1">Tillgänglig för uppdrag i hela Sverige</p>
+                    <h4 className="font-semibold">{t.contact.location}</h4>
+                    <p className="text-brown-500">Skåne, {t.common.sweden}</p>
+                    <p className="text-xs text-gray-500 mt-1">{t.contact.availableSweden}</p>
                   </div>
                 </div>
               </div>
@@ -322,7 +325,7 @@ export const ContactSection = () => {
             <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-6 flex items-center">
                 <Instagram className="mr-2 text-primary-color" size={20} />
-                Följ mig
+                {t.contact.followMe}
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <a 
@@ -380,14 +383,14 @@ export const ContactSection = () => {
               </div>
               
               <div className="mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
-                <p className="font-medium mb-2">Snabbast svar får du via Instagram DM</p>
+                <p className="font-medium mb-2">{t.contact.fastestResponse}</p>
                 <a 
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-white hover:text-beige-50 font-medium"
                 >
-                  Skicka DM <ArrowRight size={16} className="ml-1" />
+                  {t.contact.sendDM} <ArrowRight size={16} className="ml-1" />
                 </a>
               </div>
             </div>

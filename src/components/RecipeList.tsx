@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Clock, Users, Heart, Star, ChevronRight, ArrowLeft, Filter, Tag } from 'lucide-react';
 import FoodBlogBackground from './ui/food-blog-background';
+import { useTranslation } from '../lib/i18n';
 
 // Enhanced recipe card component with robust image handling
 const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
@@ -150,6 +151,7 @@ const getRecipeEmoji = (recipeId) => {
 };
 
 const RecipeList = () => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Alla recept');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -349,15 +351,15 @@ const RecipeList = () => {
   ];
 
   const categories = [
-    'Alla recept',
-    'Vegetariskt',
-    'Snabbt (under 30 min)',
-    'Assyriskt',
-    'Syriskt',
-    'Mellanöstern',
-    'Glutenfritt',
-    'Kött',
-    'Fisk'
+    t.recipes.categories.all,
+    t.recipes.categories.vegetarian,
+    t.recipes.categories.quick,
+    t.recipes.categories.assyrian,
+    t.recipes.categories.syrian,
+    t.recipes.categories.middleEastern,
+    t.recipes.categories.glutenFree,
+    t.recipes.categories.meat,
+    t.recipes.categories.fish
   ];
 
   // Optimerad navigation med useCallback
@@ -378,9 +380,9 @@ const RecipeList = () => {
       recipe.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       recipe.badges.some(badge => badge.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    const matchesCategory = selectedCategory === 'Alla recept' ||
+    const matchesCategory = selectedCategory === t.recipes.categories.all ||
       recipe.badges.some(badge => badge === selectedCategory) ||
-      (selectedCategory === 'Snabbt (under 30 min)' && parseInt(recipe.time) <= 30);
+      (selectedCategory === t.recipes.categories.quick && parseInt(recipe.time) <= 30);
 
     return matchesSearch && matchesCategory;
   });
@@ -434,18 +436,18 @@ const RecipeList = () => {
             className="flex items-center text-purple-300 hover:text-white mb-6 md:mb-8 group bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full transition-all hover:bg-white/20 min-h-[44px]"
           >
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
-            <span className="hidden sm:inline">Tillbaka till startsidan</span>
-            <span className="sm:hidden">Tillbaka</span>
+            <span className="hidden sm:inline">{t.recipes.backToHome}</span>
+            <span className="sm:hidden">{t.common.back}</span>
           </button>
 
           <span className="block text-center text-purple-300 text-xs md:text-sm font-medium mb-2 uppercase tracking-wider">
-            Matinspiration
+            {t.recipes.tagline}
           </span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-3 md:mb-4 text-white">
-            Alla våra recept
+            {t.recipes.allRecipes}
           </h2>
           <p className="text-center mb-6 md:mb-8 max-w-2xl mx-auto text-purple-100 text-sm md:text-base lg:text-lg">
-            Upptäck alla våra recept som kombinerar traditionell assyrisk/syriansk matlagning med moderna smaker och enkla tillagningsmetoder.
+            {t.recipes.description}
           </p>
 
           {/* Search and filters */}
@@ -456,7 +458,7 @@ const RecipeList = () => {
                   <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                   <input
                     type="text"
-                    placeholder="Sök efter recept..."
+                    placeholder={t.recipes.searchPlaceholder}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px]"
@@ -471,7 +473,7 @@ const RecipeList = () => {
                     aria-expanded={isFilterOpen}
                   >
                     <Filter size={16} className="mr-2" />
-                    Filter
+                    {t.recipes.filter}
                     <ChevronRight size={14} className={`ml-2 transform transition-transform duration-200 ${isFilterOpen ? 'rotate-90' : ''}`} />
                   </button>
                   
@@ -501,43 +503,43 @@ const RecipeList = () => {
               {/* Popular tags as quick filters */}
               <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
                 <span className="text-xs md:text-sm text-gray-600 mr-1 flex items-center">
-                  <Tag size={12} className="mr-1" /> Populära:
+                  <Tag size={12} className="mr-1" /> {t.recipes.popularSearches}
                 </span>
                 <button 
-                  onClick={() => setSearchTerm('Fisk')}
+                  onClick={() => setSearchTerm(t.recipes.filters.fish)}
                   className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
-                  Fisk
+                  {t.recipes.filters.fish}
                 </button>
                 <button 
-                  onClick={() => setSearchTerm('Vegetariskt')}
+                  onClick={() => setSearchTerm(t.recipes.filters.vegetarian)}
                   className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
-                  Vegetariskt
+                  {t.recipes.filters.vegetarian}
                 </button>
                 <button 
-                  onClick={() => setSearchTerm('Snabb')}
+                  onClick={() => setSearchTerm(t.recipes.filters.quick)}
                   className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
-                  Snabbt
+                  {t.recipes.filters.quick}
                 </button>
                 <button 
-                  onClick={() => setSearchTerm('Traditionell')}
+                  onClick={() => setSearchTerm(t.recipes.filters.traditional)}
                   className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
-                  Traditionellt
+                  {t.recipes.filters.traditional}
                 </button>
                 <button 
-                  onClick={() => setSearchTerm('Assyriskt')}
+                  onClick={() => setSearchTerm(t.recipes.filters.assyrian)}
                   className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
-                  Assyriskt
+                  {t.recipes.filters.assyrian}
                 </button>
                 <button 
-                  onClick={() => setSearchTerm('Syriskt')}
+                  onClick={() => setSearchTerm(t.recipes.filters.syrian)}
                   className="text-xs bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full hover:bg-purple-600 hover:text-white transition-colors min-h-[32px]"
                 >
-                  Syriskt
+                  {t.recipes.filters.syrian}
                 </button>
               </div>
             </div>
@@ -548,8 +550,8 @@ const RecipeList = () => {
             <div className="mb-4 md:mb-6 text-center">
               <p className="text-purple-100 text-sm md:text-base">
                 {filteredRecipes.length === 0 
-                  ? `Inga recept matchar sökningen "${searchTerm}"` 
-                  : `Visar ${filteredRecipes.length} recept för "${searchTerm}"`}
+                  ? `${t.recipes.noMatch} "${searchTerm}"` 
+                  : `${t.recipes.showing} ${filteredRecipes.length} ${t.recipes.resultsFor} "${searchTerm}"`}
               </p>
             </div>
           )}
@@ -562,16 +564,16 @@ const RecipeList = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Inga recept hittades</h3>
-              <p className="text-gray-500 mb-4 md:mb-6 text-sm md:text-base">Vi kunde inte hitta några recept som matchar din sökning.</p>
+              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">{t.recipes.noResults}</h3>
+              <p className="text-gray-500 mb-4 md:mb-6 text-sm md:text-base">{t.recipes.noResultsDesc}</p>
               <button 
                 onClick={() => {
                   setSearchTerm('');
-                  setSelectedCategory('Alla recept');
+                  setSelectedCategory(t.recipes.categories.all);
                 }}
                 className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px]"
               >
-                Visa alla recept
+                {t.recipes.showAll}
               </button>
             </div>
           ) : (
@@ -589,15 +591,15 @@ const RecipeList = () => {
           {/* Newsletter signup */}
           <div className="mt-12 md:mt-16 bg-white/90 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-md max-w-xl mx-auto">
             <h3 className="text-xl md:text-2xl font-bold text-purple-600 mb-3">
-              Få nya recept direkt i din inkorg
+              {t.recipes.getNewsletter}
             </h3>
             <p className="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">
-              Prenumerera på mitt nyhetsbrev och få exklusiva recept, säsongstips och inspiration direkt i din inkorg varje månad.
+              {t.recipes.getNewRecipes}
             </p>
             <form className="flex flex-col sm:flex-row gap-2" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
-                placeholder="Din e-postadress"
+                placeholder={t.newsletter.emailPlaceholder}
                 className="flex-1 px-3 md:px-4 py-2 md:py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base min-h-[44px] max-w-full box-border"
                 required
               />
@@ -605,25 +607,25 @@ const RecipeList = () => {
                 type="submit"
                 className="bg-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base min-h-[44px] max-w-full"
               >
-                Prenumerera
+                {t.newsletter.subscribe}
               </button>
             </form>
             <div className="mt-3 md:mt-4 grid grid-cols-2 gap-2 md:gap-3 text-xs md:text-sm">
               <div className="flex items-center text-gray-600">
                 <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
-                Nya recept varje månad
+                {t.newsletter.benefits.newRecipes}
               </div>
               <div className="flex items-center text-gray-600">
                 <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
-                Säsongsbaserade tips
+                {t.newsletter.benefits.seasonalTips}
               </div>
               <div className="flex items-center text-gray-600">
                 <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
-                Exklusiva recept
+                {t.newsletter.benefits.exclusiveRecipes}
               </div>
               <div className="flex items-center text-gray-600">
                 <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span>
-                Matlagningstekniker
+                {t.newsletter.benefits.techniques}
               </div>
             </div>
           </div>
