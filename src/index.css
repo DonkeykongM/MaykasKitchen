@@ -481,6 +481,99 @@ textarea:invalid {
   outline: 3px solid white;
 }
 
+/* Enhanced performance optimizations for mobile */
+.optimize-performance {
+  will-change: auto;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .optimize-performance {
+    will-change: transform;
+  }
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 768px) {
+  button, 
+  a[role="button"], 
+  .btn-primary, 
+  .btn-secondary, 
+  .nav-link,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem;
+  }
+  
+  /* Improved form elements on mobile */
+  input, 
+  textarea, 
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem;
+    min-height: 48px;
+  }
+  
+  /* Better spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Disable hover effects on touch devices */
+  @media (hover: none) {
+    .recipe-card:hover {
+      transform: none;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Performance improvements */
+.performance-optimized {
+  contain: layout style paint;
+  will-change: auto;
+}
+
+/* Reduced motion support enhanced */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .recipe-card:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none !important;
+  }
+  
+  .will-change-transform {
+    will-change: auto !important;
+  }
+  
+  .animate-loading-shimmer {
+    animation: none !important;
+    background: #f0f0f0 !important;
+  }
+}
+
+/* Better focus indicators */
+.focus-visible {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px !important;
+}
+
 /* MOBILE-FIRST performance optimizations */
 .will-change-transform {
   will-change: auto;
@@ -754,11 +847,40 @@ img[loading="lazy"].loaded {
   opacity: 1;
 }
 
+/* Improved image loading performance */
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400px;
+}
+
 /* Content loading states */
 .loading-skeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: loading-shimmer 1.5s infinite;
+}
+
+/* Language switcher styles */
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.language-button {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  min-height: 40px;
+  min-width: 44px;
 }
 
 /* Error state styling */
@@ -817,4 +939,17 @@ img[loading="lazy"].loaded {
     margin-bottom: 0.5rem;
     overflow: visible;
   }
+}
+
+/* Print optimizations */
+@media print {
+  .language-switcher,
+  .share-button,
+  .newsletter,
+  .social-links {
+    display: none !important;
+  }
+  
+  body { font-size: 12pt; }
+  h1, h2, h3 { page-break-after: avoid; }
 }

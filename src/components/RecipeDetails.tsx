@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Clock, Users, Heart, Instagram, ArrowLeft, Printer, Bookmark, Share2, AlertCircle, Star, MessageCircle, Send } from 'lucide-react';
 import { getRecipeStats, getRecipeComments, submitComment, submitRating, type RecipeComment } from '../lib/recipeService';
+import { useTranslation } from '../lib/i18n';
 
 interface RecipeDetailsProps {
   recipe: {
@@ -43,6 +44,7 @@ interface RecipeDetailsProps {
 }
 
 export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) => {
+  const { t } = useTranslation();
   const [portionCount, setPortionCount] = useState(parseInt(recipe.portions.split(' ')[0], 10));
   const [isSaved, setIsSaved] = useState(false);
   const [userRating, setUserRating] = useState(0);
@@ -244,10 +246,14 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   }, [isSaved, recipe.id]);
 
   const handleShare = useCallback(() => {
+    // Generate proper shareable URL with recipe ID
+    const baseUrl = window.location.origin;
+    const recipeUrl = `${baseUrl}/recipe/${recipe.id}`;
+    
     const shareData = {
       title: `${recipe.title} - MaykasKitchen`,
       text: `Kolla in detta recept: ${recipe.description}`,
-      url: window.location.href,
+      url: recipeUrl,
     };
 
     // Try native sharing first (mobile devices)
@@ -261,8 +267,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
     }
 
     function copyToClipboard() {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('Länk kopierad till urklipp!');
+      navigator.clipboard.writeText(recipeUrl).then(() => {
+        alert(t.recipeDetails.linkCopied);
       }).catch(() => {
         alert('Kunde inte kopiera länken. Markera och kopiera URL:en manuellt.');
       });
@@ -366,8 +372,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             className="flex items-center text-purple-600 hover:text-purple-700 mb-6 md:mb-8 group print:hidden transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg min-h-[44px]"
           >
             <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
-            <span className="hidden sm:inline">Tillbaka till receptsamlingen</span>
-            <span className="sm:hidden">Tillbaka</span>
+            <span className="hidden sm:inline">{t.recipeDetails.backToRecipes}</span>
+            <span className="sm:hidden">{t.common.close}</span>
           </button>
 
           {/* Personal story section */}
@@ -378,8 +384,8 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   <Heart className="text-white" size={20} />
                 </div>
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-600">En personlig berättelse</h2>
-                  <p className="text-gray-600 text-sm md:text-base">Från Maykas hjärta</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-600">{t.recipeDetails.personalStory}</h2>
+                  <p className="text-gray-600 text-sm md:text-base">{t.recipeDetails.fromHeart}</p>
                 </div>
               </div>
               <div className="prose prose-sm md:prose-lg max-w-none">
@@ -463,7 +469,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     className="flex items-center gap-2 px-3 md:px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors text-sm min-h-[44px]"
                   >
                     <Printer size={16} />
-                    <span className="hidden sm:inline">Skriv ut</span>
+                    <span className="hidden sm:inline">{t.recipeDetails.printRecipe}</span>
                   </button>
                   
                   {recipe.videoUrl && (
@@ -474,7 +480,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                       className="flex items-center gap-2 px-3 md:px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors text-sm min-h-[44px]"
                     >
                       <Instagram size={16} />
-                      <span className="hidden sm:inline">Se på Instagram</span>
+                      <span className="hidden sm:inline">{t.recipeDetails.seeOnInstagram}</span>
                     </a>
                   )}
                   
@@ -485,7 +491,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     }`}
                   >
                     <Bookmark size={16} fill={isSaved ? "white" : "none"} />
-                    <span className="hidden sm:inline">{isSaved ? 'Sparat' : 'Spara'}</span>
+                    <span className="hidden sm:inline">{isSaved ? t.recipeDetails.saved : t.recipeDetails.save}</span>
                   </button>
                   
                   <button 
@@ -493,19 +499,19 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all text-sm min-h-[44px] transform hover:scale-105 shadow-md ${
                      isLiked ? 'bg-red-500 text-white shadow-lg scale-105' : 'bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-600'
                     }`}
-                    aria-label={isLiked ? 'Ta bort gilla' : 'Gilla receptet'}
+                    aria-label={isLiked ? t.recipeDetails.liked : t.recipeDetails.likeRecipe}
                   >
                     <Heart size={16} fill={isLiked ? "#FF0000" : "none"} className={`transition-all duration-200 ${isLiked ? 'text-red-500 animate-pulse' : ''}`} />
-                    <span className="hidden sm:inline">{isLiked ? 'Gillad' : 'Gilla'}</span>
+                    <span className="hidden sm:inline">{isLiked ? t.recipeDetails.liked : t.recipeDetails.like}</span>
                   </button>
                   
                   <button 
                     onClick={handleShare}
                     className="flex items-center gap-2 px-3 md:px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors text-sm min-h-[44px] hover:scale-105 transform"
-                    aria-label="Dela receptet"
+                    aria-label={t.recipeDetails.shareRecipe}
                   >
                     <Share2 size={16} />
-                    <span className="hidden sm:inline">Dela</span>
+                    <span className="hidden sm:inline">{t.recipeDetails.share}</span>
                   </button>
                 </div>
               </div>
@@ -514,7 +520,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
           {/* Portions adjuster */}
           <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 mb-6 md:mb-8 shadow-lg border border-purple-100">
-            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-center text-purple-600">Justera portioner</h3>
+            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-center text-purple-600">{t.recipeDetails.adjustPortions}</h3>
             <div className="flex items-center justify-center">
               <button 
                 onClick={() => setPortionCount(Math.max(1, portionCount - 1))}
@@ -522,7 +528,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               >
                 -
               </button>
-              <span className="mx-4 md:mx-6 text-lg md:text-xl font-semibold text-purple-600">{portionCount} portioner</span>
+              <span className="mx-4 md:mx-6 text-lg md:text-xl font-semibold text-purple-600">{portionCount} {t.recipes.portions}</span>
               <button 
                 onClick={() => setPortionCount(portionCount + 1)}
                 className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
@@ -538,7 +544,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             <div className="lg:col-span-3 order-2 lg:order-1">
               <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
                 <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
-                  Gör såhär
+                  {t.recipeDetails.howToMake}
                 </h2>
                 
                 {recipe.content.instructions.map((section, index) => (
@@ -566,7 +572,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               {recipe.content.tips && recipe.content.tips.length > 0 && (
                 <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
                   <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-center text-purple-600 font-serif">
-                    Tips & variationer
+                    {t.recipeDetails.tips}
                   </h2>
                   <ul className="space-y-2 md:space-y-3">
                     {recipe.content.tips.map((tip, index) => (
@@ -584,14 +590,14 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             <div className="lg:col-span-1 order-1 lg:order-2">
               <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-4">
                 <h2 className="text-base md:text-lg font-bold mb-4 text-center text-purple-600 font-serif">
-                  Ingredienser
+                  {t.recipeDetails.ingredients}
                 </h2>
                 
                 {recipe.allergens && recipe.allergens.length > 0 && (
                   <div className="mb-4 p-3 bg-yellow-50 rounded-lg flex items-start text-sm border border-yellow-200">
                     <AlertCircle className="text-yellow-500 mr-2 mt-0.5 flex-shrink-0" size={14} />
                     <div>
-                      <p className="font-medium text-yellow-700 text-xs">Allergener:</p>
+                      <p className="font-medium text-yellow-700 text-xs">{t.recipeDetails.allergens}</p>
                       <p className="text-yellow-700 text-xs">{recipe.allergens.join(', ')}</p>
                     </div>
                   </div>
@@ -656,12 +662,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           {/* Rating and Comments */}
           <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-purple-100">
             <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
-              Betygsätt & kommentera
+              {t.recipeDetails.rateAndComment}
             </h2>
             
             {/* Rating */}
             <div className="flex items-center justify-center mb-6 md:mb-8">
-              <span className="mr-3 md:mr-4 text-gray-700 text-sm md:text-base">Ditt betyg:</span>
+              <span className="mr-3 md:mr-4 text-gray-700 text-sm md:text-base">{t.recipeDetails.yourRating}</span>
               <div className="flex space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button 
@@ -679,7 +685,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               </div>
               {userRating > 0 && (
                 <span className="ml-3 md:ml-4 text-gray-600 text-sm md:text-base">
-                  {userRating} stjärn{userRating === 1 ? 'a' : 'or'}
+                  {userRating} {userRating === 1 ? t.recipeDetails.star : t.recipeDetails.stars}
                 </span>
               )}
             </div>
@@ -689,7 +695,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
                 <input
                   type="text"
-                  placeholder="Ditt namn"
+                  placeholder={t.recipeDetails.yourName}
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
@@ -697,7 +703,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 />
                 <input
                   type="email"
-                  placeholder="Din e-post (visas ej)"
+                  placeholder={t.recipeDetails.yourEmail}
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
                   className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
@@ -705,7 +711,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               </div>
               
               <textarea
-                placeholder="Skriv din kommentar här..."
+                placeholder={t.recipeDetails.writeComment}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 rows={4}
@@ -725,12 +731,12 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Skickar...
+                      {t.recipeDetails.sending}
                     </>
                   ) : (
                     <>
                       <Send size={16} className="mr-2" />
-                      Skicka kommentar
+                      {t.recipeDetails.submitComment}
                     </>
                   )}
                 </button>
@@ -744,7 +750,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               
               {submitSuccess && (
                 <div className="mt-4 p-3 bg-green-50 text-green-600 rounded-lg text-center text-sm">
-                  Tack för din kommentar! Den visas nu på sidan.
+                  {t.recipeDetails.commentSuccess}
                 </div>
               )}
             </form>
@@ -753,18 +759,18 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
             <div className="space-y-4 md:space-y-6">
               <h3 className="text-lg md:text-xl font-semibold flex items-center justify-center">
                 <MessageCircle size={18} className="mr-2 text-purple-600" />
-                Kommentarer ({displayComments.length})
+                {t.recipeDetails.comments} ({displayComments.length})
               </h3>
               
               {loading ? (
                 <div className="text-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
-                  <p className="text-gray-500 mt-2">Laddar kommentarer...</p>
+                  <p className="text-gray-500 mt-2">{t.recipeDetails.loading}</p>
                 </div>
               ) : displayComments.length === 0 ? (
                 <div className="text-center py-8 text-gray-500">
                   <MessageCircle size={48} className="mx-auto mb-4 text-gray-300" />
-                  <p>Inga kommentarer än. Bli först att kommentera!</p>
+                  <p>{t.recipeDetails.noComments}</p>
                 </div>
               ) : (
                 displayComments.map((comment) => (
