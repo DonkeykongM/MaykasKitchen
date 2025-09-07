@@ -27,10 +27,15 @@ export const AboutSection: React.FC = () => {
               <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45Kv" 
                 alt="Mayka Gulo i köket"
-                className="w-full h-auto rounded-2xl shadow-xl object-cover"
+                className="w-full h-64 md:h-80 lg:h-96 rounded-2xl shadow-xl object-cover"
                 loading="lazy"
                 width="500"
                 height="600"
+                onError={(e) => {
+                  console.log('Image failed to load');
+                  e.currentTarget.style.display = 'none';
+                }}
+                onLoad={() => console.log('Image loaded successfully')}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl"></div>
             </div>
