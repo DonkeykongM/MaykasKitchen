@@ -104,5 +104,9 @@ export const AboutSection: React.FC = () => {
             <p className="text-sm text-gray-500 pt-4 text-center">
               {t.about.since}
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
