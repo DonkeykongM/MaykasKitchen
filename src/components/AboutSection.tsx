@@ -29,6 +29,14 @@ export const AboutSection: React.FC = () => {
                 alt="Mayka Gulo i köket"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                onError={(e) => {
+                  console.error('Image failed to load:', e.currentTarget.src);
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement;
+                  if (parent) {
+                    parent.innerHTML = '<div class="w-full h-full flex items-center justify-center bg-purple-200 text-purple-600"><div class="text-center"><div class="text-4xl mb-2">👩‍🍳</div><div class="text-sm">Mayka Gulo</div></div></div>';
+                  }
+                }}
               />
             </div>
             {/* Decorative elements */}
