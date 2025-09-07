@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useMemo, Suspense } from 'react';
+import React, { useState, useRef, useCallback, useMemo, Suspense, useEffect } from 'react';
 import { Typography, Card, Badge, Rating, Button } from './ui/DesignSystem';
 import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
