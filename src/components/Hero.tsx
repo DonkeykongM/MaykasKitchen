@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Typography, Button } from './ui/DesignSystem';
 import { ChevronDown, Instagram, UtensilsCrossed, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 export const Hero = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
@@ -74,21 +76,21 @@ export const Hero = () => {
         <div className={`w-full lg:w-1/2 lg:pr-8 mb-6 lg:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-flex items-center bg-white/90 backdrop-blur-sm text-purple-700 px-3 py-2 rounded-full text-xs md:text-sm font-medium mb-4 md:mb-6 lg:mb-8 shadow-lg">
             <span className="bg-purple-600 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full mr-2"></span>
-            Assyrisk/syriansk matkonst
+            {t.hero.tagline}
           </span>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD RUBRIK */}
           <Typography variant="h1" as="h1" className="text-white mb-3 md:mb-4 lg:mb-6">
-            Mat från hjärtat & själen
+            {t.hero.title}
           </Typography>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD BESKRIVNING */}
           <Typography variant="body-large" className="text-white mb-2 md:mb-3 lg:mb-4 max-w-2xl">
-            Upptäck <mark className="bg-purple-600/90 text-white font-semibold px-1 md:px-2 py-0.5 md:py-1 rounded text-sm sm:text-base md:text-lg lg:text-xl">enkla och smakrika recept</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
+            Upptäck <mark className="bg-purple-600/90 text-white font-semibold px-1 md:px-2 py-0.5 md:py-1 rounded text-sm sm:text-base md:text-lg lg:text-xl">{t.hero.description}</mark> med autentiska assyriska/syrianska rötter, anpassade för det moderna köket.
           </Typography>
           
           <Typography variant="body-base" className="text-white/80 mb-4 md:mb-6 lg:mb-8 xl:mb-10 max-w-xl">
-            Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.
+            {t.hero.subtitle}
           </Typography>
           
           {/* FÖRBÄTTRAD MOBILANPASSAD KNAPP */}
@@ -97,18 +99,18 @@ export const Hero = () => {
               variant="primary"
               size="lg"
               onClick={scrollToRecipes}
-              aria-label="Utforska recept"
+              aria-label={t.hero.exploreRecipes}
               className="w-full sm:w-auto shadow-lg hover:shadow-xl"
             >
               <UtensilsCrossed size={20} />
-              Utforska recept
+              {t.hero.exploreRecipes}
             </Button>
           </div>
 
           {/* FÖRBÄTTRADE MOBILANPASSADE SOCIALA MEDIER */}
           <div className="mb-4 md:mb-6 lg:mb-8 xl:mb-10">
             <Typography variant="body-base" className="font-semibold mb-3 md:mb-4 text-white">
-              Följ mig här:
+              {t.hero.followMe}
             </Typography>
             <div className="flex flex-wrap gap-2 md:gap-3 lg:gap-4 justify-center sm:justify-start">
               <a href="https://www.instagram.com/maykaskitchen/" target="_blank" rel="noopener noreferrer" 
@@ -136,11 +138,11 @@ export const Hero = () => {
           
           {/* DESKTOP SCROLL INDIKATOR */}
           <div className="hidden md:flex items-center text-white/70 text-sm">
-            <span className="mr-2">Utforska mer</span>
+            <span className="mr-2">{t.hero.scrollDown}</span>
             <button 
               onClick={scrollToRecipes}
               className="animate-bounce bg-white/20 backdrop-blur-sm h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent hover:bg-white/30 min-h-[44px]"
-              aria-label="Scrolla ner till recept"
+              aria-label={t.hero.scrollDown}
             >
               <ChevronDown size={20} className="text-white" />
             </button>
@@ -170,7 +172,7 @@ export const Hero = () => {
         <button 
           onClick={scrollToRecipes}
           className="animate-bounce bg-white/20 backdrop-blur-sm h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all min-h-[44px]"
-          aria-label="Scrolla ner för att utforska recept"
+          aria-label={t.hero.scrollDown}
         >
           <ChevronDown size={24} className="text-white" />
         </button>

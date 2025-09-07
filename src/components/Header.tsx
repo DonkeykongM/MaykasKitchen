@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, Search, Instagram, Salad } from 'lucide-react';
 import { useOptimizedScroll } from '../hooks/useOptimizedScroll';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useTranslation } from '../lib/i18n';
 
 export const Header = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -142,7 +145,7 @@ export const Header = () => {
               }`}
               aria-current={activeSection === 'om-mig' ? 'page' : undefined}
             >
-              Om mig
+              {t.nav.about}
             </a>
             <a 
               href="#recept" 
@@ -152,7 +155,7 @@ export const Header = () => {
               }`}
               aria-current={activeSection === 'recept' ? 'page' : undefined}
             >
-              Recept
+              {t.nav.recipes}
             </a>
             <a 
               href="#samarbeten" 
@@ -162,7 +165,7 @@ export const Header = () => {
               }`}
               aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
             >
-              Samarbeten
+              {t.nav.collaborations}
             </a>
             <a 
               href="https://www.instagram.com/maykaskitchen/" 
@@ -172,7 +175,7 @@ export const Header = () => {
               aria-label="Besök min Instagram (öppnas i nytt fönster)"
             >
               <Instagram size={14} className="mr-1" aria-hidden="true" /> 
-              Instagram
+              {t.nav.instagram}
             </a>
             
             <button 
@@ -183,15 +186,17 @@ export const Header = () => {
               title={`Sök (${navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + K)`}
             >
               <Search size={16} />
-              <span className="sr-only">Sök</span>
+              <span className="sr-only">{t.common.search}</span>
             </button>
+            
+            <LanguageSwitcher />
             
             <a 
               href="#kontakt" 
               onClick={(e) => handleNavLinkClick(e, 'kontakt')}
               className="btn-primary transform hover:scale-105 transition-all duration-300 whitespace-nowrap focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 text-sm lg:text-base px-4 py-2"
             >
-              Kontakt
+              {t.nav.contact}
             </a>
           </nav>
           
@@ -199,15 +204,16 @@ export const Header = () => {
             <button 
               onClick={toggleSearch} 
               className="text-gray-700 hover:text-purple-600 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label="Sök"
+              aria-label={t.common.search}
               aria-expanded={isSearchOpen}
             >
               <Search size={18} />
             </button>
+            <LanguageSwitcher />
             <button 
               onClick={toggleMenu} 
               className="text-gray-700 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label={isMenuOpen ? "Stäng meny" : "Öppna meny"}
+              aria-label={isMenuOpen ? t.common.closeMenu : t.common.openMenu}
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -229,13 +235,13 @@ export const Header = () => {
         <div className="container mx-auto px-4 max-w-7xl">
           <form onSubmit={handleSearchSubmit} className="relative">
             <label htmlFor="search-input" className="sr-only">
-              Sök efter recept, ingredienser eller tekniker
+              {t.recipes.searchPlaceholder}
             </label>
             <input
               id="search-input"
               ref={searchInputRef}
               type="text"
-              placeholder="Sök efter recept, ingredienser eller tekniker..."
+              placeholder={t.recipes.searchPlaceholder}
               className="w-full px-3 md:px-4 py-2 md:py-3 pl-10 md:pl-12 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 pr-8 md:pr-10 text-sm md:text-base min-h-[44px]"
               value={searchTerm}
               onChange={(e) => {
@@ -248,7 +254,7 @@ export const Header = () => {
             <button
               type="button"
               className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-1 min-w-[32px] min-h-[32px] flex items-center justify-center"
-              aria-label="Stäng sökning"
+              aria-label={t.common.close + ' ' + t.common.search.toLowerCase()}
               onClick={toggleSearch}
             >
               <X size={16} />
@@ -256,7 +262,7 @@ export const Header = () => {
           </form>
           
           <div className="mt-3 md:mt-4">
-            <p className="text-xs md:text-sm text-gray-600 mb-2">Populära sökningar:</p>
+            <p className="text-xs md:text-sm text-gray-600 mb-2">{t.recipes.popularSearches}</p>
             <div className="flex flex-wrap gap-1 md:gap-2">
               {popularSearches.map((search) => (
                 <button 
@@ -293,7 +299,7 @@ export const Header = () => {
             }`}
             aria-current={activeSection === 'om-mig' ? 'page' : undefined}
           >
-            Om mig
+            {t.nav.about}
           </a>
           <a 
             href="#recept" 
@@ -303,7 +309,7 @@ export const Header = () => {
             }`}
             aria-current={activeSection === 'recept' ? 'page' : undefined}
           >
-            Recept
+            {t.nav.recipes}
           </a>
           <a 
             href="#samarbeten" 
@@ -313,7 +319,7 @@ export const Header = () => {
             }`}
             aria-current={activeSection === 'samarbeten' ? 'page' : undefined}
           >
-            Samarbeten
+            {t.nav.collaborations}
           </a>
           <a 
             href="https://www.instagram.com/maykaskitchen/" 
@@ -323,14 +329,14 @@ export const Header = () => {
             aria-label="Besök min Instagram (öppnas i nytt fönster)"
           >
             <Instagram size={18} className="mr-2" aria-hidden="true" /> 
-            Instagram
+            {t.nav.instagram}
           </a>
           <a 
             href="#kontakt" 
             onClick={(e) => handleNavLinkClick(e, 'kontakt')}
             className="bg-purple-600 text-white py-3 px-6 rounded-lg text-center hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 font-medium min-h-[44px] flex items-center justify-center mt-4"
           >
-            Kontakt
+            {t.nav.contact}
           </a>
         </div>
       </nav>
