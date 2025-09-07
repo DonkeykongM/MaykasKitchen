@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from '../lib/i18n';
-import { Instagram, TikTok, Youtube, Facebook } from 'lucide-react';
+import { Instagram, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
   const { t } = useTranslation();
