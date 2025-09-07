@@ -25,7 +25,7 @@ export const AboutSection: React.FC = () => {
           <div className="order-2 lg:order-1">
             <div className="relative">
               <img 
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45Kv" 
+                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45Kv"
                 alt="Mayka Gulo i köket"
                 className="w-full h-64 md:h-80 lg:h-96 rounded-2xl shadow-xl object-cover border-2 border-purple-200"
                 loading="eager"
