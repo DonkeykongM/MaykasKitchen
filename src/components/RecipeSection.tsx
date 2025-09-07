@@ -4,205 +4,9 @@ import { Clock, Users, Heart, Star, ChevronRight } from 'lucide-react';
 import { SkeletonLoader, RecipeGridSkeleton } from './LoadingStates/SkeletonLoader';
 import { useTranslation } from '../lib/i18n';
 
-// Memoized recipe data with guaranteed working image URLs
-const RECIPES = [
-  {
-    id: 'qrimyothe-munkar',
-    title: 'Qrimyothe – Mormors munkar 🍩',
-    description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
-    time: '120',
-    portions: '20',
-    likes: 8,
-    rating: 4.9,
-    reviews: 1,
-    badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
-    trending: true,
-    difficulty: 'Medel',
-    fallbackEmoji: '🍩'
-  },
-  {
-    id: 'kikarts-tikka-masala',
-    title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
-    description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig. Fullproppad med dofter, kryddor och värme, och ändå klar på bara 20 minuter. Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
-    time: '20',
-    portions: '4-6',
-    likes: 12,
-    rating: 4.9,
-    reviews: 1,
-    badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
-    trending: true,
-    difficulty: 'Lätt',
-    fallbackEmoji: '🍛'
-  },
-  {
-    id: 'kall-foul-medames',
-    title: 'Kall foul medames',
-    description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCzNWv2DP9mAtjTsb7I6ZNyREunpVPwDz3h850',
-    time: '15',
-    portions: '4',
-    likes: 15,
-    rating: 4.8,
-    reviews: 1,
-    badges: ['Vegan', 'Mellanöstern', 'Snabb', 'Sallad'],
-    trending: true,
-    difficulty: 'Lätt',
-    fallbackEmoji: '🫘'
-  },
-  {
-    id: 'mini-lahmacun',
-    title: 'Mini Lahmacun – Perfekt mängd, noll svinn!',
-    description: '15 små perfekta lahmacun – köttfärs pizzor. Inget svinn, bara ren lycka! Perfekt att frysa in för framtida måltider.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCFL7L57kjIHwnGYgUvXdix8ms3ac07hetyqO4',
-    time: '75',
-    portions: '15',
-    likes: 25,
-    rating: 4.9,
-    reviews: 1,
-    badges: ['Turkiskt', 'Kött', 'Traditionellt'],
-    trending: true,
-    difficulty: 'Medel',
-    fallbackEmoji: '🫓'
-  },
-  {
-    id: 'lins-bulgur-jarpar',
-    title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
-    description: 'Proteinrika och mättande vegetariska järpar med smakrik kombination av röda linser, bulgur och aromatiska kryddor från mellanöstern.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
-    time: '45',
-    portions: '4-6',
-    likes: 38,
-    rating: 4.8,
-    reviews: 2,
-    badges: ['Vegetariskt', 'Mellanöstern', 'Protein'],
-    difficulty: 'Medel',
-    trending: true,
-    fallbackEmoji: '🌱'
-  },
-  {
-    id: 'kycklingfile-potatis-dragon',
-    title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
-    description: 'En rätt som snabbt blev en favorit både hemma och på jobbet. Kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCYrirAg5FD3Nod0fKROYijVPHAbra9e8uWhMJ',
-    time: '60',
-    portions: '3-4',
-    likes: 56,
-    rating: 4.9,
-    reviews: 2,
-    badges: ['Kött', 'Klassisk', 'Vardagslyx'],
-    difficulty: 'Medel',
-    trending: true,
-    fallbackEmoji: '🐔'
-  },
-  {
-    id: 'pannpizzor',
-    title: 'Snabba pannpizzor direkt i ugnsformen',
-    description: 'Perfekt när du har kylskåpsrester att ta vara på! Släng på det du har hemma och njut av en enkel middag på nolltid.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC9IRZic42Pb4HZiuUEJYFXxpw0kyC8QIv7W2f',
-    time: '90',
-    portions: '4-6',
-    likes: 32,
-    rating: 4.7,
-    reviews: 2,
-    badges: ['Vegetariskt', 'Bakverk', 'Pizza'],
-    difficulty: 'Lätt',
-    trending: true,
-    fallbackEmoji: '🍕'
-  },
-  {
-    id: 'batata-harra',
-    title: 'Batata Harra – Friterad potatis med tomatsås',
-    description: 'En smakrik och kryddig libanesisk rätt med krispig potatis, het tomatsås och färska örter. Perfekt som meze eller huvudrätt!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfWaFTn48dYxTFVG4qu9OSWrN21vZPBkJiCoK',
-    time: '35',
-    portions: '4-6',
-    likes: 35,
-    rating: 4.8,
-    reviews: 1,
-    badges: ['Vegan', 'Libanesiskt', 'Potatis'],
-    difficulty: 'Medel',
-    trending: true,
-    fallbackEmoji: '🥔'
-  },
-  {
-    id: 'kofta-bil-sanieh',
-    title: 'Köfta bil Sanieh',
-    description: 'Mellanösterns vardagsfavorit med smak av hem. En autentisk syrisk rätt med kryddig köttfärs, potatis och padron paprika.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCGg5LVZ9bnLa0KVhUD3INroEj6yqmid4HwlYB',
-    time: '60',
-    portions: '8',
-    likes: 33,
-    rating: 4.9,
-    reviews: 1,
-    badges: ['Kött', 'Traditionell', 'Syriskt'],
-    difficulty: 'Medel',
-    trending: true,
-    fallbackEmoji: '🥩'
-  },
-  {
-    id: 'lax-risbowl',
-    title: 'Kryddig lax- & risbowl',
-    description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
-    time: '45',
-    portions: '4',
-    likes: 47,
-    rating: 4.8,
-    reviews: 2,
-    badges: ['Fisk', 'Snabb', 'Under 60 min'],
-    difficulty: 'Lätt',
-    fallbackEmoji: '🐟'
-  },
-  {
-    id: 'kafta-bil-sejnie',
-    title: 'Kafta bil sejnie',
-    description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8zXxYz037zrR9qXSut4TKmZEpjlBcOhHew02',
-    time: '60',
-    portions: '5-6',
-    likes: 42,
-    rating: 4.7,
-    reviews: 1,
-    badges: ['Kött', 'Traditionell', 'Assyriskt'],
-    difficulty: 'Medel',
-    fallbackEmoji: '🍲'
-  },
-  {
-    id: 'pasta-pesto',
-    title: 'Pasta pesto med ugnsbakade tomater & stekt halloumi',
-    description: 'En smakrik, krämig och färgsprakande pastarätt med pesto, ugnsbakade tomater och stekt halloumi - perfekt för hela familjen.',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCfVuc1HC48dYxTFVG4qu9OSWrN21vZPBkJiCo',
-    time: '40',
-    portions: '4',
-    likes: 41,
-    rating: 4.9,
-    reviews: 2,
-    badges: ['Vegetariskt', 'Snabb', 'Pasta'],
-    difficulty: 'Lätt',
-    trending: true,
-    fallbackEmoji: '🍝'
-  },
-  {
-    id: 'kyckling-shawarma',
-    title: 'Kyckling Shawarma',
-    description: 'Autentisk mellanöstern kyckling shawarma med hemmagjorda tunnbröd, kryddigt kött och fräscha tillbehör. Perfekt för familjen!',
-    image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCG7jiQH9bnLa0KVhUD3INroEj6yqmid4HwlYB',
-    time: '120',
-    portions: '5',
-    likes: 28,
-    rating: 4.8,
-    reviews: 1,
-    badges: ['Kött', 'Mellanöstern', 'Familj'],
-    trending: true,
-    difficulty: 'Medel',
-    fallbackEmoji: '🌯'
-  }
-];
-
 // Enhanced recipe card component with robust image handling
 const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => {
+  const { t } = useTranslation();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -231,7 +35,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         {!imageError ? (
           <img
             src={recipe.image}
-            alt={recipe.title}
+            alt={recipe.translatedTitle || recipe.title}
             width={400}
             height={260}
             className="w-full h-full object-cover transform transition hover:scale-105 will-change-transform"
@@ -251,7 +55,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         {imageError && (
           <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex flex-col items-center justify-center text-purple-600 border border-purple-300">
             <div className="text-3xl md:text-4xl mb-2">{recipe.fallbackEmoji || '🍽️'}</div>
-            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.title}</div>
+            <div className="text-xs md:text-sm font-medium text-center px-2">{recipe.translatedTitle || recipe.title}</div>
           </div>
         )}
         
@@ -260,7 +64,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
           <div className="w-full h-full bg-gray-200 flex items-center justify-center animate-pulse">
             <div className="text-gray-400 text-center">
               <div className="text-xl md:text-2xl mb-1">📸</div>
-              <div className="text-xs">Laddar...</div>
+              <div className="text-xs">{t.common.loading}</div>
             </div>
           </div>
         )}
@@ -268,20 +72,20 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         <div className="absolute top-2 md:top-4 left-2 md:left-4">
           <Badge variant="default" size="sm" className="bg-purple-600/90 text-white border-none">
             <Clock size={12} className="mr-1" />
-            {recipe.time} min
+            {recipe.time} {t.recipes.minutes}
           </Badge>
         </div>
         {recipe.trending && (
           <div className="absolute top-2 md:top-4 right-2 md:right-4">
             <Badge variant="default" size="sm" className="bg-black/90 text-white border-none">
-              Populärt
+              {t.recipes.popular}
             </Badge>
           </div>
         )}
         {recipe.difficulty && (
           <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4">
             <Badge variant="secondary" size="sm" className="bg-white/90">
-              {recipe.difficulty}
+              {recipe.translatedDifficulty || recipe.difficulty}
             </Badge>
           </div>
         )}
@@ -292,7 +96,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         <div className="flex flex-wrap gap-2 mb-3">
           {recipe.badges.slice(0, 3).map((badge, index) => (
             <Badge key={index} variant="default" size="sm">
-              {badge}
+              {recipe.translatedBadges?.[badge] || badge}
             </Badge>
           ))}
         </div>
@@ -316,12 +120,12 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
         
         {/* Title with improved typography */}
         <Typography variant="h3" className="mb-2 text-gray-800 hover:text-purple-600 transition-colors line-clamp-2">
-          {recipe.title}
+          {recipe.translatedTitle || recipe.title}
         </Typography>
         
         {/* Description with better readability */}
         <Typography variant="body-small" className="text-gray-600 mb-4 line-clamp-2">
-          {recipe.description}
+          {recipe.translatedDescription || recipe.description}
         </Typography>
         
         {/* Portions and CTA with improved contrast */}
@@ -329,7 +133,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
           <div className="flex items-center gap-1">
             <Users size={14} className="text-gray-500" />
             <Typography variant="body-small" className="text-gray-600 font-medium">
-              {recipe.portions} portioner
+              {recipe.portions} {t.recipes.portions}
             </Typography>
           </div>
           
@@ -339,10 +143,10 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
               onRecipeClick(recipe.id, e);
             }}
             className="text-purple-600 hover:text-purple-800 flex items-center text-sm font-medium group transition-colors focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg min-h-[44px] px-3 py-2"
-            aria-label={`Visa recept för ${recipe.title}`}
+            aria-label={`${t.recipes.showRecipe}: ${recipe.translatedTitle || recipe.title}`}
           >
-            <span className="hidden sm:inline">Visa recept</span>
-            <span className="sm:hidden">Visa</span>
+            <span className="hidden sm:inline">{t.recipes.showRecipe}</span>
+            <span className="sm:hidden">{t.recipes.show}</span>
             <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
@@ -354,10 +158,111 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick, isLoading = false }) => 
 RecipeCard.displayName = 'RecipeCard';
 
 export const RecipeSection = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('alla');
   const [isLoading, setIsLoading] = useState(false);
   const sectionRef = useRef(null);
+
+  // Update activeFilter when language changes
+  useEffect(() => {
+    setActiveFilter('alla');
+  }, [language]);
+
+  // Memoized recipe data with translations
+  const RECIPES = useMemo(() => [
+    {
+      id: 'qrimyothe-munkar',
+      title: 'Qrimyothe – Mormors munkar 🍩',
+      translatedTitle: language === 'en' ? 'Qrimyothe – Grandma\'s Donuts 🍩' : undefined,
+      description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+      translatedDescription: language === 'en' ? 'Mom tells about grandma\'s love in every bite ♥️ This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.' : undefined,
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
+      time: '120',
+      portions: '20',
+      likes: 8,
+      rating: 4.9,
+      reviews: 1,
+      badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+      translatedBadges: language === 'en' ? {
+        'Traditionellt': 'Traditional',
+        'Bakverk': 'Baking',
+        'Assyriskt': 'Assyrian',
+        'Dessert': 'Dessert'
+      } : {},
+      trending: true,
+      difficulty: 'Medel',
+      translatedDifficulty: language === 'en' ? 'Medium' : undefined,
+      fallbackEmoji: '🍩'
+    },
+    {
+      id: 'kikarts-tikka-masala',
+      title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
+      translatedTitle: language === 'en' ? 'The Creamiest Chickpea Tikka Masala Ever 🤯🔥' : undefined,
+      description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig.',
+      translatedDescription: language === 'en' ? 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine.' : undefined,
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
+      time: '20',
+      portions: '4-6',
+      likes: 12,
+      rating: 4.9,
+      reviews: 1,
+      badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
+      translatedBadges: language === 'en' ? {
+        'Vegan': 'Vegan',
+        'Indiskt': 'Indian',
+        'Vegetariskt': 'Vegetarian',
+        'Snabb': 'Quick'
+      } : {},
+      trending: true,
+      difficulty: 'Lätt',
+      translatedDifficulty: language === 'en' ? 'Easy' : undefined,
+      fallbackEmoji: '🍛'
+    },
+    {
+      id: 'lax-risbowl',
+      title: 'Kryddig lax- & risbowl',
+      translatedTitle: language === 'en' ? 'Spicy Salmon & Rice Bowl' : undefined,
+      description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt!',
+      translatedDescription: language === 'en' ? 'Perfect as a fresh weekday dinner or when you want to luxe up lunch. Fast, simple and so incredibly tasty!' : undefined,
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
+      time: '45',
+      portions: '4',
+      likes: 47,
+      rating: 4.8,
+      reviews: 2,
+      badges: ['Fisk', 'Snabb', 'Under 60 min'],
+      translatedBadges: language === 'en' ? {
+        'Fisk': 'Fish',
+        'Snabb': 'Quick',
+        'Under 60 min': 'Under 60 min'
+      } : {},
+      difficulty: 'Lätt',
+      translatedDifficulty: language === 'en' ? 'Easy' : undefined,
+      fallbackEmoji: '🐟'
+    },
+    {
+      id: 'kafta-bil-sejnie',
+      title: 'Kafta bil sejnie',
+      translatedTitle: language === 'en' ? 'Kafta bil Sejnie' : undefined,
+      description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
+      translatedDescription: language === 'en' ? 'A traditional Middle Eastern dish with juicy meatballs and potatoes in a flavorful tomato sauce.' : undefined,
+      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8zXxYz037zrR9qXSut4TKmZEpjlBcOhHew02',
+      time: '60',
+      portions: '5-6',
+      likes: 42,
+      rating: 4.7,
+      reviews: 1,
+      badges: ['Kött', 'Traditionell', 'Assyriskt'],
+      translatedBadges: language === 'en' ? {
+        'Kött': 'Meat',
+        'Traditionell': 'Traditional',
+        'Assyriskt': 'Assyrian'
+      } : {},
+      difficulty: 'Medel',
+      translatedDifficulty: language === 'en' ? 'Medium' : undefined,
+      fallbackEmoji: '🍲'
+    }
+  ], [language]);
 
   // Optimized navigation with useCallback for better performance
   const handleRecipeClick = useCallback((id, e) => {
@@ -389,7 +294,7 @@ export const RecipeSection = () => {
     { id: 'huvudratter', label: t.recipes.mainDishes, active: false },
     { id: 'grytor', label: t.recipes.stews, active: false },
     { id: 'bakverk', label: t.recipes.baking, active: false }
-  ], []);
+  ], [t]);
 
   // Memoized filtered recipes for performance
   const filteredRecipes = useMemo(() => {
@@ -399,7 +304,7 @@ export const RecipeSection = () => {
         badge.toLowerCase().includes(activeFilter.toLowerCase())
       )
     );
-  }, [activeFilter]);
+  }, [activeFilter, RECIPES]);
 
   // Optimized filter handler
   const handleFilterChange = useCallback((filterId) => {
@@ -414,7 +319,7 @@ export const RecipeSection = () => {
       <div className="container mx-auto px-4 w-full max-w-7xl">
         <div className="text-center mb-4">
           <Badge variant="default" className="mb-4">
-          {t.recipes.tagline}
+            {t.recipes.tagline}
           </Badge>
         </div>
         
