@@ -42,6 +42,8 @@ export interface Translations {
       tiktok: string;
       youtube: string;
       facebook: string;
+      followers: string;
+      subscribers: string;
     };
   };
   recipes: {
@@ -54,13 +56,14 @@ export interface Translations {
     baking: string;
     seeAllRecipes: string;
     discoverRecipes: string;
-    time: string;
+    minutes: string;
     portions: string;
     difficulty: string;
     rating: string;
     reviews: string;
     likes: string;
     showRecipe: string;
+    show: string;
     backToHome: string;
     backToRecipes: string;
     searchPlaceholder: string;
@@ -70,6 +73,33 @@ export interface Translations {
     popularSearches: string;
     filter: string;
     popular: string;
+    showing: string;
+    resultsFor: string;
+    noMatch: string;
+    categories: {
+      all: string;
+      vegetarian: string;
+      quick: string;
+      assyrian: string;
+      syrian: string;
+      middleEastern: string;
+      glutenFree: string;
+      meat: string;
+      fish: string;
+    };
+    filters: {
+      fish: string;
+      vegetarian: string;
+      quick: string;
+      traditional: string;
+      assyrian: string;
+      syrian: string;
+    };
+    getNewsletter: string;
+    getNewRecipes: string;
+    exclusiveRecipes: string;
+    seasonalTips: string;
+    techniques: string;
   };
   recipeDetails: {
     adjustPortions: string;
@@ -99,6 +129,7 @@ export interface Translations {
     star: string;
     yourName: string;
     yourEmail: string;
+    emailOptional: string;
     emailNotShown: string;
     writeComment: string;
     submitComment: string;
@@ -123,6 +154,11 @@ export interface Translations {
     easy: string;
     medium: string;
     hard: string;
+    difficulty: {
+      easy: string;
+      medium: string;
+      hard: string;
+    };
   };
   collaborations: {
     tagline: string;
@@ -177,6 +213,9 @@ export interface Translations {
     sendDM: string;
     errorMessage: string;
     tryAgainLater: string;
+    fixFormErrors: string;
+    subjectPlaceholder: string;
+    messagePlaceholder: string;
   };
   newsletter: {
     title: string;
@@ -198,11 +237,23 @@ export interface Translations {
       seasonalTips: string;
       techniques: string;
     };
+    popup: {
+      title: string;
+      description: string;
+      subscribeButton: string;
+      benefits: {
+        weekly: string;
+        seasonal: string;
+        exclusive: string;
+        techniques: string;
+      };
+    };
   };
   footer: {
     tagline: string;
     description: string;
     explore: string;
+    recipes: string;
     allRecipes: string;
     about: string;
     collaborations: string;
@@ -215,6 +266,12 @@ export interface Translations {
     madeWith: string;
     in: string;
     createdBy: string;
+    benefits: {
+      newRecipes: string;
+      exclusiveRecipes: string;
+      seasonalTips: string;
+      techniques: string;
+    };
   };
   common: {
     loading: string;
@@ -227,6 +284,12 @@ export interface Translations {
     closeMenu: string;
     skipToContent: string;
     backToTop: string;
+    back: string;
+    sweden: string;
+    experience: string;
+    years: string;
+    or: string;
+    optional: string;
   };
 }
 
@@ -265,7 +328,9 @@ export const sv: Translations = {
       instagram: 'Instagram',
       tiktok: 'TikTok',
       youtube: 'YouTube',
-      facebook: 'Facebook'
+      facebook: 'Facebook',
+      followers: 'följare',
+      subscribers: 'prenumeranter'
     }
   },
   recipes: {
@@ -277,14 +342,15 @@ export const sv: Translations = {
     stews: 'Grytor',
     baking: 'Bakverk',
     seeAllRecipes: 'Se alla recept',
-    discoverRecipes: 'Upptäck',
-    time: 'min',
+    discoverRecipes: 'autentiska recept från Mayka',
+    minutes: 'min',
     portions: 'portioner',
     difficulty: 'Svårighet',
     rating: 'Betyg',
     reviews: 'recensioner',
     likes: 'gillar',
     showRecipe: 'Visa recept',
+    show: 'Visa',
     backToHome: 'Tillbaka till startsidan',
     backToRecipes: 'Tillbaka till receptsamlingen',
     searchPlaceholder: 'Sök efter recept...',
@@ -293,7 +359,34 @@ export const sv: Translations = {
     showAll: 'Visa alla recept',
     popularSearches: 'Populära:',
     filter: 'Filter',
-    popular: 'Populärt'
+    popular: 'Populärt',
+    showing: 'Visar',
+    resultsFor: 'recept för',
+    noMatch: 'Inga recept matchar sökningen',
+    categories: {
+      all: 'Alla recept',
+      vegetarian: 'Vegetariskt',
+      quick: 'Snabbt (under 30 min)',
+      assyrian: 'Assyriskt',
+      syrian: 'Syriskt',
+      middleEastern: 'Mellanöstern',
+      glutenFree: 'Glutenfritt',
+      meat: 'Kött',
+      fish: 'Fisk'
+    },
+    filters: {
+      fish: 'Fisk',
+      vegetarian: 'Vegetariskt',
+      quick: 'Snabb',
+      traditional: 'Traditionell',
+      assyrian: 'Assyriskt',
+      syrian: 'Syriskt'
+    },
+    getNewsletter: 'Få nya recept direkt i din inkorg',
+    getNewRecipes: 'Få nya recept och matinspiration direkt i din inkorg varje månad.',
+    exclusiveRecipes: 'Exklusiva recept',
+    seasonalTips: 'Säsongsbaserade tips',
+    techniques: 'Matlagningstekniker'
   },
   recipeDetails: {
     adjustPortions: 'Justera portioner',
@@ -323,6 +416,7 @@ export const sv: Translations = {
     star: 'stjärna',
     yourName: 'Ditt namn',
     yourEmail: 'Din e-post (visas ej)',
+    emailOptional: 'Din e-post (valfritt)',
     emailNotShown: '(visas ej)',
     writeComment: 'Skriv din kommentar här...',
     submitComment: 'Skicka kommentar',
@@ -346,7 +440,12 @@ export const sv: Translations = {
     salt: 'Salt',
     easy: 'Lätt',
     medium: 'Medel',
-    hard: 'Svår'
+    hard: 'Svår',
+    difficulty: {
+      easy: 'Lätt',
+      medium: 'Medel',
+      hard: 'Svår'
+    }
   },
   collaborations: {
     tagline: 'Samarbeten & Partnerships',
@@ -400,7 +499,10 @@ export const sv: Translations = {
     fastestResponse: 'Snabbast svar får du via Instagram DM',
     sendDM: 'Skicka DM',
     errorMessage: 'Något gick fel när ditt meddelande skulle skickas. Försök igen senare.',
-    tryAgainLater: 'Försök igen senare'
+    tryAgainLater: 'Försök igen senare',
+    fixFormErrors: 'Vänligen åtgärda felen i formuläret.',
+    subjectPlaceholder: 'Vad handlar ditt meddelande om?',
+    messagePlaceholder: 'Skriv ditt meddelande här...'
   },
   newsletter: {
     title: 'Få matinspiration direkt i din inkorg',
@@ -421,12 +523,24 @@ export const sv: Translations = {
       exclusiveRecipes: 'Exklusiva recept',
       seasonalTips: 'Säsongsbaserade tips',
       techniques: 'Matlagningstekniker'
+    },
+    popup: {
+      title: '🌟 Få nya recept varje vecka!',
+      description: 'Prenumerera på vårt nyhetsbrev och få de senaste recepten, säsongstips och exklusiva erbjudanden direkt i din inkorg.',
+      subscribeButton: '✨ Prenumerera nu - det är gratis!',
+      benefits: {
+        weekly: 'Nya recept varje vecka',
+        seasonal: 'Säsongsbaserade tips',
+        exclusive: 'Exklusiva recept',
+        techniques: 'Matlagningstekniker'
+      }
     }
   },
   footer: {
     tagline: 'MaykasKitchen',
     description: 'Mat från hjärtat & tro i själen. Assyriska/Syrianska rötter, tacksam för min familj & kokar alltid med kärlek!',
     explore: 'Utforska',
+    recipes: 'Recept',
     allRecipes: 'Alla recept',
     about: 'Om mig',
     collaborations: 'Samarbeten',
@@ -438,7 +552,13 @@ export const sv: Translations = {
     copyright: 'Alla rättigheter förbehållna.',
     madeWith: 'Skapad med',
     in: 'i Skåne, Sverige',
-    createdBy: 'Skapad av'
+    createdBy: 'Skapad av',
+    benefits: {
+      newRecipes: 'Nya recept varje månad',
+      exclusiveRecipes: 'Exklusiva recept',
+      seasonalTips: 'Säsongsbaserade tips',
+      techniques: 'Matlagningstekniker'
+    }
   },
   common: {
     loading: 'Laddar...',
@@ -450,7 +570,13 @@ export const sv: Translations = {
     openMenu: 'Öppna meny',
     closeMenu: 'Stäng meny',
     skipToContent: 'Hoppa till huvudinnehåll',
-    backToTop: 'Tillbaka till toppen'
+    backToTop: 'Tillbaka till toppen',
+    back: 'Tillbaka',
+    sweden: 'Sverige',
+    experience: 'erfarenhet',
+    years: 'år',
+    or: 'eller',
+    optional: 'valfritt'
   }
 };
 
@@ -489,7 +615,9 @@ export const en: Translations = {
       instagram: 'Instagram',
       tiktok: 'TikTok',
       youtube: 'YouTube',
-      facebook: 'Facebook'
+      facebook: 'Facebook',
+      followers: 'followers',
+      subscribers: 'subscribers'
     }
   },
   recipes: {
@@ -501,14 +629,15 @@ export const en: Translations = {
     stews: 'Stews',
     baking: 'Baking',
     seeAllRecipes: 'See all recipes',
-    discoverRecipes: 'recipes from Mayka',
-    time: 'min',
+    discoverRecipes: 'authentic recipes from Mayka',
+    minutes: 'min',
     portions: 'servings',
     difficulty: 'Difficulty',
     rating: 'Rating',
     reviews: 'reviews',
     likes: 'likes',
     showRecipe: 'View recipe',
+    show: 'View',
     backToHome: 'Back to homepage',
     backToRecipes: 'Back to recipe collection',
     searchPlaceholder: 'Search for recipes...',
@@ -517,7 +646,34 @@ export const en: Translations = {
     showAll: 'Show all recipes',
     popularSearches: 'Popular:',
     filter: 'Filter',
-    popular: 'Popular'
+    popular: 'Popular',
+    showing: 'Showing',
+    resultsFor: 'recipes for',
+    noMatch: 'No recipes match the search',
+    categories: {
+      all: 'All recipes',
+      vegetarian: 'Vegetarian',
+      quick: 'Quick (under 30 min)',
+      assyrian: 'Assyrian',
+      syrian: 'Syrian',
+      middleEastern: 'Middle Eastern',
+      glutenFree: 'Gluten Free',
+      meat: 'Meat',
+      fish: 'Fish'
+    },
+    filters: {
+      fish: 'Fish',
+      vegetarian: 'Vegetarian',
+      quick: 'Quick',
+      traditional: 'Traditional',
+      assyrian: 'Assyrian',
+      syrian: 'Syrian'
+    },
+    getNewsletter: 'Get new recipes directly in your inbox',
+    getNewRecipes: 'Get new recipes and food inspiration directly in your inbox every month.',
+    exclusiveRecipes: 'Exclusive recipes',
+    seasonalTips: 'Seasonal tips',
+    techniques: 'Cooking techniques'
   },
   recipeDetails: {
     adjustPortions: 'Adjust servings',
@@ -547,6 +703,7 @@ export const en: Translations = {
     star: 'star',
     yourName: 'Your name',
     yourEmail: 'Your email (not shown)',
+    emailOptional: 'Your email (optional)',
     emailNotShown: '(not shown)',
     writeComment: 'Write your comment here...',
     submitComment: 'Submit comment',
@@ -570,7 +727,12 @@ export const en: Translations = {
     salt: 'Salt',
     easy: 'Easy',
     medium: 'Medium',
-    hard: 'Hard'
+    hard: 'Hard',
+    difficulty: {
+      easy: 'Easy',
+      medium: 'Medium',
+      hard: 'Hard'
+    }
   },
   collaborations: {
     tagline: 'Collaborations & Partnerships',
@@ -624,7 +786,10 @@ export const en: Translations = {
     fastestResponse: 'Fastest response via Instagram DM',
     sendDM: 'Send DM',
     errorMessage: 'Something went wrong when your message was being sent. Please try again later.',
-    tryAgainLater: 'Please try again later'
+    tryAgainLater: 'Please try again later',
+    fixFormErrors: 'Please fix the errors in the form.',
+    subjectPlaceholder: 'What is your message about?',
+    messagePlaceholder: 'Write your message here...'
   },
   newsletter: {
     title: 'Get food inspiration directly in your inbox',
@@ -645,12 +810,24 @@ export const en: Translations = {
       exclusiveRecipes: 'Exclusive recipes',
       seasonalTips: 'Seasonal tips',
       techniques: 'Cooking techniques'
+    },
+    popup: {
+      title: '🌟 Get new recipes every week!',
+      description: 'Subscribe to our newsletter and get the latest recipes, seasonal tips and exclusive offers directly in your inbox.',
+      subscribeButton: '✨ Subscribe now - it\'s free!',
+      benefits: {
+        weekly: 'New recipes every week',
+        seasonal: 'Seasonal tips',
+        exclusive: 'Exclusive recipes',
+        techniques: 'Cooking techniques'
+      }
     }
   },
   footer: {
     tagline: 'MaykasKitchen',
     description: 'Food from the heart & faith in the soul. Assyrian/Syriac roots, grateful for my family & always cook with love!',
     explore: 'Explore',
+    recipes: 'Recipes',
     allRecipes: 'All recipes',
     about: 'About me',
     collaborations: 'Collaborations',
@@ -662,7 +839,13 @@ export const en: Translations = {
     copyright: 'All rights reserved.',
     madeWith: 'Made with',
     in: 'in Skåne, Sweden',
-    createdBy: 'Created by'
+    createdBy: 'Created by',
+    benefits: {
+      newRecipes: 'New recipes every month',
+      exclusiveRecipes: 'Exclusive recipes',
+      seasonalTips: 'Seasonal tips',
+      techniques: 'Cooking techniques'
+    }
   },
   common: {
     loading: 'Loading...',
@@ -674,7 +857,13 @@ export const en: Translations = {
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     skipToContent: 'Skip to main content',
-    backToTop: 'Back to top'
+    backToTop: 'Back to top',
+    back: 'Back',
+    sweden: 'Sweden',
+    experience: 'experience',
+    years: 'years',
+    or: 'or',
+    optional: 'optional'
   }
 };
 
