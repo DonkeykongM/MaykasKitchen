@@ -306,7 +306,7 @@ export const sv: Translations = {
   hero: {
     tagline: 'Assyrisk/syriansk matkonst',
     title: 'Mat från hjärtat & själen',
-    description: 'enkla och smakrika recept',
+    description: 'Enkla och smakrika recept',
     subtitle: 'Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.',
     exploreRecipes: 'Utforska recept',
     followMe: 'Följ mig här:',
@@ -593,7 +593,7 @@ export const en: Translations = {
   hero: {
     tagline: 'Assyrian/Syriac culinary art',
     title: 'Food from the heart & soul',
-    description: 'simple and flavorful recipes',
+    description: 'Simple and flavorful recipes',
     subtitle: 'Seasonal cooking that creates joy around the table for the whole family.',
     exploreRecipes: 'Explore recipes',
     followMe: 'Follow me here:',
@@ -917,3 +917,5 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </LanguageContext.Provider>
   );
 };
+
+export { useTranslation }
