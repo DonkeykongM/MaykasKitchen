@@ -20,24 +20,9 @@ export const AboutSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image */}
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100">
-              <img
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45Kv"
-                alt="Mayka Gulo i köket"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
-            </div>
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-purple-200 rounded-full opacity-60"></div>
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-pink-200 rounded-full opacity-40"></div>
-          </div>
-
+        <div className="max-w-4xl mx-auto">
           {/* Content */}
-          <div className="space-y-6">
+          <div className="space-y-6 text-center">
             <p className="text-lg text-gray-700 leading-relaxed">
               {t.about.description1}
             </p>
@@ -46,7 +31,7 @@ export const AboutSection: React.FC = () => {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-6 py-8">
+            <div className="grid grid-cols-2 gap-6 py-8 max-w-md mx-auto">
               <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
                 <div className="flex items-center justify-center mb-3">
                   <Instagram className="w-8 h-8 text-purple-600" />
@@ -64,7 +49,7 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Key points */}
-            <div className="space-y-4">
+            <div className="space-y-4 max-w-2xl mx-auto text-left">
               <div className="flex items-start gap-4">
                 <div className="w-2 h-2 bg-purple-600 rounded-full mt-3 flex-shrink-0"></div>
                 <div>
@@ -82,9 +67,9 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Social links */}
-            <div className="pt-6">
+            <div className="pt-6 flex flex-col items-center">
               <p className="text-sm font-semibold text-gray-900 mb-4">{t.about.followMeHere}</p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center">
                 <a
                   href="https://instagram.com/maykaskitchen"
                   className="p-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-lg hover:scale-110 transition-all duration-300"
@@ -116,10 +101,9 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-sm text-gray-500 pt-4">
+            <p className="text-sm text-gray-500 pt-4 text-center">
               {t.about.since}
             </p>
-          </div>
         </div>
       </div>
     </section>
