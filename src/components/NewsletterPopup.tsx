@@ -173,7 +173,7 @@ export const NewsletterPopup = () => {
                     {t.newsletter.sending}
                   </span>
                 ) : (
-                  {t.newsletter.popup.subscribeButton}
+                  t.newsletter.popup.subscribeButton
                 )}
               </button>
 
