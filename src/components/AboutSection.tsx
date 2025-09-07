@@ -27,7 +27,7 @@ export const AboutSection: React.FC = () => {
               <img 
                 src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45KvFPkwGxStE3Ob1dcATYX9L"
                 alt="Mayka Gulo i köket"
-                className="w-full h-64 md:h-80 lg:h-96 rounded-2xl shadow-xl object-cover border-2 border-purple-200"
+                className="w-full h-80 md:h-96 lg:h-[28rem] xl:h-[32rem] rounded-2xl shadow-xl object-cover border-2 border-purple-200 transition-transform duration-500 hover:scale-105 cursor-pointer"
                 loading="eager"
                 width="500"
                 height="600"
@@ -42,7 +42,7 @@ export const AboutSection: React.FC = () => {
                   console.log('Image loaded successfully');
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/10 to-transparent rounded-2xl pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/5 to-transparent rounded-2xl pointer-events-none transition-opacity duration-500 hover:opacity-75"></div>
             </div>
           </div>
 
