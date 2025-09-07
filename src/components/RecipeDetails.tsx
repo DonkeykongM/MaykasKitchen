@@ -1,336 +1,809 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Clock, Users, Heart, Star, Share2, Printer, Instagram, ChevronRight } from 'lucide-react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import { Clock, Users, Heart, Instagram, ArrowLeft, Printer, Bookmark, Share2, AlertCircle, Star, MessageCircle, Send } from 'lucide-react';
+import { getRecipeStats, getRecipeComments, submitComment, submitRating, type RecipeComment } from '../lib/recipeService';
 import { useTranslation } from '../lib/i18n';
 
-interface Recipe {
-  id: string;
-  title: string;
-  translatedTitle?: string;
-  description: string;
-  translatedDescription?: string;
-  image: string;
-  time: string;
-  portions: string;
-  likes: number;
-  rating: number;
-  reviews: number;
-  badges: string[];
-  translatedBadges?: { [key: string]: string };
-  ingredients: string[];
-  ingredientsEn?: string[];
-  steps: string[];
-  stepsEn?: string[];
-  tips?: string;
-  tipsEn?: string;
-  personalStory?: string;
-  personalStoryEn?: string;
-}
-
 interface RecipeDetailsProps {
-  recipeId: string;
+  recipe: {
+    id: string;
+    title: string;
+    titleEn?: string;
+    description: string;
+    descriptionEn?: string;
+    image: string;
+    time: string;
+    portions: string;
+    likes: number;
+    rating: number;
+    reviews: number;
+    badges: string[];
+    badgesEn?: string[];
+    videoUrl: string;
+    personalStory?: string;
+    personalStoryEn?: string;
+    content: {
+      ingredients: {
+        section?: string;
+        items: string[];
+      }[];
+      instructions: {
+        section?: string;
+        steps: string[];
+      }[];
+      tips?: string[];
+    };
+    difficulty?: string;
+    difficultyEn?: string;
+    nutritionInfo?: {
+      calories?: string;
+      protein?: string;
+      carbs?: string;
+      fat?: string;
+      fiber?: string;
+      salt?: string;
+      [key: string]: string | undefined;
+    };
+    allergens?: string[];
+    allergensEn?: string[];
+  };
+  onBack: () => void;
 }
 
-export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipeId }) => {
-  const { t, language } = useTranslation();
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) => {
+  const { t } = useTranslation();
+  const { language } = useTranslation();
+  const [portionCount, setPortionCount] = useState(parseInt(recipe.portions.split(' ')[0], 10));
+  const [isSaved, setIsSaved] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(recipe.likes);
+  
+  // Real-time data from database
+  const [liveComments, setLiveComments] = useState<RecipeComment[]>([]);
+  const [liveRating, setLiveRating] = useState(recipe.rating);
+  const [liveReviewCount, setLiveReviewCount] = useState(recipe.reviews);
+  const [loading, setLoading] = useState(true);
 
-  const recipes: { [key: string]: Recipe } = {
-    'qrimyothe-munkar': {
-      id: 'qrimyothe-munkar',
-      title: 'Qrimyothe – Mormors munkar 🍩',
-      translatedTitle: 'Qrimyothe – Grandma\'s Donuts 🍩',
-      description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
-      translatedDescription: 'Mom tells about grandma\'s love in every bite ♥️ This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.',
-      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
-      time: '120',
-      portions: '20',
-      likes: 8,
-      rating: 4.9,
-      reviews: 1,
-      badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
-      translatedBadges: {
-        'Traditionellt': 'Traditional',
-        'Bakverk': 'Baking',
-        'Assyriskt': 'Assyrian',
-        'Dessert': 'Dessert'
-      },
-      ingredients: [
-        '500g vetemjöl',
-        '250ml ljummet vatten',
-        '1 tsk torrjäst',
-        '1 msk socker',
-        '1 tsk salt',
-        '2 msk olivolja',
-        'Olja för fritering',
-        'Florsocker för pudring'
-      ],
-      ingredientsEn: [
-        '500g wheat flour',
-        '250ml lukewarm water',
-        '1 tsp dry yeast',
-        '1 tbsp sugar',
-        '1 tsp salt',
-        '2 tbsp olive oil',
-        'Oil for frying',
-        'Powdered sugar for dusting'
-      ],
-      steps: [
-        'Lös upp jästen i det ljumma vattnet tillsammans med sockret.',
-        'Blanda mjöl och salt i en stor skål.',
-        'Tillsätt jästblandningen och olivoljan till mjölet.',
-        'Knåda degen i cirka 10 minuter tills den blir smidig och elastisk.',
-        'Låt degen jäsa i 1 timme under en fuktig handduk.',
-        'Dela degen i små bitar och forma till munkar med ett hål i mitten.',
-        'Fritera munkarna i het olja tills de är gyllene.',
-        'Pudra med florsocker innan servering.'
-      ],
-      stepsEn: [
-        'Dissolve yeast in lukewarm water together with sugar.',
-        'Mix flour and salt in a large bowl.',
-        'Add yeast mixture and olive oil to the flour.',
-        'Knead dough for about 10 minutes until smooth and elastic.',
-        'Let dough rise for 1 hour under a damp towel.',
-        'Divide dough into small pieces and shape into donuts with a hole in the center.',
-        'Deep fry donuts in hot oil until golden.',
-        'Dust with powdered sugar before serving.'
-      ],
-      personalStory: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
-      personalStoryEn: 'Mom tells about grandma\'s love in every bite ♥️ This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.',
-      tips: 'Tips: Servera varma för bästa smak. Kan förvaras i flera dagar i lufttät behållare.',
-      tipsEn: 'Tips: Serve warm for best taste. Can be stored for several days in airtight container.'
-    },
-    'kikarts-tikka-masala': {
-      id: 'kikarts-tikka-masala',
-      title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
-      translatedTitle: 'The Creamiest Chickpea Tikka Masala Ever 🤯🔥',
-      description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig.',
-      translatedDescription: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine.',
-      image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
-      time: '20',
-      portions: '4-6',
-      likes: 12,
-      rating: 4.9,
-      reviews: 1,
-      badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
-      translatedBadges: {
-        'Vegan': 'Vegan',
-        'Indiskt': 'Indian',
-        'Vegetariskt': 'Vegetarian',
-        'Snabb': 'Quick'
-      },
-      ingredients: [
-        '2 burkar kokta kikärtor (800g)',
-        '1 stor gul lök',
-        '3 vitlöksklyftor',
-        '2 cm färsk ingefära',
-        '400ml kokosmjölk',
-        '400g krossade tomater',
-        '2 msk tomatpuré',
-        '2 tsk garam masala',
-        '1 tsk gurkmeja',
-        '1 tsk spiskummin',
-        'Salt och peppar efter smak'
-      ],
-      ingredientsEn: [
-        '2 cans cooked chickpeas (800g)',
-        '1 large yellow onion',
-        '3 garlic cloves',
-        '2 cm fresh ginger',
-        '400ml coconut milk',
-        '400g crushed tomatoes',
-        '2 tbsp tomato paste',
-        '2 tsp garam masala',
-        '1 tsp turmeric',
-        '1 tsp cumin',
-        'Salt and pepper to taste'
-      ],
-      steps: [
-        'Hacka löken fint och stek i olja tills den blir mjuk.',
-        'Tillsätt hackad vitlök och ingefära, stek ytterligare 1 minut.',
-        'Lägg i tomatpuré och alla kryddor, stek 2 minuter.',
-        'Häll i krossade tomater och koka upp.',
-        'Tillsätt kokta kikärtor och kokosmjölk.',
-        'Låt puttra på låg värme i 15 minuter.',
-        'Smaka av med salt och peppar.',
-        'Servera med ris eller naanbröd.'
-      ],
-      stepsEn: [
-        'Finely chop onion and fry in oil until soft.',
-        'Add minced garlic and ginger, fry for another 1 minute.',
-        'Add tomato paste and all spices, fry for 2 minutes.',
-        'Pour in crushed tomatoes and bring to boil.',
-        'Add cooked chickpeas and coconut milk.',
-        'Let simmer on low heat for 15 minutes.',
-        'Season with salt and pepper.',
-        'Serve with rice or naan bread.'
-      ],
-      personalStory: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig.',
-      personalStoryEn: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine.',
-      tips: 'Tips: För extra krämig konsistens, mixa hälften av kikärtorna innan du tillsätter dem.',
-      tipsEn: 'Tips: For extra creamy consistency, blend half of the chickpeas before adding them.'
-    }
-    // Add more recipes as needed...
-  };
-
+  // Load real-time data on component mount
   useEffect(() => {
-    const foundRecipe = recipes[recipeId];
-    if (foundRecipe) {
-      setRecipe(foundRecipe);
+    const loadRecipeData = async () => {
+      setLoading(true);
+      try {
+        // Load comments
+        const comments = await getRecipeComments(recipe.id);
+        setLiveComments(comments);
+        
+        // Load statistics
+        const stats = await getRecipeStats(recipe.id);
+        setLiveRating(stats.average_rating);
+        setLiveReviewCount(stats.total_comments);
+      } catch (error) {
+        console.error('Error loading recipe data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRecipeData();
+  }, [recipe.id]);
+
+  // Fallback comments for display while loading
+  const fallbackComments = useMemo(() => {
+    const commentsByRecipe = {
+      'lins-bulgur-jarpar': [
+        {
+          id: 1,
+          name: "Erik Lindqvist",
+          rating: 4,
+          date: "4 december 2024",
+          text: "Som vegetarian är jag så tacksam för såna här proteinrika recept! Blev så mättad och smaken var fantastisk. Serverade i libabröd med citron - perfekt!"
+        },
+        {
+          id: 2,
+          name: "Miriam Öberg",
+          rating: 4,
+          date: "2 december 2024",
+          text: "Supergott! Tog lite tid att hitta sumak men det var värt det. Gjorde extra och frös in - funkar perfekt att värma upp senare!"
+        }
+      ],
+      'kycklingfile-potatis-dragon': [
+        {
+          id: 1,
+          name: "Anders Nilsson",
+          rating: 4,
+          date: "3 december 2024",
+          text: "Följde receptet exakt och resultatet var riktigt bra. Dragonsåsen var krämig och smakrik. Tog lite tid men värt det."
+        }
+      ],
+      'pannpizzor': [
+        {
+          id: 1,
+          name: "Sofia Andersson",
+          rating: 4,
+          date: "4 december 2024",
+          text: "Så genialt enkelt! Användde kylskåpsrester som jag annars skulle kasta - blev helt perfekt. Barnen älskade sina egna små pizzor"
+        }
+      ],
+      'batata-harra': [
+        {
+          id: 1,
+          name: "Lina Pettersson",
+          rating: 4,
+          date: "1 december 2024",
+          text: "Så krispig potatis och sådan smakrik sås! Serverade som tillbehör till grillat men kunde lätt ätit det som huvudrätt."
+        }
+      ],
+      'lax-risbowl': [
+        {
+          id: 1,
+          name: "Marcus Andersson",
+          rating: 4,
+          date: "28 november 2024",
+          text: "Så enkelt och så gott! Älskar hur det blev så fräscht med alla primörgrönsaker. Honungs- och senapsmajonnäsen var pricken över i!"
+        }
+      ],
+      'kafta-bil-sejnie': [
+        {
+          id: 1,
+          name: "David Eriksson",
+          rating: 4,
+          date: "25 november 2024",
+          text: "Första gången jag provat assyrisk mat och nu är jag helt såld. Köttbullarna var så saftiga och tomatsåsen var riktigt god."
+        }
+      ],
+      'kofta-bil-sanieh': [
+        {
+          id: 1,
+          name: "Carl Magnusson",
+          rating: 4,
+          date: "30 november 2024",
+          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga"
+        }
+      ],
+      'pasta-pesto': [
+        {
+          id: 1,
+          name: "Lisa Holm",
+          rating: 4,
+          date: "1 december 2024",
+          text: "Så färgglatt och gott! Perfekt när man vill ha något snabbt men ändå festligt. Halloumin var ett genialt tillskott som gjorde rätten komplett!"
+        },
+        {
+          id: 2,
+          name: "Sarah Johansson",
+          rating: 5,
+          date: "15 november 2024",
+          text: "Fantastiskt recept! Perfekt balans av smaker och så mättande. Sumaken ger verkligen den där extra smaken som gör skillnad."
+        },
+        {
+          id: 3,
+          name: "Carl Magnusson",
+          rating: 4,
+          date: "30 december 2024",
+          text: "Gjorde detta över helgerna och hela familjen var förälskad! Padron paprikorna var ett genialt tillskott. Så mycket smak i varje tugga"
+        },
+        {
+          id: 4,
+          name: "Marcus Andersson",
+          rating: 5,
+          date: "28 november 2024",
+          text: "Gjorde detta till hela familjen och alla älskade det! Så enkelt att laga och resultatet var verkligen professionellt. Kommer definitivt göra igen."
+        }
+      ]
+    };
+    
+    // Filter out any Pierre comments and return filtered results
+    const recipeComments = commentsByRecipe[recipe.id] || [];
+    return recipeComments.filter(comment => comment.name !== 'Pierre');
+  }, [recipe.id]);
+
+  // Use live comments if available, otherwise fallback
+  const displayComments = loading ? fallbackComments : liveComments.filter(comment => comment.user_name !== 'Pierre').map(comment => ({
+    id: comment.id,
+    name: comment.user_name,
+    rating: comment.rating || 4,
+    date: new Date(comment.created_at).toLocaleDateString('sv-SE', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }),
+    text: comment.comment_text
+  }));
+
+  const adjustAmount = useCallback((amount: string, originalPortions: number) => {
+    const regex = /(\d+(?:\.\d+)?)\s*([a-zA-ZåäöÅÄÖ]+)?/;
+    const match = amount.match(regex);
+    
+    if (match) {
+      const value = parseFloat(match[1]);
+      const unit = match[2] || '';
+      const adjustedValue = (value * portionCount) / originalPortions;
+      
+      let formattedValue: string;
+      if (adjustedValue % 1 === 0) {
+        formattedValue = adjustedValue.toString();
+      } else {
+        formattedValue = adjustedValue.toFixed(1).replace(/\.0$/, '');
+      }
+      
+      return `${formattedValue} ${unit}`.trim();
     }
-  }, [recipeId]);
+    
+    return amount;
+  }, [portionCount]);
 
-  if (!recipe) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Recept hittades inte / Recipe not found</p>
-      </div>
-    );
-  }
+  // Optimized handlers with useCallback
+  const handlePrint = useCallback(() => {
+    window.print();
+  }, []);
 
-  const currentTitle = language === 'en' && recipe.translatedTitle ? recipe.translatedTitle : recipe.title;
-  const currentDescription = language === 'en' && recipe.translatedDescription ? recipe.translatedDescription : recipe.description;
-  const currentIngredients = language === 'en' && recipe.ingredientsEn ? recipe.ingredientsEn : recipe.ingredients;
-  const currentSteps = language === 'en' && recipe.stepsEn ? recipe.stepsEn : recipe.steps;
-  const currentPersonalStory = language === 'en' && recipe.personalStoryEn ? recipe.personalStoryEn : recipe.personalStory;
-  const currentTips = language === 'en' && recipe.tipsEn ? recipe.tipsEn : recipe.tips;
+  const handleSave = useCallback(() => {
+    setIsSaved(!isSaved);
+    if (!isSaved) {
+      localStorage.setItem(`saved-recipe-${recipe.id}`, 'true');
+    } else {
+      localStorage.removeItem(`saved-recipe-${recipe.id}`);
+    }
+  }, [isSaved, recipe.id]);
 
-  const handleBack = () => {
-    window.location.hash = '';
-  };
+  const handleShare = useCallback(() => {
+    // Generate proper shareable URL with recipe ID
+    const baseUrl = window.location.origin;
+    const recipeUrl = `${baseUrl}/recipe/${recipe.id}`;
+    
+    const shareData = {
+      title: `${recipe.title} - MaykasKitchen`,
+      text: `Kolla in detta recept: ${recipe.description}`,
+      url: recipeUrl,
+    };
+
+    // Try native sharing first (mobile devices)
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      navigator.share(shareData).catch(err => {
+        console.log('Error sharing:', err);
+        copyToClipboard();
+      });
+    } else {
+      copyToClipboard();
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(recipeUrl).then(() => {
+        alert(t.recipeDetails.linkCopied);
+      }).catch(() => {
+        alert('Kunde inte kopiera länken. Markera och kopiera URL:en manuellt.');
+      });
+    }
+  }, [recipe.title, recipe.description]);
+
+  const handleRating = useCallback((rating: number) => {
+    setUserRating(rating);
+  }, []);
+
+  const handleSubmitComment = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!userName.trim()) {
+      setSubmitError('Namn är obligatoriskt');
+      return;
+    }
+    
+    if (!comment.trim()) {
+      setSubmitError('Kommentar är obligatorisk');
+      return;
+    }
+    
+    if (userRating === 0) {
+      setSubmitError('Vänligen sätt ett betyg');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError('');
+    
+    try {
+      const result = await submitComment(
+        recipe.id,
+        userName,
+        comment,
+        userRating,
+        userEmail || undefined
+      );
+      
+      if (result.success) {
+        setSubmitSuccess(true);
+        setComment('');
+        setUserName('');
+        setUserEmail('');
+        setUserRating(0);
+        
+        // Reload data to show new comment and updated rating
+        const newComments = await getRecipeComments(recipe.id);
+        setLiveComments(newComments);
+        
+        const newStats = await getRecipeStats(recipe.id);
+        setLiveRating(newStats.average_rating);
+        setLiveReviewCount(newStats.total_comments);
+        
+        // Clear success message after 3 seconds
+        setTimeout(() => setSubmitSuccess(false), 3000);
+      } else {
+        setSubmitError(result.error || 'Något gick fel');
+      }
+    } catch (error) {
+      setSubmitError('Något gick fel. Försök igen.');
+      console.error('Error submitting comment:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [recipe.id, userName, comment, userRating, userEmail]);
+
+  // Handle like functionality
+  const handleLike = useCallback(() => {
+    const recipeKey = `liked-recipe-${recipe.id}`;
+    const currentlyLiked = localStorage.getItem(recipeKey) === 'true';
+    
+    if (!currentlyLiked) {
+      setIsLiked(true);
+      setLikeCount(prev => prev + 1);
+      localStorage.setItem(recipeKey, 'true');
+    } else {
+      setIsLiked(false);
+      setLikeCount(prev => Math.max(0, prev - 1));
+      localStorage.removeItem(recipeKey);
+    }
+  }, [recipe.id]);
+
+  // Check if recipe is liked on mount
+  useEffect(() => {
+    const recipeKey = `liked-recipe-${recipe.id}`;
+    const liked = localStorage.getItem(recipeKey) === 'true';
+    setIsLiked(liked);
+  }, [recipe.id]);
+
+  const originalPortions = parseInt(recipe.portions.split(' ')[0], 10);
 
   return (
-    <div className="min-h-screen py-8">
-      <div className="container mx-auto px-4 max-w-4xl">
-        {/* Back button */}
-        <button 
-          onClick={handleBack}
-          className="flex items-center text-purple-600 hover:text-purple-800 mb-6 transition-colors"
-        >
-          <ArrowLeft size={20} className="mr-2" />
-          {language === 'en' ? 'Back to recipes' : 'Tillbaka till recept'}
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+      <article className="py-4 md:py-8 print:py-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back button */}
+          <button 
+            onClick={onBack}
+            className="flex items-center text-purple-600 hover:text-purple-700 mb-6 md:mb-8 group print:hidden transition-colors bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg min-h-[44px]"
+          >
+            <ArrowLeft size={20} className="mr-2 transition-transform group-hover:-translate-x-1" />
+            <span className="hidden sm:inline">{t.recipeDetails.backToRecipes}</span>
+            <span className="sm:hidden">{t.common.close}</span>
+          </button>
 
-        {/* Recipe header */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-          <div className="relative h-64 md:h-96">
-            <img 
-              src={recipe.image} 
-              alt={currentTitle}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+          {/* Personal story section */}
+          {recipe.personalStory && (
+            <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 p-4 md:p-8 border border-purple-100">
+              <div className="flex items-center mb-4 md:mb-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                  <Heart className="text-white" size={20} />
+                </div>
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-600">{t.recipeDetails.personalStory}</h2>
+                  <p className="text-gray-600 text-sm md:text-base">{t.recipeDetails.fromHeart}</p>
+                </div>
+              </div>
+              <div className="prose prose-sm md:prose-lg max-w-none">
+                {recipe.personalStory.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-gray-700 leading-relaxed mb-3 md:mb-4 last:mb-0 text-sm md:text-base">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Recipe header */}
+          <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-purple-100">
+            <div className="flex flex-col lg:flex-row">
+              <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-auto">
+                <img 
+                  src={recipe.image} 
+                  alt={recipe.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  width="600"
+                  height="400"
+                />
+              </div>
+              <div className="p-4 md:p-6 lg:p-8 w-full lg:w-1/2">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  {recipe.badges.map((badge, index) => (
+                    <span 
+                      key={index}
+                      className="bg-purple-100 text-purple-800 text-xs md:text-sm py-1 px-2 md:px-3 rounded-full font-medium"
+                    >
+                      {language === 'en' && recipe.badgesEn ? recipe.badgesEn[index] : badge}
+                    </span>
+                  ))}
+                </div>
+
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif leading-tight select-text cursor-text">
+                  {language === 'en' && recipe.titleEn ? recipe.titleEn : recipe.title}
+                </h1>
+
+                {/* Recipe meta */}
+                <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-4 md:mb-6 text-gray-600 text-sm md:text-base">
+                  <div className="flex items-center">
+                    <Clock size={16} className="mr-2 text-purple-600" />
+                    <span>{recipe.time} minuter</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Users size={16} className="mr-2 text-purple-600" />
+                    <span>{portionCount} portioner</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Heart size={16} className={`mr-2 ${isLiked ? 'text-red-500' : 'text-purple-600'}`} fill={isLiked ? 'currentColor' : 'none'} />
+                    <span>{likeCount} gillar</span>
+                  </div>
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center mb-4 md:mb-6">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill={i < Math.floor(liveRating) ? "#fbbf24" : "none"}
+                        className={i < Math.floor(liveRating) ? "text-amber-400" : "text-gray-300"}
+                      />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-gray-600 text-sm md:text-base">({liveRating}/5 • {liveReviewCount} recensioner)</span>
+                </div>
+
+                <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base select-text cursor-text">
+                  {language === 'en' && recipe.descriptionEn ? recipe.descriptionEn : recipe.description}
+                </p>
+
+                {/* Action buttons */}
+                <div className="flex flex-wrap gap-2 md:gap-3">
+                  <button 
+                    onClick={handlePrint} 
+                    className="flex items-center gap-2 px-3 md:px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors text-sm min-h-[44px]"
+                  >
+                    <Printer size={16} />
+                    <span className="hidden sm:inline">{t.recipeDetails.printRecipe}</span>
+                  </button>
+                  
+                  {recipe.videoUrl && (
+                    <a 
+                      href={recipe.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 md:px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors text-sm min-h-[44px]"
+                    >
+                      <Instagram size={16} />
+                      <span className="hidden sm:inline">{t.recipeDetails.seeOnInstagram}</span>
+                    </a>
+                  )}
+                  
+                  <button 
+                    onClick={handleSave}
+                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-colors text-sm min-h-[44px] ${
+                      isSaved ? 'bg-purple-500 text-white' : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    }`}
+                  >
+                    <Bookmark size={16} fill={isSaved ? "white" : "none"} />
+                    <span className="hidden sm:inline">{isSaved ? t.recipeDetails.saved : t.recipeDetails.save}</span>
+                  </button>
+                  
+                  <button 
+                    onClick={handleLike}
+                    className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all text-sm min-h-[44px] transform hover:scale-105 shadow-md ${
+                     isLiked ? 'bg-red-500 text-white shadow-lg scale-105' : 'bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-600'
+                    }`}
+                    aria-label={isLiked ? t.recipeDetails.liked : t.recipeDetails.likeRecipe}
+                  >
+                    <Heart size={16} fill={isLiked ? "#FF0000" : "none"} className={`transition-all duration-200 ${isLiked ? 'text-red-500 animate-pulse' : ''}`} />
+                    <span className="hidden sm:inline">{isLiked ? t.recipeDetails.liked : t.recipeDetails.like}</span>
+                  </button>
+                  
+                  <button 
+                    onClick={handleShare}
+                    className="flex items-center gap-2 px-3 md:px-4 py-2 bg-purple-100 rounded-lg text-purple-700 hover:bg-purple-200 transition-colors text-sm min-h-[44px] hover:scale-105 transform"
+                    aria-label={t.recipeDetails.shareRecipe}
+                  >
+                    <Share2 size={16} />
+                    <span className="hidden sm:inline">{t.recipeDetails.share}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          
-          <div className="p-6 md:p-8">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {recipe.badges.map((badge, index) => (
-                <span key={index} className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">
-                  {language === 'en' && recipe.translatedBadges?.[badge] || badge}
-                </span>
-              ))}
+
+          {/* Portions adjuster */}
+          <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 mb-6 md:mb-8 shadow-lg border border-purple-100">
+            <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-center text-purple-600">{t.recipeDetails.adjustPortions}</h3>
+            <div className="flex items-center justify-center">
+              <button 
+                onClick={() => setPortionCount(Math.max(1, portionCount - 1))}
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
+              >
+                -
+              </button>
+              <span className="mx-4 md:mx-6 text-lg md:text-xl font-semibold text-purple-600">{portionCount} {t.recipes.portions}</span>
+              <button 
+                onClick={() => setPortionCount(portionCount + 1)}
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 hover:bg-purple-200 transition-colors font-semibold text-lg min-h-[44px]"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Recipe content - SWAPPED: Instructions left, Ingredients right */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
+            {/* Instructions - NOW ON LEFT (3/4 width on desktop) */}
+            <div className="lg:col-span-3 order-2 lg:order-1">
+              <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
+                  {t.recipeDetails.howToMake}
+                </h2>
+                
+                {recipe.content.instructions.map((section, index) => (
+                  <div key={index} className="mb-6 md:mb-8">
+                    {section.section && (
+                      <h3 className="text-lg md:text-xl font-semibold text-purple-600 mb-3 md:mb-4 text-center">
+                        {section.section}
+                      </h3>
+                    )}
+                    <ol className="space-y-4 md:space-y-6">
+                      {section.steps.map((step, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold mr-3 md:mr-4 text-xs md:text-sm">
+                            {i + 1}
+                          </span>
+                          <p className="pt-1 text-gray-700 leading-relaxed text-sm md:text-base select-text cursor-text">{step}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+
+              {/* Tips */}
+              {recipe.content.tips && recipe.content.tips.length > 0 && (
+                <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
+                  <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-center text-purple-600 font-serif">
+                    {t.recipeDetails.tips}
+                  </h2>
+                  <ul className="space-y-2 md:space-y-3">
+                    {recipe.content.tips.map((tip, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-purple-500 rounded-full mr-2 md:mr-3 mt-2"></span>
+                        <span className="text-gray-700 leading-relaxed text-sm md:text-base select-text cursor-text">{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
-            <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-4">
-              {currentTitle}
-            </h1>
+            {/* Ingredients - NOW ON RIGHT (1/4 width on desktop, MUCH SMALLER & BETTER ALIGNED) */}
+            <div className="lg:col-span-1 order-1 lg:order-2">
+              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-4">
+                <h2 className="text-base md:text-lg font-bold mb-4 text-center text-purple-600 font-serif">
+                  {t.recipeDetails.ingredients}
+                </h2>
+                
+                {recipe.allergens && recipe.allergens.length > 0 && (
+                  <div className="mb-4 p-3 bg-yellow-50 rounded-lg flex items-start text-sm border border-yellow-200">
+                    <AlertCircle className="text-yellow-500 mr-2 mt-0.5 flex-shrink-0" size={14} />
+                    <div>
+                      <p className="font-medium text-yellow-700 text-xs">{t.recipeDetails.allergens}</p>
+                      <p className="text-yellow-700 text-xs">{recipe.allergens.join(', ')}</p>
+                    </div>
+                  </div>
+                )}
+                
+                {recipe.content.ingredients.map((section, index) => (
+                  <div key={index} className="mb-4">
+                    {section.section && (
+                      <h3 className="text-sm font-semibold text-purple-600 mb-3 text-center border-b border-purple-200 pb-2">
+                        {section.section}
+                      </h3>
+                    )}
+                    <ul className="space-y-2">
+                      {section.items.map((ingredient, i) => {
+                        const regex = /^(\d+(?:[.,]\d+)?\s*(?:\w+)?\s*(?:\w+)?)\s(.+)$/;
+                        const match = ingredient.match(regex);
+                        
+                        if (match && match.length > 2) {
+                          const originalAmount = match[1];
+                          const ingredientName = match[2];
+                          const adjustedAmount = adjustAmount(originalAmount, originalPortions);
+                          
+                          return (
+                            <li key={i} className="flex items-center text-sm">
+                              <div className="flex items-center justify-center w-full">
+                                <input 
+                                  type="checkbox" 
+                                  className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
+                                />
+                                <div className="flex-1 text-center">
+                                  <span className="block select-text cursor-text">
+                                    <strong className="text-purple-600 font-semibold text-sm">{adjustedAmount}</strong>
+                                  </span>
+                                  <span className="block text-gray-700 text-sm leading-tight select-text cursor-text">{ingredientName}</span>
+                                </div>
+                              </div>
+                            </li>
+                          );
+                        }
+                        
+                        return (
+                          <li key={i} className="flex items-center text-sm">
+                            <div className="flex items-center justify-center w-full">
+                              <input 
+                                type="checkbox" 
+                                className="mr-3 text-purple-500 w-3 h-3 rounded focus:ring-purple-500 focus:ring-2" 
+                              />
+                              <div className="flex-1 text-center">
+                                <span className="text-gray-700 text-sm leading-tight select-text cursor-text">{ingredient}</span>
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Rating and Comments */}
+          <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg border border-purple-100">
+            <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-600 font-serif">
+              {t.recipeDetails.rateAndComment}
+            </h2>
             
-            <p className="text-gray-600 mb-6 text-lg">
-              {currentDescription}
-            </p>
-
-            <div className="flex flex-wrap gap-6 mb-6">
-              <div className="flex items-center">
-                <Clock className="text-purple-600 mr-2" size={20} />
-                <span>{recipe.time} {language === 'en' ? 'min' : 'min'}</span>
+            {/* Rating */}
+            <div className="flex items-center justify-center mb-6 md:mb-8">
+              <span className="mr-3 md:mr-4 text-gray-700 text-sm md:text-base">{t.recipeDetails.yourRating}</span>
+              <div className="flex space-x-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button 
+                    key={star}
+                    onClick={() => handleRating(star)}
+                    className="text-xl md:text-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  >
+                    <Star 
+                      fill={userRating >= star ? "#fbbf24" : "none"} 
+                      className={userRating >= star ? "text-amber-400" : "text-gray-300"}
+                      size={24}
+                    />
+                  </button>
+                ))}
               </div>
-              <div className="flex items-center">
-                <Users className="text-purple-600 mr-2" size={20} />
-                <span>{recipe.portions} {language === 'en' ? 'portions' : 'portioner'}</span>
+              {userRating > 0 && (
+                <span className="ml-3 md:ml-4 text-gray-600 text-sm md:text-base">
+                  {userRating} {userRating === 1 ? t.recipeDetails.star : t.recipeDetails.stars}
+                </span>
+              )}
+            </div>
+            
+            {/* Comment form */}
+            <form onSubmit={handleSubmitComment} className="mb-6 md:mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
+                <input
+                  type="text"
+                  placeholder={t.recipeDetails.yourName}
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder={t.recipeDetails.yourEmail}
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                  className="px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/90 text-sm md:text-base min-h-[44px]"
+                />
               </div>
-              <div className="flex items-center">
-                <Star className="text-yellow-500 mr-2" size={20} fill="currentColor" />
-                <span>{recipe.rating} ({recipe.reviews} {language === 'en' ? 'reviews' : 'recensioner'})</span>
+              
+              <textarea
+                placeholder={t.recipeDetails.writeComment}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                rows={4}
+                className="w-full px-3 md:px-4 py-2 md:py-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3 md:mb-4 bg-white/90 text-sm md:text-base"
+                required
+              />
+              
+              <div className="text-center">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center mx-auto text-sm md:text-base min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      {t.recipeDetails.sending}
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} className="mr-2" />
+                      {t.recipeDetails.submitComment}
+                    </>
+                  )}
+                </button>
               </div>
+              
+              {submitError && (
+                <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-lg text-center text-sm">
+                  {submitError}
+                </div>
+              )}
+              
+              {submitSuccess && (
+                <div className="mt-4 p-3 bg-green-50 text-green-600 rounded-lg text-center text-sm">
+                  {t.recipeDetails.commentSuccess}
+                </div>
+              )}
+            </form>
+            
+            {/* Comments list */}
+            <div className="space-y-4 md:space-y-6">
+              <h3 className="text-lg md:text-xl font-semibold flex items-center justify-center">
+                <MessageCircle size={18} className="mr-2 text-purple-600" />
+                {t.recipeDetails.comments} ({displayComments.length})
+              </h3>
+              
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+                  <p className="text-gray-500 mt-2">{t.recipeDetails.loading}</p>
+                </div>
+              ) : displayComments.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  <MessageCircle size={48} className="mx-auto mb-4 text-gray-300" />
+                  <p>{t.recipeDetails.noComments}</p>
+                </div>
+              ) : (
+                displayComments.map((comment) => (
+                  <div key={comment.id} className="border-b border-purple-100 pb-4 md:pb-6 last:border-b-0">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-medium text-gray-800 text-sm md:text-base">{comment.name}</h4>
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={14}
+                            fill={i < comment.rating ? "#fbbf24" : "none"}
+                            className={i < comment.rating ? "text-amber-400" : "text-gray-300"}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-gray-500 text-xs md:text-sm mb-2 md:mb-3">{comment.date}</p>
+                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">{comment.text}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
-
-        {/* Personal story */}
-        {currentPersonalStory && (
-          <div className="bg-purple-50 rounded-xl p-6 mb-8">
-            <h3 className="text-xl font-semibold text-purple-600 mb-3">
-              {language === 'en' ? 'From Mayka\'s Heart' : 'Från Maykas hjärta'}
-            </h3>
-            <p className="text-gray-700 italic">
-              {currentPersonalStory}
-            </p>
-          </div>
-        )}
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Ingredients */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              {language === 'en' ? 'Ingredients' : 'Ingredienser'}
-            </h3>
-            <ul className="space-y-2">
-              {currentIngredients.map((ingredient, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="w-2 h-2 bg-purple-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span>{ingredient}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Instructions */}
-          <div className="md:col-span-2 bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              {language === 'en' ? 'Instructions' : 'Gör såhär'}
-            </h3>
-            <ol className="space-y-4">
-              {currentSteps.map((step, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-medium mr-4 mt-1 flex-shrink-0">
-                    {index + 1}
-                  </span>
-                  <span className="pt-1">{step}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-
-        {/* Tips */}
-        {currentTips && (
-          <div className="bg-yellow-50 rounded-xl p-6 mt-8">
-            <h3 className="text-xl font-semibold text-yellow-700 mb-3">
-              {language === 'en' ? 'Tips & Variations' : 'Tips & variationer'}
-            </h3>
-            <p className="text-gray-700">
-              {currentTips}
-            </p>
-          </div>
-        )}
-
-        {/* Action buttons */}
-        <div className="flex flex-wrap gap-4 mt-8 justify-center">
-          <button className="flex items-center bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
-            <Heart size={20} className="mr-2" />
-            {language === 'en' ? 'Like' : 'Gilla'}
-          </button>
-          <button className="flex items-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors">
-            <Share2 size={20} className="mr-2" />
-            {language === 'en' ? 'Share' : 'Dela'}
-          </button>
-          <button className="flex items-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors">
-            <Printer size={20} className="mr-2" />
-            {language === 'en' ? 'Print' : 'Skriv ut'}
-          </button>
-        </div>
-      </div>
+      </article>
     </div>
   );
 };
-
-export default RecipeDetails;

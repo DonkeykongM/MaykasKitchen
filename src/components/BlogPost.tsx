@@ -29,13 +29,10 @@ const recipes = {
     },
     allergens: ['Kan innehålla spår av gluten från bulgur'],
     allergensEn: ['May contain traces of gluten from bulgur'],
-    personalStory: 'Dessa proteinrika järpar är en av mina favoriträtter för vardagsmiddag. De kombinerar det bästa från mellanösterns kök – näringsrika linser och bulgur med aromatiska kryddor som sumak. Perfekt när man vill äta något mättande och hälsosamt som ändå är riktigt smakrikt.',
-    personalStoryEn: 'These protein-rich patties are one of my favorite dishes for weekday dinners. They combine the best of Middle Eastern cuisine – nutritious lentils and bulgur with aromatic spices like sumac. Perfect when you want to eat something filling and healthy that is still really flavorful.',
     content: {
       ingredients: [
         {
           section: 'Huvudingredienser',
-          sectionEn: 'Main Ingredients',
           items: [
             '1 liter vatten',
             '3 dl röda linser',
@@ -45,34 +42,16 @@ const recipes = {
             '5–6 salladslökar, finhackade',
             '0,5 dl rapsolja (till stekning)',
             '1–1,5 msk tomatpuré'
-          ],
-          itemsEn: [
-            '1 liter water',
-            '3 dl red lentils',
-            '6 dl fine bulgur',
-            '1.5 yellow onions, finely chopped',
-            '2 red sweet peppers, finely chopped',
-            '5-6 green onions, finely chopped',
-            '0.5 dl rapeseed oil (for frying)',
-            '1-1.5 tbsp tomato paste'
           ]
         },
         {
           section: 'Kryddor',
-          sectionEn: 'Spices',
           items: [
             '2,5 tsk salt',
             '1 msk sumak',
             '1 tsk svartpeppar',
             '1 tsk garam masala',
             '1 tsk cayennepeppar'
-          ],
-          itemsEn: [
-            '2.5 tsp salt',
-            '1 tbsp sumac',
-            '1 tsp black pepper',
-            '1 tsp garam masala',
-            '1 tsp cayenne pepper'
           ]
         }
       ],
@@ -228,68 +207,40 @@ const recipes = {
       instructions: [
         {
           section: 'Förbered degen',
-          sectionEn: 'Prepare the dough',
           steps: [
             'Häll det varma vattnet i en stor bunke.',
             'Tillsätt socker och torrjäst. Rör om och låt stå i 10 minuter tills det börjar bubbla (det visar att jästen aktiverats).',
             'Tillsätt salt och sedan mjölet lite i taget under omrörning.',
             'Knåda degen tills den blir jämn och elastisk – cirka 10 minuter för hand eller 5–7 minuter i maskin.'
-          ],
-          stepsEn: [
-            'Pour the warm water into a large bowl.',
-            'Add sugar and dry yeast. Stir and let stand for 10 minutes until it starts bubbling (this shows the yeast is activated).',
-            'Add salt and then the flour gradually while stirring.',
-            'Knead the dough until smooth and elastic – about 10 minutes by hand or 5-7 minutes in a machine.'
           ]
         },
         {
           section: 'Jäsning',
-          sectionEn: 'Rising',
           steps: [
             'Täck bunken med plastfolie eller bakduk.',
             'Låt degen jäsa i 1–1,5 timme på en varm plats tills den fördubblats i storlek.'
-          ],
-          stepsEn: [
-            'Cover the bowl with plastic wrap or a kitchen towel.',
-            'Let the dough rise for 1-1.5 hours in a warm place until doubled in size.'
           ]
         },
         {
           section: 'Forma munkarna',
-          sectionEn: 'Shape the donuts',
           steps: [
             'Häll lite olja på händerna för att degen inte ska fastna.',
             'Ta små bitar av degen och forma till bollar eller ringar.'
-          ],
-          stepsEn: [
-            'Pour a little oil on your hands to prevent the dough from sticking.',
-            'Take small pieces of dough and shape into balls or rings.'
           ]
         },
         {
           section: 'Fritering',
-          sectionEn: 'Frying',
           steps: [
             'Hetta upp olja i en djup kastrull eller fritös till cirka 180°C.',
             'Fritera några munkar åt gången tills de är gyllenbruna och genomstekta – vänd dem för jämn färg.',
             'Låt munkarna rinna av på hushållspapper.'
-          ],
-          stepsEn: [
-            'Heat oil in a deep pot or fryer to about 180°C.',
-            'Fry a few donuts at a time until golden brown and cooked through – turn them for even color.',
-            'Let the donuts drain on paper towels.'
           ]
         },
         {
           section: 'Serveringstips',
-          sectionEn: 'Serving tips',
           steps: [
             'Servera som de är, eller pudra med florsocker.',
             'Ringla över sirap eller servera med glass, hallon och mynta 😍.'
-          ],
-          stepsEn: [
-            'Serve as they are, or dust with powdered sugar.',
-            'Drizzle with syrup or serve with ice cream, raspberries and mint 😍.'
           ]
         }
       ],
@@ -299,13 +250,6 @@ const recipes = {
         'Traditionellt serveras de med socker eller honung',
         'Kan förvaras i lufttät behållare i 2-3 dagar',
         'Blir extra goda uppvärmda kort i ugnen innan servering'
-      ],
-      tipsEn: [
-        'The dough should be soft and elastic – add more flour if it feels too sticky',
-        'Oil temperature is important – too cold oil makes them soggy, too hot makes them dark outside but raw inside',
-        'Traditionally served with sugar or honey',
-        'Can be stored in an airtight container for 2-3 days',
-        'Extra delicious when briefly warmed in the oven before serving'
       ]
     }
   },

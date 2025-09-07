@@ -332,12 +332,12 @@ export const ContactSection = () => {
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-300 group"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <Instagram className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
                     <h4 className="font-semibold">Instagram</h4>
-                    <p className="text-gray-600 text-sm">125k+ {t.about.stats.followers}</p>
+                    <p className="text-brown-500 text-sm">125 000+ följare</p>
                   </div>
                   <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
                 </a>
@@ -345,12 +345,12 @@ export const ContactSection = () => {
                   href="https://www.tiktok.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-300 group"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <TikTok className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
                     <h4 className="font-semibold">TikTok</h4>
-                    <p className="text-gray-600 text-sm">62k+ {t.about.stats.followers}</p>
+                    <p className="text-brown-500 text-sm">62 000+ följare</p>
                   </div>
                   <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
                 </a>
@@ -358,12 +358,12 @@ export const ContactSection = () => {
                   href="https://www.youtube.com/@Maykaskitchen" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-300 group"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <Youtube className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
                     <h4 className="font-semibold">YouTube</h4>
-                    <p className="text-gray-600 text-sm">2k+ {t.about.stats.subscribers}</p>
+                    <p className="text-brown-500 text-sm">ca 2000 prenumeranter</p>
                   </div>
                   <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
                 </a>
@@ -371,12 +371,12 @@ export const ContactSection = () => {
                   href="https://www.facebook.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-300 group"
+                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
                 >
                   <Facebook className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
                   <div>
                     <h4 className="font-semibold">Facebook</h4>
-                    <p className="text-gray-600 text-sm">25k+ {t.about.stats.followers}</p>
+                    <p className="text-brown-500 text-sm">25 000+ följare</p>
                   </div>
                   <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
                 </a>
@@ -388,7 +388,7 @@ export const ContactSection = () => {
                   href="https://www.instagram.com/maykaskitchen/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-white hover:text-purple-100 font-medium"
+                  className="inline-flex items-center text-white hover:text-beige-50 font-medium"
                 >
                   {t.contact.sendDM} <ArrowRight size={16} className="ml-1" />
                 </a>
