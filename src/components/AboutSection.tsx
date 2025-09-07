@@ -20,9 +20,24 @@ export const AboutSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          {/* Image section */}
+          <div className="order-2 lg:order-1">
+            <div className="relative">
+              <img 
+                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCIRQfhMbanRC45Kv" 
+                alt="Mayka Gulo i köket"
+                className="w-full h-auto rounded-2xl shadow-xl object-cover"
+                loading="lazy"
+                width="500"
+                height="600"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl"></div>
+            </div>
+          </div>
+
           {/* Content */}
-          <div className="space-y-6 text-center">
+          <div className="space-y-6 text-center lg:text-left order-1 lg:order-2">
             <p className="text-lg text-gray-700 leading-relaxed">
               {t.about.description1}
             </p>
@@ -31,7 +46,7 @@ export const AboutSection: React.FC = () => {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-6 py-8 max-w-md mx-auto">
+            <div className="grid grid-cols-2 gap-6 py-8 max-w-md mx-auto lg:mx-0">
               <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
                 <div className="flex items-center justify-center mb-3">
                   <Instagram className="w-8 h-8 text-purple-600" />
@@ -49,7 +64,7 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Key points */}
-            <div className="space-y-4 max-w-2xl mx-auto text-left">
+            <div className="space-y-4 max-w-2xl mx-auto lg:mx-0 text-left">
               <div className="flex items-start gap-4">
                 <div className="w-2 h-2 bg-purple-600 rounded-full mt-3 flex-shrink-0"></div>
                 <div>
@@ -67,9 +82,9 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Social links */}
-            <div className="pt-6 flex flex-col items-center">
+            <div className="pt-6 flex flex-col items-center lg:items-start">
               <p className="text-sm font-semibold text-gray-900 mb-4">{t.about.followMeHere}</p>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4 justify-center lg:justify-start">
                 <a
                   href="https://instagram.com/maykaskitchen"
                   className="p-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-lg hover:scale-110 transition-all duration-300"
@@ -101,7 +116,7 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-sm text-gray-500 pt-4 text-center">
+            <p className="text-sm text-gray-500 pt-4 text-center lg:text-left">
               {t.about.since}
             </p>
           </div>
