@@ -307,7 +307,7 @@ export const sv: Translations = {
     tagline: 'Assyrisk/syriansk matkonst',
     title: 'Mat från hjärtat & själen',
     description: 'Autentiska recept med kärlek',
-    subtitle: 'Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen.',
+    subtitle: 'Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen – med autentiska assyriska/syrianska rötter.',
     exploreRecipes: 'Utforska recept',
     followMe: 'Följ mig här:',
     scrollDown: 'Utforska mer'
@@ -594,7 +594,7 @@ export const en: Translations = {
     tagline: 'Assyrian/Syriac culinary art',
     title: 'Food from the heart & soul',
     description: 'Authentic recipes made with love',
-    subtitle: 'Seasonal cooking that creates joy around the table for the whole family.',
+    subtitle: 'Seasonal cooking that creates joy around the table for the whole family – rooted in authentic Assyrian/Syriac traditions.',
     exploreRecipes: 'Explore recipes',
     followMe: 'Follow me here:',
     scrollDown: 'Explore more'
