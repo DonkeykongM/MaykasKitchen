@@ -24,13 +24,18 @@ interface RecipeDetailsProps {
     content: {
       ingredients: {
         section?: string;
+        sectionEn?: string;
         items: string[];
+        itemsEn?: string[];
       }[];
       instructions: {
         section?: string;
+        sectionEn?: string;
         steps: string[];
+        stepsEn?: string[];
       }[];
       tips?: string[];
+      tipsEn?: string[];
     };
     difficulty?: string;
     difficultyEn?: string;
@@ -52,6 +57,12 @@ interface RecipeDetailsProps {
 export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) => {
   const { t } = useTranslation();
   const { language } = useTranslation();
+  
+  // Helper function to get localized content
+  const getLocalizedContent = useCallback((swedishContent: any, englishContent?: any) => {
+    return language === 'en' && englishContent ? englishContent : swedishContent;
+  }, [language]);
+  
   const [portionCount, setPortionCount] = useState(parseInt(recipe.portions.split(' ')[0], 10));
   const [isSaved, setIsSaved] = useState(false);
   const [userRating, setUserRating] = useState(0);
@@ -431,7 +442,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 </div>
 
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif leading-tight select-text cursor-text">
-                  {language === 'en' && recipe.titleEn ? recipe.titleEn : recipe.title}
+                  {getLocalizedContent(recipe.title, recipe.titleEn)}
                 </h1>
 
                 {/* Recipe meta */}
@@ -466,7 +477,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                 </div>
 
                 <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed text-sm md:text-base select-text cursor-text">
-                  {language === 'en' && recipe.descriptionEn ? recipe.descriptionEn : recipe.description}
+                  {getLocalizedContent(recipe.description, recipe.descriptionEn)}
                 </p>
 
                 {/* Action buttons */}
@@ -558,11 +569,11 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   <div key={index} className="mb-6 md:mb-8">
                     {section.section && (
                       <h3 className="text-lg md:text-xl font-semibold text-purple-600 mb-3 md:mb-4 text-center">
-                        {section.section}
+                        {getLocalizedContent(section.section, section.sectionEn)}
                       </h3>
                     )}
                     <ol className="space-y-4 md:space-y-6">
-                      {section.steps.map((step, i) => (
+                      {getLocalizedContent(section.steps, section.stepsEn)?.map((step, i) => (
                         <li key={i} className="flex items-start">
                           <span className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold mr-3 md:mr-4 text-xs md:text-sm">
                             {i + 1}
@@ -576,13 +587,13 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
               </div>
 
               {/* Tips */}
-              {recipe.content.tips && recipe.content.tips.length > 0 && (
+              {(recipe.content.tips || recipe.content.tipsEn) && (
                 <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
                   <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-center text-purple-600 font-serif">
                     {t.recipeDetails.tips}
                   </h2>
                   <ul className="space-y-2 md:space-y-3">
-                    {recipe.content.tips.map((tip, index) => (
+                    {getLocalizedContent(recipe.content.tips, recipe.content.tipsEn)?.map((tip, index) => (
                       <li key={index} className="flex items-start">
                         <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-purple-500 rounded-full mr-2 md:mr-3 mt-2"></span>
                         <span className="text-gray-700 leading-relaxed text-sm md:text-base select-text cursor-text">{tip}</span>
@@ -605,7 +616,9 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                     <AlertCircle className="text-yellow-500 mr-2 mt-0.5 flex-shrink-0" size={14} />
                     <div>
                       <p className="font-medium text-yellow-700 text-xs">{t.recipeDetails.allergens}</p>
-                      <p className="text-yellow-700 text-xs">{recipe.allergens.join(', ')}</p>
+                      <p className="text-yellow-700 text-xs">
+                        {getLocalizedContent(recipe.allergens, recipe.allergensEn)?.join(', ')}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -614,11 +627,11 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
                   <div key={index} className="mb-4">
                     {section.section && (
                       <h3 className="text-sm font-semibold text-purple-600 mb-3 text-center border-b border-purple-200 pb-2">
-                        {section.section}
+                        {getLocalizedContent(section.section, section.sectionEn)}
                       </h3>
                     )}
                     <ul className="space-y-2">
-                      {section.items.map((ingredient, i) => {
+                      {getLocalizedContent(section.items, section.itemsEn)?.map((ingredient, i) => {
                         const regex = /^(\d+(?:[.,]\d+)?\s*(?:\w+)?\s*(?:\w+)?)\s(.+)$/;
                         const match = ingredient.match(regex);
                         

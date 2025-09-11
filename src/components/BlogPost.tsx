@@ -33,6 +33,7 @@ const recipes = {
       ingredients: [
         {
           section: 'Huvudingredienser',
+          sectionEn: 'Main Ingredients',
           items: [
             '1 liter vatten',
             '3 dl röda linser',
@@ -44,8 +45,20 @@ const recipes = {
             '1–1,5 msk tomatpuré'
           ]
         },
+        itemsEn: [
+            '1 liter water',
+            '3 dl red lentils',
+            '6 dl fine bulgur',
+            '1.5 yellow onion, finely chopped',
+            '2 red sweet peppers, finely chopped',
+            '5–6 scallions, finely chopped',
+            '0.5 dl canola oil (for frying)',
+            '1–1.5 tbsp tomato paste'
+          ]
+        },
         {
           section: 'Kryddor',
+          sectionEn: 'Spices',
           items: [
             '2,5 tsk salt',
             '1 msk sumak',
@@ -53,11 +66,20 @@ const recipes = {
             '1 tsk garam masala',
             '1 tsk cayennepeppar'
           ]
+        },
+        itemsEn: [
+            '2.5 tsp salt',
+            '1 tbsp sumac',
+            '1 tsp black pepper',
+            '1 tsp garam masala',
+            '1 tsp cayenne pepper'
+          ]
         }
       ],
       instructions: [
         {
           section: 'Koka linser och bulgur',
+          sectionEn: 'Cook lentils and bulgur',
           steps: [
             'Koka upp 1 liter vatten i en stor kastrull.',
             'Skölj linserna noggrant och tillsätt dem i det kokande vattnet.',
@@ -68,8 +90,19 @@ const recipes = {
             'Blanda väl och låt blandningen stå och svälla tills den tjocknar.'
           ]
         },
+        stepsEn: [
+            'Bring 1 liter of water to a boil in a large pot.',
+            'Rinse the lentils thoroughly and add them to the boiling water.',
+            'Skim the surface with a spoon or strainer when foam forms.',
+            'Boil the lentils for about 10 minutes, until they get a greenish tone.',
+            'Turn off the heat.',
+            'Rinse the bulgur in cold water and stir it into the pot with the lentils.',
+            'Mix well and let the mixture stand and swell until it thickens.'
+          ]
+        },
         {
           section: 'Förbered grönsaksröran',
+          sectionEn: 'Prepare the vegetable mixture',
           steps: [
             'Finhacka lök, paprika och salladslök.',
             'Hetta upp rapsoljan i en stekpanna och fräs den gula löken tills den blir mjuk.',
@@ -78,12 +111,27 @@ const recipes = {
             'Låt röran svalna något.'
           ]
         },
+        stepsEn: [
+            'Finely chop onion, peppers and scallions.',
+            'Heat the canola oil in a frying pan and sauté the yellow onion until soft.',
+            'Add sweet peppers and tomato paste, let sauté for another couple of minutes.',
+            'Add the scallions and spices. Fry everything together for about 5–7 minutes.',
+            'Let the mixture cool slightly.'
+          ]
+        },
         {
           section: 'Blanda och forma',
+          sectionEn: 'Mix and form',
           steps: [
             'När både lins- och bulgurröran samt grönsaksröran har svalnat – blanda ihop dem ordentligt.',
             'Tillsätt vatten emellanåt om degen inte vill fastna eller känns för torr. Degen ska vara lättformad och mjuk i konsistensen.',
             'Forma järpar eller bollar av smeten med händerna.'
+          ]
+        },
+        stepsEn: [
+            'When both the lentil-bulgur mixture and vegetable mixture have cooled – mix them together thoroughly.',
+            'Add water occasionally if the dough won\'t stick or feels too dry. The dough should be easy to shape and soft in consistency.',
+            'Form patties or balls from the mixture with your hands.'
           ]
         }
       ],
@@ -93,6 +141,14 @@ const recipes = {
         'Mörk sirap fungerar också fint som tillbehör',
         'Sumak ger en härlig syrlig smak - finns i mellanösternbutiker',
         'Kan förberedas dagen innan och förvaras i kylskåp'
+      ]
+    },
+    tipsEn: [
+        'Serve the patties as they are or in pita bread',
+        'Feel free to squeeze lemon over and drizzle some date syrup or pomegranate syrup on top',
+        'Dark syrup also works fine as an accompaniment',
+        'Sumac gives a lovely sour taste - available in Middle Eastern stores',
+        'Can be prepared the day before and stored in the refrigerator'
       ]
     }
   },
