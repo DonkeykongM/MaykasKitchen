@@ -272,6 +272,7 @@ const recipes = {
       ingredients: [
         {
           section: 'Huvudingredienser',
+          sectionEn: 'Main Ingredients',
           items: [
             '7 dl varmt vatten (minst 40°C)',
             '1 paket torrjäst (ca 12 g)',
@@ -279,46 +280,82 @@ const recipes = {
             '1 msk salt',
             '16 dl vetemjöl (ca 960 g)',
             'Olja till fritering'
+          ],
+          itemsEn: [
+            '7 dl water (at least 40°C)',
+            '1 packet dry yeast (about 12 g)',
+            '2 tbsp sugar',
+            '1 tbsp salt',
+            '16 dl all-purpose flour (about 960 g)',
+            'Oil for frying'
           ]
         }
       ],
       instructions: [
         {
           section: 'Förbered degen',
+          sectionEn: 'Prepare the dough',
           steps: [
             'Häll det varma vattnet i en stor bunke.',
             'Tillsätt socker och torrjäst. Rör om och låt stå i 10 minuter tills det börjar bubbla (det visar att jästen aktiverats).',
             'Tillsätt salt och sedan mjölet lite i taget under omrörning.',
             'Knåda degen tills den blir jämn och elastisk – cirka 10 minuter för hand eller 5–7 minuter i maskin.'
+          ],
+          stepsEn: [
+            'Pour the warm water into a large bowl.',
+            'Add sugar and dry yeast. Stir and let stand for 10 minutes until it starts to bubble (this shows that the yeast is activated).',
+            'Add salt and then flour gradually while stirring.',
+            'Knead the dough until smooth and elastic – about 10 minutes by hand or 5–7 minutes in a machine.'
           ]
         },
         {
           section: 'Jäsning',
+          sectionEn: 'Rising',
           steps: [
             'Täck bunken med plastfolie eller bakduk.',
             'Låt degen jäsa i 1–1,5 timme på en varm plats tills den fördubblats i storlek.'
+          ],
+          stepsEn: [
+            'Cover the bowl with plastic wrap or baking cloth.',
+            'Let the dough rise for 1–1.5 hours in a warm place until doubled in size.'
           ]
         },
         {
           section: 'Forma munkarna',
+          sectionEn: 'Shape the donuts',
           steps: [
             'Häll lite olja på händerna för att degen inte ska fastna.',
             'Ta små bitar av degen och forma till bollar eller ringar.'
+          ],
+          stepsEn: [
+            'Pour a little oil on your hands so the dough won\'t stick.',
+            'Take small pieces of dough and shape into balls or rings.'
           ]
         },
         {
           section: 'Fritering',
+          sectionEn: 'Frying',
           steps: [
             'Hetta upp olja i en djup kastrull eller fritös till cirka 180°C.',
             'Fritera några munkar åt gången tills de är gyllenbruna och genomstekta – vänd dem för jämn färg.',
             'Låt munkarna rinna av på hushållspapper.'
+          ],
+          stepsEn: [
+            'Heat oil in a deep saucepan or fryer to about 180°C.',
+            'Fry a few donuts at a time until golden brown and cooked through – turn them for even color.',
+            'Let the donuts drain on paper towels.'
           ]
         },
         {
           section: 'Serveringstips',
+          sectionEn: 'Serving tips',
           steps: [
             'Servera som de är, eller pudra med florsocker.',
             'Ringla över sirap eller servera med glass, hallon och mynta 😍.'
+          ],
+          stepsEn: [
+            'Serve as they are, or dust with powdered sugar.',
+            'Drizzle with syrup or serve with ice cream, raspberries and mint 😍'
           ]
         }
       ],
@@ -328,6 +365,13 @@ const recipes = {
         'Traditionellt serveras de med socker eller honung',
         'Kan förvaras i lufttät behållare i 2-3 dagar',
         'Blir extra goda uppvärmda kort i ugnen innan servering'
+      ],
+      tipsEn: [
+        'The dough should be soft and elastic – add more flour if it feels too sticky',
+        'Oil temperature is important – too cold oil gives tough consistency, too hot makes the donuts dark outside but raw inside',
+        'Traditionally served with sugar or honey',
+        'Can be stored in airtight container for 2-3 days',
+        'Taste extra good when reheated briefly in the oven before serving'
       ]
     }
   },
