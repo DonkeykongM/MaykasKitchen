@@ -266,7 +266,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
   const handleShare = useCallback(() => {
     // Generate proper shareable URL with recipe ID
     const baseUrl = window.location.origin;
-    const recipeUrl = `${baseUrl}/recipe/${recipe.id}`;
+    const recipeUrl = `${baseUrl}#recipe/${recipe.id}`;
     
     const shareData = {
       title: `${recipe.title} - MaykasKitchen`,
