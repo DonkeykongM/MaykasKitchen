@@ -43,9 +43,8 @@ const recipes = {
             '5–6 salladslökar, finhackade',
             '0,5 dl rapsolja (till stekning)',
             '1–1,5 msk tomatpuré'
-          ]
-        },
-        itemsEn: [
+          ],
+          itemsEn: [
             '1 liter water',
             '3 dl red lentils',
             '6 dl fine bulgur',
@@ -65,9 +64,8 @@ const recipes = {
             '1 tsk svartpeppar',
             '1 tsk garam masala',
             '1 tsk cayennepeppar'
-          ]
-        },
-        itemsEn: [
+          ],
+          itemsEn: [
             '2.5 tsp salt',
             '1 tbsp sumac',
             '1 tsp black pepper',
@@ -88,9 +86,8 @@ const recipes = {
             'Stäng av värmen.',
             'Skölj bulguren i kallt vatten och rör ner den i kastrullen med linserna.',
             'Blanda väl och låt blandningen stå och svälla tills den tjocknar.'
-          ]
-        },
-        stepsEn: [
+          ],
+          stepsEn: [
             'Bring 1 liter of water to a boil in a large pot.',
             'Rinse the lentils thoroughly and add them to the boiling water.',
             'Skim the surface with a spoon or strainer when foam forms.',
@@ -109,9 +106,8 @@ const recipes = {
             'Tillsätt spetspaprika och tomatpuré, låt fräsa i ytterligare ett par minuter.',
             'Vänd ner salladslöken och kryddorna. Stek ihop allting i ca 5–7 minuter.',
             'Låt röran svalna något.'
-          ]
-        },
-        stepsEn: [
+          ],
+          stepsEn: [
             'Finely chop onion, peppers and scallions.',
             'Heat the canola oil in a frying pan and sauté the yellow onion until soft.',
             'Add sweet peppers and tomato paste, let sauté for another couple of minutes.',
@@ -126,9 +122,8 @@ const recipes = {
             'När både lins- och bulgurröran samt grönsaksröran har svalnat – blanda ihop dem ordentligt.',
             'Tillsätt vatten emellanåt om degen inte vill fastna eller känns för torr. Degen ska vara lättformad och mjuk i konsistensen.',
             'Forma järpar eller bollar av smeten med händerna.'
-          ]
-        },
-        stepsEn: [
+          ],
+          stepsEn: [
             'When both the lentil-bulgur mixture and vegetable mixture have cooled – mix them together thoroughly.',
             'Add water occasionally if the dough won\'t stick or feels too dry. The dough should be easy to shape and soft in consistency.',
             'Form patties or balls from the mixture with your hands.'
@@ -141,9 +136,8 @@ const recipes = {
         'Mörk sirap fungerar också fint som tillbehör',
         'Sumak ger en härlig syrlig smak - finns i mellanösternbutiker',
         'Kan förberedas dagen innan och förvaras i kylskåp'
-      ]
-    },
-    tipsEn: [
+      ],
+      tipsEn: [
         'Serve the patties as they are or in pita bread',
         'Feel free to squeeze lemon over and drizzle some date syrup or pomegranate syrup on top',
         'Dark syrup also works fine as an accompaniment',
@@ -183,6 +177,7 @@ const recipes = {
       ingredients: [
         {
           section: 'Huvudingredienser',
+          sectionEn: 'Main Ingredients',
           items: [
             '2 burkar kokta bruna bönor eller favabönor (à ca 400g)',
             '2–3 vitlöksklyftor, finhackade eller pressade',
@@ -195,6 +190,19 @@ const recipes = {
             '1 citron, saften',
             '0,5 dl olivolja (gärna extra till servering)',
             'Salt och svartpeppar, efter smak'
+          ],
+          itemsEn: [
+            '2 cans cooked brown beans or fava beans (about 400g each)',
+            '2–3 garlic cloves, finely chopped or pressed',
+            '1 small onion, finely chopped',
+            '1 large tomato, chopped (or 6 cherry tomatoes)',
+            '1 green chili, finely chopped (strength you prefer)',
+            '1 dl fresh parsley, roughly chopped',
+            '2-3 tbsp fresh sage, finely chopped',
+            '2 tbsp fresh mint, finely chopped',
+            '1 lemon, juiced',
+            '0.5 dl olive oil (preferably extra for serving)',
+            'Salt and black pepper, to taste'
           ]
         }
       ],
@@ -206,6 +214,13 @@ const recipes = {
             'Ringla över citron och olivolja.',
             'Krydda med färska örter, salt och peppar.',
             'Rör om och låt gärna stå 5–10 minuter så smakerna sätter sig.'
+          ],
+          stepsEn: [
+            'Rinse the beans thoroughly and drain the liquid.',
+            'Put the beans in a bowl and mix with all vegetables.',
+            'Drizzle with lemon and olive oil.',
+            'Season with fresh herbs, salt and pepper.',
+            'Stir and let stand for 5–10 minutes so the flavors set.'
           ]
         }
       ],
@@ -215,6 +230,13 @@ const recipes = {
         'Supergott med extra olivolja och färsk citron vid servering',
         'Prova att tillsätta feta eller tahini för extra smak',
         'Perfekt som tillbehör till grillat eller som lätt lunch'
+      ],
+      tipsEn: [
+        'Serve with pita bread or flatbread',
+        'Can be prepared the day before and stored in refrigerator',
+        'Delicious with extra olive oil and fresh lemon when serving',
+        'Try adding feta or tahini for extra flavor',
+        'Perfect as a side dish for grilled food or as a light lunch'
       ]
     }
   },
