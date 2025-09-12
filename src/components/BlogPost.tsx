@@ -870,7 +870,7 @@ const recipes = {
             '2 × 380g chickpeas (canned, drained and rinsed)',
             '350 g coconut milk',
             'Rapeseed oil for frying'
- \         ]
+          ]
         },
         {
           section: 'Kryddor',
@@ -1475,7 +1475,7 @@ export const BatataHarraPost = () => {
 };
 
 export const KycklingfilePotatisDragonPost = () => {
- \ const handleBack = () => {
+  const handleBack = () => {
     window.location.hash = '';
   };
 
