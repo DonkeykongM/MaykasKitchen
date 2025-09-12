@@ -244,7 +244,9 @@ const recipes = {
     id: 'qrimyothe-munkar',
     title: 'Qrimyothe – Mormors munkar 🍩',
     titleEn: 'Qrimyothe – Grandma\'s Donuts 🍩',
+    titleEn: 'Qrimyothe – Grandma\'s Donuts 🍩',
     description: 'Mamma berättar om mormors kärlek i varje tugga ♥️ Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.',
+    descriptionEn: 'Mom tells about grandma\'s love in every bite ♥️ This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.',
     descriptionEn: 'Mom tells about grandma\'s love in every bite ♥️ This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCMH3uifMpaES95dj1pBAJ4iwc3fNXxvqYhzGT',
     time: '120',
@@ -253,6 +255,7 @@ const recipes = {
     rating: 4.9,
     reviews: 1,
     badges: ['Traditionellt', 'Bakverk', 'Assyriskt', 'Dessert'],
+    badgesEn: ['Traditional', 'Baking', 'Assyrian', 'Dessert'],
     badgesEn: ['Traditional', 'Baking', 'Assyrian', 'Dessert'],
     videoUrl: '',
     difficulty: 'Medel',
@@ -675,31 +678,46 @@ const recipes = {
     titleEn: 'Mini Lahmacun – Perfect Amount, Zero Waste!',
     description: '15 små perfekta lahmacun – köttfärs pizzor. Inget svinn, bara ren lycka! Perfekt att frysa in för framtida måltider.',
     descriptionEn: '15 small perfect lahmacun – ground meat pizzas. No waste, just pure joy! Perfect to freeze for future meals.',
+    descriptionEn: '15 small perfect lahmacun – ground meat pizzas. No waste, just pure joy! Perfect to freeze for future meals.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCFL7L57kjIHwnGYgUvXdix8ms3ac07hetyqO4',
     time: '75',
     portions: '15',
     likes: 25,
     rating: 4.9,
     reviews: 1,
+    badgesEn: ['Turkish', 'Meat', 'Traditional'],
     badges: ['Turkiskt', 'Kött', 'Traditionellt'],
     videoUrl: '',
+    difficultyEn: 'Medium',
     difficulty: 'Medel',
+    allergensEn: ['Gluten'],
     nutritionInfo: {
+    personalStoryEn: `Mini lahmacun is the perfect solution when you crave homemade lahmacun but don't want lots of leftovers. These little golden nuggets are just the right size for one person as a snack or two as an appetizer. And the best part? You can freeze them and just take out as many as you need!`,
       calories: '180 kcal',
       protein: '12g',
       carbs: '20g',
       fat: '6g',
+          sectionEn: 'Dough',
       fiber: '2g',
       salt: '1.2g'
     },
     allergens: ['Gluten'],
     allergensEn: ['Gluten'],
     personalStory: 
-      'Lahmacun är något av det godaste jag vet inom mellanösterns kök. Dessa mini-versioner är perfekta för familjen – barnen älskar dem och de är lagom stora för en lätt måltid.\n\n' +
-      'Det bästa med detta recept är att det inte blir något svinn. 15 stycken är precis rätt mängd för vår familj, och de som blir över kan enkelt frysas in.',
+            '2 msk olivolja'
+          ],
+          itemsEn: [
+            '1 cup lukewarm water',
+            '1 tsp active dry yeast',
+            '1 tsp sugar',
+            '1.7 cups all-purpose flour',
+            '1 tsp salt',
+            '2 tbsp olive oil'
+          ]
     personalStoryEn: 
       'Lahmacun is some of the most delicious food I know from Middle Eastern cuisine. These mini versions are perfect for the family – the kids love them and they are just the right size for a light meal.\n\n' +
       'The best thing about this recipe is that there is no waste. 15 pieces is exactly the right amount for our family, and those left over can easily be frozen.',
+          sectionEn: 'Ground Meat',
     content: {
       ingredients: [
         {
@@ -710,44 +728,82 @@ const recipes = {
             '½ dl rapsolja',
             '2 tsk salt',
             '7 dl vetemjöl'
+            '½ tsk svartpeppar'
+          ],
+          itemsEn: [
+            '300 g ground beef',
+            '1 small yellow onion, finely chopped',
+            '2 garlic cloves, pressed',
+            '1 tbsp tomato paste',
+            '1 tsp paprika powder',
+            '½ tsp ground cumin',
+            '½ tsp ground coriander',
+            '¼ tsp cinnamon',
+            '1 tsp salt',
+            '½ tsp black pepper'
           ]
-        },
         {
           section: 'Köttfärsfyllning (till alla 15 st)',
           items: [
             '1 gul lök',
             '1 kvisttomat',
+          sectionEn: 'Prepare the dough',
             '1 röd spetspaprika',
             '1 grön paprika (gärna turkisk sivri)',
             '350g nötfärs (eller 50/50 nöt och lamm)',
             '1 msk paprikapulver',
-            '1 msk salt',
-            '1 msk tajin krydda',
+            'Dela i 15 små bitar och kavla ut tunna runda kakor.'
+          ],
+          stepsEn: [
+            'Mix lukewarm water, yeast and sugar. Let stand for 5 minutes.',
+            'Add flour, salt and olive oil. Knead to a smooth dough.',
+            'Let rise under a towel for 30 minutes.',
+            'Divide into 15 small pieces and roll out thin round cakes.'
+          ]
             'En näve färsk persilja'
           ]
         },
+          sectionEn: 'Prepare the ground meat',
         {
           section: 'Till montering',
           items: [
-            'Rapsolja till plåten'
+            'Låt stå i kylen medan degen jäser.'
+          ],
+          stepsEn: [
+            'Mix all ground meat with all spices and vegetables.',
+            'Knead well so everything mixes.',
+            'Let stand in the fridge while the dough rises.'
           ]
         }
       ],
       instructions: [
+          sectionEn: 'Assemble and bake',
         {
           section: 'Gör degen',
           steps: [
             'Värm vattnet till ca 40°C. Blanda med jäst och olja. Låt stå i 5 minuter.',
-            'Häll mjöl och salt i en bunke eller bakmaskin.',
-            'Tillsätt jästblandningen och knåda i minst 5 minuter – för hand eller i maskin.',
+            'Servera genast eller frys in för senare.'
+          ],
+          stepsEn: [
+            'Preheat oven to 250°C/480°F.',
+            'Spread the ground meat thinly on the dough cakes.',
+            'Bake in oven for 8-10 minutes until edges are golden.',
+            'Serve immediately or freeze for later.'
+          ]
             'Täck över degen och låt jäsa i 15 minuter.'
           ]
         },
         {
           section: 'Gör köttfärsfyllningen',
           steps: [
-            'Mixa lök, tomat och paprikor i en matberedare.',
-            'Lägg i persiljan och mixa lite till.',
+        'Perfekt som förrätt eller mellanmål'
+      ],
+      tipsEn: [
+        'Feel free to freeze after baking – then heat in oven for 5 minutes',
+        'Serve with lemon, parsley and red onion',
+        'Can also be shaped as larger lahmacun if you prefer',
+        'Perfect as appetizer or snack'
+      ]
             'Häll grönsakspurén över färsen, tillsätt kryddorna och blanda.',
             'Täck med plast och ställ i kylskåp tills det är dags att lägga på degen.'
           ]
@@ -761,7 +817,9 @@ const recipes = {
             'Olja in en ugnsplåt med rapsolja.',
             'Platta ut 9 bollar direkt i plåten, med lite mellanrum.',
             'Lägg en klick färs på varje och tryck ut den med fingrarna så den täcker brödet fint.',
+    titleEn: 'Lentil and Bulgur Patties with Sumac and Sweet Pepper',
             'Baka plåten längst ner i ugnen i ca 10 minuter.',
+    descriptionEn: 'Protein-rich and filling vegetarian patties with a flavorful combination of red lentils, bulgur and aromatic spices from the Middle East.',
             'Flytta upp till mitten och grädda ytterligare 5 minuter.',
             'Låt svalna innan servering.'
           ]
@@ -769,33 +827,55 @@ const recipes = {
       ],
       tips: [
         'Lägg dina mini lahmacun i plastpåsar när de svalnat och frys in – perfekt att ta fram vid behov!',
+    badgesEn: ['Vegetarian', 'Middle Eastern', 'Protein'],
         'Smaken håller sig riktigt bra i frysen',
         'Du kan använda 50/50 nöt och lamm för mer autentisk smak',
+    difficultyEn: 'Medium',
         'Tajin krydda finns i mellanösternbutiker och ger en speciell smak',
+    allergensEn: ['Gluten (from bulgur)'],
         'Turkisk sivri paprika är mild och perfekt för detta recept'
+    personalStoryEn: `These patties are a real favorite in our house! They're packed with protein from the lentils and filling bulgur, plus all these fantastic spices that really elevate the flavor. Perfect when you want something vegetarian that feels really filling and nutritious.`,
       ],
       tipsEn: [
         'Can be frozen after baking – just reheat in the oven',
         'Serve with yogurt and fresh herbs',
+          sectionEn: 'Base',
         'The dough can be prepared the day before and stored in the refrigerator',
         'Bake at high temperature for best results'
       ]
     }
   },
   'kikarts-tikka-masala': {
-    id: 'kikarts-tikka-masala',
-    title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
+            '1 bunt färsk persilja, hackad'
+          ],
+          itemsEn: [
+            '0.8 cups red lentils',
+            '0.4 cups bulgur',
+            '1 large yellow onion, finely chopped',
+            '1 red sweet pepper, finely chopped',
+            '3 garlic cloves, pressed',
+            '1 bunch fresh parsley, chopped'
+          ]
     titleEn: 'The Creamiest Chickpea Tikka Masala Ever 🤯🔥',
     description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig. Fullproppad med dofter, kryddor och värme, och ändå klar på bara 20 minuter. Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊',
     descriptionEn: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine. Packed with aromas, spices and warmth, yet ready in just 20 minutes.',
+          sectionEn: 'Spices',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
     time: '20',
     portions: '4-6',
     likes: 12,
     rating: 4.9,
     reviews: 1,
-    badges: ['Vegan', 'Indiskt', 'Vegetariskt', 'Snabb'],
-    videoUrl: '',
+            '½ tsk svartpeppar'
+          ],
+          itemsEn: [
+            '2 tsp sumac',
+            '1 tsp ground cumin',
+            '1 tsp ground coriander',
+            '½ tsp paprika powder',
+            '1 tsp salt',
+            '½ tsp black pepper'
+          ]
     difficulty: 'Lätt',
     nutritionInfo: {
       calories: '380 kcal',
@@ -805,21 +885,49 @@ const recipes = {
       fiber: '12g',
       salt: '1.6g'
     },
+    difficultyEn: 'Medium',
     allergens: ['Inga kända allergener (naturligt glutenfri)'],
-    allergensEn: ['No known allergens (naturally gluten-free)'],
+            'Servera med citron och tzatziki eller hummus.'
+          ],
+          stepsEn: [
+            'Cook lentils in lightly salted water until soft, about 15 minutes.',
+            'Cook bulgur according to package directions.',
+            'Fry the onion until soft and golden.',
+            'Mix lentils, bulgur, onion, pepper, garlic and parsley.',
+            'Add all spices and mix well.',
+            'Shape into small patties and fry in oil until golden on both sides.',
+            'Serve with lemon and tzatziki or hummus.'
+          ]
+        }
     personalStory: 
       'Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊\n\n' +
       'Den här rätten har blivit en riktig favorit hemma hos oss. Barnen älskar den krämiga konsistensen och jag älskar hur enkelt det är att laga något så smakrikt på så kort tid.',
     personalStoryEn: 
       'Perfect for a cozy family dinner or an evening with friends. And the best part? It\'s completely vegan – but so delicious that no one even notices 😊\n\n' +
-      'This dish has become a real favorite at our home. The kids love the creamy consistency and I love how easy it is to cook something so flavorful in such a short time.',
+        'Servera med libabröd och färska grönsaker'
+      ],
+      tipsEn: [
+        'The mixture should be firm enough to shape – add a little flour if it\'s too loose',
+        'Can be frozen before frying for future meals',
+        'Perfect in pita bread with vegetables and sauce',
+        'Serve with pita bread and fresh vegetables'
+      ]
+
+My mother has told me how grandma used to bake these donuts at home, especially when resources were scarce. With flour, water, yeast and a pinch of sugar, she created something sweet, warm and beloved by the children 👌😋.
+
+Qrimyothe became a dear tradition – a way to show love through simplicity. The scent of freshly baked donuts carried with it childhood, security and care. They reminded us that it doesn't take much to give – just will, love and care 💫⭐️🌟.
+
+With this recipe, I want to preserve her memory and pass on the taste of our roots ❤️.`,
     content: {
       ingredients: [
         {
           section: 'Huvudingredienser',
+          sectionEn: 'Main Ingredients',
           items: [
             '1 gul lök, finhackad',
+    titleEn: 'Pan-fried Chicken Fillet with Butter-tossed Potatoes, Sautéed Vegetables and Tarragon Sauce',
             '3 vitlöksklyftor, finrivna',
+    descriptionEn: 'A dish that quickly became a favorite both at home and at work. Combines creamy tarragon sauce with juicy chicken and butter-sautéed vegetables.',
             '390g krossade tomater',
             '5 dl vatten',
             '2 × 380g kikärtor (tetrapack, avrunna och sköljda)',
@@ -827,48 +935,81 @@ const recipes = {
             'Rapsolja till stekning'
           ]
         },
+    badgesEn: ['Meat', 'Classic', 'Everyday Luxury'],
         {
           section: 'Kryddor',
+    difficultyEn: 'Medium',
           items: [
+    allergensEn: ['Milk protein'],
             '1 msk salt',
+    personalStoryEn: `This dish has become a real favorite both at home and at work! There's something so satisfying about the combination of juicy chicken, buttery potatoes and creamy tarragon sauce. It feels luxurious but is still quite simple to make.`,
             '1 msk lökpulver',
             '1 msk paprikapulver',
             '1 tsk chiliflakes',
             '1 msk malen ingefära',
+          sectionEn: 'Chicken',
             '1 msk spiskummin',
             '½ msk malen koriander',
             '1 msk gurkmeja'
           ]
-        }
-      ],
+            '2 msk rapsolja'
+          ],
+          itemsEn: [
+            '600 g chicken fillet',
+            '1 tsp salt',
+            '½ tsp black pepper',
+            '2 tbsp rapeseed oil'
+          ]
       instructions: [
         {
           steps: [
+          sectionEn: 'Potatoes',
             'Hetta upp lite rapsolja i en kastrull eller djup panna. Fräs den finhackade löken tills den blir mjuk och lätt gyllene.',
             'Tillsätt vitlöken och låt fräsa med en kort stund.',
             'Häll i krossade tomater och vatten, rör om och låt sjuda under lock i ca 10 minuter.',
             'Blanda ner alla kryddorna och låt dem fräsa med i såsen så smakerna kommer fram.',
-            'Rör ner kikärtor och kokosmjölk, låt koka ihop på låg värme i ca 10 minuter.',
-            'Smaka av och servera med ris, naan eller bara som den är.'
+            'Färsk timjan'
+          ],
+          itemsEn: [
+            '800 g waxy potatoes',
+            '3 tbsp butter',
+            '1 tsp salt',
+            'Fresh thyme'
+          ]
           ]
         }
       ],
+          sectionEn: 'Vegetables',
       tips: [
         'Extra gott med nybakat naan – recept hittar du bland mina reels',
         'Kan serveras med basmatiris, quinoa eller bara med bröd',
         'För extra krämighet, mixa hälften av kikärtorna före servering',
-        'Rätten smakar ännu bättre dagen efter när smakerna hunnit sätta sig',
-        'Kan frysas i upp till 3 månader – perfekt att laga större portioner'
+            '2 msk smör'
+          ],
+          itemsEn: [
+            '250 g green beans',
+            '1 red bell pepper',
+            '200 g mushrooms',
+            '2 tbsp butter'
+          ]
       ],
       tipsEn: [
         'Extra delicious with freshly baked naan – you can find the recipe among my reels',
+          sectionEn: 'Tarragon Sauce',
         'Can be served with basmati rice, quinoa or just with bread',
         'For extra creaminess, blend half of the chickpeas before serving',
         'The dish tastes even better the next day when the flavors have had time to set',
         'Can be frozen for up to 3 months – perfect for making larger portions'
       ]
-    }
-  },
+            '¼ tsk vitpeppar'
+          ],
+          itemsEn: [
+            '0.8 cups heavy cream',
+            '2 tbsp fresh tarragon (or 1 tbsp dried)',
+            '1 tsp Dijon mustard',
+            '½ tsp salt',
+            '¼ tsp white pepper'
+          ]
   'lax-risbowl': {
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
@@ -879,16 +1020,30 @@ const recipes = {
     likes: 47,
     rating: 4.8,
     reviews: 2,
-    badges: ['Fisk', 'Snabb', 'Under 60 min'],
-    videoUrl: 'https://www.instagram.com/reel/DJXHMYpCoaR/',
+            'Servera allt tillsammans med den varma dragonsåsen.'
+          ],
+          stepsEn: [
+            'Boil potatoes in salted water until tender. Drain and let steam dry.',
+            'Season chicken with salt and pepper. Fry in hot pan until cooked through.',
+            'Fry vegetables quickly in butter so they retain color and bite.',
+            'Simmer cream with tarragon, mustard and spices to a creamy sauce.',
+            'Toss potatoes in butter and thyme.',
+            'Serve everything together with the warm tarragon sauce.'
+          ]
     difficulty: 'Lätt',
     nutritionInfo: {
       calories: '420 kcal',
       protein: '35g',
       carbs: '48g',
       fat: '12g',
-      fiber: '5g',
-      salt: '1.2g'
+        'Servera med ett gott vitt vin för extra lyxkänsla'
+      ],
+      tipsEn: [
+        'Let chicken rest for a few minutes after frying for juicier results',
+        'The tarragon sauce can be made ahead and reheated gently',
+        'Feel free to substitute vegetables with the season\'s best',
+        'Serve with a good white wine for extra luxury feel'
+      ]
     },
     allergens: ['Fisk', 'Kan innehålla spår av senap'],
     content: {
@@ -1382,76 +1537,198 @@ export const PastaPestoPost = () => {
   const handleBack = () => {
     window.location.hash = '';
   };
-
-  return <RecipeDetails recipe={recipes['pasta-pesto']} onBack={handleBack} />;
+            'Olja till fritering'
+          ],
+          itemsEn: [
+            '3 cups lukewarm water (at least 40°C/104°F)',
+            '1 packet active dry yeast (about 12 g)',
+            '2 tbsp sugar',
+            '1 tbsp salt', 
+            '16 dl all-purpose flour (about 960 g/7.5 cups)',
+            'Oil for frying'
+          ]
 };
 
 export const KycklingShawarmaPost = () => {
   const handleBack = () => {
     window.location.hash = '';
+          sectionEn: 'Prepare the dough',
   };
 
   return <RecipeDetails recipe={recipes['kyckling-shawarma']} onBack={handleBack} />;
 };
-
-export const PannpizzorPost = () => {
+            'Knåda degen tills den blir jämn och elastisk – cirka 10 minuter för hand eller 5–7 minuter i maskin.'
+          ],
+          stepsEn: [
+            'Pour the warm water into a large bowl.',
+            'Add sugar and dry yeast. Stir and let stand for 10 minutes until it starts to bubble (this shows the yeast is activated).',
+            'Add salt and then the flour gradually while stirring.',
+            'Knead the dough until it becomes smooth and elastic – about 10 minutes by hand or 5–7 minutes in a machine.'
+          ]
   const handleBack = () => {
     window.location.hash = '';
   };
+          sectionEn: 'Rising',
 
   return <RecipeDetails recipe={recipes['pannpizzor']} onBack={handleBack} />;
-};
-
+            'Låt degen jäsa i 1–1,5 timme på en varm plats tills den fördubblats i storlek.'
+          ],
+          stepsEn: [
+            'Cover the bowl with plastic wrap or baking cloth.',
+            'Let the dough rise for 1–1.5 hours in a warm place until doubled in size.'
+          ]
 export const BatataHarraPost = () => {
   const handleBack = () => {
     window.location.hash = '';
+          sectionEn: 'Shape the donuts', 
+    titleEn: 'The Creamiest Chickpea Tikka Masala Ever 🤯🔥',
   };
+    descriptionEn: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine. Packed with aromas, spices and warmth, yet ready in just 20 minutes.',
 
-  return <RecipeDetails recipe={recipes['batata-harra']} onBack={handleBack} />;
-};
+            'Ta små bitar av degen och forma till bollar eller ringar.'
+          ],
+          stepsEn: [
+            'Pour a little oil on your hands so the dough won\'t stick.',
+            'Take small pieces of dough and shape into balls or rings.'
+          ]
+    badgesEn: ['Vegan', 'Indian', 'Vegetarian', 'Quick'],
 
 export const KycklingfilePotatisDragonPost = () => {
+    difficultyEn: 'Easy',
   const handleBack = () => {
+    allergensEn: ['No known allergens (naturally gluten-free)'],
+          sectionEn: 'Frying',
+    personalStoryEn: `A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine. Packed with aromas, spices and warmth, yet ready in just 20 minutes. Perfect for a cozy family dinner or an evening with friends. And the best part? It's completely vegan – but so good that no one even notices 😊`,
     window.location.hash = '';
   };
 
-  return <RecipeDetails recipe={recipes['kycklingfile-potatis-dragon']} onBack={handleBack} />;
-};
+            'Låt munkarna rinna av på hushållspapper.'
+          sectionEn: 'Main Ingredients',
+          ],
+          stepsEn: [
+            'Heat up oil in a deep pot or fryer to about 180°C/355°F.',
+            'Fry a few donuts at a time until golden brown and cooked through – turn them for even color.',
+            'Let the donuts drain on paper towels.'
+          ]
 
-export const LinsBulgurJarparPost = () => {
-  const handleBack = () => {
+            'Rapsolja till stekning'
+          ],
+          itemsEn: [
+            '1 yellow onion, finely chopped',
+            '3 garlic cloves, finely grated',
+            '390 g crushed tomatoes',
+            '2 cups water',
+            '2 × 380g chickpeas (canned, drained and rinsed)',
+            '350 g coconut milk',
+            'Rapeseed oil for frying'
+          ]
+          sectionEn: 'Serving tips',
     window.location.hash = '';
   };
-  return <RecipeDetails recipe={recipes['lins-bulgur-jarpar']} onBack={handleBack} />;
-}
+          sectionEn: 'Spices',
+            'Ringla över sirap eller servera med glass, hallon och mynta 😍'
+          ],
+          stepsEn: [
+            'Serve as they are, or dust with powdered sugar.',
+            'Drizzle with syrup or serve with ice cream, raspberries and mint 😍'
+          ]
 export const MiniLahmacunPost = () => {
   const handleBack = () => {
-    window.location.hash = '';
-  };
+            '1 msk gurkmeja'
+          ],
+          itemsEn: [
+    titleEn: 'Cold Foul Medames',
+            '1 tbsp salt',
+    descriptionEn: 'A fresh and protein-rich salad with cooked brown beans or fava beans, fresh herbs and lemon. Perfect as meze or a light meal!',
+            '1 tbsp onion powder',
+            '1 tbsp paprika powder',
+            '1 tsp chili flakes',
+            '1 tbsp ground ginger',
+            '1 tbsp ground cumin',
+            '½ tbsp ground coriander',
+            '1 tbsp turmeric'
+    badgesEn: ['Vegan', 'Middle Eastern', 'Quick', 'Salad'],
+          ]
 
+    difficultyEn: 'Easy',
   return <RecipeDetails recipe={recipes['mini-lahmacun']} onBack={handleBack} />;
+    allergensEn: ['No known allergens'],
 };
-
-export const KallFoulMedamesPost = () => {
+    personalStoryEn: `Foul medames is a classic Middle Eastern dish traditionally served warm as breakfast. But this cold version is perfect for hot summer days when you want something light, fresh and filling. The combination of creamy beans, fresh herbs and citrus acidity is absolutely wonderful!`,
+        'Blir extra goda uppvärmda kort i ugnen innan servering'
+      ],
+      tipsEn: [
+        'The dough should be soft and elastic – add more flour if it feels too sticky',
+          sectionEn: 'Base',
+        'Oil temperature is important – too cold oil makes them soggy, too hot makes them dark outside but raw inside',
+        'Traditionally served with sugar or honey',
+        'Can be stored in airtight containers for 2-3 days',
+            'Smaka av och servera med ris, naan eller bara som den är.'
+          ],
+            '1 bunt färsk persilja, hackad'
+          ],
+          itemsEn: [
+            '2 cans foul medames or brown beans (about 800 g)',
+            '1 large tomato, diced',
+            '½ cucumber, diced',
+            '4 green onions, chopped',
+            '1 bunch fresh parsley, chopped'
+          ]
+            'Add the garlic and let it fry briefly.',
+            'Pour in crushed tomatoes and water, stir and let simmer covered for about 10 minutes.',
+            'Mix in all the spices and let them fry with the sauce to bring out the flavors.',
+          sectionEn: 'Dressing',
+            'Stir in chickpeas and coconut milk, let simmer on low heat for about 10 minutes.',
+            'Taste and serve with rice, naan or just as it is.'
+          ]
   const handleBack = () => {
     window.location.hash = '';
-  };
-
+            '½ tsk svartpeppar'
+          ],
+          itemsEn: [
+            '3 tbsp olive oil',
+            'Juice from 1 lemon',
+            '2 garlic cloves, pressed',
+            '1 tsp salt',
+            '½ tsp black pepper'
+          ]
   return <RecipeDetails recipe={recipes['kall-foul-medames']} onBack={handleBack} />;
 };
 
-export const KikartsTikkaMasalaPost = () => {
-  const handleBack = () => {
+        'Kan frysas i upp till 3 månader – perfekt att laga större portioner'
+      ],
+      tipsEn: [
+        'Extra delicious with freshly baked naan – you can find the recipe among my reels',
+        'Can be served with basmati rice, quinoa or just with bread',
+        'For extra creaminess, blend half the chickpeas before serving',
+        'The dish tastes even better the next day when the flavors have had time to develop',
+            'Servera kallt som det är eller med varmt pitabröd.'
+          ],
+          stepsEn: [
+            'Rinse the beans and drain the liquid. Put in a large bowl.',
+            'Add diced tomato, cucumber, green onion and parsley.',
+            'Mix all dressing ingredients in a small bowl.',
+            'Pour the dressing over the beans and mix gently.',
+            'Let stand in the fridge for at least 30 minutes so the flavors can develop.',
+            'Serve cold as is or with warm pita bread.'
+          ]
     window.location.hash = '';
   };
 
   return <RecipeDetails recipe={recipes['kikarts-tikka-masala']} onBack={handleBack} />;
 };
 
-export const QrimyotheMunkarPost = () => {
-  const handleBack = () => {
+        'Håller sig fräsch i kylen i 3-4 dagar'
+      ],
+      tipsEn: [
+        'Can be prepared the day before – tastes even better then',
+        'Serve with warm pita bread, falafel or as part of a meze buffet',
+        'Feel free to garnish with olive oil, sumac or chopped mint',
+        'Stays fresh in the fridge for 3-4 days'
+      ]
     window.location.hash = '';
   };
 
   return <RecipeDetails recipe={recipes['qrimyothe-munkar']} onBack={handleBack} />;
 };
+    titleEn: 'Mini Lahmacun – Perfect Amount, Zero Waste!',
