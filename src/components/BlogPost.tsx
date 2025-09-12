@@ -268,6 +268,11 @@ const recipes = {
     allergens: ['Gluten'],
     allergensEn: ['Gluten'],
     personalStory: 'Det här receptet på Qrimyothe är mer än bara ingredienser – det är ett stycke historia från mitt hem, min kultur och framför allt från mitt hjärta.\n\nMin mamma har berättat hur mormor brukade baka dessa munkar hemma, särskilt när resurserna var knappa. Med mjöl, vatten, jäst och en nypa socker skapade hon något sött, varmt och älskat av barnen 👌😋.\n\nQrimyothe blev en kär tradition – ett sätt att visa kärlek genom enkelhet. Doften av nygräddade munkar bar med sig barndom, trygghet och omtanke. De påminde oss om att det inte krävs mycket för att ge – bara vilja, kärlek och omtanke 💫⭐️🌟.\n\nMed det här receptet vill jag bevara hennes minne och föra vidare smaken av våra rötter ❤️.',
+    personalStoryEn: 
+      'This recipe for Qrimyothe is more than just ingredients – it\'s a piece of history from my home, my culture and above all from my heart.\n\n' +
+      'My mother has told me how grandma used to bake these donuts at home, especially when resources were scarce. With flour, water, yeast and a pinch of sugar, she created something sweet, warm and beloved by the children 👌😋.\n\n' +
+      'Qrimyothe became a dear tradition – a way to show love through simplicity. The scent of freshly baked donuts carried with it childhood, safety and care. They reminded us that it doesn\'t take much to give – just willingness, love and care 💫⭐️🌟.\n\n' +
+      'With this recipe I want to preserve her memory and pass on the taste of our roots ❤️.',
     content: {
       ingredients: [
         {
@@ -378,7 +383,9 @@ const recipes = {
   'kycklingfile-potatis-dragon': {
     id: 'kycklingfile-potatis-dragon',
     title: 'Stekt kycklingfilé med smörslungad potatis, sautéade grönsaker och dragonsås',
+    titleEn: 'Pan-fried Chicken Fillet with Butter-tossed Potatoes, Sautéed Vegetables and Tarragon Sauce',
     description: 'En rätt som snabbt blev en favorit både hemma och på jobbet. Kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.',
+    descriptionEn: 'A dish that quickly became a favorite both at home and at work. Combines creamy tarragon sauce with juicy chicken and butter-sautéed vegetables – simple but with a feeling of something truly luxurious.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8m7bPB037zrR9qXSut4TKmZEpjlBcOhHew02',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCYrirAg5FD3Nod0fKROYijVPHAbra9e8uWhMJ',
     time: '60',
@@ -665,7 +672,9 @@ const recipes = {
   'mini-lahmacun': {
     id: 'mini-lahmacun',
     title: 'Mini Lahmacun – Perfekt mängd, noll svinn!',
+    titleEn: 'Mini Lahmacun – Perfect Amount, Zero Waste!',
     description: '15 små perfekta lahmacun – köttfärs pizzor. Inget svinn, bara ren lycka! Perfekt att frysa in för framtida måltider.',
+    descriptionEn: '15 small perfect lahmacun – ground meat pizzas. No waste, just pure joy! Perfect to freeze for future meals.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCFL7L57kjIHwnGYgUvXdix8ms3ac07hetyqO4',
     time: '75',
     portions: '15',
@@ -684,6 +693,13 @@ const recipes = {
       salt: '1.2g'
     },
     allergens: ['Gluten'],
+    allergensEn: ['Gluten'],
+    personalStory: 
+      'Lahmacun är något av det godaste jag vet inom mellanösterns kök. Dessa mini-versioner är perfekta för familjen – barnen älskar dem och de är lagom stora för en lätt måltid.\n\n' +
+      'Det bästa med detta recept är att det inte blir något svinn. 15 stycken är precis rätt mängd för vår familj, och de som blir över kan enkelt frysas in.',
+    personalStoryEn: 
+      'Lahmacun is some of the most delicious food I know from Middle Eastern cuisine. These mini versions are perfect for the family – the kids love them and they are just the right size for a light meal.\n\n' +
+      'The best thing about this recipe is that there is no waste. 15 pieces is exactly the right amount for our family, and those left over can easily be frozen.',
     content: {
       ingredients: [
         {
@@ -757,13 +773,21 @@ const recipes = {
         'Du kan använda 50/50 nöt och lamm för mer autentisk smak',
         'Tajin krydda finns i mellanösternbutiker och ger en speciell smak',
         'Turkisk sivri paprika är mild och perfekt för detta recept'
+      ],
+      tipsEn: [
+        'Can be frozen after baking – just reheat in the oven',
+        'Serve with yogurt and fresh herbs',
+        'The dough can be prepared the day before and stored in the refrigerator',
+        'Bake at high temperature for best results'
       ]
     }
   },
   'kikarts-tikka-masala': {
     id: 'kikarts-tikka-masala',
     title: 'Krämigaste kikärts-tikka masalan någonsin 🤯🔥',
+    titleEn: 'The Creamiest Chickpea Tikka Masala Ever 🤯🔥',
     description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig. Fullproppad med dofter, kryddor och värme, och ändå klar på bara 20 minuter. Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊',
+    descriptionEn: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine. Packed with aromas, spices and warmth, yet ready in just 20 minutes.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
     time: '20',
     portions: '4-6',
@@ -782,6 +806,13 @@ const recipes = {
       salt: '1.6g'
     },
     allergens: ['Inga kända allergener (naturligt glutenfri)'],
+    allergensEn: ['No known allergens (naturally gluten-free)'],
+    personalStory: 
+      'Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊\n\n' +
+      'Den här rätten har blivit en riktig favorit hemma hos oss. Barnen älskar den krämiga konsistensen och jag älskar hur enkelt det är att laga något så smakrikt på så kort tid.',
+    personalStoryEn: 
+      'Perfect for a cozy family dinner or an evening with friends. And the best part? It\'s completely vegan – but so delicious that no one even notices 😊\n\n' +
+      'This dish has become a real favorite at our home. The kids love the creamy consistency and I love how easy it is to cook something so flavorful in such a short time.',
     content: {
       ingredients: [
         {
@@ -828,6 +859,13 @@ const recipes = {
         'För extra krämighet, mixa hälften av kikärtorna före servering',
         'Rätten smakar ännu bättre dagen efter när smakerna hunnit sätta sig',
         'Kan frysas i upp till 3 månader – perfekt att laga större portioner'
+      ],
+      tipsEn: [
+        'Extra delicious with freshly baked naan – you can find the recipe among my reels',
+        'Can be served with basmati rice, quinoa or just with bread',
+        'For extra creaminess, blend half of the chickpeas before serving',
+        'The dish tastes even better the next day when the flavors have had time to set',
+        'Can be frozen for up to 3 months – perfect for making larger portions'
       ]
     }
   },
