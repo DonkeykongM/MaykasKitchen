@@ -7,7 +7,7 @@ const recipes = {
     title: 'Lins- och bulgurjärpar med sumak och spetspaprika',
     titleEn: 'Lentil and Bulgur Patties with Sumac and Sweet Pepper',
     description: 'Proteinrika och mättande vegetariska järpar med smakrik kombination av röda linser, bulgur och aromatiska kryddor från mellanöstern.',
-    descriptionEn: 'Protein-rich and filling vegetarian patties with a flavorful combination of red lentils, bulgur and aromatic Middle Eastern spices.',
+    descriptionEn: 'Protein-rich and filling vegetarian patties with a flavorful combination of red lentils, bulgur and aromatic spices from the Middle East. These are perfect as a main dish or side.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCrZI4Zt1TCmP1dAHK4ioO3RwLkl5gtYD2IMbW',
     time: '45',
     portions: '4-6',
@@ -29,6 +29,7 @@ const recipes = {
     },
     allergens: ['Kan innehålla spår av gluten från bulgur'],
     allergensEn: ['May contain traces of gluten from bulgur'],
+    personalStoryEn: 'These patties became a real hit at our home. They are so filling and full of flavor that you don\'t miss meat at all. Perfect to make large portions of and freeze.',
     content: {
       ingredients: [
         {
@@ -151,7 +152,7 @@ const recipes = {
     title: 'Kall foul medames',
     titleEn: 'Cold Foul Medames',
     description: 'En fräsch och proteinrik sallad med kokta bruna bönor eller favabönor, färska örter och citron. Perfekt som meze eller lätt måltid!',
-    descriptionEn: 'A fresh and protein-rich salad with cooked brown beans or fava beans, fresh herbs and lemon. Perfect as meze or light meal!',
+    descriptionEn: 'A fresh and protein-rich salad with cooked brown beans or fava beans, fresh herbs and lemon. Perfect as meze or a light meal! A Mediterranean favorite that\'s both nutritious and delicious.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCzNWv2DP9mAtjTsb7I6ZNyREunpVPwDz3h850',
     time: '15',
     portions: '4',
@@ -173,6 +174,7 @@ const recipes = {
     },
     allergens: ['Inga kända allergener'],
     allergensEn: ['No known allergens'],
+    personalStoryEn: 'This recipe reminds me of sunny days in the Middle East where foul medames is served as breakfast or lunch. It\'s so simple yet so filling and nutritious.',
     content: {
       ingredients: [
         {
@@ -405,6 +407,7 @@ const recipes = {
     },
     allergens: ['Laktos (från grädde och smör)'],
     personalStory: 'Det här är en rätt som snabbt blev en favorit både hemma och på jobbet. Jag började experimentera med den i köket hemma, och det dröjde inte länge förrän den blev en självklar klassiker hos familjen – en sådan där rätt som alla ber om "igen, snart". Den kombinerar krämig dragonsås med saftig kyckling och smörstekta grönsaker – enkel men med känsla av något riktigt lyxigt.\n\nDet är en sådan rätt som ser ut och smakar som helg – men som faktiskt går snabbt nog att laga en vanlig vardagskväll. Vällagad, färgstark och full av smak – det här är vardagslyx när den är som bäst.',
+    personalStoryEn: 'I developed this recipe when I wanted to create something that felt like a restaurant dish at home. The tarragon sauce makes all the difference and elevates the simple chicken to something really special.',
     content: {
       ingredients: [
         {
@@ -673,7 +676,7 @@ const recipes = {
     title: 'Mini Lahmacun – Perfekt mängd, noll svinn!',
     titleEn: 'Mini Lahmacun – Perfect Amount, Zero Waste!',
     description: '15 små perfekta lahmacun – köttfärs pizzor. Inget svinn, bara ren lycka! Perfekt att frysa in för framtida måltider.',
-    descriptionEn: '15 small perfect lahmacun – ground meat pizzas. No waste, just pure joy! Perfect to freeze for future meals.',
+    descriptionEn: '15 small perfect lahmacun – ground meat pizzas. No waste, just pure joy! Perfect to freeze for future meals. These Turkish flatbreads are topped with a spiced meat mixture and baked until crispy.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCFL7L57kjIHwnGYgUvXdix8ms3ac07hetyqO4',
     time: '75',
     portions: '15',
@@ -741,7 +744,7 @@ const recipes = {
             '½ tsp ground coriander',
             '¼ tsp cinnamon',
             '1 tsk salt',
-            '½ tsk black pepper'
+            '½ tsp black pepper'
           ]
         },
         {
@@ -820,7 +823,7 @@ const recipes = {
     title: 'Den krämigaste kikärts tikka masalan någonsin 🤯🔥',
     titleEn: 'The Creamiest Chickpea Tikka Masala Ever 🤯🔥',
     description: 'En gryta som kramar om både hjärta och smaklökar – den krämigaste kikärts tikka masalan du kan tänka dig. Fullproppad med dofter, kryddor och värme, och ändå klar på bara 20 minuter. Perfekt för en mysig familjemiddag eller en kväll med vänner. Och det bästa av allt? Den är helt vegansk – men så god att ingen ens märker det 😊',
-    descriptionEn: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine. Packed with aromas, spices and warmth, yet ready in just 20 minutes.',
+    descriptionEn: 'A stew that embraces both heart and taste buds – the creamiest chickpea tikka masala you can imagine. Packed with aromas, spices and warmth, yet ready in just 20 minutes. Perfect for a cozy family dinner or an evening with friends. And the best part? It\'s completely vegan – but so good that no one even notices it 😊',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCKJbVDrdNwFxeKMmirjvq6ZL34tbPu8S2X5Q9',
     time: '20',
     portions: '4-6',
@@ -936,7 +939,9 @@ const recipes = {
   'lax-risbowl': {
     id: 'lax-risbowl',
     title: 'Kryddig lax- & risbowl',
+    titleEn: 'Spicy Salmon & Rice Bowl',
     description: 'Perfekt som fräsch vardagsmiddag eller när du vill lyxa till lunchen. Snabbt, enkelt och så himla smakrikt, du kommer vilja göra det här om och om igen!',
+    descriptionEn: 'Perfect as a fresh weekday dinner or when you want to luxe up lunch. Fast, simple and so incredibly tasty! This healthy bowl is packed with flavor and nutrients.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8y19NS5037zrR9qXSut4TKmZEpjlBcOhHew0',
     time: '45',
     portions: '4',
@@ -955,6 +960,7 @@ const recipes = {
       salt: '1.4g'
     },
     allergens: ['Fisk', 'Kan innehålla spår av senap'],
+    personalStoryEn: 'This bowl became a real favorite when I wanted something quick, healthy and filling. The combination of spicy salmon and fresh vegetables is absolutely perfect.',
     content: {
       ingredients: [
         {
@@ -1024,7 +1030,9 @@ const recipes = {
   'kafta-bil-sejnie': {
     id: 'kafta-bil-sejnie',
     title: 'Kafta bil sejnie - Köttbullar i tomatsås',
+    titleEn: 'Kafta bil Sejnie',
     description: 'En traditionell rätt från mellanöstern med saftiga köttbullar och potatis i en smakrik tomatsås.',
+    descriptionEn: 'A traditional Middle Eastern dish with juicy meatballs and potatoes in a flavorful tomato sauce. Perfect comfort food that brings warmth and tradition to your table.',
     image: 'https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHC8zXxYz037zrR9qXSut4TKmZEpjlBcOhHew02',
     time: '60',
     portions: '5-6',
@@ -1043,6 +1051,7 @@ const recipes = {
       salt: '1.5g'
     },
     allergens: ['Kan innehålla spår av gluten från buljongen'],
+    personalStoryEn: 'This recipe comes from my mother and her mother before her. It\'s one of those dishes that truly represents our family\'s culinary heritage and always gives a feeling of home.',
     content: {
       ingredients: [
         {
