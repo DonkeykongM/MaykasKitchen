@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Typography, Button } from './ui/DesignSystem';
-import { ChevronDown, Instagram, UtensilsCrossed, BookText as TikTok, Youtube, Facebook } from 'lucide-react';
+import { ChevronDown, Instagram, UtensilsCrossed, BookText as TikTok, Youtube, Facebook, BookOpen } from 'lucide-react';
 import { useTranslation } from '../lib/i18n';
 
 export const Hero = () => {
@@ -105,6 +105,16 @@ export const Hero = () => {
               <UtensilsCrossed size={20} />
               {t.hero.exploreRecipes}
             </Button>
+            <a
+              href="https://www.libris.se/product/maykas-grona-kok-kutle-hummus-och-karlek/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+              aria-label={t.hero.bookPreOrder}
+            >
+              <BookOpen size={20} />
+              {t.hero.bookPreOrder}
+            </a>
           </div>
 
           {/* FÖRBÄTTRADE MOBILANPASSADE SOCIALA MEDIER */}

@@ -24,6 +24,8 @@ export interface Translations {
     exploreRecipes: string;
     followMe: string;
     scrollDown: string;
+    bookPreOrder: string;
+    bookTitle: string;
   };
   about: {
     tagline: string;
@@ -310,7 +312,9 @@ export const sv: Translations = {
     subtitle: 'Säsongsbaserad matlagning som skapar glädje runt bordet för hela familjen – med autentiska assyriska/syrianska rötter.',
     exploreRecipes: 'Utforska recept',
     followMe: 'Följ mig här:',
-    scrollDown: 'Utforska mer'
+    scrollDown: 'Utforska mer',
+    bookPreOrder: 'Förbeställ min kokbok',
+    bookTitle: 'Maykas Gröna Kök - Kutle, hummus och kärlek'
   },
   about: {
     tagline: 'Lär känna mig',
@@ -597,7 +601,9 @@ export const en: Translations = {
     subtitle: 'Seasonal cooking that creates joy around the table for the whole family – rooted in authentic Assyrian/Syriac traditions.',
     exploreRecipes: 'Explore recipes',
     followMe: 'Follow me here:',
-    scrollDown: 'Explore more'
+    scrollDown: 'Explore more',
+    bookPreOrder: 'Pre-order my cookbook',
+    bookTitle: 'Mayka\'s Green Kitchen - Kutle, hummus and love'
   },
   about: {
     tagline: 'Get to know me',
