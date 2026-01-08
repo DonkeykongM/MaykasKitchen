@@ -65,20 +65,23 @@ export const Header = () => {
 
   const handleNavLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    
+
     const element = document.getElementById(id);
     if (element) {
       closeMenu();
       const headerHeight = 80;
-      const elementPosition = element.offsetTop - headerHeight;
-      
+      const rect = element.getBoundingClientRect();
+      const absoluteTop = rect.top + window.scrollY - headerHeight;
+
       window.scrollTo({
-        top: elementPosition,
+        top: absoluteTop,
         behavior: 'smooth'
       });
-      
+
       window.history.pushState(null, '', `#${id}`);
       setActiveSection(id);
+    } else {
+      console.warn(`Element with id "${id}" not found`);
     }
   }, [closeMenu]);
 
