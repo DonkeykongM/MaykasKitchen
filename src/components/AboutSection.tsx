@@ -6,7 +6,7 @@ export const AboutSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-20 px-6 bg-white/80" id="about">
+    <section className="py-20 px-6 bg-white/80" id="om-mig">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-purple-600 font-semibold text-sm uppercase tracking-wide mb-4">

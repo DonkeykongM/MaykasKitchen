@@ -1,9 +1,9 @@
+/* Import Design System - must be first */
+@import url('./design-system.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import Design System */
-@import url('./design-system.css');
 
 @layer base {
   :root {
@@ -949,7 +949,31 @@ img {
   .social-links {
     display: none !important;
   }
-  
+
   body { font-size: 12pt; }
   h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* Section divider - visual separator between sections */
+.section-divider {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Fix mobile gap issues */
+@media (max-width: 768px) {
+  main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  section {
+    margin-top: 0 !important;
+  }
+
+  .section-divider {
+    display: none;
+  }
 }
