@@ -161,11 +161,14 @@ export const Hero = () => {
         
         {/* FÖRBÄTTRAD MOBILANPASSAD BILD */}
         <div className={`w-full lg:w-1/2 flex justify-center transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
-            <div className="rounded-full overflow-hidden h-48 w-48 sm:h-56 sm:w-56 md:h-72 md:w-72 lg:h-80 lg:w-80 xl:h-96 xl:w-96 border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm">
-              <img 
-                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4" 
-                alt="Mayka Gulo i köket med färska råvaror" 
+          <div className="relative w-full max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg">
+            <div
+              className="rounded-full overflow-hidden border-4 border-white/20 shadow-2xl relative mx-auto backdrop-blur-sm aspect-square"
+              style={{ width: 'clamp(180px, 40vw, 384px)', height: 'clamp(180px, 40vw, 384px)' }}
+            >
+              <img
+                src="https://j0bzpddd4j.ufs.sh/f/bwjssIq7FWHCvA6O3yhwpAvKSmuXsEtqUGlWP80xMr5Ihgb4"
+                alt="Mayka Gulo i köket med färska råvaror"
                 className="object-cover w-full h-full transform transition-transform duration-700 hover:scale-105"
                 loading="eager"
                 width="384"
@@ -176,15 +179,15 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      
+
       {/* MOBIL SCROLL INDIKATOR */}
-      <div className="md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2">
-        <button 
+      <div className="md:hidden absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+        <button
           onClick={scrollToRecipes}
-          className="animate-bounce bg-white/20 backdrop-blur-sm h-12 w-12 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all min-h-[44px]"
+          className="animate-bounce bg-white/20 backdrop-blur-sm h-11 w-11 rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-all min-h-[44px] min-w-[44px]"
           aria-label={t.hero.scrollDown}
         >
-          <ChevronDown size={24} className="text-white" />
+          <ChevronDown size={22} className="text-white" />
         </button>
       </div>
     </header>

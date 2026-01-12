@@ -143,17 +143,17 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="kontakt" className="py-16 bg-white relative w-full">
+    <section id="kontakt" className="py-10 md:py-16 bg-white relative w-full">
       <div className="container mx-auto px-4 relative z-10">
-        <span className="block text-center text-primary-color text-sm font-medium mb-2 uppercase tracking-wider">{t.contact.tagline}</span>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-primary-color">{t.contact.title}</h2>
-        <p className="text-center mb-12 max-w-2xl mx-auto">{t.contact.description}</p>
-        
-        <div className="flex flex-col md:flex-row gap-8">
+        <span className="block text-center text-primary-color text-xs sm:text-sm font-medium mb-2 uppercase tracking-wider">{t.contact.tagline}</span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 md:mb-4 text-primary-color">{t.contact.title}</h2>
+        <p className="text-center mb-8 md:mb-12 max-w-2xl mx-auto text-sm sm:text-base">{t.contact.description}</p>
+
+        <div className="flex flex-col md:flex-row gap-5 sm:gap-6 md:gap-8">
           <div className="md:w-1/2">
-            <div className="bg-white p-4 md:p-8 rounded-lg shadow-md" ref={formRef}>
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
-                <Send className="mr-2 text-primary-color" size={20} />
+            <div className="bg-white p-4 sm:p-5 md:p-8 rounded-lg shadow-md" ref={formRef}>
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
+                <Send className="mr-2 text-primary-color" size={18} />
                 {t.contact.sendMessage}
               </h3>
               
@@ -294,9 +294,9 @@ export const ContactSection = () => {
           </div>
           
           <div className="md:w-1/2">
-            <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
-                <Mail className="mr-2 text-primary-color" size={20} />
+            <div className="bg-white p-4 sm:p-5 md:p-8 rounded-lg shadow-md mb-5 sm:mb-6 md:mb-8">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
+                <Mail className="mr-2 text-primary-color" size={18} />
                 {t.contact.contactInfo}
               </h3>
               <div className="space-y-6">
@@ -322,75 +322,75 @@ export const ContactSection = () => {
               </div>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
-                <Instagram className="mr-2 text-primary-color" size={20} />
+            <div className="bg-white p-4 sm:p-5 md:p-8 rounded-lg shadow-md">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
+                <Instagram className="mr-2 text-primary-color" size={18} />
                 {t.contact.followMe}
               </h3>
-              <div className="grid grid-cols-2 gap-4">
-                <a 
-                  href="https://www.instagram.com/maykaskitchen/" 
-                  target="_blank" 
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
+                <a
+                  href="https://www.instagram.com/maykaskitchen/"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 sm:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
-                  <Instagram className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
-                  <div>
-                    <h4 className="font-semibold">Instagram</h4>
-                    <p className="text-brown-500 text-sm">125 000+ följare</p>
+                  <Instagram className="text-primary-color mr-2 sm:mr-3 group-hover:scale-110 transition-transform flex-shrink-0" size={20} />
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-sm sm:text-base">Instagram</h4>
+                    <p className="text-brown-500 text-xs sm:text-sm truncate">125k+ followers</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors flex-shrink-0" size={14} />
                 </a>
-                <a 
-                  href="https://www.tiktok.com/@Maykaskitchen" 
-                  target="_blank" 
+                <a
+                  href="https://www.tiktok.com/@Maykaskitchen"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 sm:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
-                  <TikTok className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
-                  <div>
-                    <h4 className="font-semibold">TikTok</h4>
-                    <p className="text-brown-500 text-sm">62 000+ följare</p>
+                  <TikTok className="text-primary-color mr-2 sm:mr-3 group-hover:scale-110 transition-transform flex-shrink-0" size={20} />
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-sm sm:text-base">TikTok</h4>
+                    <p className="text-brown-500 text-xs sm:text-sm truncate">62k+ followers</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors flex-shrink-0" size={14} />
                 </a>
-                <a 
-                  href="https://www.youtube.com/@Maykaskitchen" 
-                  target="_blank" 
+                <a
+                  href="https://www.youtube.com/@Maykaskitchen"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 sm:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
-                  <Youtube className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
-                  <div>
-                    <h4 className="font-semibold">YouTube</h4>
-                    <p className="text-brown-500 text-sm">ca 2000 prenumeranter</p>
+                  <Youtube className="text-primary-color mr-2 sm:mr-3 group-hover:scale-110 transition-transform flex-shrink-0" size={20} />
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-sm sm:text-base">YouTube</h4>
+                    <p className="text-brown-500 text-xs sm:text-sm truncate">2k subscribers</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors flex-shrink-0" size={14} />
                 </a>
-                <a 
-                  href="https://www.facebook.com/maykaskitchen/" 
-                  target="_blank" 
+                <a
+                  href="https://www.facebook.com/maykaskitchen/"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group"
+                  className="flex items-center p-3 sm:p-4 bg-beige-50 rounded-lg hover:bg-beige-100 transition duration-300 group min-h-[60px]"
                 >
-                  <Facebook className="text-primary-color mr-3 group-hover:scale-110 transition-transform" size={24} />
-                  <div>
-                    <h4 className="font-semibold">Facebook</h4>
-                    <p className="text-brown-500 text-sm">25 000+ följare</p>
+                  <Facebook className="text-primary-color mr-2 sm:mr-3 group-hover:scale-110 transition-transform flex-shrink-0" size={20} />
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-sm sm:text-base">Facebook</h4>
+                    <p className="text-brown-500 text-xs sm:text-sm truncate">25k+ followers</p>
                   </div>
-                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors" size={16} />
+                  <ChevronRight className="ml-auto text-gray-400 group-hover:text-primary-color transition-colors flex-shrink-0" size={14} />
                 </a>
               </div>
-              
-              <div className="mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg">
-                <p className="font-medium mb-2">{t.contact.fastestResponse}</p>
-                <a 
-                  href="https://www.instagram.com/maykaskitchen/" 
-                  target="_blank" 
+
+              <div className="mt-4 sm:mt-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 sm:p-4 rounded-lg">
+                <p className="font-medium mb-2 text-sm sm:text-base">{t.contact.fastestResponse}</p>
+                <a
+                  href="https://www.instagram.com/maykaskitchen/"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-white hover:text-beige-50 font-medium"
+                  className="inline-flex items-center text-white hover:text-beige-50 font-medium text-sm sm:text-base min-h-[44px]"
                 >
-                  {t.contact.sendDM} <ArrowRight size={16} className="ml-1" />
+                  {t.contact.sendDM} <ArrowRight size={14} className="ml-1" />
                 </a>
               </div>
             </div>

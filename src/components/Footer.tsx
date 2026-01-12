@@ -135,9 +135,9 @@ export const Footer = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 md:w-2/3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 md:w-2/3">
             <div>
-              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.explore}</h4>
+              <h4 className="font-semibold mb-2 sm:mb-3 md:mb-4 text-purple-300 text-sm sm:text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.explore}</h4>
               <ul className="space-y-2">
                 <li>
                   <button 
@@ -161,10 +161,10 @@ export const Footer = () => {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.about}</h4>
+              <h4 className="font-semibold mb-2 sm:mb-3 md:mb-4 text-purple-300 text-sm sm:text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.about}</h4>
               <ul className="space-y-2">
                 <li>
-                  <button 
+                  <button
                     onClick={() => handleNavigation('om-mig')}
                     className="text-gray-300 hover:text-white transition-colors flex items-center group text-sm md:text-base min-h-[44px]"
                   >
@@ -193,9 +193,9 @@ export const Footer = () => {
               </ul>
             </div>
             
-            <div className="col-span-2 md:col-span-1">
-              <h4 className="font-semibold mb-3 md:mb-4 text-purple-300 text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.newsletter}</h4>
-              <p className="text-purple-100 text-xs md:text-sm mb-3">{t.footer.newsletterDesc}</p>
+            <div className="col-span-2 sm:col-span-1">
+              <h4 className="font-semibold mb-2 sm:mb-3 md:mb-4 text-purple-300 text-sm sm:text-base md:text-lg border-b border-purple-500 pb-2">{t.footer.newsletter}</h4>
+              <p className="text-purple-100 text-xs md:text-sm mb-2 sm:mb-3">{t.footer.newsletterDesc}</p>
               
               {submitStatus === 'success' ? (
                 <div className="bg-green-500/20 p-3 rounded-lg text-white text-center">
@@ -233,22 +233,22 @@ export const Footer = () => {
                 <p className="text-xs text-red-200 mb-2">{errorMessage}</p>
               )}
               
-              <div className="grid grid-cols-2 gap-2 md:gap-3 text-xs">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-1.5 sm:gap-2 md:gap-3 text-xs">
                 <div className="flex items-center text-gray-300">
-                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  {t.footer.benefits.newRecipes}
+                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-300 rounded-full mr-1.5 flex-shrink-0"></span>
+                  <span className="truncate">{t.footer.benefits.newRecipes}</span>
                 </div>
                 <div className="flex items-center text-gray-300">
-                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  {t.footer.benefits.exclusiveRecipes}
+                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-300 rounded-full mr-1.5 flex-shrink-0"></span>
+                  <span className="truncate">{t.footer.benefits.exclusiveRecipes}</span>
                 </div>
                 <div className="flex items-center text-gray-300">
-                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  {t.footer.benefits.seasonalTips}
+                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-300 rounded-full mr-1.5 flex-shrink-0"></span>
+                  <span className="truncate">{t.footer.benefits.seasonalTips}</span>
                 </div>
                 <div className="flex items-center text-gray-300">
-                  <span className="w-1.5 h-1.5 bg-purple-300 rounded-full mr-1"></span>
-                  {t.footer.benefits.techniques}
+                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-300 rounded-full mr-1.5 flex-shrink-0"></span>
+                  <span className="truncate">{t.footer.benefits.techniques}</span>
                 </div>
               </div>
             </div>

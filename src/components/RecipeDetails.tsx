@@ -419,9 +419,9 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           {/* Recipe header */}
           <div className="bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl shadow-lg overflow-hidden mb-6 md:mb-8 border border-purple-100">
             <div className="flex flex-col lg:flex-row">
-              <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-auto">
-                <img 
-                  src={recipe.image} 
+              <div className="w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto lg:min-h-[400px]">
+                <img
+                  src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-full object-cover"
                   loading="eager"
@@ -557,7 +557,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
           </div>
 
           {/* Recipe content - SWAPPED: Instructions left, Ingredients right */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-6 md:mb-10 lg:mb-12">
             {/* Instructions - NOW ON LEFT (3/4 width on desktop) */}
             <div className="lg:col-span-3 order-2 lg:order-1">
               <div className="bg-white/90 backdrop-blur-md rounded-lg md:rounded-xl p-4 md:p-6 shadow-lg mb-6 md:mb-8 border border-purple-100">
@@ -606,7 +606,7 @@ export const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe, onBack }) 
 
             {/* Ingredients - NOW ON RIGHT (1/4 width on desktop, MUCH SMALLER & BETTER ALIGNED) */}
             <div className="lg:col-span-1 order-1 lg:order-2">
-              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg sticky top-8 border border-purple-100 p-4">
+              <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-lg lg:sticky lg:top-24 border border-purple-100 p-3 sm:p-4">
                 <h2 className="text-base md:text-lg font-bold mb-4 text-center text-purple-600 font-serif">
                   {t.recipeDetails.ingredients}
                 </h2>

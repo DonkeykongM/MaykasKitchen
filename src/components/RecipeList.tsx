@@ -24,7 +24,7 @@ const RecipeCard = React.memo(({ recipe, onRecipeClick }) => {
       className="bg-white/95 backdrop-blur-md rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer recipe-card"
       onClick={(e) => onRecipeClick(recipe.id, e)}
     >
-      <div className="relative h-40 sm:h-48 overflow-hidden">
+      <div className="relative h-36 xs:h-40 sm:h-44 md:h-48 overflow-hidden">
         {!imageError ? (
           <img
             src={recipe.image}
@@ -671,11 +671,11 @@ const RecipeList = () => {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
               {filteredRecipes.map((recipe) => (
-                <RecipeCard 
-                  key={recipe.id} 
-                  recipe={recipe} 
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
                   onRecipeClick={handleRecipeClick}
                 />
               ))}
