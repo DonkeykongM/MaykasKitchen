@@ -977,3 +977,15 @@ img {
     display: none;
   }
 }
+
+/* Scroll margin for fixed header navigation */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+#om-mig,
+#recept,
+#samarbeten,
+#kontakt {
+  scroll-margin-top: 100px;
+}

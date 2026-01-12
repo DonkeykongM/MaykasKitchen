@@ -65,24 +65,17 @@ export const Header = () => {
 
   const handleNavLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    e.stopPropagation();
 
-    const element = document.getElementById(id);
-    if (element) {
-      closeMenu();
-      const headerHeight = 80;
-      const rect = element.getBoundingClientRect();
-      const absoluteTop = rect.top + window.scrollY - headerHeight;
+    closeMenu();
+    setActiveSection(id);
 
-      window.scrollTo({
-        top: absoluteTop,
-        behavior: 'smooth'
-      });
-
-      window.history.pushState(null, '', `#${id}`);
-      setActiveSection(id);
-    } else {
-      console.warn(`Element with id "${id}" not found`);
-    }
+    requestAnimationFrame(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   }, [closeMenu]);
 
   const handleHomeClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
