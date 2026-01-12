@@ -225,7 +225,7 @@ const FoodBlogBackground: React.FC<FoodBlogBackgroundProps> = ({
   return (
     <div className={`min-h-screen w-full overflow-x-hidden relative ${className}`} role="presentation">
       {/* Simplified Dynamic Background Layer */}
-      <div className="fixed inset-0 z-0 w-full h-full pointer-events-none">
+      <div className="fixed inset-0 z-0 w-full h-full">
         {/* Main gradient background - no animation on mobile */}
         <motion.div
           initial={{ opacity: 0 }}

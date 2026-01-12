@@ -70,17 +70,12 @@ export const Header = () => {
     closeMenu();
     setActiveSection(id);
 
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    requestAnimationFrame(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   }, [closeMenu]);
 
   const handleHomeClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
